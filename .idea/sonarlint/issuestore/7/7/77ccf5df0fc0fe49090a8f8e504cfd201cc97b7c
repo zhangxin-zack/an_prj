@@ -1,0 +1,15 @@
+
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÈÄªá
+_squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(è¡§-
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¤ÖÅïúÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ªŠ©Ð
+M
+squid:S106"9Replace this use of System.out or System.err by a logger.(î‰ïÈ
+R
+squid:S106"9Replace this use of System.out or System.err by a logger.(„Ÿµ³üÿÿÿÿ
+gsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(¦Ú¶â
+\squid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(¦Ú¶â
+›squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(À”ç‚ÿÿÿÿÿ
+gsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îÌüõ
+fsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥øìx
+gsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀÀ€Š

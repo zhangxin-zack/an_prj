@@ -1,0 +1,17 @@
+
+]squid:S10755"ARefactor your code to get this URI from a customizable parameter.(ÂöÚÎüÿÿÿÿ
+csquid:S1192F"GDefine a constant instead of duplicating this literal "result" 3 times.(¤â¤¤şÿÿÿÿ
+dsquid:S20956"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(Œ’¼÷
+O
+squid:S106*"9Replace this use of System.out or System.err by a logger.(ôï˜õ
+O
+squid:S106@"9Replace this use of System.out or System.err by a logger.(¼¨ò²
+N
+squid:S106H"9Replace this use of System.out or System.err by a logger.(ùÎ«!
+fsquid:S26748"JCheck the return value of the "read" call to see how many bytes were read.(ƒ›ÛÆÿÿÿÿÿ
+fsquid:S00100""NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àä×é
+ksquid:S001004"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…íœûûÿÿÿÿ
+ksquid:S00100>"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼”„øÿÿÿÿ
+isquid:S00117,"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²–ŞÛ
+nsquid:S00117>"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼”„øÿÿÿÿ
+ysquid:UselessImportCheck"PRemove this unused import 'org.springframework.web.bind.annotation.RequestPart'.(æñ³şÿÿÿÿ

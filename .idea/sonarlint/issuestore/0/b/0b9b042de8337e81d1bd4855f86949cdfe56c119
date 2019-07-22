@@ -1,0 +1,19 @@
+
+Tsquid:UselessImportCheck")Remove this unused import 'java.io.File'.(†Ğ¥Å8õÜùÆÀ-
+[squid:UselessImportCheck"0Remove this unused import 'java.io.InputStream'.(¹»º8õÜùÆÀ-
+psquid:UselessImportCheck
+"@Remove this unused import 'org.springframework.http.HttpStatus'.(íŸ¤Šúÿÿÿÿ8õÜùÆÀ-
+bsquid:UselessImportCheck"7Remove this unused import 'java.text.SimpleDateFormat'.(ú¡ÙÛ8¢èşÆÀ-
+msquid:UselessImportCheck"BRemove this unused import 'javax.servlet.http.HttpServletRequest'.(ø©¹…8õÜùÆÀ-
+asquid:UselessImportCheck"6Remove this unused import 'javax.servlet.http.Cookie'.(«Şªü8õÜùÆÀ-
+squid:UselessImportCheck"QRemove this unused import 'org.springframework.web.bind.annotation.RequestParam'.(Â¬À·ùÿÿÿÿ8õøıÆÀ-
+|squid:UselessImportCheck"LRemove this unused import 'org.springframework.web.multipart.MultipartFile'.(ôŸœÿÿÿÿÿ8õøıÆÀ-
+qsquid:UselessImportCheck	"ARemove this unused import 'org.springframework.http.HttpHeaders'.(ãŸñ×úÿÿÿÿ8õÜùÆÀ-
+nsquid:UselessImportCheck"CRemove this unused import 'javax.servlet.http.HttpServletResponse'.(Á¨ïë8õÜùÆÀ-
+osquid:UselessImportCheck"?Remove this unused import 'com.scorer.client.tools.TestObject'.(¢ßËıüÿÿÿÿ8¢èşÆÀ-
+tsquid:UselessImportCheck"DRemove this unused import 'org.springframework.http.ResponseEntity'.(¶¯ø¦úÿÿÿÿ8õÜùÆÀ-
+_squid:UselessImportCheck"4Remove this unused import 'java.io.FileInputStream'.(˜³ÉÓ8õÜùÆÀ-
+osquid:UselessImportCheck"DRemove this unused import 'com.scorer.client.tools.DownloadFromURL'.(§şÊô8õÜùÆÀ-
+msquid:UselessImportCheck"=Remove this unused import 'com.scorer.client.tools.SaveFile'.(÷ò ışÿÿÿÿ8¢èşÆÀ-
+`squid:UselessImportCheck"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ8õÜùÆÀ-
+\squid:UselessImportCheck"1Remove this unused import 'com.google.gson.Gson'.(–§8õÜùÆÀ-

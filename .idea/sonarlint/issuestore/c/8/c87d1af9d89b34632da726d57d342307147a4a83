@@ -1,0 +1,12 @@
+
+_squid:S2184*"HCast one of the operands of this multiplication operation to a "double".(šÈ·Ò
+_squid:S2184-"HCast one of the operands of this multiplication operation to a "double".(ÉÒ·…
+_squid:S2184K"HCast one of the operands of this multiplication operation to a "double".(šÈ·Ò
+_squid:S2184N"HCast one of the operands of this multiplication operation to a "double".(ÉÒ·…
+Rsquid:UnusedPrivateMethod_"-Remove this unused private "showFile" method.(ŸÑ€µ
+Gsquid:S1481o"+Remove this unused "decode" local variable.(øâ“¤üÿÿÿÿ
+fsquid:S001002"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆ¬Ï¦
+Vsquid:S1854o":Remove this useless assignment to local variable "decode".(øâ“¤üÿÿÿÿ
+?squid:S1148["#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+?squid:S1148e"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+4squid:S2119t"Save and re-use this "Random".(¼ÝÅf
