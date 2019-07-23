@@ -47,7 +47,7 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     public Map<String, Object> addManager(Manager manager) {
         try{
             managerDao.addManager(manager);
-            for(int roleId: manager.getRoleId()){
+            for(long roleId: manager.getRoleId()){
                 managerDao.addManagerRole(manager.getId(), roleId);
             }
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
@@ -62,7 +62,7 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
         try{
             managerDao.updateManager(manager);
             managerDao.deleteManagerRole(manager.getId());
-            for(int roleId: manager.getRoleId()){
+            for(long roleId: manager.getRoleId()){
                 managerDao.addManagerRole(manager.getId(), roleId);
             }
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
@@ -96,10 +96,10 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     }
 
     @Override
-    public Map<String, Object> saveRole(Integer roleId, List<Integer> menuIds) {
+    public Map<String, Object> saveRole(Long roleId, List<Long> menuIds) {
         try{
             managerDao.deleteManagerRole(roleId);
-            for(int menuId: menuIds){
+            for(long menuId: menuIds){
                 managerDao.addManagerRole(roleId, menuId);
             }
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
@@ -147,14 +147,14 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
         //获取根节点
         Menu rootMenu = null;
         for(Menu menu: menuList){
-            int pid = menu.getMenuPid();
+            long pid = menu.getMenuPid();
             if(pid == 0){
                 rootMenu = menu;
             }
         }
         //拼接根节点数据
         Map<String, Object> datamap = new HashMap<>();
-        int lv1Id = rootMenu.getMenuId();
+        long lv1Id = rootMenu.getMenuId();
         datamap.put("id", lv1Id);
         datamap.put("pid", rootMenu.getMenuPid());
         datamap.put("name", rootMenu.getMenuTitle());
@@ -170,11 +170,11 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     }
 
 
-    private void recursionData(List<Menu> menus, int perId,
+    private void recursionData(List<Menu> menus, long perId,
             Menu currentMenu, List<Map<String, Object>> perChild){
-        int pid = currentMenu.getMenuPid();
+        long pid = currentMenu.getMenuPid();
         if(pid == perId){
-            int currentId = currentMenu.getMenuId();
+            long currentId = currentMenu.getMenuId();
             Map<String, Object> data = new HashMap<>();
             data.put("id", currentId);
             data.put("pid", pid);

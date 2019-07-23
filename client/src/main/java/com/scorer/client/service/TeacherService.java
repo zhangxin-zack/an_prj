@@ -2,7 +2,6 @@ package com.scorer.client.service;
 
 import com.scorer.client.entity.Teacher;
 import com.scorer.client.values.PageBean;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,7 @@ public interface TeacherService {
 
     public Map<String, Object> getTeacherList(PageBean page);
 
-    public Map<String, Object> getTeacherById(Integer teacherId);
+    public Map<String, Object> getTeacherById(Long teacherId);
 
     public Map<String, Object> addTeacher(Teacher teacher);
 

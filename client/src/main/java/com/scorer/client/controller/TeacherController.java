@@ -23,7 +23,7 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/get")
-    public Map getTeacherById(Integer id) {
+    public Map getTeacherById(Long id) {
         return teacherService.getTeacherById(id);
     }
 

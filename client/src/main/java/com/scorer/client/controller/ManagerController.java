@@ -39,7 +39,7 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/account_remove")
-    public Map deleteManager(List<Integer> managerIds) {
+    public Map deleteManager(List<Long> managerIds) {
         return managerService.deleteManager(managerIds);
     }
 
@@ -49,7 +49,7 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/role_save")
-    public Map saveRole(Integer roleId,  List<Integer> menuIds) {
+    public Map saveRole(Long roleId,  List<Long> menuIds) {
         return managerService.saveRole(roleId, menuIds);
     }
 
