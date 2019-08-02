@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Appenders>
+    <!-- output to console -->
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p [%t] %c{1}.%M(%L) | %m%n"/>
+    </Console>
+
+  </Appenders>
+
+  <Loggers>
+    <Logger name="net.sf.ehcache" level="warn"/>
+    <Logger name="org.springframework.cache" level="info"/>
+    <Logger name="org.hibernate.cache" level="warn"/>
+    <Logger name="org.springframework.http.converter.json" level="warn"/>
+    <Logger name="org.springframework.security" level="warn"/>
+    <Logger name="org.springframework" level="warn"/>
+    <Logger name="org.springframework.data.web" level="warn"/>
+    <Logger name="org.springframework.web" level="info"/>
+    <Logger name="org.apache" level="error"/>
+    <Logger name="org.apache.myfaces" level="error"/>
+    <logger name="org.thymeleaf" level="warn"/>
+    <Logger name="org.dbunit" level="warn"/>
+    <Logger name="com.jiupei" level="info"/>
+
+    <Root level="warn">
+      <AppenderRef ref="Console"/>
+      <!-- <AppenderRef ref="Log" /> -->
+      <!--<AppenderRef ref="RollingFile" />-->
+    </Root>
+  </Loggers>
+</Configuration>

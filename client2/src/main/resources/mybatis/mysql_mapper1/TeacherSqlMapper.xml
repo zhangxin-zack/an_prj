@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scorer.client.dao.mysql_dao1.TeacherDao">
+
+    <resultMap id="teacher" type="com.scorer.client.entity.Teacher">
+        <result column="id" property="teacherId"/>
+        <result column="school_id" property="teacherId"/>
+        <result column="teacher_name" property="teacherName"/>
+    </resultMap>
+
+    <select id="getTeacherCount" resultType="long">
+      select count(*) from teacher where 1=1
+    </select>
+
+    <select id="getTeacherList" resultMap="teacher">
+      select id, school_id, teacher_name from teacher where 1=1
+      order by #{desc}
+      limit #{startIndex}, #{pageSize}
+    </select>
+
+    <select id="getTeacherById" resultMap="teacher">
+      select id, school_id, teacher_name from teacher where id = #{teacherId}
+    </select>
+
+    <insert id="addTeacher">
+      insert into teacher(school_id, teacher_name)
+      values (#{schoolId}, #{teacherName})
+    </insert>
+
+    <update id="updateTeacher">
+      update teacher
+      <set>
+          <if test="schoolId!= null and schoolId != 0 ">
+              school_id = #{schoolId},
+          </if>
+          <if test="teacherName!= null and teacherName!= '' ">
+              teacher_name = #{teacherName},
+          </if>
+      </set>
+      where id = #{teacherId}
+    </update>
+
+    <delete id="deleteTeacher">
+      delete from teacher where id in
+        <foreach collection="list" item="teacherId" open="(" separator="," close=")">
+            #{teacherId}
+        </foreach>
+    </delete>
+</mapper>
