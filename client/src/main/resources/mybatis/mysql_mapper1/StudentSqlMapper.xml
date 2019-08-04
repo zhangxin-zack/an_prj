@@ -18,7 +18,26 @@
     </resultMap>
 
     <select id="getStudentCount" resultType="long">
-      select count(*) from Student where 1=1
+      select count(s.id) from  students s
+        LEFT JOIN
+        class c
+        ON s.class_id = c.id
+        where 1=1
+        <if test="studentName!= null and studentName != '' ">
+            and s.`name` like '%${studentName}%'
+        </if>
+        <if test="registerNo!= null and registerNo != '' ">
+            and s.register_no like '%${registerNo}%'
+        </if>
+        <if test="cardNo!= null and cardNo != '' ">
+            and s.card_no like '%${cardNo}%'
+        </if>
+        <if test="classId!= null and classId != 0 ">
+            and c.id = #{classId}
+        </if>
+        <if test="bind!= null and bind != 0 ">
+            and s.bind = #{bind}
+        </if>
     </select>
 
     <select id="getStudentList" resultMap="Student">
@@ -48,7 +67,7 @@
             and s.card_no like '%${cardNo}%'
         </if>
         <if test="classId!= null and classId != 0 ">
-            and c.id = #{classId},
+            and c.id = #{classId}
         </if>
         <if test="bind!= null and bind != 0 ">
             and s.bind = #{bind}
@@ -57,36 +76,53 @@
       limit #{startIndex}, #{pageSize}
     </select>
 
-    <select id="getStudentById" resultMap="Student">
+<!--    <select id="getStudentById" resultMap="Student">
       select id, Student_title, Student_content, Student_range, Student_dates from Student where id = #{StudentId}
-    </select>
+    </select>-->
 
     <insert id="addStudent">
-      insert into Student(Student_title, Student_content, Student_range, Student_dates)
-      values (#{noticTitle}, #{StudentContent}, #{StudentRange}, sysdate())
+      insert into Student(id, name, nickname, sex, card_no, register_no, school_id, class_id, birthday, bind)
+      values (#{id}, #{studentName}, #{nickname}, #{sex}, #{cardNo}, #{registerNo}, #{schoolId}, #{classId}, #{birthday}, #{bind})
     </insert>
 
     <update id="updateStudent">
-      update Student
+      update students
       <set>
-          <if test="noticTitle!= null and noticTitle != 0 ">
-              Student_title = #{noticTitle},
+          <if test="studentName!= null and studentName != '' ">
+              name = #{studentName},
           </if>
-          <if test="StudentName!= null and StudentName!= '' ">
-              Student_content = #{StudentContent},
+          <if test="nickname!= null and nickname != '' ">
+              nickname = #{nickname},
           </if>
-          <if test="StudentRange!= null and StudentRange!= '' ">
-              Student_range = #{StudentRange},
+          <if test="sex!= null and sex != 0 ">
+              sex = #{sex},
           </if>
-          Student_dates = sysdate()
+          <if test="cardNo!= null and cardNo != '' ">
+              card_no = #{cardNo},
+          </if>
+          <if test="registerNo!= null and registerNo!= '' ">
+              register_no = #{registerNo},
+          </if>
+          <if test="schoolId!= null and schoolId != 0 ">
+              school_id = #{schoolId},
+          </if>
+          <if test="classId!= null and classId != 0 ">
+              class_id = #{classId},
+          </if>
+          <if test="birthday!= null and birthday != '' ">
+              birthday = #{birthday},
+          </if>
+          <if test="bind!= null and bind != 0 ">
+              bind = #{bind},
+          </if>
       </set>
       where id = #{id}
     </update>
 
     <delete id="deleteStudent">
-      delete from Student where id in
-        <foreach collection="list" item="StudentId" open="(" separator="," close=")">
-            #{StudentId}
+      delete from student where id in
+        <foreach collection="list" item="studentId" open="(" separator="," close=")">
+            #{studentId}
         </foreach>
     </delete>
 </mapper>
