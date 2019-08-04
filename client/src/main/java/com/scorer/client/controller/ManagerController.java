@@ -4,6 +4,7 @@ import com.scorer.client.entity.Manager;
 import com.scorer.client.service.ManagerService;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,39 +13,39 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/sys")
+@RequestMapping("/Scorer/sys")
 public class ManagerController {
 
     @Autowired
     private ManagerService managerService;
 
     @RequestMapping(value = "/manager_list")
-    public Map getManagerList(PageBean page) {
+    public Map getManagerList(@RequestBody PageBean page) {
         return managerService.getManagerList(page);
     }
 
     @RequestMapping(value = "/manager_add")
-    public Map addManager(Manager manager) {
+    public Map addManager(@RequestBody Manager manager) {
         return managerService.addManager(manager);
     }
 
     @RequestMapping(value = "/manager_update")
-    public Map updateManager(Manager manager) {
+    public Map updateManager(@RequestBody Manager manager) {
         return managerService.updateManager(manager);
     }
 
     @RequestMapping(value = "/manager_status")
-    public Map updateManagerStatus(Manager manager) {
+    public Map updateManagerStatus(@RequestBody Manager manager) {
         return managerService.updateManager(manager);
     }
 
     @RequestMapping(value = "/manager_remove")
-    public Map deleteManager(List<Integer> managerIds) {
+    public Map deleteManager(@RequestBody List<Integer> managerIds) {
         return managerService.deleteManager(managerIds);
     }
 
     @RequestMapping(value = "/role_list")
-    public Map getRoleList(PageBean page) {
+    public Map getRoleList(@RequestBody PageBean page) {
         return managerService.getRoleList(page);
     }
 

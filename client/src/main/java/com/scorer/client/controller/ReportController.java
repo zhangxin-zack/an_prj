@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/report")
+@RequestMapping("/Scorer/report")
 public class ReportController {
 
     @Autowired

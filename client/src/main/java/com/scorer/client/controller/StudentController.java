@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/Scorer/student")
 public class StudentController {
 
     @Autowired
@@ -20,11 +20,6 @@ public class StudentController {
     @RequestMapping(value = "/list")
     public Map getStudentList(PageBean condition) {
         return StudentService.getStudentList(condition);
-    }
-
-    @RequestMapping(value = "/get")
-    public Map getStudentById(Integer id) {
-        return StudentService.getStudentById(id);
     }
 
     @RequestMapping(value = "/add")
