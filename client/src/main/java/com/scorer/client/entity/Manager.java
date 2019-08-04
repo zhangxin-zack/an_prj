@@ -4,28 +4,28 @@ import java.util.List;
 
 public class Manager {
 
-    private Integer id;
-    private Integer shoolId;
+    private Long id;
+    private Long shoolId;
     private String username;
     private String password;
     private String phoneNo;
     private Integer statusFlag;
-    private Integer currentRoleId;
+    private Long currentRoleId;
     private List<Integer> roleId;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getShoolId() {
+    public Long getShoolId() {
         return shoolId;
     }
 
-    public void setShoolId(Integer shoolId) {
+    public void setShoolId(Long shoolId) {
         this.shoolId = shoolId;
     }
 
@@ -61,11 +61,11 @@ public class Manager {
         this.statusFlag = statusFlag;
     }
 
-    public Integer getCurrentRoleId() {
+    public Long getCurrentRoleId() {
         return currentRoleId;
     }
 
-    public void setCurrentRoleId(Integer currentRoleId) {
+    public void setCurrentRoleId(Long currentRoleId) {
         this.currentRoleId = currentRoleId;
     }
 

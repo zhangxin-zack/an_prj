@@ -35,7 +35,6 @@
         FROM
             manager m
         JOIN manager_role mr ON m.id = mr.manager_id
-        WHERE
        where m.username = #{username}
          and m.password = #{password}
          and mr.role_id = #{currentRoleId}
@@ -52,7 +51,7 @@
     </select>
 
     <insert id="addManager">
-      insert into manager(school_id, Manager_name)
+      insert into manager(school_id, username, )
       values (#{schoolId}, #{ManagerName})
     </insert>
 

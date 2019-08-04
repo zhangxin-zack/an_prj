@@ -2,27 +2,27 @@ package com.scorer.client.entity;
 
 public class Teacher {
 
-    private Integer teacherId;
+    private Long teacherId;
 
-    private Integer schoolId;
+    private Long schoolId;
 
     private String schoolName;
 
     private String teacherName;
 
-    public Integer getTeacherId() {
+    public Long getTeacherId() {
         return teacherId;
     }
 
-    public void setTeacherId(Integer teacherId) {
+    public void setTeacherId(Long teacherId) {
         this.teacherId = teacherId;
     }
 
-    public Integer getSchoolId() {
+    public Long getSchoolId() {
         return schoolId;
     }
 
-    public void setSchoolId(Integer schoolId) {
+    public void setSchoolId(Long schoolId) {
         this.schoolId = schoolId;
     }
 

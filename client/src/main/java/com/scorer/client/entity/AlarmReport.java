@@ -15,6 +15,9 @@ public class AlarmReport {
     private BigDecimal longitude;
     private BigDecimal latitude;
 
+    private Timestamp alarmBeginTime;
+    private Timestamp alarmEndTime;
+
     public Long getId() {
         return id;
     }
@@ -90,8 +93,20 @@ public class AlarmReport {
     public BigDecimal getLatitude() {
         return latitude;
     }
-
     public void setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
+    }
+    public Timestamp getAlarmBeginTime() {
+        return alarmBeginTime;
+    }
+    public void setAlarmBeginTime(Timestamp alarmBeginTime) {
+        this.alarmBeginTime = alarmBeginTime;
+    }
+    public Timestamp getAlarmEndTime() {
+        return alarmEndTime;
+    }
+
+    public void setAlarmEndTime(Timestamp alarmEndTime) {
+        this.alarmEndTime = alarmEndTime;
     }
 }

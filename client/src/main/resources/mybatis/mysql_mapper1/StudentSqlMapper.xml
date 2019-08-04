@@ -17,6 +17,14 @@
         <result column="bind" property="bind"/>
     </resultMap>
 
+    <resultMap id="Parent" type="com.scorer.client.entity.Parent">
+        <result column="id" property="id"/>
+        <result column="parent_name" property="parentName"/>
+        <result column="account_id" property="accountId"/>
+        <result column="phone" property="phone"/>
+        <result column="is_admin" property="isAdmin"/>
+    </resultMap>
+
     <select id="getStudentCount" resultType="long">
       select count(s.id) from  students s
         LEFT JOIN
@@ -76,9 +84,26 @@
       limit #{startIndex}, #{pageSize}
     </select>
 
-<!--    <select id="getStudentById" resultMap="Student">
-      select id, Student_title, Student_content, Student_range, Student_dates from Student where id = #{StudentId}
-    </select>-->
+    <select id="getStudentParentCount" resultType="long">
+      select id, student_title, Student_content, Student_range, Student_dates from Student where id = #{StudentId}
+    </select>
+
+    <select id="getStudentParentList" resultMap="Parent">
+       SELECT
+            ps.parent_id as id,
+            ac.username as parent_name,
+            ad.phone,
+            ps.is_admin
+        FROM
+            parent_student ps
+            LEFT JOIN parent p ON ps.parent_id = p.id
+            LEFT JOIN account ac ON p.account_id = ac.id
+            LEFT JOIN account_detail ad ON p.account_id = ad.account_id
+        WHERE 1=1
+        <if test="searchs.studentId!= null and searchs.studentId != 0 ">
+            and ps.student_id = #{searchs.studentId}
+        </if>
+    </select>
 
     <insert id="addStudent">
       insert into Student(id, name, nickname, sex, card_no, register_no, school_id, class_id, birthday, bind)
@@ -125,4 +150,6 @@
             #{studentId}
         </foreach>
     </delete>
+
+
 </mapper>

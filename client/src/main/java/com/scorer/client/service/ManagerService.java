@@ -14,11 +14,11 @@ public interface ManagerService {
 
     Map<String, Object> getManagerList(PageBean page);
 
-    Map<String, Object> addManager(Manager Manager);
+    Map<String, Object> addManager(Manager manager);
 
-    Map<String, Object> updateManager(Manager Manager);
+    Map<String, Object> updateManager(Manager manager);
 
-    Map<String, Object> deleteManager(List ManagerIds);
+    Map<String, Object> deleteManager(List managerIds);
 
     Map<String, Object> getRoleList(PageBean page);
 
@@ -28,5 +28,5 @@ public interface ManagerService {
 
     Map<String, Object> getAllMenuList();
 
-    Map<String, Object> getActionMenuList(Integer roleId);
+    Map<String, Object> getActionMenuList(Long roleId);
 }

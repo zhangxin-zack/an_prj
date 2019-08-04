@@ -18,27 +18,27 @@ public class ManagerController {
     @Autowired
     private ManagerService managerService;
 
-    @RequestMapping(value = "/account_list")
+    @RequestMapping(value = "/manager_list")
     public Map getManagerList(PageBean page) {
         return managerService.getManagerList(page);
     }
 
-    @RequestMapping(value = "/account_add")
+    @RequestMapping(value = "/manager_add")
     public Map addManager(Manager manager) {
         return managerService.addManager(manager);
     }
 
-    @RequestMapping(value = "/account_update")
+    @RequestMapping(value = "/manager_update")
     public Map updateManager(Manager manager) {
         return managerService.updateManager(manager);
     }
 
-    @RequestMapping(value = "/account_status")
+    @RequestMapping(value = "/manager_status")
     public Map updateManagerStatus(Manager manager) {
         return managerService.updateManager(manager);
     }
 
-    @RequestMapping(value = "/account_remove")
+    @RequestMapping(value = "/manager_remove")
     public Map deleteManager(List<Integer> managerIds) {
         return managerService.deleteManager(managerIds);
     }

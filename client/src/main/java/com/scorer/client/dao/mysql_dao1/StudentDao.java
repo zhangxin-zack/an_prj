@@ -13,7 +13,9 @@ public interface StudentDao {
 
     List<Student> getStudentList(PageBean page) throws Exception;
 
-    //public Student getStudentById(Integer StudentId) throws Exception;
+    long getStudentParentCount(PageBean page) throws Exception;
+
+    List<Student> getStudentParentList(PageBean page) throws Exception;
 
     void addStudent(Student Student) throws Exception;
 

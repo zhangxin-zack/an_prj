@@ -2,8 +2,8 @@ package com.scorer.client.entity;
 
 public class Menu {
 
-    private Integer menuId;
-    private Integer menuPid;
+    private Long menuId;
+    private Long menuPid;
     private String menuTitle;
     private String path;
     private String icon;
@@ -11,7 +11,7 @@ public class Menu {
     public Menu() {
     }
 
-    public Menu(Integer menuId, Integer menuPid, String menuTitle, String path, String icon) {
+    public Menu(Long menuId, Long menuPid, String menuTitle, String path, String icon) {
         this.menuId = menuId;
         this.menuPid = menuPid;
         this.menuTitle = menuTitle;
@@ -19,19 +19,19 @@ public class Menu {
         this.icon = icon;
     }
 
-    public Integer getMenuId() {
+    public Long getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(Integer menuId) {
+    public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
 
-    public Integer getMenuPid() {
+    public Long getMenuPid() {
         return menuPid;
     }
 
-    public void setMenuPid(Integer menuPid) {
+    public void setMenuPid(Long menuPid) {
         this.menuPid = menuPid;
     }
 

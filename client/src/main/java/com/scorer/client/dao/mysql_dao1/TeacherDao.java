@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface TeacherDao {
 
-    long getTeacherCount(PageBean page) throws Exception;
+    Long getTeacherCount(PageBean page) throws Exception;
 
     List<Teacher> getTeacherList(PageBean page) throws Exception;
 
