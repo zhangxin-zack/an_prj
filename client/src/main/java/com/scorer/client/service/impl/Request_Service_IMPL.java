@@ -1,4 +1,4 @@
-package com.scorer.client.service_impl;
+package com.scorer.client.service.impl;
 
 import com.scorer.client.dao.mysql_dao1.Request_Service_Dao;
 import com.scorer.model.model1.Save_Request;
