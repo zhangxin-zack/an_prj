@@ -14,18 +14,18 @@
       select count(*) from notice where 1=1
     </select>
 
-    <select id="getNoticeList" resultMap="Notice">
-      select id, notice_title,  notice_dates from notice where 1=1
+    <select id="getNoticeList" resultMap="notice">
+      select id, notice_title,  notice_date from notice where 1=1
       order by #{desc}
       limit #{startIndex}, #{pageSize}
     </select>
 
-    <select id="getNoticeById" resultMap="Notice">
-      select id, notice_title, notice_content, notice_range, notice_dates from notice where id = #{NoticeId}
+    <select id="getNoticeById" resultMap="notice">
+      select id, notice_title, notice_content, notice_range, notice_date from notice where id = #{NoticeId}
     </select>
 
     <insert id="addNotice">
-      insert into notice(notice_title, notice_content, notice_range, notice_dates)
+      insert into notice(notice_title, notice_content, notice_range, notice_date)
       values (#{noticTitle}, #{noticeContent}, #{noticeRange}, sysdate())
     </insert>
 

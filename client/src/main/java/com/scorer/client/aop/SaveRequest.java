@@ -37,8 +37,7 @@ public class SaveRequest {
         try {
             Integer uid = Integer.valueOf(Objects.requireNonNull(
                     !TestObject.isEmpty(request.getHeader("uid")) ? request.getHeader("uid") :
-                            !TestObject.isEmpty(OpCookie.getCookieByName(request, "cookie_uid_h5")) ? OpCookie.getCookieByName(request, "cookie_uid_h5") :
-                                    !TestObject.isEmpty(OpCookie.getCookieByName(request, "cookie_admin_id_h5")) ? OpCookie.getCookieByName(request, "cookie_admin_id_h5") : request.getParameter("uid")));
+                            !TestObject.isEmpty(OpCookie.getCookieByName(request, "cookie_uid_h5")) ? OpCookie.getCookieByName(request, "cookie_uid_h5") : request.getParameter("uid")));
             save_request.setUid(uid);
         } catch (NumberFormatException | NullPointerException ignored) {
         }

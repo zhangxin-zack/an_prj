@@ -5,7 +5,7 @@ import java.util.List;
 public class Manager {
 
     private Long id;
-    private Long shoolId;
+    private Long schoolId;
     private String username;
     private String password;
     private String phoneNo;
@@ -21,12 +21,12 @@ public class Manager {
         this.id = id;
     }
 
-    public Long getShoolId() {
-        return shoolId;
+    public Long getSchoolId() {
+        return schoolId;
     }
 
-    public void setShoolId(Long shoolId) {
-        this.shoolId = shoolId;
+    public void setSchoolId(Long schoolId) {
+        this.schoolId = schoolId;
     }
 
     public String getUsername() {
@@ -75,16 +75,5 @@ public class Manager {
 
     public void setRoleId(List<Long> roleId) {
         this.roleId = roleId;
-    }
-
-    @Override
-    public String toString() {
-        return "Manager{" +
-                "id=" + id +
-                ", shoolId=" + shoolId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", phoneNo='" + phoneNo + '\'' +
-                '}';
     }
 }

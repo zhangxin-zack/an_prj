@@ -34,8 +34,8 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     @Override
     public Map<String, Object> getManagerList(PageBean page) {
         try{
-            page.setTotal(managerDao.getManagerCount(page));
             page.setRows(managerDao.getManagerList(page));
+            page.setTotal(managerDao.getManagerCount(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
         }catch (Exception e){
             e.printStackTrace();
@@ -47,7 +47,7 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     public Map<String, Object> addManager(Manager manager) {
         try{
             managerDao.addManager(manager);
-            for(long roleId: manager.getRoleId()){
+            for(Long roleId: manager.getRoleId()){
                 managerDao.addManagerRole(manager.getId(), roleId);
             }
             return resultInfo(Iconstants.RESULT_CODE_0, "success");

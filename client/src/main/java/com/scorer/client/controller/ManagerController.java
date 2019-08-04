@@ -1,11 +1,13 @@
 package com.scorer.client.controller;
 
+import com.google.gson.Gson;
 import com.scorer.client.entity.Manager;
 import com.scorer.client.service.ManagerService;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -40,7 +42,7 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/manager_remove")
-    public Map deleteManager(@RequestBody List<Integer> managerIds) {
+    public Map deleteManager(@RequestParam(value = "managerIds[]") List<Long> managerIds) {
         return managerService.deleteManager(managerIds);
     }
 
@@ -50,7 +52,7 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/role_save")
-    public Map saveRole(Integer roleId,  List<Integer> menuIds) {
+    public Map saveRole(Long roleId,  List<Long> menuIds) {
         return managerService.saveRole(roleId, menuIds);
     }
 

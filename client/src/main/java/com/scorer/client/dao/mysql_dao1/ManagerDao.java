@@ -13,7 +13,7 @@ public interface ManagerDao {
 
     Manager login(Manager manager) throws Exception;
 
-    long getManagerCount(PageBean page) throws Exception;
+    Long getManagerCount(PageBean page) throws Exception;
 
     List<Manager> getManagerList(PageBean page) throws Exception;
 

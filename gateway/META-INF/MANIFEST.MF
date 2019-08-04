@@ -1,0 +1,61 @@
+Manifest-Version: 1.0
+Class-Path: spring-cloud-starter-gateway-2.0.0.RELEASE.jar jackson-cor
+ e-2.9.7.jar spring-cloud-starter-2.0.0.RELEASE.jar bcpkix-jdk15on-1.5
+ 6.jar ribbon-loadbalancer-2.2.5.jar netty-handler-proxy-4.1.29.Final.
+ jar commons-lang-2.6.jar spring-cloud-netflix-archaius-2.0.0.RELEASE.
+ jar spring-boot-2.0.6.RELEASE.jar nio-multipart-parser-1.1.0.jar jett
+ ison-1.3.7.jar reactive-streams-1.0.2.jar ribbon-httpclient-2.2.5.jar
+  validation-api-2.0.1.Final.jar rxnetty-contexts-0.4.9.jar spring-boo
+ t-autoconfigure-2.0.6.RELEASE.jar spring-web-5.0.10.RELEASE.jar commo
+ ns-codec-1.11.jar spring-cloud-commons-2.0.0.RELEASE.jar spring-cloud
+ -netflix-ribbon-2.0.0.RELEASE.jar jedis-2.9.0.jar jersey-client-1.19.
+ 1.jar hystrix-core-1.5.12.jar netty-codec-socks-4.1.29.Final.jar reac
+ tor-extra-3.1.7.RELEASE.jar jackson-datatype-jdk8-2.9.7.jar eureka-cl
+ ient-1.9.2.jar spring-context-support-5.0.10.RELEASE.jar spring-boot-
+ starter-logging-2.0.6.RELEASE.jar rxnetty-servo-0.4.9.jar logback-cla
+ ssic-1.2.3.jar slf4j-api-1.7.25.jar aspectjweaver-1.8.13.jar jackson-
+ annotations-2.9.0.jar xmlpull-1.1.3.1.jar ribbon-transport-2.2.5.jar 
+ ribbon-eureka-2.2.5.jar ribbon-2.2.5.jar commons-pool2-2.5.0.jar comm
+ ons-math-2.2.jar javax.annotation-api-1.3.2.jar spring-context-5.0.10
+ .RELEASE.jar stringtemplate-3.2.1.jar log4j-api-2.10.0.jar spring-sec
+ urity-crypto-5.0.9.RELEASE.jar antlr-2.7.7.jar spring-jcl-5.0.10.RELE
+ ASE.jar netflix-statistics-0.1.1.jar netty-transport-native-epoll-4.1
+ .29.Final-linux-x86_64.jar netty-handler-4.1.29.Final.jar netty-resol
+ ver-4.1.29.Final.jar nio-stream-storage-1.1.3.jar jsr311-api-1.1.1.ja
+ r spring-cloud-context-2.0.0.RELEASE.jar httpcore-4.4.10.jar netflix-
+ eventbus-0.3.0.jar netty-buffer-4.1.29.Final.jar spring-boot-starter-
+ json-2.0.6.RELEASE.jar spring-data-keyvalue-2.0.11.RELEASE.jar joda-t
+ ime-2.9.9.jar jboss-logging-3.3.2.Final.jar spring-cloud-netflix-core
+ -2.0.0.RELEASE.jar jackson-module-parameter-names-2.9.7.jar spring-be
+ ans-5.0.10.RELEASE.jar jackson-datatype-jsr310-2.9.7.jar dexx-collect
+ ions-0.2.jar bcprov-jdk15on-1.56.jar spring-data-commons-2.0.11.RELEA
+ SE.jar spring-boot-starter-aop-2.0.6.RELEASE.jar spring-boot-starter-
+ data-redis-2.0.6.RELEASE.jar netty-common-4.1.29.Final.jar spring-clo
+ ud-gateway-core-2.0.0.RELEASE.jar spring-boot-starter-reactor-netty-2
+ .0.6.RELEASE.jar jersey-apache-client4-1.19.1.jar spring-security-rsa
+ -1.0.5.RELEASE.jar spring-expression-5.0.10.RELEASE.jar reactor-core-
+ 3.1.10.RELEASE.jar javax.inject-1.jar commons-configuration-1.8.jar r
+ xjava-1.3.8.jar servo-core-0.12.21.jar ribbon-core-2.2.5.jar spring-c
+ loud-starter-netflix-eureka-client-2.0.0.RELEASE.jar aopalliance-1.0.
+ jar reactor-netty-0.7.10.RELEASE.jar spring-core-5.0.10.RELEASE.jar n
+ etty-transport-native-epoll-4.1.29.Final.jar stax-api-1.0.1.jar antlr
+ -runtime-3.4.jar netty-codec-http-4.1.29.Final.jar lettuce-core-5.0.5
+ .RELEASE.jar stax-api-1.0-2.jar spring-oxm-5.0.10.RELEASE.jar logback
+ -core-1.2.3.jar httpclient-4.5.2.jar spring-webflux-5.0.10.RELEASE.ja
+ r jul-to-slf4j-1.7.25.jar spring-cloud-netflix-eureka-client-2.0.0.RE
+ LEASE.jar netty-transport-native-unix-common-4.1.29.Final.jar netty-t
+ ransport-4.1.29.Final.jar jackson-databind-2.9.7.jar rxnetty-0.4.9.ja
+ r guice-4.1.0.jar archaius-core-0.7.6.jar netflix-commons-util-0.3.0.
+ jar xpp3_min-1.1.4c.jar snakeyaml-1.19.jar spring-cloud-starter-netfl
+ ix-ribbon-2.0.0.RELEASE.jar guava-16.0.jar HdrHistogram-2.1.9.jar com
+ mons-collections-3.2.2.jar commons-jxpath-1.3.jar log4j-to-slf4j-2.10
+ .0.jar hibernate-validator-6.0.13.Final.jar classmate-1.3.4.jar sprin
+ g-boot-starter-webflux-2.0.6.RELEASE.jar spring-tx-5.0.10.RELEASE.jar
+  netty-codec-4.1.29.Final.jar eureka-core-1.9.2.jar xstream-1.4.10.ja
+ r woodstox-core-asl-4.4.1.jar gson-2.8.5.jar jersey-core-1.19.1.jar n
+ etflix-infix-0.3.0.jar spring-boot-starter-2.0.6.RELEASE.jar compactm
+ ap-1.2.1.jar spring-aop-5.0.10.RELEASE.jar spring-data-redis-2.0.11.R
+ ELEASE.jar stax2-api-3.1.4.jar spring-cloud-starter-netflix-archaius-
+ 2.0.0.RELEASE.jar
+Main-Class: com.scorer.gateway.GatewayApplication
+
