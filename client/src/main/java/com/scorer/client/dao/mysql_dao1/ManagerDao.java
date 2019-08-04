@@ -11,33 +11,33 @@ import java.util.List;
 @Repository
 public interface ManagerDao {
 
-    public Manager login(Manager manager) throws Exception;
+    Manager login(Manager manager) throws Exception;
 
-    public long getManagerCount(PageBean page) throws Exception;
+    long getManagerCount(PageBean page) throws Exception;
 
-    public List<Manager> getManagerList(PageBean page) throws Exception;
+    List<Manager> getManagerList(PageBean page) throws Exception;
 
-    public void addManager(Manager manager) throws Exception;
+    void addManager(Manager manager) throws Exception;
 
-    public void addManagerRole(Integer managerId, Integer roleId) throws Exception;
+    void addManagerRole(Integer managerId, Integer roleId) throws Exception;
 
-    public void deleteManagerRole(Integer id) throws Exception;
+    void deleteManagerRole(Integer id) throws Exception;
 
-    public void updateManager(Manager manager) throws Exception;
+    void updateManager(Manager manager) throws Exception;
 
-    public void deleteManager(List managerIds) throws Exception;
+    void deleteManager(List managerIds) throws Exception;
 
-    public long getRoleCount(PageBean page) throws Exception;
+    long getRoleCount(PageBean page) throws Exception;
 
-    public List<Role> getRoleList(PageBean page) throws Exception;
+    List<Role> getRoleList(PageBean page) throws Exception;
 
-    public List<Role> getAllRoleList() throws Exception;
+    List<Role> getAllRoleList() throws Exception;
 
-    public void deleteRoleMenu(Integer roleId) throws Exception;
+    void deleteRoleMenu(Integer roleId) throws Exception;
 
-    public void addRoleMenu(Integer roleId, Integer menuId) throws Exception;
+    void addRoleMenu(Integer roleId, Integer menuId) throws Exception;
 
-    public List<Menu> getAllMenuList() throws Exception;
+    List<Menu> getAllMenuList() throws Exception;
 
-    public List<Menu> getActionMenuList(Integer roleId) throws Exception;
+    List<Menu> getActionMenuList(Integer roleId) throws Exception;
 }

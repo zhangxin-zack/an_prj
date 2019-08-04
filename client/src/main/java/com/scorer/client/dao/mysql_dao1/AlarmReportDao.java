@@ -9,16 +9,16 @@ import java.util.List;
 @Repository
 public interface AlarmReportDao {
 
-    public long getAlarmReportCount(PageBean page) throws Exception;
+    long getAlarmReportCount(PageBean page) throws Exception;
 
-    public List<AlarmReport> getAlarmReportList(PageBean page) throws Exception;
+    List<AlarmReport> getAlarmReportList(PageBean page) throws Exception;
 
-    public AlarmReport getAlarmReportById(Integer alarmReportId) throws Exception;
+    AlarmReport getAlarmReportById(Integer alarmReportId) throws Exception;
 
-    public void addAlarmReport(AlarmReport alarmReport) throws Exception;
+    void addAlarmReport(AlarmReport alarmReport) throws Exception;
 
-    public void updateAlarmReport(AlarmReport alarmReport) throws Exception;
+    void updateAlarmReport(AlarmReport alarmReport) throws Exception;
 
-    public void deleteAlarmReport(List alarmReportIds) throws Exception;
+    void deleteAlarmReport(List alarmReportIds) throws Exception;
 
 }

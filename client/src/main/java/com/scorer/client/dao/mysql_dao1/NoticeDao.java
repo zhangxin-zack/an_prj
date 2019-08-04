@@ -9,16 +9,16 @@ import java.util.List;
 @Repository
 public interface NoticeDao {
 
-    public long getNoticeCount(PageBean page) throws Exception;
+    long getNoticeCount(PageBean page) throws Exception;
 
-    public List<Notice> getNoticeList(PageBean page) throws Exception;
+    List<Notice> getNoticeList(PageBean page) throws Exception;
 
-    public Notice getNoticeById(Integer noticeId) throws Exception;
+    Notice getNoticeById(Integer noticeId) throws Exception;
 
-    public void addNotice(Notice notice) throws Exception;
+    void addNotice(Notice notice) throws Exception;
 
-    public void updateNotice(Notice notice) throws Exception;
+    void updateNotice(Notice notice) throws Exception;
 
-    public void deleteNotice(List noticeIds) throws Exception;
+    void deleteNotice(List noticeIds) throws Exception;
 
 }
