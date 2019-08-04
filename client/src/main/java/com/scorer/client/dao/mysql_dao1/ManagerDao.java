@@ -19,9 +19,9 @@ public interface ManagerDao {
 
     void addManager(Manager manager) throws Exception;
 
-    void addManagerRole(Integer managerId, Integer roleId) throws Exception;
+    void addManagerRole(Long managerId, Long roleId) throws Exception;
 
-    void deleteManagerRole(Integer id) throws Exception;
+    void deleteManagerRole(Long id) throws Exception;
 
     void updateManager(Manager manager) throws Exception;
 
@@ -33,11 +33,11 @@ public interface ManagerDao {
 
     List<Role> getAllRoleList() throws Exception;
 
-    void deleteRoleMenu(Integer roleId) throws Exception;
+    void deleteRoleMenu(Long roleId) throws Exception;
 
-    void addRoleMenu(Integer roleId, Integer menuId) throws Exception;
+    void addRoleMenu(Long roleId, Long menuId) throws Exception;
 
     List<Menu> getAllMenuList() throws Exception;
 
-    List<Menu> getActionMenuList(Integer roleId) throws Exception;
+    List<Menu> getActionMenuList(Long roleId) throws Exception;
 }

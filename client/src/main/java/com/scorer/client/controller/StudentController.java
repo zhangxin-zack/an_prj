@@ -15,25 +15,33 @@ import java.util.Map;
 public class StudentController {
 
     @Autowired
-    private StudentService StudentService;
+    private StudentService studentService;
 
     @RequestMapping(value = "/list")
     public Map getStudentList(PageBean condition) {
-        return StudentService.getStudentList(condition);
+        return studentService.getStudentList(condition);
+    }
+    @RequestMapping(value = "/parent_get")
+    public Map getStudentParentDetail(PageBean condition) {
+        return studentService.getStudentParentDetail(condition);
+    }
+    @RequestMapping(value = "/alarm_get")
+    public Map getRingAlarmDetail(PageBean condition) {
+        return studentService.getRingAlarmDetail(condition);
     }
 
     @RequestMapping(value = "/add")
     public Map addStudent(Student student) {
-        return StudentService.addStudent(student);
+        return studentService.addStudent(student);
     }
 
     @RequestMapping(value = "/update")
     public Map updateStudent(Student student) {
-        return StudentService.updateStudent(student);
+        return studentService.updateStudent(student);
     }
 
     @RequestMapping(value = "/remove")
     public Map deleteStudent(List<Integer> StudentIds) {
-        return StudentService.deleteStudent(StudentIds);
+        return studentService.deleteStudent(StudentIds);
     }
 }

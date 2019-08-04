@@ -22,7 +22,7 @@ public interface ManagerService {
 
     Map<String, Object> getRoleList(PageBean page);
 
-    Map<String, Object> saveRole(Integer roleId, List<Integer> menuIds);
+    Map<String, Object> saveRole(Long roleId, List<Long> menuIds);
 
     Map<String, Object> getAllRoleList();
 

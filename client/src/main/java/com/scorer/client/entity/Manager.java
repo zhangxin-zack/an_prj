@@ -11,7 +11,7 @@ public class Manager {
     private String phoneNo;
     private Integer statusFlag;
     private Long currentRoleId;
-    private List<Integer> roleId;
+    private List<Long> roleId;
 
     public Long getId() {
         return id;
@@ -69,11 +69,11 @@ public class Manager {
         this.currentRoleId = currentRoleId;
     }
 
-    public List<Integer> getRoleId() {
+    public List<Long> getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(List<Integer> roleId) {
+    public void setRoleId(List<Long> roleId) {
         this.roleId = roleId;
     }
 
