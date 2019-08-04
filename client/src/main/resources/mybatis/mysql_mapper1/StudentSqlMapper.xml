@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scorer.client.dao.mysql_dao1.StudentDao">
+
+    <resultMap id="Student" type="com.scorer.client.entity.Student">
+        <result column="id" property="id"/>
+        <result column="name" property="studentName"/>
+        <result column="nickname" property="nickname"/>
+        <result column="sex" property="sex"/>
+        <result column="card_no" property="cardNo"/>
+        <result column="register_no" property="registerNo"/>
+        <result column="school_id" property="schoolId"/>
+        <result column="school_name" property="schoolName"/>
+        <result column="class_id" property="classId"/>
+        <result column="class_name" property="className"/>
+        <result column="birthday" property="birthday"/>
+        <result column="bind" property="bind"/>
+    </resultMap>
+
+    <select id="getStudentCount" resultType="long">
+      select count(*) from Student where 1=1
+    </select>
+
+    <select id="getStudentList" resultMap="Student">
+      SELECT
+            s.id,
+            s.card_no,
+            s.`name` AS name,
+            s.register_no,
+            s.sex,
+            c.id AS class_id,
+            c.title class_name,
+            s.birthday,
+            s.bind
+        FROM
+            students s
+	  LEFT JOIN
+	        class c
+	     ON s.class_id = c.id
+	  where 1=1
+        <if test="studentName!= null and studentName != '' ">
+            and s.`name` like '%${studentName}%'
+        </if>
+        <if test="registerNo!= null and registerNo != '' ">
+            and s.register_no like '%${registerNo}%'
+        </if>
+        <if test="cardNo!= null and cardNo != '' ">
+            and s.card_no like '%${cardNo}%'
+        </if>
+        <if test="classId!= null and classId != 0 ">
+            and c.id = #{classId},
+        </if>
+        <if test="bind!= null and bind != 0 ">
+            and s.bind = #{bind}
+        </if>
+      ORDER BY #{desc}
+      limit #{startIndex}, #{pageSize}
+    </select>
+
+    <select id="getStudentById" resultMap="Student">
+      select id, Student_title, Student_content, Student_range, Student_dates from Student where id = #{StudentId}
+    </select>
+
+    <insert id="addStudent">
+      insert into Student(Student_title, Student_content, Student_range, Student_dates)
+      values (#{noticTitle}, #{StudentContent}, #{StudentRange}, sysdate())
+    </insert>
+
+    <update id="updateStudent">
+      update Student
+      <set>
+          <if test="noticTitle!= null and noticTitle != 0 ">
+              Student_title = #{noticTitle},
+          </if>
+          <if test="StudentName!= null and StudentName!= '' ">
+              Student_content = #{StudentContent},
+          </if>
+          <if test="StudentRange!= null and StudentRange!= '' ">
+              Student_range = #{StudentRange},
+          </if>
+          Student_dates = sysdate()
+      </set>
+      where id = #{id}
+    </update>
+
+    <delete id="deleteStudent">
+      delete from Student where id in
+        <foreach collection="list" item="StudentId" open="(" separator="," close=")">
+            #{StudentId}
+        </foreach>
+    </delete>
+</mapper>

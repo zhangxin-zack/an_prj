@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scorer.client.dao.mysql_dao1.AlarmReportDao">
+
+    <resultMap id="alarmReport" type="com.scorer.client.entity.AlarmReport">
+        <result column="id" property="id"/>
+        <result column="alarm_time" property="alarmTime"/>
+        <result column="alarm_type" property="alarmType"/>
+        <result column="alarm_data" property="alarmData"/>
+        <result column="student_id" property="studentId"/>
+        <result column="student_name" property="studentName"/>
+        <result column="class_id" property="classId"/>
+        <result column="class_name" property="className"/>
+        <result column="longitude" property="longitude"/>
+        <result column="latitude" property="latitude"/>
+    </resultMap>
+
+    <select id="getAlarmReportCount" resultType="long">
+      select count(*) from AlarmReport where 1=1
+    </select>
+
+    <select id="getAlarmReportList" resultMap="AlarmReport">
+      select id, AlarmReport_title,  AlarmReport_dates from AlarmReport where 1=1
+      order by #{desc}
+      limit #{startIndex}, #{pageSize}
+    </select>
+
+    <select id="getAlarmReportById" resultMap="AlarmReport">
+      select id, AlarmReport_title, AlarmReport_content, AlarmReport_range, AlarmReport_dates from AlarmReport where id = #{AlarmReportId}
+    </select>
+
+    <insert id="addAlarmReport">
+      insert into AlarmReport(AlarmReport_title, AlarmReport_content, AlarmReport_range, AlarmReport_dates)
+      values (#{noticTitle}, #{AlarmReportContent}, #{AlarmReportRange}, sysdate())
+    </insert>
+
+    <update id="updateAlarmReport">
+      update AlarmReport
+      <set>
+          <if test="noticTitle!= null and noticTitle != 0 ">
+              AlarmReport_title = #{noticTitle},
+          </if>
+          <if test="AlarmReportName!= null and AlarmReportName!= '' ">
+              AlarmReport_content = #{AlarmReportContent},
+          </if>
+          <if test="AlarmReportRange!= null and AlarmReportRange!= '' ">
+              AlarmReport_range = #{AlarmReportRange},
+          </if>
+          AlarmReport_dates = sysdate()
+      </set>
+      where id = #{id}
+    </update>
+
+    <delete id="deleteAlarmReport">
+      delete from AlarmReport where id in
+        <foreach collection="list" item="AlarmReportId" open="(" separator="," close=")">
+            #{AlarmReportId}
+        </foreach>
+    </delete>
+</mapper>

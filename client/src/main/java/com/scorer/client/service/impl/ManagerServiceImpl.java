@@ -170,8 +170,8 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     }
 
 
-    private void recursionData(List<Menu> menus, int perId,
-            Menu currentMenu, List<Map<String, Object>> perChild){
+    private void recursionData(List<Menu> menus, int perId, Menu currentMenu,
+                                     List<Map<String, Object>> perChild){
         int pid = currentMenu.getMenuPid();
         if(pid == perId){
             int currentId = currentMenu.getMenuId();
