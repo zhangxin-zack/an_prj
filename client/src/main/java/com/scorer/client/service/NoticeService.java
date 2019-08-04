@@ -8,13 +8,13 @@ import java.util.Map;
 
 public interface NoticeService {
 
-    public Map<String, Object> getNoticeById(Integer Notice);
+    Map<String, Object> getNoticeById(Integer Notice);
 
-    public Map<String, Object> getNoticeList(PageBean page);
+    Map<String, Object> getNoticeList(PageBean page);
 
-    public Map<String, Object> addNotice(Notice Notice);
+    Map<String, Object> addNotice(Notice Notice);
 
-    public Map<String, Object> updateNotice(Notice Notice);
+    Map<String, Object> updateNotice(Notice Notice);
 
-    public Map<String, Object> deleteNotice(List NoticeIds);
+    Map<String, Object> deleteNotice(List NoticeIds);
 }

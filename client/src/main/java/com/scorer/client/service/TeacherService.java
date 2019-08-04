@@ -10,13 +10,13 @@ import java.util.Map;
 
 public interface TeacherService {
 
-    public Map<String, Object> getTeacherList(PageBean page);
+    Map<String, Object> getTeacherList(PageBean page);
 
-    public Map<String, Object> getTeacherById(Integer teacherId);
+    Map<String, Object> getTeacherById(Integer teacherId);
 
-    public Map<String, Object> addTeacher(Teacher teacher);
+    Map<String, Object> addTeacher(Teacher teacher);
 
-    public Map<String, Object> updateTeacher(Teacher teacher);
+    Map<String, Object> updateTeacher(Teacher teacher);
 
-    public Map<String, Object> deleteTeacher(List teacherIds);
+    Map<String, Object> deleteTeacher(List teacherIds);
 }
