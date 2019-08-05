@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scorer.client.dao.mysql_dao1.ReportDao">
+
+    <resultMap id="alarmReport" type="com.scorer.client.entity.AlarmReport">
+        <result column="id" property="id"/>
+        <result column="alarm_time" property="alarmTime"/>
+        <result column="alarm_type" property="alarmType"/>
+        <result column="alarm_data" property="alarmData"/>
+        <result column="student_id" property="studentId"/>
+        <result column="student_name" property="studentName"/>
+        <result column="class_id" property="classId"/>
+        <result column="class_name" property="className"/>
+        <result column="longitude" property="longitude"/>
+        <result column="latitude" property="latitude"/>
+    </resultMap>
+
+    <resultMap id="dailyReport" type="com.scorer.client.entity.DailyReport">
+        <result column="student_id" property="studentId"/>
+        <result column="student_name" property="studentName"/>
+        <result column="register_no" property="registerNo"/>
+        <result column="ring_no" property="ringNo"/>
+        <result column="attendance" property="attendance"/>
+        <result column="report_date" property="reportDate"/>
+    </resultMap>
+
+
+    <select id="getAlarmReportCount" resultType="Long">
+      SELECT
+            count(ar.id)
+        FROM
+            alarm_report ar
+        LEFT JOIN students s ON ar.student_id = s.id
+        LEFT JOIN class c ON s.class_id = c.id
+        WHERE 1=1
+        <if test="alarmBeginTime!= null and alarmBeginTime!= '' and alarmEndTime!= null and alarmEndTime!= ''">
+            and ar.alarm_time BETWEEN #{alarmBeginTime} and #{alarmEndTime}
+        </if>
+        <if test="classId!= null and classId!= 0 ">
+            and c.id = #{classId}
+        </if>
+        <if test="alarmType!= null and alarmType!= 0 ">
+            and ar.alarm_type = #{alarmType}
+        </if>
+        <if test="studentId!= null and studentId!= 0 ">
+            and ar.student_id = #{studentId}
+        </if>
+    </select>
+
+    <select id="getAlarmReportList" resultMap="alarmReport">
+      SELECT
+            ar.id,
+            s.card_no,
+            s.`name` AS studentName,
+            c.title AS className,
+            ar.alarm_time,
+            ar.alarm_data,
+            ar.alarm_type,
+            ar.student_id,
+            ar.longitude,
+            ar.latitude
+        FROM
+            alarm_report ar
+            LEFT JOIN students s ON ar.student_id = s.id
+            LEFT JOIN class c ON s.class_id = c.id
+      WHERE 1=1
+        <if test="alarmBeginTime!= null and alarmBeginTime!= '' and alarmEndTime!= null and alarmEndTime!= ''">
+            and ar.alarm_time BETWEEN #{alarmBeginTime} and #{alarmEndTime}
+        </if>
+        <if test="classId!= null and classId!= 0 ">
+            and c.id = #{classId}
+        </if>
+        <if test="alarmType!= null and alarmType!= 0 ">
+            and ar.alarm_type = #{alarmType}
+        </if>
+        <if test="studentId!= null and studentId!= 0 ">
+            and ar.student_id = #{studentId}
+        </if>
+    </select>
+
+    <select id="getDailyReportCount" resultType="long">
+        SELECT
+            count(s.id student_id)
+        FROM
+            students s
+        LEFT JOIN daily_report d ON s.id = d.student_id
+        LEFT JOIN class c ON s.class_id = c.id
+        WHERE DATE_FORMAT(d.report_date,'%Y-%m-%d')= DATE_FORMAT(now(),'%Y-%m-%d')
+        <if test="classId!= null and classId!= 0 ">
+            and c.id = #{classId}
+        </if>
+    </select>
+
+    <select id="getDailyReportList" resultMap="dailyReport">
+        SELECT
+            s.id as student_id,
+            s.name as student_name,
+            s.register_no,
+            s.ring_no,
+            if(d.report_date is NULL, -1, 1) as attendance,
+            d.report_date
+        FROM
+            students s
+        LEFT JOIN daily_report d ON s.id = d.student_id
+        LEFT JOIN class c ON s.class_id = c.id
+        WHERE DATE_FORMAT(d.report_date,'%Y-%m-%d')= DATE_FORMAT(now(),'%Y-%m-%d')
+        <if test="classId!= null and classId!= 0 ">
+            and c.id = #{classId}
+        </if>
+    </select>
+
+    <select id="getHistoryReportCount" resultType="long">
+        SELECT
+            count(s.id student_id)
+        FROM
+            students s
+        LEFT JOIN daily_report d ON s.id = d.student_id
+        LEFT JOIN class c ON s.class_id = c.id
+        WHERE DATE_FORMAT(d.report_date,'%Y-%m-%d')= DATE_FORMAT(now(),'%Y-%m-%d')
+        <if test="classId!= null and classId!= 0 ">
+            and c.id = #{classId}
+        </if>
+    </select>
+
+    <select id="getHistoryReportList" resultMap="alarmReport">
+        SELECT
+            c.id AS class_id,
+            c.title AS class_name,
+            count(s.id) AS stuCount,
+            SUM(CASE WHEN d.report_date IS NULL THEN 0 ELSE 1 END)
+        FROM
+            students s
+            LEFT JOIN daily_report d ON s.id = d.student_id
+            LEFT JOIN class c ON s.class_id = c.id
+        WHERE 1=1
+        <if test="searchs.historyType == 1">
+            DATE_FORMAT( d.report_date, '%Y-%m-%d' ) = DATE_FORMAT( '2019-01-01', '%Y-%m-%d' )
+        </if>
+        <if test="searchs.historyType == 0">
+            DATE_FORMAT( d.report_date, '%Y-%m' ) = DATE_FORMAT( '2019-01-01', '%Y-%m' )
+        </if>
+        GROUP BY
+            c.id,
+            c.title
+    </select>
+</mapper>

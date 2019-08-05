@@ -1,15 +1,18 @@
 package com.scorer.client.entity;
 
 public class Student {
-
     private Long id;
-    private String name;
+    private String studentName;
     private String nickname;
-    private String sex;
-    private String cardNo;
-    private String registerNo;
+    private Integer sex;
+    private String cardNo;    //身份证号
+    private String registerNo; //学号
     private Long schoolId;
+    private String schoolName;
     private Long classId;
+    private String className;
+    private String birthday;
+    private Integer bind;
 
     public Long getId() {
         return id;
@@ -19,12 +22,12 @@ public class Student {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
     public String getNickname() {
@@ -35,11 +38,11 @@ public class Student {
         this.nickname = nickname;
     }
 
-    public String getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -67,11 +70,43 @@ public class Student {
         this.schoolId = schoolId;
     }
 
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
+
     public Long getClassId() {
         return classId;
     }
 
     public void setClassId(Long classId) {
         this.classId = classId;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public Integer getBind() {
+        return bind;
+    }
+
+    public void setBind(Integer bind) {
+        this.bind = bind;
     }
 }

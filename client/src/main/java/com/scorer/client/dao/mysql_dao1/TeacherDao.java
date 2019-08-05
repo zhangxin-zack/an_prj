@@ -9,16 +9,16 @@ import java.util.List;
 @Repository
 public interface TeacherDao {
 
-    public long getTeacherCount(PageBean page) throws Exception;
+    Long getTeacherCount(PageBean page) throws Exception;
 
-    public List<Teacher> getTeacherList(PageBean page) throws Exception;
+    List<Teacher> getTeacherList(PageBean page) throws Exception;
 
-    public Teacher getTeacherById(Integer teacherId) throws Exception;
+    Teacher getTeacherById(Integer teacherId) throws Exception;
 
-    public void addTeacher(Teacher teacher) throws Exception;
+    void addTeacher(Teacher teacher) throws Exception;
 
-    public void updateTeacher(Teacher teacher) throws Exception;
+    void updateTeacher(Teacher teacher) throws Exception;
 
-    public void deleteTeacher(List teacherIds) throws Exception;
+    void deleteTeacher(List teacherIds) throws Exception;
 
 }

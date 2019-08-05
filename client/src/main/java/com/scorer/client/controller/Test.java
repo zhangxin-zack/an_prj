@@ -29,7 +29,6 @@ import java.util.*;
 @RequestMapping("/Test")
 public class Test {
 
-
     @RequestMapping(value = "/TestNetSRC")
     public ResponseEntity<byte[]> TestNetSRC(HttpServletResponse response, HttpServletRequest request) {
         byte[] res = DownloadFromURL.getByte("http://image.cpwreferee.com/20181218030256e986ae8d-d779-4e64-873c-94d360f73823.mp4");

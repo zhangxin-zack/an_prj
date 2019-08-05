@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scorer.client.dao.mysql_dao1.ClassesDao">
+
+    <resultMap id="Classes" type="com.scorer.client.entity.Classes">
+        <result column="id" property="id"/>
+        <result column="title" property="classesName"/>
+        <result column="school_id" property="schoolId"/>
+        <result column="school_name" property="schoolName"/>
+        <result column="teacher_id" property="teacherId"/>
+        <result column="teacher_name" property="teacherName"/>
+    </resultMap>
+
+    <select id="getClassesCount" resultType="Long">
+      SELECT
+            count(c.id)
+        FROM
+            class c
+        LEFT JOIN school s ON c.school_id = s.id
+        LEFT JOIN teacher t ON c.teacher_id = t.id where 1=1
+    </select>
+
+    <select id="getClassesList" resultMap="Classes">
+      SELECT
+            c.id,
+            c.title,
+            c.school_id,
+            s.title school_name,
+            c.teacher_id,
+            t.teacher_name
+        FROM
+            class c
+        LEFT JOIN school s ON c.school_id = s.id
+        LEFT JOIN teacher t ON c.teacher_id = t.id
+          order by #{desc}
+          limit #{startIndex}, #{pageSize}
+    </select>
+
+    <insert id="addClasses">
+      insert into class(title, school_id, teacher_id)
+      values (#{classesName}, #{schoolId}, #{teacherId})
+    </insert>
+
+    <update id="updateClasses">
+      update class
+      <set>
+          <if test="classesName!= null and classesName != '' ">
+              title = #{classesName},
+          </if>
+          <if test="schoolId!= null and schoolId!= 0 ">
+              school_id = #{ClassesName},
+          </if>
+          <if test="teacherId!= null and teacherId!= '' ">
+              teacher_id = #{teacherId},
+          </if>
+      </set>
+      where id = #{classesId}
+    </update>
+
+    <delete id="deleteClasses">
+      delete from class where id in
+        <foreach collection="list" item="classesId" open="(" separator="," close=")">
+            #{classesId}
+        </foreach>
+    </delete>
+</mapper>

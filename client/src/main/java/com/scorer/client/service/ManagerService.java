@@ -10,23 +10,23 @@ import java.util.Map;
 
 public interface ManagerService {
 
-    public Manager login(Manager manager);
+    Manager login(Manager manager);
 
-    public Map<String, Object> getManagerList(PageBean page);
+    Map<String, Object> getManagerList(PageBean page);
 
-    public Map<String, Object> addManager(Manager Manager);
+    Map<String, Object> addManager(Manager manager);
 
-    public Map<String, Object> updateManager(Manager Manager);
+    Map<String, Object> updateManager(Manager manager);
 
-    public Map<String, Object> deleteManager(List ManagerIds);
+    Map<String, Object> deleteManager(List managerIds);
 
-    public Map<String, Object> getRoleList(PageBean page);
+    Map<String, Object> getRoleList(PageBean page);
 
-    public Map<String, Object> saveRole(Long roleId, List<Long> menuIds);
+    Map<String, Object> saveRole(Long roleId, List<Long> menuIds);
 
-    public Map<String, Object> getAllRoleList();
+    Map<String, Object> getAllRoleList();
 
-    public Map<String, Object> getAllMenuList();
+    Map<String, Object> getAllMenuList();
 
-    public Map<String, Object> getActionMenuList(Long roleId);
+    Map<String, Object> getActionMenuList(Long roleId);
 }

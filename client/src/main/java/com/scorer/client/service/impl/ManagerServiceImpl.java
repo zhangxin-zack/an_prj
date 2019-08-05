@@ -34,8 +34,8 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     @Override
     public Map<String, Object> getManagerList(PageBean page) {
         try{
-            page.setTotal(managerDao.getManagerCount(page));
             page.setRows(managerDao.getManagerList(page));
+            page.setTotal(managerDao.getManagerCount(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
         }catch (Exception e){
             e.printStackTrace();
@@ -47,7 +47,7 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     public Map<String, Object> addManager(Manager manager) {
         try{
             managerDao.addManager(manager);
-            for(long roleId: manager.getRoleId()){
+            for(Long roleId: manager.getRoleId()){
                 managerDao.addManagerRole(manager.getId(), roleId);
             }
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
@@ -62,7 +62,7 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
         try{
             managerDao.updateManager(manager);
             managerDao.deleteManagerRole(manager.getId());
-            for(long roleId: manager.getRoleId()){
+            for(Long roleId: manager.getRoleId()){
                 managerDao.addManagerRole(manager.getId(), roleId);
             }
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
@@ -99,7 +99,7 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     public Map<String, Object> saveRole(Long roleId, List<Long> menuIds) {
         try{
             managerDao.deleteManagerRole(roleId);
-            for(long menuId: menuIds){
+            for(Long menuId: menuIds){
                 managerDao.addManagerRole(roleId, menuId);
             }
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
@@ -133,7 +133,7 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     }
 
     @Override
-    public Map<String, Object> getActionMenuList(Integer roleId) {
+    public Map<String, Object> getActionMenuList(Long roleId) {
         try{
             List<Menu> menuList = managerDao.getActionMenuList(roleId);
             return resultMap(Iconstants.RESULT_CODE_0, "success", getTreeData(menuList));
@@ -170,8 +170,8 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     }
 
 
-    private void recursionData(List<Menu> menus, long perId,
-            Menu currentMenu, List<Map<String, Object>> perChild){
+    private void recursionData(List<Menu> menus, long perId, Menu currentMenu,
+                                     List<Map<String, Object>> perChild){
         long pid = currentMenu.getMenuPid();
         if(pid == perId){
             long currentId = currentMenu.getMenuId();

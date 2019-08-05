@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scorer.client.dao.mysql_dao1.StudentDao">
+
+    <resultMap id="Student" type="com.scorer.client.entity.Student">
+        <result column="id" property="id"/>
+        <result column="name" property="studentName"/>
+        <result column="nickname" property="nickname"/>
+        <result column="sex" property="sex"/>
+        <result column="card_no" property="cardNo"/>
+        <result column="register_no" property="registerNo"/>
+        <result column="school_id" property="schoolId"/>
+        <result column="school_name" property="schoolName"/>
+        <result column="class_id" property="classId"/>
+        <result column="class_name" property="className"/>
+        <result column="birthday" property="birthday"/>
+        <result column="bind" property="bind"/>
+    </resultMap>
+
+    <resultMap id="Parent" type="com.scorer.client.entity.Parent">
+        <result column="id" property="id"/>
+        <result column="parent_name" property="parentName"/>
+        <result column="account_id" property="accountId"/>
+        <result column="phone" property="phone"/>
+        <result column="is_admin" property="isAdmin"/>
+    </resultMap>
+
+    <select id="getStudentCount" resultType="long">
+      select count(s.id) from  students s
+        LEFT JOIN
+        class c
+        ON s.class_id = c.id
+        where 1=1
+        <if test="studentName!= null and studentName != '' ">
+            and s.`name` like '%${studentName}%'
+        </if>
+        <if test="registerNo!= null and registerNo != '' ">
+            and s.register_no like '%${registerNo}%'
+        </if>
+        <if test="cardNo!= null and cardNo != '' ">
+            and s.card_no like '%${cardNo}%'
+        </if>
+        <if test="classId!= null and classId != 0 ">
+            and c.id = #{classId}
+        </if>
+        <if test="bind!= null and bind != 0 ">
+            and s.bind = #{bind}
+        </if>
+    </select>
+
+    <select id="getStudentList" resultMap="Student">
+      SELECT
+            s.id,
+            s.card_no,
+            s.`name` AS name,
+            s.register_no,
+            s.sex,
+            c.id AS class_id,
+            c.title class_name,
+            s.birthday,
+            s.bind
+        FROM
+            students s
+	  LEFT JOIN
+	        class c
+	     ON s.class_id = c.id
+	  where 1=1
+        <if test="studentName!= null and studentName != '' ">
+            and s.`name` like '%${studentName}%'
+        </if>
+        <if test="registerNo!= null and registerNo != '' ">
+            and s.register_no like '%${registerNo}%'
+        </if>
+        <if test="cardNo!= null and cardNo != '' ">
+            and s.card_no like '%${cardNo}%'
+        </if>
+        <if test="classId!= null and classId != 0 ">
+            and c.id = #{classId}
+        </if>
+        <if test="bind!= null and bind != 0 ">
+            and s.bind = #{bind}
+        </if>
+      ORDER BY #{desc}
+      limit #{startIndex}, #{pageSize}
+    </select>
+
+    <select id="getStudentParentCount" resultType="long">
+      select id, student_title, Student_content, Student_range, Student_dates from Student where id = #{StudentId}
+    </select>
+
+    <select id="getStudentParentList" resultMap="Parent">
+       SELECT
+            ps.parent_id as id,
+            ac.username as parent_name,
+            ad.phone,
+            ps.is_admin
+        FROM
+            parent_student ps
+            LEFT JOIN parent p ON ps.parent_id = p.id
+            LEFT JOIN account ac ON p.account_id = ac.id
+            LEFT JOIN account_detail ad ON p.account_id = ad.account_id
+        WHERE 1=1
+        <if test="searchs.studentId!= null and searchs.studentId != 0 ">
+            and ps.student_id = #{searchs.studentId}
+        </if>
+    </select>
+
+    <insert id="addStudent">
+      insert into Student(id, name, nickname, sex, card_no, register_no, school_id, class_id, birthday, bind)
+      values (#{id}, #{studentName}, #{nickname}, #{sex}, #{cardNo}, #{registerNo}, #{schoolId}, #{classId}, #{birthday}, #{bind})
+    </insert>
+
+    <update id="updateStudent">
+      update students
+      <set>
+          <if test="studentName!= null and studentName != '' ">
+              name = #{studentName},
+          </if>
+          <if test="nickname!= null and nickname != '' ">
+              nickname = #{nickname},
+          </if>
+          <if test="sex!= null and sex != 0 ">
+              sex = #{sex},
+          </if>
+          <if test="cardNo!= null and cardNo != '' ">
+              card_no = #{cardNo},
+          </if>
+          <if test="registerNo!= null and registerNo!= '' ">
+              register_no = #{registerNo},
+          </if>
+          <if test="schoolId!= null and schoolId != 0 ">
+              school_id = #{schoolId},
+          </if>
+          <if test="classId!= null and classId != 0 ">
+              class_id = #{classId},
+          </if>
+          <if test="birthday!= null and birthday != '' ">
+              birthday = #{birthday},
+          </if>
+          <if test="bind!= null and bind != 0 ">
+              bind = #{bind},
+          </if>
+      </set>
+      where id = #{id}
+    </update>
+
+    <delete id="deleteStudent">
+      delete from student where id in
+        <foreach collection="list" item="studentId" open="(" separator="," close=")">
+            #{studentId}
+        </foreach>
+    </delete>
+
+
+</mapper>

@@ -4,7 +4,7 @@
 
     <resultMap id="manager" type="com.scorer.client.entity.Manager">
         <result column="id" property="id"/>
-        <result column="school_id" property="shoolId"/>
+        <result column="school_id" property="schoolId"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
         <result column="phone" property="phoneNo"/>
@@ -25,104 +25,141 @@
     </resultMap>
 
     <select id="login" resultMap="manager">
-      SELECT
+        SELECT
             m.id,
             m.school_id,
             m.username,
-            m. PASSWORD,
+            m.PASSWORD,
             phone,
             #{currentRoleId}
         FROM
             manager m
-        JOIN manager_role mr ON m.id = mr.manager_id
-        WHERE
-       where m.username = #{username}
-         and m.password = #{password}
-         and mr.role_id = #{currentRoleId}
+            JOIN manager_role mr ON m.id = mr.manager_id
+        WHERE m.username = #{username}
+              AND m.password = #{password}
+              AND mr.role_id = #{currentRoleId}
     </select>
 
     <select id="getManagerCount" resultType="long">
-      select count(*) from manager where 1=1
+        SELECT count(*)
+        FROM manager
+        WHERE 1 = 1
     </select>
 
-    <select id="getManagerList" resultMap="manager">
-      select id, school_id, username, password, phone from manager where 1=1
-      order by #{desc}
-      limit #{startIndex}, #{pageSize}
+    <select id="getManagerList" resultMap="manager" statementType="STATEMENT">
+        SELECT
+        id,
+        school_id,
+        username,
+        password,
+        phone
+        FROM manager
+        WHERE 1 = 1
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+             ${item.field} ${item['type']}
+        </foreach>
+        LIMIT ${startIndex}, ${pageSize}
     </select>
 
     <insert id="addManager">
-      insert into manager(school_id, Manager_name)
-      values (#{schoolId}, #{ManagerName})
+        <selectKey resultType="Long" keyColumn="id" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into manager(school_id, username,password,phone,status_flag)
+        values (#{schoolId}, #{username},#{password},#{phoneNo},#{statusFlag})
     </insert>
 
     <insert id="addManagerRole">
-      insert into manager_role(manager_id, role_id)
-      values (#{0}, #{1})
+        INSERT INTO manager_role (manager_id, role_id)
+        VALUES (#{0}, #{1})
     </insert>
 
     <delete id="deleteManagerRole">
-      delete from manager_role where manager_id = #{id}
+        DELETE FROM manager_role
+        WHERE manager_id = #{id}
     </delete>
 
     <update id="updateManager">
-      update manager
-      <set>
-          <if test="schoolId!= null and schoolId != 0 ">
-              school_id = #{schoolId},
-          </if>
-          <if test="username!= null and username!= '' ">
-              username = #{username},
-          </if>
-          <if test="password!= null and password!= '' ">
-              password = #{password},
-          </if>
-          <if test="phoneNo!= null and phoneNo!= '' ">
-              phone = #{phone},
-          </if>
-          <if test="statusFlag!= null">
-              status_flag = #{statusFlag},
-          </if>
-      </set>
-      where id = #{id}
+        update manager
+        <set>
+            <if test="schoolId!= null and schoolId != 0 ">
+                school_id = #{schoolId},
+            </if>
+            <if test="username!= null and username!= '' ">
+                username = #{username},
+            </if>
+            <if test="password!= null and password!= '' ">
+                password = #{password},
+            </if>
+            <if test="phoneNo!= null and phoneNo!= '' ">
+                phone = #{phoneNo},
+            </if>
+            <if test="statusFlag!= null">
+                status_flag = #{statusFlag},
+            </if>
+        </set>
+        where id = #{id}
     </update>
 
     <delete id="deleteManager">
-      delete from manager where id in
+        delete from manager where id in
         <foreach collection="list" item="ManagerId" open="(" separator="," close=")">
             #{ManagerId}
         </foreach>
     </delete>
 
     <select id="getRoleCount" resultType="long">
-      select count(*) from role where 1=1
+        SELECT count(*)
+        FROM role
+        WHERE 1 = 1
     </select>
 
     <select id="getRoleList" resultMap="manager">
-      select id, school_id, username, password, phone from manager where 1=1
-      order by #{desc}
-      limit #{startIndex}, #{pageSize}
+        SELECT
+            id,
+            school_id,
+            username,
+            password,
+            phone
+        FROM manager
+        WHERE 1 = 1
+        ORDER BY #{desc}
+        LIMIT #{startIndex}, #{pageSize}
     </select>
 
     <select id="getAllRoleList" resultMap="manager">
-      select id, school_id, username, password, phone from manager where 1=1
+        SELECT
+            id,
+            school_id,
+            username,
+            password,
+            phone
+        FROM manager
+        WHERE 1 = 1
     </select>
 
     <insert id="addRoleMenu">
-      insert into role_rights(role_id, sys_menu_id)
-      values (#{0}, #{1})
+        INSERT INTO role_rights (role_id, sys_menu_id)
+        VALUES (#{0}, #{1})
     </insert>
 
     <delete id="deleteRoleMenu">
-      delete from role_rights where role_id = #{id}
+        DELETE FROM role_rights
+        WHERE role_id = #{id}
     </delete>
 
     <select id="getAllMenuList" resultMap="manager">
-      select m.id, m.pid, m.path, m.title, m.icon from sys_menu m
+        SELECT
+            m.id,
+            m.pid,
+            m.path,
+            m.title,
+            m.icon
+        FROM sys_menu m
     </select>
 
     <select id="getActionMenuList" resultMap="manager">
-      SELECT
+        SELECT
             m.id,
             m.pid,
             m.path,
@@ -130,8 +167,8 @@
             m.icon
         FROM
             sys_menu m
-        JOIN role_rights rr ON m.id = rr.sys_menu_id
-        JOIN role r ON rr.role_id = r.id
+            JOIN role_rights rr ON m.id = rr.sys_menu_id
+            JOIN role r ON rr.role_id = r.id
         WHERE
             role_id = #{roleId}
     </select>

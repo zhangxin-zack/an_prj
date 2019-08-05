@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scorer.client.dao.mysql_dao1.NoticeDao">
+
+    <resultMap id="notice" type="com.scorer.client.entity.Notice">
+        <result column="id" property="id"/>
+        <result column="notice_title" property="noticTitle"/>
+        <result column="notice_content" property="noticeContent"/>
+        <result column="notice_range" property="noticeRange"/>
+        <result column="notice_date" property="noticeDate"/>
+    </resultMap>
+
+    <select id="getNoticeCount" resultType="long">
+      select count(*) from notice where 1=1
+    </select>
+
+    <select id="getNoticeList" resultMap="notice">
+      select id, notice_title,  notice_date from notice where 1=1
+      order by #{desc}
+      limit #{startIndex}, #{pageSize}
+    </select>
+
+    <select id="getNoticeById" resultMap="notice">
+      select id, notice_title, notice_content, notice_range, notice_date from notice where id = #{NoticeId}
+    </select>
+
+    <insert id="addNotice">
+      insert into notice(notice_title, notice_content, notice_range, notice_date)
+      values (#{noticTitle}, #{noticeContent}, #{noticeRange}, sysdate())
+    </insert>
+
+    <update id="updateNotice">
+      update notice
+      <set>
+          <if test="noticTitle!= null and noticTitle != 0 ">
+              notice_title = #{noticTitle},
+          </if>
+          <if test="NoticeName!= null and NoticeName!= '' ">
+              notice_content = #{noticeContent},
+          </if>
+          <if test="noticeRange!= null and noticeRange!= '' ">
+              notice_range = #{noticeRange},
+          </if>
+          notice_dates = sysdate()
+      </set>
+      where id = #{id}
+    </update>
+
+    <delete id="deleteNotice">
+      delete from notice where id in
+        <foreach collection="list" item="noticeId" open="(" separator="," close=")">
+            #{noticeId}
+        </foreach>
+    </delete>
+</mapper>

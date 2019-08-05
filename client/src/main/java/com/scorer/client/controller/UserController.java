@@ -7,6 +7,7 @@ import com.scorer.client.service.ManagerService;
 import com.scorer.client.service.TeacherService;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,14 +17,14 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/Scorer/user")
 public class UserController {
 
     @Autowired
     private ManagerService managerService;
 
     @RequestMapping(value = "/login")
-    public Map userLogin(HttpSession session, Manager manager) {
+    public Map userLogin(HttpSession session,@RequestBody Manager manager) {
         Manager loginManager = managerService.login(manager);
         Map map = new HashMap<>();
         if(loginManager != null){
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/resetpwd")
-    public Map resetPassword(Manager manager) {
+    public Map resetPassword(@RequestBody Manager manager) {
         return managerService.updateManager(manager);
     }
 
