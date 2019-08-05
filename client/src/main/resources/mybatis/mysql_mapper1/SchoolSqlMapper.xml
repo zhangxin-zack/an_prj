@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scorer.client.dao.mysql_dao1.SchoolDao">
+
+    <resultMap id="school" type="com.scorer.client.entity.School">
+        <result column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="simple_title" property="simpleTitle"/>
+        <result column="registe_date" property="registeDate"/>
+        <result column="linkman" property="linkman"/>
+        <result column="phone" property="phone"/>
+        <result column="area" property="area"/>
+        <result column="address" property="address"/>
+        <result column="lon" property="lon"/>
+        <result column="lat" property="lat"/>
+        <result column="email" property="email"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+    <select id="getSchoolCount" resultType="long">
+        SELECT count(*)
+        FROM school
+        WHERE 1 = 1
+        <if test="searchs.title!= null and searchs.title != '' ">
+            and s.title like CONCAT('%',${searchs.title},'%')
+        </if>
+        <if test="searchs.area!= null and searchs.area != '' ">
+            and s.area like CONCAT('%',${searchs.area},'%')
+        </if>
+    </select>
+
+    <select id="getSchoolList" resultMap="school" statementType="STATEMENT">
+        SELECT
+            id,
+            title,
+            simple_title,
+            registe_date,
+            linkman,
+            phone,
+            area,
+            address,
+            lon,
+            lat,
+            email,
+            description
+        FROM school s
+        WHERE 1 = 1
+        <if test="searchs.title!= null and searchs.title != '' ">
+            and s.title like CONCAT('%',${searchs.title},'%')
+        </if>
+        <if test="searchs.area!= null and searchs.area != '' ">
+            and s.area like CONCAT('%',${searchs.area},'%')
+        </if>
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+             ${item.field} ${item['type']}
+        </foreach>
+        LIMIT ${startIndex}, ${pageSize}
+    </select>
+
+    <insert id="addSchool">
+        insert into school(
+            title, simple_title, registe_date, linkman,
+            phone, area, address, lon, lat, email, description)
+        values (
+            #{title}, #{simpleTtitle},#{registeDate},#{linkman},
+            #{phone},#{area}, #{address},#{lon},#{email},#{description}
+            )
+    </insert>
+
+    <delete id="deleteSchool">
+        DELETE FROM school
+        <foreach collection="list" item="schoolId" open="(" separator="," close=")">-->
+           #{schoolId}
+        </foreach>
+    </delete>
+
+    <update id="updateSchool">
+        update manager
+        <set>
+            <if test="title != null and title != 0 ">
+                title = #{title},
+            </if>
+            <if test="simpleTitle != null and simpleTitle != '' ">
+                simple_title = #{simpleTitle},
+            </if>
+            <if test="registeDate != null and registeDate != '' ">
+                registe_date = #{registeDate},
+            </if>
+            <if test="linkman != null and linkman != '' ">
+                linkman = #{linkman},
+            </if>
+            <if test="phone != null and phone != '' ">
+                phone = #{phone},
+            </if>
+            <if test="area != null and area != '' ">
+                area = #{area},
+            </if>
+            <if test="address != null and address != '' ">
+                address = #{address},
+            </if>
+            <if test="lon != null and lon != 0 ">
+                lon = #{lon},
+            </if>
+            <if test="lat != null and lat != 0 ">
+                lat = #{lat},
+            </if>
+            <if test="email != null and email != '' ">
+                email = #{email},
+            </if>
+            <if test="description != null and description != '' ">
+                description = #{description},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getSchoolById" resultMap="school">
+        SELECT
+        id,
+        title,
+        simple_title,
+        registe_date,
+        linkman,
+        phone,
+        area,
+        address,
+        lon,
+        lat,
+        email,
+        description
+        FROM school s
+        WHERE 1 = 1
+        <if test="schoolId!= null and schoolId != '' ">
+            and s.id = #{schoolId}
+        </if>
+    </select>
+
+    <select id="getClassCountBySchoolId" resultType="long">
+        SELECT count(*)
+          FROM class
+         WHERE 1 = 1
+        <if test=" schoolId != null and schoolId != 0 ">
+           AND school_id = #{schoolId}
+        </if>
+    </select>
+
+    <select id="getClassStudentCountBySchoolId" resultType="long">
+        SELECT
+            SUM(t2.student_count)
+        FROM
+            class t1
+        LEFT JOIN ( SELECT class_id, count(class_id) student_count FROM students GROUP BY class_id ) t2 ON t1.id = t2.class_id
+        WHERE 1=1
+        <if test=" schoolId != null and schoolId != 0 ">
+           AND t1.school_id = #{schoolId}
+        </if>
+    </select>
+</mapper>
