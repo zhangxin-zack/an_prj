@@ -13,6 +13,7 @@ public class Student {
     private String className;
     private String birthday;
     private Integer bind;
+    private Integer deleteFlag;
 
     public Long getId() {
         return id;
@@ -108,5 +109,13 @@ public class Student {
 
     public void setBind(Integer bind) {
         this.bind = bind;
+    }
+
+    public Integer getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Integer deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 }

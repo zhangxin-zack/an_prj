@@ -72,4 +72,15 @@ public class TeacherServiceImpl extends BaseSeviceImpl implements TeacherService
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
     }
+
+    @Override
+    public Map<String, Object> getHeadTeacherList(Map<String, Object> params) {
+        try{
+            List<Teacher> teachers = teacherDao.selectAllHeadTeacher(params);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", teachers);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
 }

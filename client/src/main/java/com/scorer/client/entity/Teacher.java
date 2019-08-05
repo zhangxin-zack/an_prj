@@ -10,6 +10,22 @@ public class Teacher {
 
     private String teacherName;
 
+    private Integer isHead;
+
+    private String manageClassIds;
+    private String manageClassName;
+    private String phone;
+    private Long accountId;
+    private String accountName;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public Long getTeacherId() {
         return teacherId;
     }
@@ -42,13 +58,27 @@ public class Teacher {
         this.teacherName = teacherName;
     }
 
-    @Override
-    public String toString() {
-        return "Teacher{" +
-                "teacherId=" + teacherId +
-                ", schoolId=" + schoolId +
-                ", schoolName='" + schoolName + '\'' +
-                ", teacherName='" + teacherName + '\'' +
-                '}';
+    public Integer getIsHead() {
+        return isHead;
+    }
+
+    public String getManageClassIds() {
+        return manageClassIds;
+    }
+
+    public void setManageClassIds(String manageClassIds) {
+        this.manageClassIds = manageClassIds;
+    }
+
+    public String getManageClassName() {
+        return manageClassName;
+    }
+
+    public void setManageClassName(String manageClassName) {
+        this.manageClassName = manageClassName;
+    }
+
+    public void setIsHead(Integer isHead) {
+        this.isHead = isHead;
     }
 }

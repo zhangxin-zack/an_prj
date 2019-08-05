@@ -43,4 +43,8 @@ public class TeacherController {
         return teacherService.deleteTeacher(teacherIds);
     }
 
+    @RequestMapping(value = "/get_head")
+    public Map getHeadTeacherList(@RequestBody Map<String, Object> params) {
+        return teacherService.getHeadTeacherList(params);
+    }
 }

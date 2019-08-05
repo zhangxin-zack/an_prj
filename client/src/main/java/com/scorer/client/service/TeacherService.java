@@ -19,4 +19,6 @@ public interface TeacherService {
     Map<String, Object> updateTeacher(Teacher teacher);
 
     Map<String, Object> deleteTeacher(List teacherIds);
+
+    Map<String, Object> getHeadTeacherList(Map<String, Object> params);
 }

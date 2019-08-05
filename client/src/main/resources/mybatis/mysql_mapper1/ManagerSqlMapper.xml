@@ -48,11 +48,11 @@
 
     <select id="getManagerList" resultMap="manager" statementType="STATEMENT">
         SELECT
-        id,
-        school_id,
-        username,
-        password,
-        phone
+            id,
+            school_id,
+            username,
+            password,
+            phone
         FROM manager
         WHERE 1 = 1
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">

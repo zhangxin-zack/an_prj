@@ -30,25 +30,25 @@
         LEFT JOIN
         class c
         ON s.class_id = c.id
-        where 1=1
-        <if test="studentName!= null and studentName != '' ">
-            and s.`name` like '%${studentName}%'
+        where delete_flag = 0
+        <if test="searchs.studentName!= null and searchs.studentName != '' ">
+            and s.`name` like CONCAT('%',#{searchs.studentName},'%')
         </if>
-        <if test="registerNo!= null and registerNo != '' ">
-            and s.register_no like '%${registerNo}%'
+        <if test="searchs.registerNo!= null and searchs.registerNo != '' ">
+            and s.register_no like CONCAT('%',#{searchs.registerNo},'%')
         </if>
-        <if test="cardNo!= null and cardNo != '' ">
-            and s.card_no like '%${cardNo}%'
+        <if test="searchs.cardNo!= null and searchs.cardNo != '' ">
+            and s.card_no like CONCAT('%',#{searchs.cardNo},'%')
         </if>
-        <if test="classId!= null and classId != 0 ">
-            and c.id = #{classId}
+        <if test="searchs.classId!= null and searchs.classId != 0 ">
+            and c.id = #{searchs.classId}
         </if>
-        <if test="bind!= null and bind != 0 ">
+        <if test="searchs.bind!= null and searchs.bind != 0 ">
             and s.bind = #{bind}
         </if>
     </select>
 
-    <select id="getStudentList" resultMap="Student">
+    <select id="getStudentList" resultMap="Student"  statementType="STATEMENT">
       SELECT
             s.id,
             s.card_no,
@@ -64,28 +64,41 @@
 	  LEFT JOIN
 	        class c
 	     ON s.class_id = c.id
-	  where 1=1
-        <if test="studentName!= null and studentName != '' ">
-            and s.`name` like '%${studentName}%'
+	  where delete_flag = 0
+        <if test="searchs.studentName!= null and searchs.studentName != '' ">
+            and s.`name` like CONCAT('%',#{searchs.studentName},'%')
         </if>
-        <if test="registerNo!= null and registerNo != '' ">
-            and s.register_no like '%${registerNo}%'
+        <if test="searchs.registerNo!= null and searchs.registerNo != '' ">
+            and s.register_no like CONCAT('%',#{searchs.registerNo},'%')
         </if>
-        <if test="cardNo!= null and cardNo != '' ">
-            and s.card_no like '%${cardNo}%'
+        <if test="searchs.cardNo!= null and searchs.cardNo != '' ">
+            and s.card_no like CONCAT('%',#{searchs.cardNo},'%')
         </if>
-        <if test="classId!= null and classId != 0 ">
-            and c.id = #{classId}
+        <if test="searchs.classId!= null and searchs.classId != 0 ">
+            and c.id = #{searchs.classId}
         </if>
-        <if test="bind!= null and bind != 0 ">
+        <if test="searchs.bind!= null and searchs.bind != 0 ">
             and s.bind = #{bind}
         </if>
-      ORDER BY #{desc}
-      limit #{startIndex}, #{pageSize}
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
+        LIMIT ${startIndex}, ${pageSize}
     </select>
 
     <select id="getStudentParentCount" resultType="long">
-      select id, student_title, Student_content, Student_range, Student_dates from Student where id = #{StudentId}
+      SELECT
+            count(ps.parent_id)
+        FROM
+            parent_student ps
+            LEFT JOIN parent p ON ps.parent_id = p.id
+            LEFT JOIN account ac ON p.account_id = ac.id
+            LEFT JOIN account_detail ad ON p.account_id = ad.account_id
+            LEFT JOIN students s ON ps.student_id = s.id
+        WHERE s.delete_flag = 0
+        <if test="searchs.studentId!= null and searchs.studentId != 0 ">
+            and ps.student_id = #{searchs.studentId}
+        </if>
     </select>
 
     <select id="getStudentParentList" resultMap="Parent">
@@ -99,7 +112,8 @@
             LEFT JOIN parent p ON ps.parent_id = p.id
             LEFT JOIN account ac ON p.account_id = ac.id
             LEFT JOIN account_detail ad ON p.account_id = ad.account_id
-        WHERE 1=1
+            LEFT JOIN students s ON ps.student_id = s.id
+        WHERE s.delete_flag = 0
         <if test="searchs.studentId!= null and searchs.studentId != 0 ">
             and ps.student_id = #{searchs.studentId}
         </if>
@@ -144,12 +158,19 @@
       where id = #{id}
     </update>
 
-    <delete id="deleteStudent">
-      delete from student where id in
+    <!--<delete id="deleteStudent">-->
+      <!--delete from student where id in-->
+        <!--<foreach collection="list" item="studentId" open="(" separator="," close=")">-->
+            <!--#{studentId}-->
+        <!--</foreach>-->
+    <!--</delete>-->
+
+    <update id="deleteStudent">
+        update students set delete_flag = 1 where id in
         <foreach collection="list" item="studentId" open="(" separator="," close=")">
             #{studentId}
         </foreach>
-    </delete>
+    </update>
 
 
 </mapper>

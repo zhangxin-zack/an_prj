@@ -85,4 +85,5 @@ public class PageBean {
     public Long getTotal() {
         return total;
     }
+
 }

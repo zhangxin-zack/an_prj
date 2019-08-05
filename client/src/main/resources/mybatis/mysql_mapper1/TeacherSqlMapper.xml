@@ -4,18 +4,80 @@
 
     <resultMap id="teacher" type="com.scorer.client.entity.Teacher">
         <result column="id" property="teacherId"/>
-        <result column="school_id" property="teacherId"/>
         <result column="teacher_name" property="teacherName"/>
+        <result column="school_id" property="schoolId"/>
+        <result column="school_name" property="schoolName"/>
+        <result column="is_head" property="isHead"/>
+        <result column="phone" property="phone"/>
+        <result column="manange_class_id" property="manageClassIds"/>
+        <result column="manange_class_name" property="manageClassName"/>
     </resultMap>
 
     <select id="getTeacherCount" resultType="Long">
-      select count(*) from teacher where 1=1
+        SELECT
+            count(t.id)
+        FROM
+            teacher t
+        LEFT JOIN account ac ON t.account_id = ac.id
+        LEFT JOIN account_detail ad ON ac.id = ad.account_id
+        LEFT JOIN (
+            SELECT
+                t1.teacher_id,
+                group_concat(t1.class_id) manange_class_id,
+                group_concat(t2.title) manange_class_name
+            FROM
+                teacher_class t1
+            LEFT JOIN class t2 ON t1.class_id = t2.id
+            GROUP BY  t1.teacher_id
+            ) tc ON t.id = tc.teacher_id
+        <if test="searchs.teacherName!= null and searchs.teacherName != '' ">
+            and t.teacher_name like CONCAT('%',#{searchs.teacherName},'%')
+        </if>
+        <if test="searchs.phone!= null and searchs.phone != '' ">
+            and ad.phone like CONCAT('%',#{searchs.phone},'%')
+        </if>
+        <if test="searchs.isHead!= null and searchs.isHead != '' ">
+            and t.is_head = #{searchs.isHead}
+        </if>
     </select>
 
-    <select id="getTeacherList" resultMap="teacher">
-      select id, school_id, teacher_name from teacher where 1=1
-      order by #{desc}
-      limit #{startIndex}, #{pageSize}
+    <select id="getTeacherList" resultMap="teacher" statementType="STATEMENT">
+        SELECT
+            t.id,
+            t.teacher_name,
+            t.is_head,
+            ad.account_id,
+            ac.username,
+            ad.phone,
+            tc.manange_class_id,
+            tc.manange_class_name
+        FROM
+            teacher t
+        LEFT JOIN account ac ON t.account_id = ac.id
+        LEFT JOIN account_detail ad ON ac.id = ad.account_id
+        LEFT JOIN (
+            SELECT
+                t1.teacher_id,
+                group_concat(t1.class_id) manange_class_id,
+                group_concat(t2.title) manange_class_name
+            FROM
+                teacher_class t1
+            LEFT JOIN class t2 ON t1.class_id = t2.id
+            GROUP BY  t1.teacher_id
+        ) tc ON t.id = tc.teacher_id
+        <if test="searchs.teacherName!= null and searchs.teacherName != '' ">
+            and t.teacher_name like CONCAT('%',#{searchs.teacherName},'%')
+        </if>
+        <if test="searchs.phone!= null and searchs.phone != '' ">
+            and ad.phone like CONCAT('%',#{searchs.phone},'%')
+        </if>
+        <if test="searchs.isHead!= null and searchs.isHead != '' ">
+            and t.is_head = #{searchs.isHead}
+        </if>
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
+        LIMIT ${startIndex}, ${pageSize}
     </select>
 
     <select id="getTeacherById" resultMap="teacher">
@@ -46,4 +108,9 @@
             #{teacherId}
         </foreach>
     </delete>
+
+    <!-- 查询所有班主任-->
+    <select id="selectAllHeadTeacher" resultMap="teacher">
+      select id, teacher_name from teacher where is_head = 1
+    </select>
 </mapper>

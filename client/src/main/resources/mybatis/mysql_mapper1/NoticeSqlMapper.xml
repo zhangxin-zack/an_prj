@@ -14,10 +14,12 @@
       select count(*) from notice where 1=1
     </select>
 
-    <select id="getNoticeList" resultMap="notice">
+    <select id="getNoticeList" resultMap="notice"  statementType="STATEMENT">
       select id, notice_title,  notice_date from notice where 1=1
-      order by #{desc}
-      limit #{startIndex}, #{pageSize}
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
+        LIMIT ${startIndex}, ${pageSize}
     </select>
 
     <select id="getNoticeById" resultMap="notice">

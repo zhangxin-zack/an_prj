@@ -5,6 +5,7 @@ import com.scorer.client.values.PageBean;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface TeacherDao {
@@ -21,4 +22,5 @@ public interface TeacherDao {
 
     void deleteTeacher(List teacherIds) throws Exception;
 
+    List<Teacher> selectAllHeadTeacher(Map<String, Object> params) throws Exception;
 }

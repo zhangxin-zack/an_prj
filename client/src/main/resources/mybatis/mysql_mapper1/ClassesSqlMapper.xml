@@ -20,7 +20,7 @@
         LEFT JOIN teacher t ON c.teacher_id = t.id where 1=1
     </select>
 
-    <select id="getClassesList" resultMap="Classes">
+    <select id="getClassesList" resultMap="Classes"  statementType="STATEMENT">
       SELECT
             c.id,
             c.title,
@@ -32,8 +32,10 @@
             class c
         LEFT JOIN school s ON c.school_id = s.id
         LEFT JOIN teacher t ON c.teacher_id = t.id
-          order by #{desc}
-          limit #{startIndex}, #{pageSize}
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
+        LIMIT ${startIndex}, ${pageSize}
     </select>
 
     <insert id="addClasses">
