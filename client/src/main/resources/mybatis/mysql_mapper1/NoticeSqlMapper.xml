@@ -54,4 +54,5 @@
             #{noticeId}
         </foreach>
     </delete>
+
 </mapper>

@@ -4,6 +4,7 @@ import com.scorer.client.entity.Manager;
 import com.scorer.client.entity.Menu;
 import com.scorer.client.entity.Role;
 import com.scorer.client.values.PageBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface ManagerDao {
 
     void addManager(Manager manager) throws Exception;
 
-    void addManagerRole(Long managerId, Long roleId) throws Exception;
+    void addManagerRole(Long managerId,Long roleId) throws Exception;
 
     void deleteManagerRole(Long id) throws Exception;
 

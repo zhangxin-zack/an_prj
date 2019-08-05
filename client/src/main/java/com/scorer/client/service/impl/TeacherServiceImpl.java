@@ -7,6 +7,7 @@ import com.scorer.client.service.TeacherService;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class TeacherServiceImpl extends BaseSeviceImpl implements TeacherService
     }
 
     @Override
+    @Transactional
     public Map<String, Object> addTeacher(Teacher teacher) {
         try{
             teacherDao.addTeacher(teacher);

@@ -1,15 +1,0 @@
-
-‡"squid:ClassVariableVisibilityCheck"TMake TeamLogo a static final constant or non-public and provide accessors if needed.(”§ıªüÿÿÿÿ
-…"squid:ClassVariableVisibilityCheck"WMake TeamBackImg a static final constant or non-public and provide accessors if needed.(¤“íß
-ksquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦è©•üÿÿÿÿ
-psquid:S00116"SRename this field "TeamLogo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”§ıªüÿÿÿÿ
-nsquid:S00116"VRename this field "TeamBackImg" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤“íß
-rsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ÚÒ»
-wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ŸÖëÑÿÿÿÿÿ
-rsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¢»éÎ
-wsquid:S00115	"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ê¾‰üÿÿÿÿ
-rsquid:S00115
-"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ø²Ëã
-rsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¾‚ãó
-rsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ÎéÀĞ
-4squid:S2119"Save and re-use this "Random".(¼İÅf

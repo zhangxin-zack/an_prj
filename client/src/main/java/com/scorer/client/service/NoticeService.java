@@ -12,9 +12,9 @@ public interface NoticeService {
 
     Map<String, Object> getNoticeList(PageBean page);
 
-    Map<String, Object> addNotice(Notice Notice);
+    Map<String, Object> addNotice(Notice notice);
 
-    Map<String, Object> updateNotice(Notice Notice);
+    Map<String, Object> updateNotice(Notice notice);
 
-    Map<String, Object> deleteNotice(List NoticeIds);
+    Map<String, Object> deleteNotice(List noticeIds);
 }

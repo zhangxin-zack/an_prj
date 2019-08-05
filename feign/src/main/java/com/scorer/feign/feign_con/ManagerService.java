@@ -14,35 +14,35 @@ import java.util.Map;
 @FeignClient(value = "scorer-client")
 public interface ManagerService {
 
-    @RequestMapping(value = "/Scorer/sys/manager_list", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/EDU/sys/manager_list", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getManagerList(@RequestBody PageBean page);
 
-    @RequestMapping(value = "/Scorer/sys/manager_add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/EDU/sys/manager_add", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map addManager(@RequestBody Manager manager);
 
-    @RequestMapping(value = "/Scorer/sys/manager_update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/EDU/sys/manager_update", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map updateManager(@RequestBody Manager manager);
 
-    @RequestMapping(value = "/Scorer/sys/manager_remove", consumes = MediaType.APPLICATION_JSON_VALUE)
-    Map deleteManager(@RequestParam(value = "managerIds[]") List<Integer> managerIds);
+    @RequestMapping(value = "/EDU/sys/manager_remove", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map deleteManager(@RequestParam(value = "managerIds") List<Integer> managerIds);
 
-    @RequestMapping(value = "/Scorer/sys/role_list")
+    @RequestMapping(value = "/EDU/sys/role_list", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getRoleList(@RequestBody PageBean page);
 
-    @RequestMapping(value = "/Scorer/sys/role_save")
+    @RequestMapping(value = "/EDU/sys/role_save", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map saveRole(@RequestParam(value = "roleId") Integer roleId,
                  @RequestParam(value = "menuIds") List<Integer> menuIds);
 
 
-    @RequestMapping(value = "/Scorer/sys/role_select")
+    @RequestMapping(value = "/EDU/sys/role_select")
     Map getAllRoleList();
 
-    @RequestMapping(value = "/Scorer/sys/menu_list")
+    @RequestMapping(value = "/EDU/sys/menu_list")
     Map getAllMenuList();
 
-    @RequestMapping(value = "/Scorer/sys/action_list")
+    @RequestMapping(value = "/EDU/sys/action_list")
     Map getActionMenuList();
 
-    @RequestMapping(value = "/Scorer/user/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/EDU/user/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map userLogin(@RequestBody Manager manager);
 }

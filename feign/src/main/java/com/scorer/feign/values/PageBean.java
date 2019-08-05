@@ -64,11 +64,11 @@ public class PageBean {
     }
 
     public int getPageSize() {
-        return Integer.parseInt((String)pager.get("ps"));
+        return Integer.parseInt(String.valueOf(pager.get("ps")));
     }
 
     public int getStartIndex() {
-        int currentPage = Integer.parseInt((String)pager.get("page"));
+        int currentPage = Integer.parseInt(String.valueOf(pager.get("page")));
         int pageSize = getPageSize();
         return (currentPage - 1) * pageSize;
     }

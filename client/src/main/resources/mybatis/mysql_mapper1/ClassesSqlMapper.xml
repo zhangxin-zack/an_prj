@@ -50,13 +50,13 @@
               title = #{classesName},
           </if>
           <if test="schoolId!= null and schoolId!= 0 ">
-              school_id = #{ClassesName},
+              school_id = #{schoolId},
           </if>
           <if test="teacherId!= null and teacherId!= '' ">
               teacher_id = #{teacherId},
           </if>
       </set>
-      where id = #{classesId}
+      where id = #{id}
     </update>
 
     <delete id="deleteClasses">

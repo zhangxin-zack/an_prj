@@ -1,15 +1,14 @@
-package com.scorer.client.controller;
+package com.scorer.feign.controller;
 
-import com.scorer.client.entity.School;
-import com.scorer.client.service.SchoolService;
-import com.scorer.client.values.PageBean;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.scorer.feign.entity.School;
+import com.scorer.feign.feign_con.SchoolService;
+import com.scorer.feign.values.PageBean;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,7 @@ import java.util.Map;
 @RequestMapping("/EDU/school")
 public class SchoolController {
 
-    @Autowired
+    @Resource
     private SchoolService schoolService;
 
     @RequestMapping(value = "/list")

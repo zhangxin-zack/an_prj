@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="tx_yun" uuid="78556c32-6e0b-4e10-b9fe-e8952c3321bd">
+    <data-source source="LOCAL" name="hand_edu@sh-cdb-r5mnxvrg.sql.tencentcdb.com" uuid="dce8c4ff-41f3-429f-9437-7babb04f5622">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>

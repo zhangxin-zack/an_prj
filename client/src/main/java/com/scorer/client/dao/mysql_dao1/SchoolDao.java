@@ -3,6 +3,7 @@ package com.scorer.client.dao.mysql_dao1;
 import com.scorer.client.entity.Classes;
 import com.scorer.client.entity.School;
 import com.scorer.client.values.PageBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,9 +21,9 @@ public interface SchoolDao {
 
     void deleteSchool(List schoolIds) throws Exception;
 
-    School getSchoolById(long schoolId) throws Exception;
+    School getSchoolById(@Param("schoolId") long schoolId) throws Exception;
 
-    Long getClassCountBySchoolId(long schoolId) throws Exception;
+    Long getClassCountBySchoolId(@Param("schoolId") long schoolId) throws Exception;
 
-    Long getClassStudentCountBySchoolId(long schoolId) throws Exception;
+    Long getClassStudentCountBySchoolId(@Param("schoolId") long schoolId) throws Exception;
 }

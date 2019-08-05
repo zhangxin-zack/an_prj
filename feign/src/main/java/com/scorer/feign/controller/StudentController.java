@@ -1,8 +1,8 @@
-package com.scorer.client.controller;
+package com.scorer.feign.controller;
 
-import com.scorer.client.entity.Student;
-import com.scorer.client.service.StudentService;
-import com.scorer.client.values.PageBean;
+import com.scorer.feign.entity.Student;
+import com.scorer.feign.feign_con.StudentService;
+import com.scorer.feign.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -6,6 +6,7 @@ import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -13,14 +14,14 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/Scorer/notice")
+@RequestMapping("/EDU/notice")
 public class NoticeController {
 
     @Autowired
     private NoticeService noticeService;
 
     @RequestMapping(value = "/get")
-    public Map getNoticeById(@RequestBody Integer id) {
+    public Map getNoticeById(@RequestParam("id") Integer id) {
         return noticeService.getNoticeById(id);
     }
 
@@ -30,18 +31,18 @@ public class NoticeController {
     }
 
     @RequestMapping(value = "/add")
-    public Map addNotice(@RequestBody Notice Notice) {
-        return noticeService.addNotice(Notice);
+    public Map addNotice(@RequestBody Notice notice) {
+        return noticeService.addNotice(notice);
     }
 
     @RequestMapping(value = "/update")
-    public Map updateNotice(@RequestBody Notice Notice) {
-        return noticeService.updateNotice(Notice);
+    public Map updateNotice(@RequestBody Notice notice) {
+        return noticeService.updateNotice(notice);
     }
 
     @RequestMapping(value = "/remove")
-    public Map deleteNotice(@RequestBody List<Integer> NoticeIds) {
-        return noticeService.deleteNotice(NoticeIds);
+    public Map deleteNotice(@RequestParam("noticeIds") List<Integer> noticeIds) {
+        return noticeService.deleteNotice(noticeIds);
     }
 
 }

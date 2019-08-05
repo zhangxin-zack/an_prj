@@ -19,17 +19,17 @@
 
     <select id="getSchoolCount" resultType="long">
         SELECT count(*)
-        FROM school
+        FROM school s
         WHERE 1 = 1
         <if test="searchs.title!= null and searchs.title != '' ">
-            and s.title like CONCAT('%',${searchs.title},'%')
+            and s.title like CONCAT('%',#{searchs.title},'%')
         </if>
         <if test="searchs.area!= null and searchs.area != '' ">
-            and s.area like CONCAT('%',${searchs.area},'%')
+            and s.area like CONCAT('%',#{searchs.area},'%')
         </if>
     </select>
 
-    <select id="getSchoolList" resultMap="school" statementType="STATEMENT">
+    <select id="getSchoolList" resultMap="school">
         SELECT
             id,
             title,
@@ -46,15 +46,15 @@
         FROM school s
         WHERE 1 = 1
         <if test="searchs.title!= null and searchs.title != '' ">
-            and s.title like CONCAT('%',${searchs.title},'%')
+            and s.title like CONCAT('%',#{searchs.title},'%')
         </if>
         <if test="searchs.area!= null and searchs.area != '' ">
-            and s.area like CONCAT('%',${searchs.area},'%')
+            and s.area like CONCAT('%',#{searchs.area},'%')
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
              ${item.field} ${item['type']}
         </foreach>
-        LIMIT ${startIndex}, ${pageSize}
+        LIMIT #{startIndex}, #{pageSize}
     </select>
 
     <insert id="addSchool">
@@ -62,14 +62,14 @@
             title, simple_title, registe_date, linkman,
             phone, area, address, lon, lat, email, description)
         values (
-            #{title}, #{simpleTtitle},#{registeDate},#{linkman},
-            #{phone},#{area}, #{address},#{lon},#{email},#{description}
+            #{title}, #{simpleTitle},NOW(),#{linkman},
+            #{phone},#{area}, #{address},#{lon},#{lat},#{email},#{description}
             )
     </insert>
 
     <delete id="deleteSchool">
-        DELETE FROM school
-        <foreach collection="list" item="schoolId" open="(" separator="," close=")">-->
+        DELETE FROM school WHERE id IN
+        <foreach collection="list" item="schoolId" open="(" separator="," close=")">
            #{schoolId}
         </foreach>
     </delete>
@@ -77,7 +77,7 @@
     <update id="updateSchool">
         update manager
         <set>
-            <if test="title != null and title != 0 ">
+            <if test="title != null and title != '0' ">
                 title = #{title},
             </if>
             <if test="simpleTitle != null and simpleTitle != '' ">

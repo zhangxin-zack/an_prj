@@ -6,13 +6,14 @@ import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/Scorer/teacher")
+@RequestMapping("/EDU/teacher")
 public class TeacherController {
 
     @Autowired
@@ -44,7 +45,7 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/get_head")
-    public Map getHeadTeacherList(@RequestBody Map<String, Object> params) {
+    public Map getHeadTeacherList(@RequestParam("teacherIds") Map<String, Object> params) {
         return teacherService.getHeadTeacherList(params);
     }
 }

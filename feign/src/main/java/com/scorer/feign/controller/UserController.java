@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/Scorer/user")
+@RequestMapping("/EDU/user")
 public class UserController {
 
     @Resource

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/Scorer/sys")
+@RequestMapping("/EDU/sys")
 public class ManagerController {
 
     @Autowired
@@ -42,7 +42,7 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/manager_remove")
-    public Map deleteManager(@RequestParam(value = "managerIds[]") List<Long> managerIds) {
+    public Map deleteManager(@RequestParam(value = "managerIds") List<Long> managerIds) {
         return managerService.deleteManager(managerIds);
     }
 
@@ -52,10 +52,11 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/role_save")
-    public Map saveRole(Long roleId,  List<Long> menuIds) {
+    public Map saveRole(@RequestParam(value = "roleId") Long roleId,
+                        @RequestParam(value = "menuIds") List<Long> menuIds) {
         return managerService.saveRole(roleId, menuIds);
     }
-
+    //这个接口有问题
     @RequestMapping(value = "/role_select")
     public Map selectRole() {
         return managerService.getAllRoleList();

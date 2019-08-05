@@ -46,7 +46,7 @@
         WHERE 1 = 1
     </select>
 
-    <select id="getManagerList" resultMap="manager" statementType="STATEMENT">
+    <select id="getManagerList" resultMap="manager">
         SELECT
             id,
             school_id,
@@ -55,10 +55,13 @@
             phone
         FROM manager
         WHERE 1 = 1
+        <if test="searchs.username!=null and searchs.username!=''">
+            AND username LIKE CONCAT('%',#{searchs.username},'%')
+        </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
              ${item.field} ${item['type']}
         </foreach>
-        LIMIT ${startIndex}, ${pageSize}
+        LIMIT #{startIndex}, #{pageSize}
     </select>
 
     <insert id="addManager">
@@ -123,7 +126,12 @@
             phone
         FROM manager
         WHERE 1 = 1
-        ORDER BY #{desc}
+        <if test="searchs.username!=null and searchs.username!=''">
+            AND username LIKE CONCAT('%',#{searchs.username},'%')
+        </if>
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
         LIMIT #{startIndex}, #{pageSize}
     </select>
 
@@ -148,7 +156,7 @@
         WHERE role_id = #{id}
     </delete>
 
-    <select id="getAllMenuList" resultMap="manager">
+    <select id="getAllMenuList" resultMap="menu">
         SELECT
             m.id,
             m.pid,
@@ -158,7 +166,7 @@
         FROM sys_menu m
     </select>
 
-    <select id="getActionMenuList" resultMap="manager">
+    <select id="getActionMenuList" resultMap="menu">
         SELECT
             m.id,
             m.pid,

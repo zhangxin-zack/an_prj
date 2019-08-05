@@ -41,9 +41,9 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
     }
 
     @Override
-    public Map<String, Object> addNotice(Notice Notice) {
+    public Map<String, Object> addNotice(Notice notice) {
         try{
-            NoticeDao.addNotice(Notice);
+            NoticeDao.addNotice(notice);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         }catch (Exception e){
             e.printStackTrace();
@@ -52,9 +52,9 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
     }
 
     @Override
-    public Map<String, Object> updateNotice(Notice Notice) {
+    public Map<String, Object> updateNotice(Notice notice) {
         try{
-            NoticeDao.updateNotice(Notice);
+            NoticeDao.updateNotice(notice);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         }catch (Exception e){
             e.printStackTrace();
@@ -63,9 +63,9 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
     }
 
     @Override
-    public Map<String, Object> deleteNotice(List NoticeIds) {
+    public Map<String, Object> deleteNotice(List noticeIds) {
         try{
-            NoticeDao.deleteNotice(NoticeIds);
+            NoticeDao.deleteNotice(noticeIds);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         }catch (Exception e){
             e.printStackTrace();

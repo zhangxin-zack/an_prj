@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/Scorer/sys")
+@RequestMapping(value = "/EDU/sys")
 public class ManagerController {
 
     @Resource
@@ -40,7 +40,7 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/manager_remove")
-    public Map deleteManager(@RequestParam(value = "managerIds[]") List<Integer> managerIds) {
+    public Map deleteManager(@RequestParam(value = "managerIds") List<Integer> managerIds) {
         return managerService.deleteManager(managerIds);
     }
 

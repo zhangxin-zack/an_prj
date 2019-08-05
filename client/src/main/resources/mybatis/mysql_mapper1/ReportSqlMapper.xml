@@ -33,17 +33,17 @@
         LEFT JOIN students s ON ar.student_id = s.id
         LEFT JOIN class c ON s.class_id = c.id
         WHERE 1=1
-        <if test="alarmBeginTime!= null and alarmBeginTime!= '' and alarmEndTime!= null and alarmEndTime!= ''">
-            and ar.alarm_time BETWEEN #{alarmBeginTime} and #{alarmEndTime}
+        <if test="searchs.alarmBeginTime!= null and searchs.alarmBeginTime!= '' and searchs.alarmEndTime!= null and searchs.alarmEndTime!= ''">
+            and ar.alarm_time BETWEEN #{searchs.alarmBeginTime} and #{searchs.alarmEndTime}
         </if>
-        <if test="classId!= null and classId!= 0 ">
-            and c.id = #{classId}
+        <if test="searchs.classId!= null and searchs.classId!= 0 ">
+            and c.id = #{searchs.classId}
         </if>
-        <if test="alarmType!= null and alarmType!= 0 ">
-            and ar.alarm_type = #{alarmType}
+        <if test="searchs.alarmType!= null and searchs.alarmType!= 0 ">
+            and ar.alarm_type = #{searchs.alarmType}
         </if>
-        <if test="studentId!= null and studentId!= 0 ">
-            and ar.student_id = #{studentId}
+        <if test="searchs.studentId!= null and searchs.studentId!= 0 ">
+            and ar.student_id = #{searchs.studentId}
         </if>
     </select>
 
@@ -64,17 +64,17 @@
             LEFT JOIN students s ON ar.student_id = s.id
             LEFT JOIN class c ON s.class_id = c.id
       WHERE 1=1
-        <if test="alarmBeginTime!= null and alarmBeginTime!= '' and alarmEndTime!= null and alarmEndTime!= ''">
-            and ar.alarm_time BETWEEN #{alarmBeginTime} and #{alarmEndTime}
+        <if test="searchs.alarmBeginTime!= null and searchs.alarmBeginTime!= '' and searchs.alarmEndTime!= null and searchs.alarmEndTime!= ''">
+            and ar.alarm_time BETWEEN #{searchs.alarmBeginTime} and #{searchs.alarmEndTime}
         </if>
-        <if test="classId!= null and classId!= 0 ">
-            and c.id = #{classId}
+        <if test="searchs.classId!= null and searchs.classId!= 0 ">
+            and c.id = #{searchs.classId}
         </if>
-        <if test="alarmType!= null and alarmType!= 0 ">
-            and ar.alarm_type = #{alarmType}
+        <if test="searchs.alarmType!= null and searchs.alarmType!= 0 ">
+            and ar.alarm_type = #{searchs.alarmType}
         </if>
-        <if test="studentId!= null and studentId!= 0 ">
-            and ar.student_id = #{studentId}
+        <if test="searchs.studentId!= null and searchs.studentId!= 0 ">
+            and ar.student_id = #{searchs.studentId}
         </if>
     </select>
 

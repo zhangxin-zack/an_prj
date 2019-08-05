@@ -26,7 +26,7 @@ public class RouteList {
     @Bean
     public RouteLocator scorerRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route(r -> r.path("/Scorer/**")
+                .route(r -> r.path("/EDU/**")
                         .filters(f -> f.filter(saveGetInGatewayFilter)
                                 .filter(authSignatureGatewayFilter)
                                 .filter(showRouteURIGatewayFilter)

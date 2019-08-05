@@ -5,6 +5,7 @@ import com.scorer.feign.feign_con.TeacherService;
 import com.scorer.feign.values.PageBean;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/Scorer/teacher")
+@RequestMapping(value = "/EDU/teacher")
 public class TeacherController {
 
     @Resource
@@ -39,7 +40,7 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/remove")
-    public Map deleteTeacher(@RequestBody List<Long> teacherIds) {
+    public Map deleteTeacher(@RequestParam("teacherIds") List<Long> teacherIds) {
         return teacherService.deleteTeacher(teacherIds);
     }
 

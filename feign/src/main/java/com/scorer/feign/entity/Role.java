@@ -2,14 +2,14 @@ package com.scorer.feign.entity;
 
 public class Role {
 
-    private Integer roleId;
+    private Long roleId;
     private String roleTitle;
 
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

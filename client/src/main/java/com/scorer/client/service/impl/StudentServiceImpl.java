@@ -37,8 +37,8 @@ public class StudentServiceImpl extends BaseSeviceImpl implements StudentService
     @Override
     public Map<String, Object> getStudentParentDetail(PageBean page) {
         try{
-            page.setTotal(studentDao.getStudentCount(page));
-            page.setRows(studentDao.getStudentList(page));
+            page.setTotal(studentDao.getStudentParentCount(page));
+            page.setRows(studentDao.getStudentParentList(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
         }catch (Exception e){
             e.printStackTrace();
@@ -81,9 +81,9 @@ public class StudentServiceImpl extends BaseSeviceImpl implements StudentService
     }
 
     @Override
-    public Map<String, Object> deleteStudent(List StudentIds) {
+    public Map<String, Object> deleteStudent(List studentIds) {
         try{
-            studentDao.deleteStudent(StudentIds);
+            studentDao.deleteStudent(studentIds);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         }catch (Exception e){
             e.printStackTrace();

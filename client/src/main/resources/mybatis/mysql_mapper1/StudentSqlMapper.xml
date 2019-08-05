@@ -44,11 +44,11 @@
             and c.id = #{searchs.classId}
         </if>
         <if test="searchs.bind!= null and searchs.bind != 0 ">
-            and s.bind = #{bind}
+            and s.bind = #{searchs.bind}
         </if>
     </select>
 
-    <select id="getStudentList" resultMap="Student"  statementType="STATEMENT">
+    <select id="getStudentList" resultMap="Student">
       SELECT
             s.id,
             s.card_no,
@@ -78,12 +78,12 @@
             and c.id = #{searchs.classId}
         </if>
         <if test="searchs.bind!= null and searchs.bind != 0 ">
-            and s.bind = #{bind}
+            and s.bind = #{searchs.bind}
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
         </foreach>
-        LIMIT ${startIndex}, ${pageSize}
+        LIMIT #{startIndex}, #{pageSize}
     </select>
 
     <select id="getStudentParentCount" resultType="long">
@@ -120,8 +120,8 @@
     </select>
 
     <insert id="addStudent">
-      insert into Student(id, name, nickname, sex, card_no, register_no, school_id, class_id, birthday, bind)
-      values (#{id}, #{studentName}, #{nickname}, #{sex}, #{cardNo}, #{registerNo}, #{schoolId}, #{classId}, #{birthday}, #{bind})
+      insert into students(name, nickname, sex, card_no, register_no, school_id, class_id, birthday, bind)
+      values (#{studentName}, #{nickname}, #{sex}, #{cardNo}, #{registerNo}, #{schoolId}, #{classId}, #{birthday}, #{bind})
     </insert>
 
     <update id="updateStudent">

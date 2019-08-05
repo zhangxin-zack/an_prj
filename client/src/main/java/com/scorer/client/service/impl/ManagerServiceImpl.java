@@ -9,6 +9,7 @@ import com.scorer.client.service.ManagerService;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,9 +99,9 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     @Override
     public Map<String, Object> saveRole(Long roleId, List<Long> menuIds) {
         try{
-            managerDao.deleteManagerRole(roleId);
+            managerDao.deleteRoleMenu(roleId);
             for(Long menuId: menuIds){
-                managerDao.addManagerRole(roleId, menuId);
+                managerDao.addRoleMenu(roleId, menuId);
             }
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         }catch (Exception e){
