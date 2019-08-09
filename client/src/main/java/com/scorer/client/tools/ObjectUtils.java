@@ -1,6 +1,6 @@
 package com.scorer.client.tools;
 
-public class TestObject {
+public class ObjectUtils {
 
     public static boolean isEmpty(Object test){
         return test == null || "".equals(test) || "".equals(test + "") || "null".equalsIgnoreCase(test + "") || "null".equals(test) || test == "";

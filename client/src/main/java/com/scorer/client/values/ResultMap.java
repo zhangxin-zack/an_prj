@@ -23,16 +23,8 @@ public class ResultMap {
         Result.put(1007,"该手机号未注册");                     //该裁判不是注册裁判
         Result.put(1008,"两个队伍名字一样或id一样");
         Result.put(1009,"该手机号已注册,但是还未绑定微信,是否绑定微信");
-        Result.put(1010,"参赛人员不够");
-        Result.put(1011,"球衣号不可重复");
-        Result.put(1012,"比赛中不可有相同球员");//uid
-        Result.put(1013,"该手机号未绑定微信");
-        Result.put(1014,"该手机号未注册记分宝");
-        Result.put(1015,"老用户尝试走注册接口");
-        Result.put(1016,"联赛中已经有该球队");
-        Result.put(1017,"您已经在联赛中(创建球队或)加入球队");
-        Result.put(1018,"该比赛正在进行中");
-        Result.put(1020,"该比赛已被删除");
+        Result.put(1010,"验证码已超时,请重新发送");
+        Result.put(1011,"原始密码错误!请重新输入");
         Result.put(2001,"用户名或密码错误");
         Result.put(2002,"微信登录码过期");
         Result.put(2003,"手机验证码过期");

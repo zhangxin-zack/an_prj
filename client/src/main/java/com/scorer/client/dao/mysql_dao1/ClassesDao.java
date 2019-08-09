@@ -13,7 +13,7 @@ public interface ClassesDao {
 
     List<Classes> getClassesList(PageBean page) throws Exception;
 
-    Classes getClassesById(Integer classesId) throws Exception;
+    //Classes getClassesById(Integer classesId) throws Exception;
 
     void addClasses(Classes classes) throws Exception;
 

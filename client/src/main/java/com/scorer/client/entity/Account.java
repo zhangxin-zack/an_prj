@@ -7,16 +7,19 @@ public class Account {
   private long id;
   private String username;
   private String password;
-  private String trueName;
+  private String nickname;
   private String email;
   private String phone;
   private Timestamp registerDate;
   private String address;
+  private String imgUrl;
   private long totalScore;
   private long score;
   private long scoreId;
   private long catetgoryId;
   private String categoryName;
+  private String validateCode;
+  private Integer sex;
 
   public long getId() {
     return id;
@@ -34,20 +37,20 @@ public class Account {
     this.username = username;
   }
 
-  public String getTrueName() {
-    return trueName;
-  }
-
-  public void setTrueName(String trueName) {
-    this.trueName = trueName;
-  }
-
   public String getPassword() {
     return password;
   }
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getNickname() {
+    return nickname;
+  }
+
+  public void setNickname(String nickname) {
+    this.nickname = nickname;
   }
 
   public String getEmail() {
@@ -80,6 +83,14 @@ public class Account {
 
   public void setAddress(String address) {
     this.address = address;
+  }
+
+  public String getImgUrl() {
+    return imgUrl;
+  }
+
+  public void setImgUrl(String imgUrl) {
+    this.imgUrl = imgUrl;
   }
 
   public long getTotalScore() {
@@ -120,5 +131,21 @@ public class Account {
 
   public void setCategoryName(String categoryName) {
     this.categoryName = categoryName;
+  }
+
+  public String getValidateCode() {
+    return validateCode;
+  }
+
+  public void setValidateCode(String validateCode) {
+    this.validateCode = validateCode;
+  }
+
+  public Integer getSex() {
+    return sex;
+  }
+
+  public void setSex(Integer sex) {
+    this.sex = sex;
   }
 }

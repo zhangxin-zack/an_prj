@@ -36,8 +36,8 @@ public class SaveRequest {
         Save_Request save_request = new Save_Request();
         try {
             Integer uid = Integer.valueOf(Objects.requireNonNull(
-                    !TestObject.isEmpty(request.getHeader("uid")) ? request.getHeader("uid") :
-                            !TestObject.isEmpty(OpCookie.getCookieByName(request, "cookie_uid_h5")) ? OpCookie.getCookieByName(request, "cookie_uid_h5") : request.getParameter("uid")));
+                    !ObjectUtils.isEmpty(request.getHeader("uid")) ? request.getHeader("uid") :
+                            !ObjectUtils.isEmpty(OpCookie.getCookieByName(request, "cookie_uid_h5")) ? OpCookie.getCookieByName(request, "cookie_uid_h5") : request.getParameter("uid")));
             save_request.setUid(uid);
         } catch (NumberFormatException | NullPointerException ignored) {
         }
@@ -50,7 +50,7 @@ public class SaveRequest {
             Map<String, String[]> parameterMap = request.getParameterMap();
             save_request.setParameterMap(EmojiFilter.FilterEmoji(new Gson().toJson(parameterMap)));
             String requestBody = (String) request.getAttribute("SaveRequest_RequestBody");
-            if (!TestObject.isEmpty(requestBody)) {
+            if (!ObjectUtils.isEmpty(requestBody)) {
                 save_request.setRequestBody(EmojiFilter.FilterEmoji(requestBody));
             }
             request_service.saveRequest(save_request);

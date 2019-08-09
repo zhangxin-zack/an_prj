@@ -20,7 +20,7 @@ public class Jwt {
     /**
      * 秘钥
      */
-    private static final byte[] SECRET = "3d990d22769174dfg43fgh2314c23df11fff26eed324542czd".getBytes();
+    private static final byte[] SECRET = "3d990d22769174dfg43fgh1314c23df11fff26eed324542czd".getBytes();
 
     /**
      * 初始化head部分的数据为

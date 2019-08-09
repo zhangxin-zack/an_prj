@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface NoticeDao {
 
-    long getNoticeCount(PageBean page) throws Exception;
+    Long getNoticeCount(PageBean page) throws Exception;
 
     List<Notice> getNoticeList(PageBean page) throws Exception;
 

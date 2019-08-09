@@ -112,7 +112,7 @@ public class FileUploadUtil {
         return urlPath;
     }
     public static String fileUploadDirect(MultipartFile file){
-        if(!TestObject.isEmpty(file)) {
+        if(!ObjectUtils.isEmpty(file)) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss_");
             String uuid = UUID.randomUUID().toString().replace("-","").toUpperCase();                                                               //生成唯一标识符
             String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));   //获取文件后缀

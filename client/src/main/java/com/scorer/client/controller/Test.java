@@ -3,7 +3,7 @@ package com.scorer.client.controller;
 import com.google.gson.Gson;
 import com.scorer.client.tools.DownloadFromURL;
 import com.scorer.client.tools.SaveFile;
-import com.scorer.client.tools.TestObject;
+import com.scorer.client.tools.ObjectUtils;
 import com.scorer.client.values.ResultMap;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,7 +60,7 @@ public class Test {
     public Map TestUpload(@RequestParam(value = "photo_file", required = false) MultipartFile photo_file) {
         Map<String, Object> responseMap = new HashMap<>();
         System.out.println("in Upload");
-        if (!TestObject.isEmpty(photo_file)) {
+        if (!ObjectUtils.isEmpty(photo_file)) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd\\HHmmss");
             Calendar calendar = Calendar.getInstance();
             String name = sdf.format(calendar.getTime());

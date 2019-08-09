@@ -1,7 +1,7 @@
 package com.scorer.client.filter;
 
 import com.scorer.client.tools.RedisInFilter;
-import com.scorer.client.tools.TestObject;
+import com.scorer.client.tools.ObjectUtils;
 import com.scorer.tools.EncryptTool;
 
 import javax.servlet.*;
@@ -31,7 +31,7 @@ public class AuthClientFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) argo;
         String str = request.getHeader("Feign_str_next");
         String enStr = request.getHeader("Feign_enStr_next");
-        if (TestObject.noneEmpty(str, enStr) && RedisInFilter.CheckUpStr(str)) {
+        if (ObjectUtils.noneEmpty(str, enStr) && RedisInFilter.CheckUpStr(str)) {
             String deStr = EncryptTool.decodeScorerSC(enStr);
             if (Objects.equals(str, deStr)) {
                 System.out.println("AuthClientFilter Check Success!");
