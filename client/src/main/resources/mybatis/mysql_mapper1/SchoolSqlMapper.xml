@@ -18,7 +18,7 @@
     </resultMap>
 
     <select id="getSchoolCount" resultType="long">
-        SELECT count(*)
+        SELECT count(s.id)
         FROM school s
         WHERE 1 = 1
         <if test="searchs.title!= null and searchs.title != '' ">
@@ -136,7 +136,7 @@
     </select>
 
     <select id="getClassCountBySchoolId" resultType="long">
-        SELECT count(*)
+        SELECT count(id)
           FROM class
          WHERE 1 = 1
         <if test=" schoolId != null and schoolId != 0 ">

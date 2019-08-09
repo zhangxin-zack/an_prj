@@ -9,11 +9,20 @@ public class PageBean {
     private String token;
     private String desc;
     private Map<String, Object> searchs;
-    private Map<String, Object> pager;
     private List<HashMap<String, String>> sort;
     private Long total;
     private List<?> rows;
 
+    private Integer limit;
+    private Integer paging;
+
+    public int getPageSize() {
+        return limit;
+    }
+
+    public int getStartIndex() {
+        return (paging - 1) * limit;
+    }
 
     public List<HashMap<String, String>> getSort() {
         return sort;
@@ -55,22 +64,20 @@ public class PageBean {
         this.searchs = searchs;
     }
 
-    public Map<String, Object> getPager() {
-        return pager;
+    public Integer getLimit() {
+        return limit;
     }
 
-    public void setPager(Map<String, Object> pager) {
-        this.pager = pager;
+    public void setLimit(Integer limit) {
+        this.limit = limit;
     }
 
-    public int getPageSize() {
-        return Integer.parseInt(String.valueOf(pager.get("ps")));
+    public Integer getPaging() {
+        return paging;
     }
 
-    public int getStartIndex() {
-        int currentPage = Integer.parseInt(String.valueOf(pager.get("page")));
-        int pageSize = getPageSize();
-        return (currentPage - 1) * pageSize;
+    public void setPaging(Integer paging) {
+        this.paging = paging;
     }
 
     public static int getMaxPage(Integer count, int size) {
@@ -84,4 +91,5 @@ public class PageBean {
     public Long getTotal() {
         return total;
     }
+
 }

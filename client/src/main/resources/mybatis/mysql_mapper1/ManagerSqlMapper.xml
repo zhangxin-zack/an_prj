@@ -41,7 +41,7 @@
     </select>
 
     <select id="getManagerCount" resultType="long">
-        SELECT count(*)
+        SELECT count(id)
         FROM manager
         WHERE 1 = 1
     </select>
@@ -112,7 +112,7 @@
     </delete>
 
     <select id="getRoleCount" resultType="long">
-        SELECT count(*)
+        SELECT count(id)
         FROM role
         WHERE 1 = 1
     </select>
