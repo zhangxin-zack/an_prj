@@ -75,7 +75,8 @@
             and s.card_no like CONCAT('%',#{searchs.cardNo},'%')
         </if>
         <if test="searchs.classId!= null and searchs.classId != 0 ">
-            and c.id = #{searchs.classId}
+            and c.id = #{
+            classId}
         </if>
         <if test="searchs.bind!= null and searchs.bind != 0 ">
             and s.bind = #{searchs.bind}

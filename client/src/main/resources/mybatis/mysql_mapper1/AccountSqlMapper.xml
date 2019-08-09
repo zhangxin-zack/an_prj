@@ -1,58 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.scorer.client.dao.mysql_dao1.NoticeDao">
-    <!--
-    <resultMap id="notice" type="com.scorer.client.entity.Notice">
+<mapper namespace="com.scorer.client.dao.mysql_dao1.AccountDao">
+
+    <resultMap id="account" type="com.scorer.client.entity.Account">
         <result column="id" property="id"/>
-        <result column="notice_title" property="noticTitle"/>
-        <result column="notice_content" property="noticeContent"/>
-        <result column="notice_range" property="noticeRange"/>
-        <result column="notice_date" property="noticeDate"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="nick_name" property="nickname"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="register_date" property="registerDate"/>
+        <result column="address" property="address"/>
+        <result column="total_score" property="totalScore"/>
+        <result column="score_id" property="scoreId"/>
+        <result column="score" property="score"/>
+        <result column="catetgory_id" property="catetgoryId"/>
+        <result column="category_name" property="categoryName"/>
+        <result column="img_url" property="imgUrl"/>
+        <result column="sex" property="sex"/>
     </resultMap>
 
-    <select id="getNoticeCount" resultType="long">
-      select count(*) from notice where 1=1
+    <resultMap id="appMenu" type="com.scorer.client.entity.AppMenu">
+        <result column="id" property="menuId"/>
+        <result column="pid" property="menuPid"/>
+        <result column="title" property="menuTitle"/>
+        <result column="path" property="path"/>
+        <result column="icon" property="icon"/>
+    </resultMap>
+
+    <select id="accountLogin" resultMap="account">
+      select id, username, PASSWORD, nick_name, address, phone, sex, img_url, email, register_date
+        from account
+       where 1=1
+       <if test="phone != null and phone != ''">
+          and phone = #{phone}
+       </if>
+       <if test="password != null and password != ''">
+          and password = #{password}
+       </if>
     </select>
 
-    <select id="getNoticeList" resultMap="notice"  statementType="STATEMENT">
-      select id, notice_title,  notice_date from notice where 1=1
-        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
-            ${item.field} ${item['type']}
-        </foreach>
-        LIMIT ${startIndex}, ${pageSize}
-    </select>
-
-    <select id="getNoticeById" resultMap="notice">
-      select id, notice_title, notice_content, notice_range, notice_date from notice where id = #{NoticeId}
-    </select>
-
-    <insert id="addNotice">
-      insert into notice(notice_title, notice_content, notice_range, notice_date)
-      values (#{noticTitle}, #{noticeContent}, #{noticeRange}, sysdate())
+    <insert id="addAccount">
+        <selectKey resultType="Long" keyColumn="id" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+          INSERT INTO account
+             (username, PASSWORD, nick_name, address, phone, sex, img_url, email, register_date)
+          VALUES
+             (#{username}, #{password}, #{nickname}, #{address}, #{phone}, #{sex}, #{imgUrl}, #{email}, sysdate())
     </insert>
 
-    <update id="updateNotice">
-      update notice
-      <set>
-          <if test="noticTitle!= null and noticTitle != 0 ">
-              notice_title = #{noticTitle},
-          </if>
-          <if test="NoticeName!= null and NoticeName!= '' ">
-              notice_content = #{noticeContent},
-          </if>
-          <if test="noticeRange!= null and noticeRange!= '' ">
-              notice_range = #{noticeRange},
-          </if>
-          notice_dates = sysdate()
-      </set>
-      where id = #{id}
+    <update id="updateAccount">
+        update account
+        <set>
+            <if test="username!= null and username != '' ">
+                username = #{username},
+            </if>
+            <if test="password!= null and password!= '' ">
+                PASSWORD = #{password},
+            </if>
+            <if test="nickname!= null and nickname!= '' ">
+                nick_name = #{nickname},
+            </if>
+            <if test="address!= null and address!= '' ">
+                address = #{address},
+            </if>
+            <if test="phone!= null and phone!= '' ">
+                phone = #{phone},
+            </if>
+            <if test="sex!= null and sex!= '' ">
+                sex = #{sex},
+            </if>
+            <if test="imgUrl!= null and imgUrl!= '' ">
+                img_url = #{imgUrl},
+            </if>
+            <if test="email!= null and email!= '' ">
+                email = #{email},
+            </if>
+        </set>
+        where id = #{id}
+        <if test="password!= null and password!= '' ">
+            and PASSWORD = #{password},
+        </if>
     </update>
 
-    <delete id="deleteNotice">
-      delete from notice where id in
-        <foreach collection="list" item="noticeId" open="(" separator="," close=")">
-            #{noticeId}
-        </foreach>
-    </delete>
-    -->
+    <insert id="addAccountTitle">
+        insert into account_title(account_id, title_id) values(#{0}, #{1})
+    </insert>
+
+    <select id="getAccountAllTitle" resultType="arraylist">
+        SELECT
+            title_id
+        FROM
+            account_title
+        WHERE
+            account_id = #{0}
+    </select>
+
+
+    <select id="getAllAppMenuList" resultMap="appMenu">
+        SELECT
+            m.id,
+            m.pid,
+            m.path,
+            m.title,
+            m.icon
+        FROM app_menu m
+    </select>
+
+    <select id="getAppMenuList" resultMap="appMenu">
+        SELECT DISTINCT
+            m.id,
+            m.pid,
+            m.path,
+            m.title,
+            m.icon
+        FROM
+            app_menu m
+        JOIN title_menu tm ON m.id = tm.menu_id
+        JOIN title t ON tm.title_id = t.id
+        JOIN account_title act ON act.title_id = t.id
+        WHERE
+            act.account_id = #{0}
+    </select>
+
 </mapper>
