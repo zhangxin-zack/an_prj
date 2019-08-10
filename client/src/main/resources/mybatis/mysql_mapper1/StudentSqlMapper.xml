@@ -9,26 +9,31 @@
         <result column="sex" property="sex"/>
         <result column="card_no" property="cardNo"/>
         <result column="register_no" property="registerNo"/>
+        <result column="height" property="height"/>
+        <result column="weight" property="weight"/>
+        <result column="ring_no" property="ringNo"/>
         <result column="school_id" property="schoolId"/>
         <result column="school_name" property="schoolName"/>
         <result column="class_id" property="classId"/>
         <result column="class_name" property="className"/>
         <result column="birthday" property="birthday"/>
         <result column="bind" property="bind"/>
+        <result column="status" property="status"/>
     </resultMap>
 
-    <resultMap id="Parent" type="com.scorer.client.entity.Parent">
-        <result column="id" property="id"/>
-        <result column="parent_name" property="parentName"/>
-        <result column="account_id" property="accountId"/>
+    <resultMap id="family" type="com.scorer.client.entity.Family">
+        <result column="id" property="accountId"/>
+        <result column="username" property="accountName"/>
+        <result column="nick_name" property="familyNickname"/>
+        <result column="relation_name" property="relationName"/>
         <result column="phone" property="phone"/>
         <result column="is_admin" property="isAdmin"/>
+        <result column="img" property="img"/>
     </resultMap>
 
     <select id="getStudentCount" resultType="long">
-      select count(s.id) from  students s
-        LEFT JOIN
-        class c
+      SELECT count(s.id) FROM students s
+        LEFT JOIN class c
         ON s.class_id = c.id
         where delete_flag = 0
         <if test="searchs.studentName!= null and searchs.studentName != '' ">
@@ -46,6 +51,9 @@
         <if test="searchs.bind!= null and searchs.bind != 0 ">
             and s.bind = #{searchs.bind}
         </if>
+        <if test="searchs.status!= null">
+            and s.status = #{searchs.status}
+        </if>
     </select>
 
     <select id="getStudentList" resultMap="Student">
@@ -55,15 +63,23 @@
             s.`name` AS name,
             s.register_no,
             s.sex,
+            s.height,
+            s.weight,
+            s.ring_no,
             c.id AS class_id,
             c.title class_name,
             s.birthday,
-            s.bind
+            s.bind,
+            s.status,
+            acs.relation_name
         FROM
             students s
 	  LEFT JOIN
 	        class c
 	     ON s.class_id = c.id
+      LEFT JOIN
+            account_student acs
+         ON s.id = acs.student_id
 	  where delete_flag = 0
         <if test="searchs.studentName!= null and searchs.studentName != '' ">
             and s.`name` like CONCAT('%',#{searchs.studentName},'%')
@@ -75,11 +91,13 @@
             and s.card_no like CONCAT('%',#{searchs.cardNo},'%')
         </if>
         <if test="searchs.classId!= null and searchs.classId != 0 ">
-            and c.id = #{
-            classId}
+            and c.id = #{classId}
         </if>
         <if test="searchs.bind!= null and searchs.bind != 0 ">
             and s.bind = #{searchs.bind}
+        </if>
+        <if test="searchs.status!= null">
+            and s.status = #{searchs.status}
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
@@ -87,42 +105,43 @@
         LIMIT #{startIndex}, #{pageSize}
     </select>
 
-    <select id="getStudentParentCount" resultType="long">
-      SELECT
+    <select id="getStudentFamilyCount" resultType="long">
+        SELECT
             count(ps.parent_id)
         FROM
-            parent_student ps
-            LEFT JOIN parent p ON ps.parent_id = p.id
-            LEFT JOIN account ac ON p.account_id = ac.id
-            LEFT JOIN account_detail ad ON p.account_id = ad.account_id
-            LEFT JOIN students s ON ps.student_id = s.id
-        WHERE s.delete_flag = 0
+            account_student acs
+            LEFT JOIN account ac ON acs.account_id = ac.id
+            LEFT JOIN students s ON acs.student_id = s.id
+        WHERE
+            s.delete_flag = 0
         <if test="searchs.studentId!= null and searchs.studentId != 0 ">
-            and ps.student_id = #{searchs.studentId}
+            and s.id = #{searchs.studentId}
         </if>
     </select>
 
-    <select id="getStudentParentList" resultMap="Parent">
+    <select id="getStudentFamilyList" resultMap="family">
        SELECT
-            ps.parent_id as id,
-            ac.username as parent_name,
-            ad.phone,
-            ps.is_admin
+            ac.id as accountId,
+            ac.username as account_name,
+            ac.nick_name as family_name,
+            acs.relation_name,
+            ac.phone,
+            ac.img,
+            acs.is_admin
         FROM
-            parent_student ps
-            LEFT JOIN parent p ON ps.parent_id = p.id
-            LEFT JOIN account ac ON p.account_id = ac.id
-            LEFT JOIN account_detail ad ON p.account_id = ad.account_id
-            LEFT JOIN students s ON ps.student_id = s.id
-        WHERE s.delete_flag = 0
+            account_student acs
+        LEFT JOIN account ac ON acs.account_id = ac.id
+        LEFT JOIN students s ON acs.student_id = s.id
+        WHERE
+            s.delete_flag = 0
         <if test="searchs.studentId!= null and searchs.studentId != 0 ">
-            and ps.student_id = #{searchs.studentId}
+            AND s.id = #{searchs.studentId}
         </if>
     </select>
 
     <insert id="addStudent">
-      insert into students(name, nickname, sex, card_no, register_no, school_id, class_id, birthday, bind)
-      values (#{studentName}, #{nickname}, #{sex}, #{cardNo}, #{registerNo}, #{schoolId}, #{classId}, #{birthday}, #{bind})
+      insert into students(name, nickname, sex, card_no, register_no, height, weight, ring_no, school_id, class_id, birthday, bind)
+      values (#{studentName}, #{nickname}, #{sex}, #{cardNo}, #{registerNo}, #{height}, #{weight}, #{ringNo}, #{schoolId}, #{classId}, #{birthday}, #{bind})
     </insert>
 
     <update id="updateStudent">
@@ -136,6 +155,15 @@
           </if>
           <if test="sex!= null and sex != 0 ">
               sex = #{sex},
+          </if>
+          <if test="height!= null and height != 0 ">
+              height = #{height},
+          </if>
+          <if test="weight!= null and weight != 0 ">
+              weight = #{weight},
+          </if>
+          <if test="ringNo!= null and ringNo != 0 ">
+              ring_no = #{ringNo},
           </if>
           <if test="cardNo!= null and cardNo != '' ">
               card_no = #{cardNo},

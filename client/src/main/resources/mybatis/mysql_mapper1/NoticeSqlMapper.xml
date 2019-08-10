@@ -6,16 +6,38 @@
         <result column="id" property="id"/>
         <result column="notice_title" property="noticTitle"/>
         <result column="notice_content" property="noticeContent"/>
-        <result column="notice_range" property="noticeRange"/>
         <result column="notice_date" property="noticeDate"/>
+        <result column="class_id" property="classId"/>
+        <result column="from_to" property="fromTo"/>
+    </resultMap>
+
+    <resultMap id="dailyRecommend" type="com.scorer.client.entity.DailyRecommend">
+        <result column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="img_path" property="imgPath"/>
+        <result column="img_url" property="imgUrl"/>
+        <result column="publish_date" property="publishDate"/>
+        <result column="type" property="type"/>
     </resultMap>
 
     <select id="getNoticeCount" resultType="long">
       select count(id) from notice where 1=1
+        <if test="searchs.classId != null and searchs.classId != ''">
+            AND class_id = #{searchs.classId}
+        </if>
+        <if test="searchs.formTo != null">
+            AND from_to = #{searchs.formTo}
+        </if>
     </select>
 
     <select id="getNoticeList" resultMap="notice"  statementType="STATEMENT">
-      select id, notice_title,  notice_date from notice where 1=1
+      select id, notice_title, notice_content, notice_date from notice where 1=1
+        <if test="searchs.classId != null and searchs.classId != ''">
+            AND class_id = #{searchs.classId}
+        </if>
+        <if test="searchs.formTo != null">
+            AND from_to = #{searchs.formTo}
+        </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
         </foreach>
@@ -27,8 +49,8 @@
     </select>
 
     <insert id="addNotice">
-      insert into notice(notice_title, notice_content, notice_range, notice_date)
-      values (#{noticTitle}, #{noticeContent}, #{noticeRange}, sysdate())
+      insert into notice(class_id, notice_title, notice_content, notice_date, from_to)
+      values (#{classId}, #{noticTitle}, #{noticeContent}, sysdate(), #{fromTo})
     </insert>
 
     <update id="updateNotice">
@@ -55,4 +77,19 @@
         </foreach>
     </delete>
 
+    <select id="getDailyRecommendCount" resultType="long">
+        select count(id) from daily_recommend where 1=1
+        <if test="searchs.type != null and searchs.type != ''">
+            AND type = #{searchs.type}
+        </if>
+    </select>
+
+    <select id="getDailyRecommendList" resultMap="dailyRecommend" >
+        select id, content, img_path, img_url, publish_date from daily_recommend where 1=1
+        <if test="searchs.type != null and searchs.type != ''">
+            AND type = #{searchs.type}
+        </if>
+        order by publish_date desc
+        LIMIT ${startIndex}, ${pageSize}
+    </select>
 </mapper>

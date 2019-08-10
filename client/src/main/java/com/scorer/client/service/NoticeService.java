@@ -17,4 +17,6 @@ public interface NoticeService {
     Map<String, Object> updateNotice(Notice notice);
 
     Map<String, Object> deleteNotice(List noticeIds);
+
+    Map<String, Object> getDailyInfoList(PageBean page);
 }

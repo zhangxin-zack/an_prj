@@ -2,9 +2,11 @@ package com.scorer.client.service.impl;
 
 import com.scorer.client.constant.Iconstants;
 import com.scorer.client.dao.mysql_dao1.AccountDao;
+import com.scorer.client.dao.mysql_dao1.StudentDao;
 import com.scorer.client.entity.Account;
 import com.scorer.client.entity.AppMenu;
 import com.scorer.client.entity.Menu;
+import com.scorer.client.entity.Student;
 import com.scorer.client.service.AccountService;
 import com.scorer.client.tools.MessageApi;
 import com.scorer.client.tools.ObjectUtils;
@@ -24,6 +26,9 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
 
     @Autowired
     private AccountDao accountDao;
+
+    @Autowired
+    private StudentDao studentDao;
 
     @Resource
     private RedisTemplate<String, Integer> redisTemplate;
@@ -161,6 +166,38 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
     public Map<String, Object> updateAccount(Account account) {
         try{
             accountDao.updateAccount(account);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    /**
+     * 添加宝贝
+     * @param student
+     * @return
+     */
+    @Override
+    public Map<String, Object> updateBaby(Student student) {
+        try{
+            studentDao.updateStudent(student);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    /**
+     * 修改宝贝
+     * @param student
+     * @return
+     */
+    @Override
+    public Map<String, Object> addBaby(Student student) {
+        try{
+            studentDao.addStudent(student);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         }catch (Exception e){
             e.printStackTrace();

@@ -45,4 +45,8 @@ public class NoticeController {
         return noticeService.deleteNotice(noticeIds);
     }
 
+    @RequestMapping(value = {"/list_daily_recommend", "/list_child_knowledge"})
+    public Map getDailyInfo(@RequestBody PageBean page) {
+        return noticeService.getDailyInfoList(page);
+    }
 }

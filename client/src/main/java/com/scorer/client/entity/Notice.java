@@ -7,8 +7,9 @@ public class Notice {
   private Long id;
   private String noticTitle;
   private String noticeContent;
-  private Long noticeRange;
   private java.sql.Timestamp noticeDate;
+  private Long classId;
+  private Integer fromTo;
 
   public Long getId() {
     return id;
@@ -34,19 +35,26 @@ public class Notice {
     this.noticeContent = noticeContent;
   }
 
-  public Long getNoticeRange() {
-    return noticeRange;
-  }
-
-  public void setNoticeRange(Long noticeRange) {
-    this.noticeRange = noticeRange;
-  }
-
   public Timestamp getNoticeDate() {
     return noticeDate;
   }
 
   public void setNoticeDate(Timestamp noticeDate) {
     this.noticeDate = noticeDate;
+  }
+
+  public Long getClassId() {
+    return classId;
+  }
+
+  public void setClassId(Long classId) {
+    this.classId = classId;
+  }
+  public Integer getFromTo() {
+    return fromTo;
+  }
+
+  public void setFromTo(Integer fromTo) {
+    this.fromTo = fromTo;
   }
 }

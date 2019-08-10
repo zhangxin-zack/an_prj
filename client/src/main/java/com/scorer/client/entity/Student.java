@@ -7,12 +7,17 @@ public class Student {
     private Integer sex;
     private String cardNo;    //身份证号
     private String registerNo; //学号
+    private Double height;
+    private Double weight;
+    private String ringNo;
     private Long schoolId;
     private String schoolName;
     private Long classId;
     private String className;
     private String birthday;
     private Integer bind;
+    private Integer status; // 审批通过状态(是否进班)  0:未审批通过 1:审批通过
+    private String relationName;
     private Integer deleteFlag;
 
     public Long getId() {
@@ -117,5 +122,45 @@ public class Student {
 
     public void setDeleteFlag(Integer deleteFlag) {
         this.deleteFlag = deleteFlag;
+    }
+
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public String getRingNo() {
+        return ringNo;
+    }
+
+    public void setRingNo(String ringNo) {
+        this.ringNo = ringNo;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getRelationName() {
+        return relationName;
+    }
+
+    public void setRelationName(String relationName) {
+        this.relationName = relationName;
     }
 }

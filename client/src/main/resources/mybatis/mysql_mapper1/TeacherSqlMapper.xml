@@ -15,26 +15,25 @@
 
     <select id="getTeacherCount" resultType="Long">
         SELECT
-        count(t.id)
+          count(t.id)
         FROM
-        teacher t
+          teacher t
         LEFT JOIN account ac ON t.account_id = ac.id
-        LEFT JOIN account_detail ad ON ac.id = ad.account_id
         LEFT JOIN (
-        SELECT
-        t1.teacher_id,
-        group_concat(t1.class_id) manange_class_id,
-        group_concat(t2.title) manange_class_name
-        FROM
-        teacher_class t1
-        LEFT JOIN class t2 ON t1.class_id = t2.id
+          SELECT
+            t1.teacher_id,
+            group_concat(t1.class_id) manange_class_id,
+            group_concat(t2.title) manange_class_name
+          FROM
+            teacher_class t1
+          LEFT JOIN class t2 ON t1.class_id = t2.id
         GROUP BY t1.teacher_id
         ) tc ON t.id = tc.teacher_id
         <if test="searchs.teacherName!= null and searchs.teacherName != '' ">
             and t.teacher_name like CONCAT('%',#{searchs.teacherName},'%')
         </if>
         <if test="searchs.phone!= null and searchs.phone != '' ">
-            and ad.phone like CONCAT('%',#{searchs.phone},'%')
+            and ac.phone like CONCAT('%',#{searchs.phone},'%')
         </if>
         <if test="searchs.isHead!= null and searchs.isHead != '' ">
             and t.is_head = #{searchs.isHead}
@@ -43,18 +42,17 @@
 
     <select id="getTeacherList" resultMap="teacher" statementType="STATEMENT">
         SELECT
-        t.id,
-        t.teacher_name,
-        t.is_head,
-        ad.account_id,
-        ac.username,
-        ad.phone,
-        tc.manange_class_id,
-        tc.manange_class_name
+            t.id,
+            t.teacher_name,
+            t.is_head,
+            ac.account_id,
+            ac.username,
+            ac.phone,
+            tc.manange_class_id,
+            tc.manange_class_name
         FROM
         teacher t
         LEFT JOIN account ac ON t.account_id = ac.id
-        LEFT JOIN account_detail ad ON ac.id = ad.account_id
         LEFT JOIN (
         SELECT
         t1.teacher_id,
@@ -69,7 +67,7 @@
             and t.teacher_name like CONCAT('%',#{searchs.teacherName},'%')
         </if>
         <if test="searchs.phone!= null and searchs.phone != '' ">
-            and ad.phone like CONCAT('%',#{searchs.phone},'%')
+            and ac.phone like CONCAT('%',#{searchs.phone},'%')
         </if>
         <if test="searchs.isHead!= null and searchs.isHead != '' ">
             and t.is_head = #{searchs.isHead}

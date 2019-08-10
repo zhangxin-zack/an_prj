@@ -1,5 +1,6 @@
 package com.scorer.client.dao.mysql_dao1;
 
+import com.scorer.client.entity.DailyRecommend;
 import com.scorer.client.entity.Notice;
 import com.scorer.client.values.PageBean;
 import org.springframework.stereotype.Repository;
@@ -20,5 +21,9 @@ public interface NoticeDao {
     void updateNotice(Notice notice) throws Exception;
 
     void deleteNotice(List noticeIds) throws Exception;
+
+    Long getDailyRecommendCount(PageBean page) throws Exception;
+
+    List<DailyRecommend> getDailyRecommendList(PageBean page) throws Exception;
 
 }

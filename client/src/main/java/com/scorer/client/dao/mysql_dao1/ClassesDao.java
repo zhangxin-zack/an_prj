@@ -1,6 +1,8 @@
 package com.scorer.client.dao.mysql_dao1;
 
+import com.scorer.client.entity.ClassContent;
 import com.scorer.client.entity.Classes;
+import com.scorer.client.entity.Timetable;
 import com.scorer.client.values.PageBean;
 import org.springframework.stereotype.Repository;
 
@@ -21,5 +23,15 @@ public interface ClassesDao {
 
     void deleteClasses(List classesIds) throws Exception;
 
+    Long getTimetableCount(PageBean page) throws Exception;
 
+    List<Timetable> getTimetableList(PageBean page) throws Exception;
+
+    void addTimetable(Timetable timetable) throws Exception;
+
+    Long getClassContentCount(PageBean page) throws Exception;
+
+    List<ClassContent> getClassContentList(PageBean page) throws Exception;
+
+    void addClassContent(ClassContent classContent) throws Exception;
 }

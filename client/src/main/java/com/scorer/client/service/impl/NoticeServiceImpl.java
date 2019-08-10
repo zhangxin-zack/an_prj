@@ -72,4 +72,16 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
     }
+
+    @Override
+    public Map<String, Object> getDailyInfoList(PageBean page) {
+        try{
+            page.setTotal(NoticeDao.getDailyRecommendCount(page));
+            page.setRows(NoticeDao.getDailyRecommendList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
 }

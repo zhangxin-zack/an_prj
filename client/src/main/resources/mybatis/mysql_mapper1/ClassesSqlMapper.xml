@@ -11,6 +11,21 @@
         <result column="teacher_name" property="teacherName"/>
     </resultMap>
 
+    <resultMap id="timeTable" type="com.scorer.client.entity.Timetable">
+        <result column="id" property="id"/>
+        <result column="class_id" property="classId"/>
+        <result column="timetable" property="timetable"/>
+        <result column="start_date" property="startDate"/>
+    </resultMap>
+
+    <resultMap id="classContent" type="com.scorer.client.entity.ClassContent">
+        <result column="id" property="id"/>
+        <result column="class_id" property="classId"/>
+        <result column="content" property="content"/>
+        <result column="img_path" property="imgPath"/>
+        <result column="img_url" property="imgUrl"/>
+    </resultMap>
+
     <select id="getClassesCount" resultType="Long">
       SELECT
             count(c.id)
@@ -32,6 +47,9 @@
             class c
         LEFT JOIN school s ON c.school_id = s.id
         LEFT JOIN teacher t ON c.teacher_id = t.id
+        <if test="searchs.classId != null and searchs.classId != ''">
+            AND class_id = #{searchs.classId}
+        </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
         </foreach>
@@ -65,4 +83,50 @@
             #{classesId}
         </foreach>
     </delete>
+
+    <select id="getTimetableCount" resultType="Long">
+        SELECT count(id) FROM timetable WHERE 1=1
+        <if test="searchs.classId != null and searchs.classId != ''">
+            AND class_id = #{searchs.classId}
+        </if>
+    </select>
+
+    <select id="getTimetableList" resultMap="timeTable">
+        SELECT id, class_id, timetable, start_date FROM timetable WHERE 1=1
+        <if test="searchs.classId != null and searchs.classId != ''">
+           AND class_id = #{searchs.classId}
+        </if>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+    <insert id="addTimetable">
+        INSERT INTO timetable
+          (class_id, timetable, start_date)
+        VALUES
+          (#{classId}, #{timetable}, #{startDate})
+    </insert>
+
+
+    <select id="getClassContentCount" resultType="Long">
+        SELECT count(id) FROM class_content WHERE 1=1
+        <if test="searchs.classId != null and searchs.classId != ''">
+            AND class_id = #{searchs.classId}
+        </if>
+    </select>
+
+    <select id="getClassContentList" resultMap="classContent">
+        SELECT id, class_id, content, img_path, img_url  FROM class_content WHERE 1=1
+        <if test="searchs.classId != null and searchs.classId != ''">
+            AND class_id = #{searchs.classId}
+        </if>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+    <insert id="addClassContent">
+        INSERT INTO class_content
+          (class_id, content, img_path, img_url)
+        VALUES
+          (#{classId}, #{content}, #{imgPath}, #{imgUrl})
+    </insert>
+
 </mapper>

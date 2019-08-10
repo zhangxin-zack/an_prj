@@ -1,6 +1,7 @@
 package com.scorer.client.controller;
 
 import com.scorer.client.entity.Account;
+import com.scorer.client.entity.Student;
 import com.scorer.client.service.AccountService;
 import com.scorer.client.service.ClassesService;
 import com.scorer.client.values.PageBean;
@@ -82,4 +83,25 @@ public class AccountController {
     public Map accountUpdate(@RequestBody Account account) {
         return accountService.updateAccount(account);
     }
+
+    /**
+     * 添加宝贝
+     * @param student
+     * @return
+     */
+    @RequestMapping(value = "/add_babay")
+    public Map accountAddBaby(@RequestBody Student student) {
+        return accountService.addBaby(student);
+    }
+
+    /**
+     * 添加宝贝
+     * @param student
+     * @return
+     */
+    @RequestMapping(value = "/update_babay")
+    public Map accountUpdateBaby(@RequestBody Student student) {
+        return accountService.updateBaby(student);
+    }
+
 }
