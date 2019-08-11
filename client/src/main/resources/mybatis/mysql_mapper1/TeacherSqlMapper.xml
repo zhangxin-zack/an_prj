@@ -45,7 +45,7 @@
             t.id,
             t.teacher_name,
             t.is_head,
-            ac.account_id,
+            ac.id,
             ac.username,
             ac.phone,
             tc.manange_class_id,

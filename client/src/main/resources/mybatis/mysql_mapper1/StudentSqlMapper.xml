@@ -107,7 +107,7 @@
 
     <select id="getStudentFamilyCount" resultType="long">
         SELECT
-            count(ps.parent_id)
+            count(acs.id)
         FROM
             account_student acs
             LEFT JOIN account ac ON acs.account_id = ac.id

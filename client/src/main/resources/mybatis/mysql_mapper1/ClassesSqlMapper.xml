@@ -48,7 +48,7 @@
         LEFT JOIN school s ON c.school_id = s.id
         LEFT JOIN teacher t ON c.teacher_id = t.id
         <if test="searchs.classId != null and searchs.classId != ''">
-            AND class_id = #{searchs.classId}
+            AND c.id = #{searchs.classId}
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}

@@ -45,7 +45,7 @@
     </select>
 
     <select id="getNoticeById" resultMap="notice">
-      select id, notice_title, notice_content, notice_range, notice_date from notice where id = #{NoticeId}
+      select id, notice_title, notice_content, notice_date from notice where id = #{NoticeId}
     </select>
 
     <insert id="addNotice">
