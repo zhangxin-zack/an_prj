@@ -1,15 +1,15 @@
-package com.scorer.client.controller;
+package com.scorer.feign.controller;
 
-import com.scorer.client.entity.Notice;
-import com.scorer.client.service.NoticeService;
-import com.scorer.client.values.PageBean;
+import com.scorer.feign.entity.Notice;
+import com.scorer.feign.feign_con.NoticeService;
+import com.scorer.feign.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -17,11 +17,11 @@ import java.util.Map;
 @RequestMapping("/EDU/notice")
 public class NoticeController {
 
-    @Autowired
+    @Resource
     private NoticeService noticeService;
 
     @RequestMapping(value = "/get")
-    public Map getNoticeById(@RequestParam("id") Integer id) {
+    public Map getNoticeById(@RequestParam(value = "id") Integer id) {
         return noticeService.getNoticeById(id);
     }
 
@@ -45,7 +45,7 @@ public class NoticeController {
         return noticeService.deleteNotice(noticeIds);
     }
 
-    @RequestMapping(value = "/list_daily_recommend")
+    @RequestMapping(value = {"/list_daily_recommend", "/list_child_knowledge"})
     public Map getDailyInfo(@RequestBody PageBean page) {
         return noticeService.getDailyInfoList(page);
     }

@@ -34,13 +34,13 @@ public class ManagerController {
         return managerService.updateManager(manager);
     }
 
-    @RequestMapping(value = {"/manager_status", "/manager_status"})
+    @RequestMapping(value = "/manager_status")
     public Map updateManagerStatus(@RequestBody Manager manager) {
         return managerService.updateManager(manager);
     }
 
     @RequestMapping(value = "/manager_remove")
-    public Map deleteManager(@RequestParam(value = "managerIds") List<Integer> managerIds) {
+    public Map deleteManager(@RequestParam(value = "managerIds") List<Long> managerIds) {
         return managerService.deleteManager(managerIds);
     }
 
@@ -51,7 +51,7 @@ public class ManagerController {
 
     @RequestMapping(value = "/role_save")
     public Map saveRole(@RequestParam(value = "roleId") Integer roleId,
-                        @RequestParam(value = "menuIds") List<Integer> menuIds) {
+                        @RequestParam(value = "menuIds") List<Long> menuIds) {
         return managerService.saveRole(roleId, menuIds);
     }
 

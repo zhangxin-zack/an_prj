@@ -44,6 +44,7 @@ public class TeacherController {
         return teacherService.deleteTeacher(teacherIds);
     }
 
+    //有问题
     @RequestMapping(value = "/get_head")
     public Map getHeadTeacherList(@RequestParam("teacherIds") Map<String, Object> params) {
         return teacherService.getHeadTeacherList(params);

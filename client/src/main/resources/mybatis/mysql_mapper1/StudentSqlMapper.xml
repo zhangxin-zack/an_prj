@@ -31,10 +31,16 @@
         <result column="img" property="img"/>
     </resultMap>
 
+
+    <select id="getStudentById" resultMap="Student">
+        SELECT * FROM students WHERE id=#{id}
+    </select>
+
+
     <select id="getStudentCount" resultType="long">
-      SELECT count(s.id) FROM students s
-        LEFT JOIN class c
-        ON s.class_id = c.id
+        SELECT count(s.id) FROM account_student acs
+        LEFT JOIN students s ON s.id = acs.student_id
+        LEFT JOIN class c ON s.class_id = c.id
         where delete_flag = 0
         <if test="searchs.studentName!= null and searchs.studentName != '' ">
             and s.`name` like CONCAT('%',#{searchs.studentName},'%')
@@ -54,33 +60,32 @@
         <if test="searchs.status!= null">
             and s.status = #{searchs.status}
         </if>
+        <if test="searchs.accountId!= null">
+            and acs.account_id = #{searchs.accountId}
+        </if>
     </select>
 
     <select id="getStudentList" resultMap="Student">
-      SELECT
-            s.id,
-            s.card_no,
-            s.`name` AS name,
-            s.register_no,
-            s.sex,
-            s.height,
-            s.weight,
-            s.ring_no,
-            c.id AS class_id,
-            c.title class_name,
-            s.birthday,
-            s.bind,
-            s.status,
-            acs.relation_name
+        SELECT
+        s.id,
+        s.card_no,
+        s.`name` AS name,
+        s.register_no,
+        s.sex,
+        s.height,
+        s.weight,
+        s.ring_no,
+        c.id AS class_id,
+        c.title class_name,
+        s.birthday,
+        s.bind,
+        s.status,
+        acs.relation_name
         FROM
-            students s
-	  LEFT JOIN
-	        class c
-	     ON s.class_id = c.id
-      LEFT JOIN
-            account_student acs
-         ON s.id = acs.student_id
-	  where delete_flag = 0
+        account_student acs
+        LEFT JOIN students s ON s.id = acs.student_id
+        LEFT JOIN class c ON s.class_id = c.id
+        where delete_flag = 0
         <if test="searchs.studentName!= null and searchs.studentName != '' ">
             and s.`name` like CONCAT('%',#{searchs.studentName},'%')
         </if>
@@ -91,13 +96,16 @@
             and s.card_no like CONCAT('%',#{searchs.cardNo},'%')
         </if>
         <if test="searchs.classId!= null and searchs.classId != 0 ">
-            and c.id = #{classId}
+            and c.id = #{searchs.classId}
         </if>
         <if test="searchs.bind!= null and searchs.bind != 0 ">
             and s.bind = #{searchs.bind}
         </if>
         <if test="searchs.status!= null">
             and s.status = #{searchs.status}
+        </if>
+        <if test="searchs.accountId!= null">
+            and acs.account_id = #{searchs.accountId}
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
@@ -107,91 +115,101 @@
 
     <select id="getStudentFamilyCount" resultType="long">
         SELECT
-            count(acs.id)
+        count(acs.id)
         FROM
-            account_student acs
-            LEFT JOIN account ac ON acs.account_id = ac.id
-            LEFT JOIN students s ON acs.student_id = s.id
+        account_student acs
+        LEFT JOIN account ac ON acs.account_id = ac.id
+        LEFT JOIN students s ON acs.student_id = s.id
         WHERE
-            s.delete_flag = 0
+        s.delete_flag = 0
         <if test="searchs.studentId!= null and searchs.studentId != 0 ">
             and s.id = #{searchs.studentId}
         </if>
     </select>
 
     <select id="getStudentFamilyList" resultMap="family">
-       SELECT
-            ac.id as accountId,
-            ac.username as account_name,
-            ac.nick_name as family_name,
-            acs.relation_name,
-            ac.phone,
-            ac.img,
-            acs.is_admin
+        SELECT
+        ac.id as accountId,
+        ac.username as account_name,
+        ac.nick_name as family_name,
+        acs.relation_name,
+        ac.phone,
+        ac.img,
+        acs.is_admin
         FROM
-            account_student acs
+        account_student acs
         LEFT JOIN account ac ON acs.account_id = ac.id
         LEFT JOIN students s ON acs.student_id = s.id
         WHERE
-            s.delete_flag = 0
+        s.delete_flag = 0
         <if test="searchs.studentId!= null and searchs.studentId != 0 ">
             AND s.id = #{searchs.studentId}
         </if>
     </select>
 
     <insert id="addStudent">
-      insert into students(name, nickname, sex, card_no, register_no, height, weight, ring_no, school_id, class_id, birthday, bind)
-      values (#{studentName}, #{nickname}, #{sex}, #{cardNo}, #{registerNo}, #{height}, #{weight}, #{ringNo}, #{schoolId}, #{classId}, #{birthday}, #{bind})
+        <selectKey resultType="Long" keyColumn="id" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO students (name, nickname, sex, card_no, register_no, height, weight, ring_no, school_id, class_id,
+        birthday, bind, account_id)
+        VALUES (#{studentName}, #{nickname}, #{sex}, #{cardNo}, #{registerNo}, #{height}, #{weight}, #{ringNo},
+        #{schoolId}, #{classId}, #{birthday}, #{bind}, #{accountId})
+    </insert>
+
+    <insert id="addAccountStudent">
+        INSERT INTO account_student (student_id, account_id, relation_name, is_admin)
+        VALUES (#{id}, #{accountId}, #{relationName}, 1)
     </insert>
 
     <update id="updateStudent">
-      update students
-      <set>
-          <if test="studentName!= null and studentName != '' ">
-              name = #{studentName},
-          </if>
-          <if test="nickname!= null and nickname != '' ">
-              nickname = #{nickname},
-          </if>
-          <if test="sex!= null and sex != 0 ">
-              sex = #{sex},
-          </if>
-          <if test="height!= null and height != 0 ">
-              height = #{height},
-          </if>
-          <if test="weight!= null and weight != 0 ">
-              weight = #{weight},
-          </if>
-          <if test="ringNo!= null and ringNo != 0 ">
-              ring_no = #{ringNo},
-          </if>
-          <if test="cardNo!= null and cardNo != '' ">
-              card_no = #{cardNo},
-          </if>
-          <if test="registerNo!= null and registerNo!= '' ">
-              register_no = #{registerNo},
-          </if>
-          <if test="schoolId!= null and schoolId != 0 ">
-              school_id = #{schoolId},
-          </if>
-          <if test="classId!= null and classId != 0 ">
-              class_id = #{classId},
-          </if>
-          <if test="birthday!= null and birthday != '' ">
-              birthday = #{birthday},
-          </if>
-          <if test="bind!= null and bind != 0 ">
-              bind = #{bind},
-          </if>
-      </set>
-      where id = #{id}
+        update students
+        <set>
+            <if test="studentName!= null and studentName != '' ">
+                name = #{studentName},
+            </if>
+            <if test="nickname!= null and nickname != '' ">
+                nickname = #{nickname},
+            </if>
+            <if test="sex!= null and sex != 0 ">
+                sex = #{sex},
+            </if>
+            <if test="height!= null and height != 0 ">
+                height = #{height},
+            </if>
+            <if test="weight!= null and weight != 0 ">
+                weight = #{weight},
+            </if>
+            <if test="ringNo!= null and ringNo != 0 ">
+                ring_no = #{ringNo},
+            </if>
+            <if test="cardNo!= null and cardNo != '' ">
+                card_no = #{cardNo},
+            </if>
+            <if test="registerNo!= null and registerNo!= '' ">
+                register_no = #{registerNo},
+            </if>
+            <if test="schoolId!= null and schoolId != 0 ">
+                school_id = #{schoolId},
+            </if>
+            <if test="classId!= null and classId != 0 ">
+                class_id = #{classId},
+            </if>
+            <if test="birthday!= null and birthday != '' ">
+                birthday = #{birthday},
+            </if>
+            <if test="bind!= null and bind != 0 ">
+                bind = #{bind},
+            </if>
+        </set>
+        where id = #{id}
     </update>
 
     <!--<delete id="deleteStudent">-->
-      <!--delete from student where id in-->
-        <!--<foreach collection="list" item="studentId" open="(" separator="," close=")">-->
-            <!--#{studentId}-->
-        <!--</foreach>-->
+    <!--delete from student where id in-->
+    <!--<foreach collection="list" item="studentId" open="(" separator="," close=")">-->
+    <!--#{studentId}-->
+    <!--</foreach>-->
     <!--</delete>-->
 
     <update id="deleteStudent">

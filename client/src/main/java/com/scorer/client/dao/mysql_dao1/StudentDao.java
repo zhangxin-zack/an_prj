@@ -2,6 +2,7 @@ package com.scorer.client.dao.mysql_dao1;
 
 import com.scorer.client.entity.Student;
 import com.scorer.client.values.PageBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,4 +24,7 @@ public interface StudentDao {
 
     void deleteStudent(List StudentIds) throws Exception;
 
+    void addAccountStudent(Student student);
+
+    Student getStudentById(@Param("id") Long id);
 }

@@ -56,7 +56,7 @@
             <if test="username!= null and username != '' ">
                 username = #{username},
             </if>
-            <if test="password!= null and password!= '' ">
+            <if test="password!= null and password!= ''">
                 PASSWORD = #{password},
             </if>
             <if test="nickname!= null and nickname!= '' ">
@@ -79,8 +79,8 @@
             </if>
         </set>
         where id = #{id}
-        <if test="password!= null and password!= '' ">
-            and PASSWORD = #{password},
+        <if test="oldPassword!= null and oldPassword!= '' ">
+            and PASSWORD = #{oldPassword}
         </if>
     </update>
 

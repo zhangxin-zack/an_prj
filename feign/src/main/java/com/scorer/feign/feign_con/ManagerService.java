@@ -24,14 +24,14 @@ public interface ManagerService {
     Map updateManager(@RequestBody Manager manager);
 
     @RequestMapping(value = "/EDU/sys/manager_remove", consumes = MediaType.APPLICATION_JSON_VALUE)
-    Map deleteManager(@RequestParam(value = "managerIds") List<Integer> managerIds);
+    Map deleteManager(@RequestParam(value = "managerIds") List<Long> managerIds);
 
     @RequestMapping(value = "/EDU/sys/role_list", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getRoleList(@RequestBody PageBean page);
 
     @RequestMapping(value = "/EDU/sys/role_save", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map saveRole(@RequestParam(value = "roleId") Integer roleId,
-                 @RequestParam(value = "menuIds") List<Integer> menuIds);
+                 @RequestParam(value = "menuIds") List<Long> menuIds);
 
 
     @RequestMapping(value = "/EDU/sys/role_select")

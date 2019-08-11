@@ -7,6 +7,7 @@ public class Account {
   private long id;
   private String username;
   private String password;
+  private String oldPassword;
   private String nickname;
   private String email;
   private String phone;
@@ -147,5 +148,13 @@ public class Account {
 
   public void setSex(Integer sex) {
     this.sex = sex;
+  }
+
+  public String getOldPassword() {
+    return oldPassword;
+  }
+
+  public void setOldPassword(String oldPassword) {
+    this.oldPassword = oldPassword;
   }
 }

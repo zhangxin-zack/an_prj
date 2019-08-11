@@ -21,14 +21,14 @@
         LEFT JOIN account ac ON t.account_id = ac.id
         LEFT JOIN (
           SELECT
-            t1.teacher_id,
+            t1.account_id,
             group_concat(t1.class_id) manange_class_id,
             group_concat(t2.title) manange_class_name
           FROM
-            teacher_class t1
+            account_class t1
           LEFT JOIN class t2 ON t1.class_id = t2.id
-        GROUP BY t1.teacher_id
-        ) tc ON t.id = tc.teacher_id
+        GROUP BY t1.account_id
+        ) tc ON t.id = tc.account_id
         <if test="searchs.teacherName!= null and searchs.teacherName != '' ">
             and t.teacher_name like CONCAT('%',#{searchs.teacherName},'%')
         </if>
@@ -55,14 +55,14 @@
         LEFT JOIN account ac ON t.account_id = ac.id
         LEFT JOIN (
         SELECT
-        t1.teacher_id,
+        t1.account_id,
         group_concat(t1.class_id) manange_class_id,
         group_concat(t2.title) manange_class_name
         FROM
-        teacher_class t1
+        account_class t1
         LEFT JOIN class t2 ON t1.class_id = t2.id
-        GROUP BY t1.teacher_id
-        ) tc ON t.id = tc.teacher_id
+        GROUP BY t1.account_id
+        ) tc ON t.id = tc.account_id
         <if test="searchs.teacherName!= null and searchs.teacherName != '' ">
             and t.teacher_name like CONCAT('%',#{searchs.teacherName},'%')
         </if>

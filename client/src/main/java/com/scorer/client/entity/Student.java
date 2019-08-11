@@ -19,6 +19,7 @@ public class Student {
     private Integer status; // 审批通过状态(是否进班)  0:未审批通过 1:审批通过
     private String relationName;
     private Integer deleteFlag;
+    private Long accountId;
 
     public Long getId() {
         return id;
@@ -162,5 +163,13 @@ public class Student {
 
     public void setRelationName(String relationName) {
         this.relationName = relationName;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 }

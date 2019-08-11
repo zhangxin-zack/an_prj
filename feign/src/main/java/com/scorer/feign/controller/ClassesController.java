@@ -1,6 +1,8 @@
 package com.scorer.feign.controller;
 
+import com.scorer.feign.entity.ClassContent;
 import com.scorer.feign.entity.Classes;
+import com.scorer.feign.entity.Timetable;
 import com.scorer.feign.feign_con.ClassesService;
 import com.scorer.feign.values.PageBean;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,5 +44,25 @@ public class ClassesController {
     @RequestMapping(value = "/remove")
     public Map deleteClasses(@RequestParam(value = "classesIds") List<Integer> classesIds) {
         return classesService.deleteClasses(classesIds);
+    }
+
+    @RequestMapping(value = "/list_timetable")
+    public Map getTimetable(@RequestBody PageBean condition) {
+        return classesService.getTimetable(condition);
+    }
+
+    @RequestMapping(value = "/add_timetable")
+    public Map addTimetable(@RequestBody Timetable timetable) {
+        return classesService.addTimetable(timetable);
+    }
+
+    @RequestMapping(value = "/list_class_content")
+    public Map getClassContent(@RequestBody PageBean condition) {
+        return classesService.getClassContent(condition);
+    }
+
+    @RequestMapping(value = "/add_class_content")
+    public Map getClassContent(@RequestBody ClassContent classContent) {
+        return classesService.addClassContent(classContent);
     }
 }

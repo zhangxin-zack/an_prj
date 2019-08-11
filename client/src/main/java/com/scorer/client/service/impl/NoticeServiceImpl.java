@@ -2,12 +2,15 @@ package com.scorer.client.service.impl;
 
 import com.scorer.client.constant.Iconstants;
 import com.scorer.client.dao.mysql_dao1.NoticeDao;
+import com.scorer.client.dao.mysql_dao1.StudentDao;
 import com.scorer.client.entity.Notice;
+import com.scorer.client.entity.Student;
 import com.scorer.client.service.NoticeService;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,10 +19,16 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
 
     @Autowired
     private NoticeDao NoticeDao;
+    @Autowired
+    private StudentDao studentDao;
 
     @Override
     public Map<String, Object> getNoticeList(PageBean page) {
         try{
+            if(page.getSearchs().get("studentId")!=null){
+                Student student = studentDao.getStudentById(Long.valueOf(page.getSearchs().get("studentId").toString()));
+                page.getSearchs().put("classId", student.getClassId());
+            }
             page.setTotal(NoticeDao.getNoticeCount(page));
             page.setRows(NoticeDao.getNoticeList(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
@@ -43,6 +52,9 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
     @Override
     public Map<String, Object> addNotice(Notice notice) {
         try{
+            if(notice.getClassIds()==null){
+                notice.setClassIds(new ArrayList<>());
+            }
             NoticeDao.addNotice(notice);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         }catch (Exception e){

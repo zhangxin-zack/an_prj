@@ -16,9 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.concurrent.TimeUnit;
 
 
-@Component
-@Aspect
-@Order(2)  //定义切面执行的优先级，数字越低，优先级越高
+//@Component
+//@Aspect
+//@Order(2)  //定义切面执行的优先级，数字越低，优先级越高
 public class CheckToken {
 
     @Resource

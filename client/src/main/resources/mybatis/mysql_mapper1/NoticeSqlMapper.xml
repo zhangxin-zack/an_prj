@@ -21,7 +21,7 @@
     </resultMap>
 
     <select id="getNoticeCount" resultType="long">
-      select count(id) from notice where 1=1
+        select count(id) from notice where 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
             AND class_id = #{searchs.classId}
         </if>
@@ -30,8 +30,8 @@
         </if>
     </select>
 
-    <select id="getNoticeList" resultMap="notice"  statementType="STATEMENT">
-      select id, notice_title, notice_content, notice_date from notice where 1=1
+    <select id="getNoticeList" resultMap="notice">
+        select id, notice_title, notice_content, notice_date,class_id,from_to from notice where 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
             AND class_id = #{searchs.classId}
         </if>
@@ -41,37 +41,49 @@
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
         </foreach>
-        LIMIT ${startIndex}, ${pageSize}
+        LIMIT #{startIndex}, #{pageSize}
     </select>
 
     <select id="getNoticeById" resultMap="notice">
-      select id, notice_title, notice_content, notice_date from notice where id = #{NoticeId}
+        SELECT
+            id,
+            notice_title,
+            notice_content,
+            notice_date
+        FROM notice
+        WHERE id = #{NoticeId}
     </select>
 
     <insert id="addNotice">
-      insert into notice(class_id, notice_title, notice_content, notice_date, from_to)
-      values (#{classId}, #{noticTitle}, #{noticeContent}, sysdate(), #{fromTo})
+        <if test="classId!=null">
+            insert into notice(class_id, notice_title, notice_content, notice_date, from_to)
+            values (#{classId}, #{noticTitle}, #{noticeContent}, sysdate(), #{fromTo})
+        </if>
+        <if test="classIds.size()>0">
+            insert into notice(class_id, notice_title, notice_content, notice_date, from_to)
+            values
+            <foreach collection="classIds" item="i" separator=",">
+                (#{i}, #{noticTitle}, #{noticeContent}, sysdate(), #{fromTo})
+            </foreach>
+        </if>
     </insert>
 
     <update id="updateNotice">
-      update notice
-      <set>
-          <if test="noticTitle!= null and noticTitle != 0 ">
-              notice_title = #{noticTitle},
-          </if>
-          <if test="NoticeName!= null and NoticeName!= '' ">
-              notice_content = #{noticeContent},
-          </if>
-          <if test="noticeRange!= null and noticeRange!= '' ">
-              notice_range = #{noticeRange},
-          </if>
-          notice_dates = sysdate()
-      </set>
-      where id = #{id}
+        update notice
+        <set>
+            <if test="noticTitle!= null and noticTitle != ''">
+                notice_title = #{noticTitle},
+            </if>
+            <if test="NoticeName!= null and NoticeName!= '' ">
+                notice_content = #{noticeContent},
+            </if>
+            notice_dates = sysdate()
+        </set>
+        where id = #{id}
     </update>
 
     <delete id="deleteNotice">
-      delete from notice where id in
+        delete from notice where id in
         <foreach collection="list" item="noticeId" open="(" separator="," close=")">
             #{noticeId}
         </foreach>
@@ -79,14 +91,14 @@
 
     <select id="getDailyRecommendCount" resultType="long">
         select count(id) from daily_recommend where 1=1
-        <if test="searchs.type != null and searchs.type != ''">
+        <if test="searchs.type != null">
             AND type = #{searchs.type}
         </if>
     </select>
 
-    <select id="getDailyRecommendList" resultMap="dailyRecommend" >
+    <select id="getDailyRecommendList" resultMap="dailyRecommend">
         select id, content, img_path, img_url, publish_date from daily_recommend where 1=1
-        <if test="searchs.type != null and searchs.type != ''">
+        <if test="searchs.type != null">
             AND type = #{searchs.type}
         </if>
         order by publish_date desc

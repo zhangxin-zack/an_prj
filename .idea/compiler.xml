@@ -15,6 +15,7 @@
     <bytecodeTargetLevel>
       <module name="base" target="1.8" />
       <module name="client" target="1.8" />
+      <module name="edu" target="1.8" />
       <module name="feign" target="1.8" />
       <module name="gateway" target="1.8" />
       <module name="server" target="1.8" />

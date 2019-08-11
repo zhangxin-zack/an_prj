@@ -31,11 +31,18 @@
             count(c.id)
         FROM
             class c
+        WHERE 1=1
+        <if test="searchs.classId != null and searchs.classId != ''">
+            AND c.id = #{searchs.classId}
+        </if>
+        <if test="searchs.teacherId != null and searchs.teacherId != ''">
+            AND c.teacher_id = #{searchs.teacherId}
+        </if>
         LEFT JOIN school s ON c.school_id = s.id
         LEFT JOIN teacher t ON c.teacher_id = t.id where 1=1
     </select>
 
-    <select id="getClassesList" resultMap="Classes"  statementType="STATEMENT">
+    <select id="getClassesList" resultMap="Classes">
       SELECT
             c.id,
             c.title,
@@ -47,8 +54,12 @@
             class c
         LEFT JOIN school s ON c.school_id = s.id
         LEFT JOIN teacher t ON c.teacher_id = t.id
+        WHERE 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
             AND c.id = #{searchs.classId}
+        </if>
+        <if test="searchs.teacherId != null and searchs.teacherId != ''">
+            AND c.teacher_id = #{searchs.teacherId}
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
