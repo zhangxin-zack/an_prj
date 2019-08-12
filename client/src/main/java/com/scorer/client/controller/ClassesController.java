@@ -65,4 +65,9 @@ public class ClassesController {
     public Map getClassContent(@RequestBody ClassContent classContent) {
         return classesService.addClassContent(classContent);
     }
+
+    @RequestMapping(value = "/list_account_class")
+    public Map getClassListContent(@RequestBody PageBean condition) {
+        return classesService.getAccountClassesList(condition);
+    }
 }

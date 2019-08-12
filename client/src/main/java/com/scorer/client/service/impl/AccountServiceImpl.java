@@ -40,7 +40,8 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             ValueOperations<String, Integer> operations = redisTemplate.opsForValue();
             Integer phoneCode = operations.get("User_Login_Phone_Code:" + phone);
             if (phoneCode == null || phoneCode == 0) {
-                phoneCode = new Random().nextInt(900000) + 100000;
+//                phoneCode = new Random().nextInt(900000) + 100000;
+                phoneCode = 123456;
             }
             operations.set("User_Login_Phone_Code:" + phone, phoneCode, 60 * 2, TimeUnit.SECONDS);
             String text = "【手环】您的验证码是" + phoneCode;

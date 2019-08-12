@@ -28,5 +28,7 @@ public interface ClassesService {
     Map<String, Object> getClassContent(PageBean page);
 
     Map<String, Object> addClassContent(ClassContent classContent);
+
+    Map<String, Object> getAccountClassesList(PageBean page);
 }
 

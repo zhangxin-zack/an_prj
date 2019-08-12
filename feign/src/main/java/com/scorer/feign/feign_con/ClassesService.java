@@ -42,4 +42,7 @@ public interface ClassesService {
 
     @RequestMapping(value = "/EDU/classes/add_class_content", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map addClassContent(@RequestBody ClassContent classContent);
+
+    @RequestMapping(value = "/EDU/classes/list_account_class", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getAccountClassesList(@RequestBody PageBean condition);
 }

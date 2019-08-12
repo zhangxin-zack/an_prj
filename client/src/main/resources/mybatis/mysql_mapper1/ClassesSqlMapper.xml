@@ -27,10 +27,10 @@
     </resultMap>
 
     <select id="getClassesCount" resultType="Long">
-      SELECT
-            count(c.id)
+        SELECT
+        count(c.id)
         FROM
-            class c
+        class c
         WHERE 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
             AND c.id = #{searchs.classId}
@@ -38,22 +38,20 @@
         <if test="searchs.teacherId != null and searchs.teacherId != ''">
             AND c.teacher_id = #{searchs.teacherId}
         </if>
-        LEFT JOIN school s ON c.school_id = s.id
-        LEFT JOIN teacher t ON c.teacher_id = t.id where 1=1
     </select>
 
     <select id="getClassesList" resultMap="Classes">
-      SELECT
-            c.id,
-            c.title,
-            c.school_id,
-            s.title school_name,
-            c.teacher_id,
-            t.teacher_name
+        SELECT
+        c.id,
+        c.title,
+        c.school_id,
+        s.title school_name,
+        c.teacher_id,
+        t.nick_name teacher_name
         FROM
-            class c
+        class c
         LEFT JOIN school s ON c.school_id = s.id
-        LEFT JOIN teacher t ON c.teacher_id = t.id
+        LEFT JOIN account t ON c.teacher_id = t.id
         WHERE 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
             AND c.id = #{searchs.classId}
@@ -68,28 +66,28 @@
     </select>
 
     <insert id="addClasses">
-      insert into class(title, school_id, teacher_id)
-      values (#{classesName}, #{schoolId}, #{teacherId})
+        INSERT INTO class (title, school_id, teacher_id)
+        VALUES (#{classesName}, #{schoolId}, #{teacherId})
     </insert>
 
     <update id="updateClasses">
-      update class
-      <set>
-          <if test="classesName!= null and classesName != '' ">
-              title = #{classesName},
-          </if>
-          <if test="schoolId!= null and schoolId!= 0 ">
-              school_id = #{schoolId},
-          </if>
-          <if test="teacherId!= null and teacherId!= '' ">
-              teacher_id = #{teacherId},
-          </if>
-      </set>
-      where id = #{id}
+        update class
+        <set>
+            <if test="classesName!= null and classesName != '' ">
+                title = #{classesName},
+            </if>
+            <if test="schoolId!= null and schoolId!= 0 ">
+                school_id = #{schoolId},
+            </if>
+            <if test="teacherId!= null and teacherId!= '' ">
+                teacher_id = #{teacherId},
+            </if>
+        </set>
+        where id = #{id}
     </update>
 
     <delete id="deleteClasses">
-      delete from class where id in
+        delete from class where id in
         <foreach collection="list" item="classesId" open="(" separator="," close=")">
             #{classesId}
         </foreach>
@@ -105,16 +103,16 @@
     <select id="getTimetableList" resultMap="timeTable">
         SELECT id, class_id, timetable, start_date FROM timetable WHERE 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
-           AND class_id = #{searchs.classId}
+            AND class_id = #{searchs.classId}
         </if>
         LIMIT #{startIndex}, #{pageSize}
     </select>
 
     <insert id="addTimetable">
         INSERT INTO timetable
-          (class_id, timetable, start_date)
+        (class_id, timetable, start_date)
         VALUES
-          (#{classId}, #{timetable}, #{startDate})
+            (#{classId}, #{timetable}, #{startDate})
     </insert>
 
 
@@ -126,7 +124,7 @@
     </select>
 
     <select id="getClassContentList" resultMap="classContent">
-        SELECT id, class_id, content, img_path, img_url  FROM class_content WHERE 1=1
+        SELECT id, class_id, content, img_path, img_url FROM class_content WHERE 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
             AND class_id = #{searchs.classId}
         </if>
@@ -135,9 +133,35 @@
 
     <insert id="addClassContent">
         INSERT INTO class_content
-          (class_id, content, img_path, img_url)
+        (class_id, content, img_path, img_url)
         VALUES
-          (#{classId}, #{content}, #{imgPath}, #{imgUrl})
+            (#{classId}, #{content}, #{imgPath}, #{imgUrl})
     </insert>
+
+
+    <select id="getAccountClassCount" resultType="Long">
+        SELECT count(c.id)
+        FROM
+            account_class ac
+            JOIN class c ON ac.account_id = c.id
+    </select>
+
+    <select id="getAccountClassCountList" resultMap="Classes">
+        SELECT
+        c.id,
+        c.title
+        FROM
+        account_class ac
+        JOIN class c ON ac.account_id = c.id
+        <if test="searchs.accountId != null and searchs.accountId != ''">
+            AND c.id = #{searchs.accountId}
+        </if>
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+
 
 </mapper>
