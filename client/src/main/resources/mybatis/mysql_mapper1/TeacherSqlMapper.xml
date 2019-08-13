@@ -17,14 +17,14 @@
 
     <select id="getTeacherList" resultMap="teacher">
         SELECT
-            ac.id AS account_id
-            ,ac.nick_name
-            ,c.id AS classes_id
-            ,c.title AS classes_name
-            ,c.school_id
-            ,c.grade
-            ,s.title AS school_name
-            ,IF(ac.id=c.teacher_id,1,-1) AS is_head
+            ac.id AS account_id,
+            ac.nick_name,
+            c.id AS classes_id,
+            c.title AS classes_name,
+            c.school_id,
+            c.grade,
+            s.title AS school_name,
+            IF(ac.id=c.teacher_id,1,-1) AS is_head
         FROM
             account_class acc
             LEFT JOIN class c ON acc.class_id = c.id
@@ -68,14 +68,14 @@
 
     <select id="getTeacherById" resultMap="teacher">
         SELECT
-            ac.id AS account_id
-            ,ac.nick_name
-            ,c.id AS classes_id
-            ,c.title AS classes_name
-            ,c.school_id
-            ,c.grade
-            ,s.title AS school_name
-            ,IF(ac.id=c.teacher_id,1,-1) AS is_head
+            ac.id AS account_id,
+            ac.nick_name,
+            c.id AS classes_id,
+            c.title AS classes_name,
+            c.school_id,
+            c.grade,
+            s.title AS school_name,
+            IF(ac.id=c.teacher_id,1,-1) AS is_head
         FROM
             account_class acc
             LEFT JOIN class c ON acc.class_id = c.id
@@ -105,19 +105,42 @@
         where id = #{teacherId}
     </update>
 
+
+    <insert id="addAccountClass">
+        insert into account_class(account_id, class_id) values(#{0}, #{1})
+    </insert>
+
     <delete id="deleteTeacher">
-        delete from teacher where id in
+        delete from account_class where account_id in
         <foreach collection="list" item="teacherId" open="(" separator="," close=")">
             #{teacherId}
         </foreach>
     </delete>
 
+    <update id="deleteHeadTeacher">
+        update class set teacher_id = null
+        where teacher_id in
+        <foreach collection="list" item="teacherId" open="(" separator="," close=")">
+            #{teacherId}
+        </foreach>
+
+    </update>
+
     <!-- 查询所有班主任-->
     <select id="selectAllHeadTeacher" resultMap="teacher">
         SELECT
-            id,
+            ac,
             teacher_name
-        FROM teacher
-        WHERE is_head = 1
+        FROM account ac
+        JOIN class c
+        ON ac.id = c.teacher_id
+        WHERE 1 = 1
+        <if test="searchs.classId != null && searchs.classId != 0">
+            AND c.id = #{searchs.classId}
+        </if>
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
+        LIMIT #{startIndex}, #{pageSize}
     </select>
 </mapper>

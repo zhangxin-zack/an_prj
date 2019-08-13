@@ -50,6 +50,7 @@
              (#{username}, #{password}, #{nickname}, #{address}, #{phone}, #{sex}, #{imgUrl}, #{email}, sysdate())
     </insert>
 
+
     <update id="updateAccount">
         update account
         <set>

@@ -18,9 +18,15 @@ public interface TeacherDao {
 
     void addTeacher(Teacher teacher);
 
+    void addAccountClass(Long accountId, Long classId) throws Exception;
+
     void updateTeacher(Teacher teacher) throws Exception;
 
     void deleteTeacher(List teacherIds) throws Exception;
+
+
+
+    void deleteHeadTeacher(List teacherIds) throws Exception;
 
     List<Teacher> selectAllHeadTeacher(Map<String, Object> params) throws Exception;
 }
