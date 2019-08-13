@@ -1,8 +1,8 @@
 package com.scorer.gateway;
 
-import com.scorer.gateway.check_right.CheckAppTokenFilter;
-import com.scorer.gateway.check_right.CheckIsAppFilter;
-import com.scorer.gateway.check_right.CheckScorerAdminTokenFilter;
+import com.scorer.gateway.check_right.CheckAppUserTokenFilter;
+import com.scorer.gateway.check_right.CheckAppRSAFilter;
+import com.scorer.gateway.check_right.CheckWebManagerTokenFilter;
 import com.scorer.gateway.route_filter.SaveGetInGatewayFilter;
 import com.scorer.gateway.route_filter.AuthSignatureGatewayFilter;
 import com.scorer.gateway.route_filter.ShowRouteURIGatewayFilter;
@@ -19,9 +19,9 @@ public class RouteList {
     private AuthSignatureGatewayFilter authSignatureGatewayFilter =new AuthSignatureGatewayFilter();
     private ShowRouteURIGatewayFilter showRouteURIGatewayFilter =new ShowRouteURIGatewayFilter();
 
-    private CheckAppTokenFilter checkAppTokenFilter =new CheckAppTokenFilter();
-    private CheckScorerAdminTokenFilter checkScorerAdminTokenFilter =new CheckScorerAdminTokenFilter();
-    private CheckIsAppFilter checkIsAppFilter =new CheckIsAppFilter();
+    private CheckAppUserTokenFilter checkAppUserTokenFilter =new CheckAppUserTokenFilter();
+    private CheckWebManagerTokenFilter checkWebManagerTokenFilter =new CheckWebManagerTokenFilter();
+    private CheckAppRSAFilter checkAppRSAFilter =new CheckAppRSAFilter();
 
     @Bean
     public RouteLocator scorerRouteLocator(RouteLocatorBuilder builder) {
@@ -30,9 +30,9 @@ public class RouteList {
                         .filters(f -> f.filter(saveGetInGatewayFilter)
                                 .filter(authSignatureGatewayFilter)
                                 .filter(showRouteURIGatewayFilter)
-                                .filter(checkAppTokenFilter)
-                                .filter(checkScorerAdminTokenFilter)
-                                .filter(checkIsAppFilter))
+                                .filter(checkAppUserTokenFilter)
+                                .filter(checkWebManagerTokenFilter)
+                                .filter(checkAppRSAFilter))
                         .uri("lb://scorer-feign")
                         .order(0))
                 .build();

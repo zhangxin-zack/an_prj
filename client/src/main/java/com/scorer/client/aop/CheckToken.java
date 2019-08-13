@@ -37,7 +37,7 @@ public class CheckToken {
         ValueOperations<String, String> operations = redisTemplate.opsForValue();
         String token = request.getHeader("token");
         String uid = request.getHeader("uid");
-        String uidToken = operations.get("uid_token:" + uid);
+        String uidToken = operations.get("uid_app_token:" + uid);
         if (uidToken == null || !uidToken.equals(token)) {
             throw new TokenTimeOutException("token fail");
         } else {

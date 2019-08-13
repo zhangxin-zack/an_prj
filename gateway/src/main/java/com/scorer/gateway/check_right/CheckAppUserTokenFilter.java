@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class CheckAppTokenFilter implements GatewayFilter, Ordered {
+public class CheckAppUserTokenFilter implements GatewayFilter, Ordered {
 
     @Value("${gateway.value.isDev}")
     private boolean isDev;
@@ -35,17 +35,17 @@ public class CheckAppTokenFilter implements GatewayFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String uri = exchange.getRequest().getURI().getRawPath();
-        if (ScorerURI.NeedAppCheckAppToken.contains(uri)) {
+        if (ScorerURI.NeedAppUserToken.contains(uri)) {
             if (isDev) {
                 return chain.filter(exchange);
             }
             ValueOperations<String, String> operations = redisTemplate.opsForValue();
             HttpHeaders headers = exchange.getRequest().getHeaders();
             String token = headers.getFirst("token");
-            String uid = headers.getFirst("uid");
-            String uid_token = operations.get("uid_token" + uid);
+            String uid = headers.getFirst("accountId");
+            String uid_token = operations.get("uid_app_token:" + uid);
             if (TestObject.noneEmpty(token, uid, uid_token) && token.equals(uid_token)) {
-                operations.set("uid_token" + uid, token, 15 * 24 * 60 * 60, TimeUnit.SECONDS);
+                operations.set("uid_app_token:" + uid, token, 15 * 24 * 60 * 60, TimeUnit.SECONDS);
                 System.out.println("CHECK TOKEN APP SUCCESS!");
                 return chain.filter(exchange);
             }else{
