@@ -6,6 +6,7 @@ import com.scorer.client.entity.Manager;
 import com.scorer.client.entity.Menu;
 import com.scorer.client.entity.Role;
 import com.scorer.client.service.ManagerService;
+import com.scorer.client.tools.TokenTools;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,20 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     private ManagerDao managerDao;
 
     @Override
-    public Manager login(Manager manager) {
+    public Map<String,Object> login(Manager manager) {
+
         try{
-            return managerDao.login(manager);
+            Manager loginManager = managerDao.login(manager);
+            if(loginManager != null){
+                loginManager.setPassword(null);
+                loginManager.setToken(TokenTools.generateTokenSchool(loginManager.getId()));
+                return resultMap(Iconstants.RESULT_CODE_0, "success", loginManager);
+            }else{
+                return resultMap(Iconstants.RESULT_CODE_1, "账号或密码错误", null);
+            }
         }catch (Exception e){
             e.printStackTrace();
-            return null;
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
     }
 

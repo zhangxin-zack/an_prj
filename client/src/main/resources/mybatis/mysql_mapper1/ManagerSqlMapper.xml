@@ -30,14 +30,12 @@
             m.school_id,
             m.username,
             m.PASSWORD,
-            phone,
-            #{currentRoleId}
+            phone
         FROM
             manager m
-            JOIN manager_role mr ON m.id = mr.manager_id
-        WHERE m.username = #{username}
-              AND m.password = #{password}
-              AND mr.role_id = #{currentRoleId}
+        WHERE
+            m.username = #{username}
+            AND m.password = #{password}
     </select>
 
     <select id="getManagerCount" resultType="long">
@@ -48,18 +46,18 @@
 
     <select id="getManagerList" resultMap="manager">
         SELECT
-            id,
-            school_id,
-            username,
-            password,
-            phone
+        id,
+        school_id,
+        username,
+        password,
+        phone
         FROM manager
         WHERE 1 = 1
         <if test="searchs.username!=null and searchs.username!=''">
             AND username LIKE CONCAT('%',#{searchs.username},'%')
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
-             ${item.field} ${item['type']}
+            ${item.field} ${item['type']}
         </foreach>
         LIMIT #{startIndex}, #{pageSize}
     </select>
@@ -127,11 +125,11 @@
 
     <select id="getRoleList" resultMap="manager">
         SELECT
-            id,
-            school_id,
-            username,
-            password,
-            phone
+        id,
+        school_id,
+        username,
+        password,
+        phone
         FROM manager
         WHERE 1 = 1
         <if test="searchs.username!=null and searchs.username!=''">

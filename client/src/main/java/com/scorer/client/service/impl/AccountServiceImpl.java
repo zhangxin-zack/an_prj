@@ -5,12 +5,11 @@ import com.scorer.client.dao.mysql_dao1.AccountDao;
 import com.scorer.client.dao.mysql_dao1.StudentDao;
 import com.scorer.client.entity.Account;
 import com.scorer.client.entity.AppMenu;
-import com.scorer.client.entity.Menu;
 import com.scorer.client.entity.Student;
 import com.scorer.client.service.AccountService;
 import com.scorer.client.tools.MessageApi;
 import com.scorer.client.tools.ObjectUtils;
-import com.scorer.client.tools.RedisTools;
+import com.scorer.client.tools.TokenTools;
 import com.scorer.client.values.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -76,7 +75,7 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             accountDao.addAccountTitle(accountId, 11L);
             data.put("account", account);
             //获取token
-            String token = RedisTools.generateTokenAdminWeb(accountId);
+            String token = TokenTools.generateTokenAPP(accountId);
             data.put("token", token);
             //获取家长身份相关菜单
             List<AppMenu> menuList = accountDao.getAppMenuList(accountId);

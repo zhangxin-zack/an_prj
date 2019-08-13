@@ -12,6 +12,7 @@ public class Manager {
     private Integer statusFlag;
     private Long currentRoleId;
     private List<Long> roleId;
+    private String token;
 
     public Long getId() {
         return id;
@@ -75,5 +76,13 @@ public class Manager {
 
     public void setRoleId(List<Long> roleId) {
         this.roleId = roleId;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

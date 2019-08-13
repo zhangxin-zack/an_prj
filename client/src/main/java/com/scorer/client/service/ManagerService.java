@@ -10,7 +10,7 @@ import java.util.Map;
 
 public interface ManagerService {
 
-    Manager login(Manager manager);
+    Map<String,Object> login(Manager manager);
 
     Map<String, Object> getManagerList(PageBean page);
 

@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class RedisTools {
+public class TokenTools {
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
@@ -23,13 +23,23 @@ public class RedisTools {
         redisTemplate_temp = this.redisTemplate;
     }
 
-    public static String generateTokenAdminWeb(Long uid) {
+    public static String generateTokenAPP(Long accountId) {
         ValueOperations<String, Object> operations = redisTemplate_temp.opsForValue();
         Map<String, Object> map = new HashMap<>();
-        map.put("uid", uid);                                            //根据用户ID生成token
+        map.put("accountId", accountId);                                //根据用户ID生成token
         map.put("LoginTime", System.currentTimeMillis());               //根据用户登录时间生成token
         String token = Jwt.createToken(map);
-        operations.set("uid_token:" + uid, token, 15, TimeUnit.DAYS);
+        operations.set("uid_app_token:" + accountId, token, 15, TimeUnit.DAYS);
+        return token;
+    }
+
+    public static String generateTokenSchool(Long manageId) {
+        ValueOperations<String, Object> operations = redisTemplate_temp.opsForValue();
+        Map<String, Object> map = new HashMap<>();
+        map.put("manageId", manageId);                                       //根据用户ID生成token
+        map.put("LoginTime", System.currentTimeMillis());                    //根据用户登录时间生成token
+        String token = Jwt.createToken(map);
+        operations.set("uid_school_token:" + manageId, token, 15, TimeUnit.DAYS);
         return token;
     }
 
