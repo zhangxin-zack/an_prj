@@ -76,6 +76,9 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     @Override
     public Map<String, Object> deleteManager(List ManagerIds) {
         try{
+            //删除管理员相关角色
+            managerDao.deleteManagersRole(ManagerIds);
+            //删除管理员
             managerDao.deleteManager(ManagerIds);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         }catch (Exception e){

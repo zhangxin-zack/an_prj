@@ -82,6 +82,14 @@
         WHERE manager_id = #{id}
     </delete>
 
+    <delete id="deleteManagersRole">
+        DELETE FROM manager_role
+        WHERE manager_id in
+        <foreach collection="list" item="ManagerId" open="(" separator="," close=")">
+            #{ManagerId}
+        </foreach>
+    </delete>
+
     <update id="updateManager">
         update manager
         <set>
