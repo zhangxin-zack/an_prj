@@ -30,6 +30,7 @@ public class UserController {
         if(loginManager != null){
             map.put(Iconstants.RESULT_CODE, Iconstants.RESULT_CODE_0);
             map.put(Iconstants.RESULT_MESSAGE, "sucess");
+            map.put(Iconstants.RESULT_DATA, "sucess");
             session.setAttribute("user", loginManager);
         }else{
             map.put(Iconstants.RESULT_CODE, Iconstants.RESULT_CODE_1);
