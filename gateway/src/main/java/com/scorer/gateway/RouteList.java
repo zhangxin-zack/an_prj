@@ -30,9 +30,10 @@ public class RouteList {
                         .filters(f -> f.filter(saveGetInGatewayFilter)
                                 .filter(authSignatureGatewayFilter)
                                 .filter(showRouteURIGatewayFilter)
-                                .filter(checkAppUserTokenFilter)
-                                .filter(checkWebManagerTokenFilter)
-                                .filter(checkAppRSAFilter))
+//                                .filter(checkAppUserTokenFilter)
+//                                .filter(checkWebManagerTokenFilter)
+//                                .filter(checkAppRSAFilter)
+                        )
                         .uri("lb://scorer-feign")
                         .order(0))
                 .build();

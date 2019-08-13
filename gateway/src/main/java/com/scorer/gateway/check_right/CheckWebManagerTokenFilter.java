@@ -2,7 +2,7 @@ package com.scorer.gateway.check_right;
 
 import com.google.gson.Gson;
 import com.scorer.gateway.value.ResultMap;
-import com.scorer.tools.ScorerURI;
+import com.scorer.tools.CheckTokenURI;
 import com.scorer.tools.TestObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -35,7 +35,7 @@ public class CheckWebManagerTokenFilter implements GatewayFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String uri = exchange.getRequest().getURI().getRawPath();
-        if (ScorerURI.NeedWebManagerToken.contains(uri)) {
+        if (CheckTokenURI.NeedWebManagerToken.contains(uri)) {
             if (isDev) {
                 return chain.filter(exchange);
             }

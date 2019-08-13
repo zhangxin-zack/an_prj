@@ -5,7 +5,7 @@ import com.scorer.gateway._Excptions.AppCheckFailException;
 import com.scorer.gateway.model.RequestRSA;
 import com.scorer.gateway.value.ResultMap;
 import com.scorer.gateway.tools.RedisInFilter;
-import com.scorer.tools.ScorerURI;
+import com.scorer.tools.CheckTokenURI;
 import com.scorer.tools.TestObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -32,7 +32,7 @@ public class CheckAppRSAFilter implements GatewayFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String uri = exchange.getRequest().getURI().getRawPath();
-        if (ScorerURI.NeedAppRSAToken.contains(uri)) {
+        if (CheckTokenURI.NeedAppRSAToken.contains(uri)) {
             if(isDev){
                 return chain.filter(exchange);
             }

@@ -73,14 +73,12 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             Long accountId = account.getId();
             //注册默认为家长
             accountDao.addAccountTitle(accountId, 11L);
-            data.put("account", account);
             //获取token
-            String token = TokenTools.generateTokenAPP(accountId);
-            data.put("token", token);
+            data.put("account", account);
+            data.put("token", TokenTools.generateTokenAPP(accountId));
             //获取家长身份相关菜单
             List<AppMenu> menuList = accountDao.getAppMenuList(accountId);
             data.put("menuList", getTreeData(menuList));
-
             return resultMap(Iconstants.RESULT_CODE_0, "success", data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,10 +98,11 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             Account loginAccount = accountDao.accountLogin(account);
             Map<String, Object> data = new HashMap<>();
             data.put("account", loginAccount);
+            data.put("token", TokenTools.generateTokenAPP(loginAccount.getId()));
             //获取用户的所有相关菜单
             List<AppMenu> menuList = accountDao.getAppMenuList(loginAccount.getId());
             data.put("menuList", getTreeData(menuList));
-            return resultMap(Iconstants.RESULT_CODE_0, "success", loginAccount);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", data);
         } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);

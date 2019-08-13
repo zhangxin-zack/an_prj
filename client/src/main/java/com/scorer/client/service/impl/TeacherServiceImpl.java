@@ -45,6 +45,8 @@ public class TeacherServiceImpl extends BaseSeviceImpl implements TeacherService
     @Transactional
     public Map<String, Object> addTeacher(Teacher teacher) {
         try{
+
+
             teacherDao.addTeacher(teacher);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         }catch (Exception e){

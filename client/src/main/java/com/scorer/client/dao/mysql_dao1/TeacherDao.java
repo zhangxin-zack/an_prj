@@ -16,7 +16,7 @@ public interface TeacherDao {
 
     Teacher getTeacherById(Integer teacherId) throws Exception;
 
-    void addTeacher(Teacher teacher) throws Exception;
+    void addTeacher(Teacher teacher);
 
     void updateTeacher(Teacher teacher) throws Exception;
 

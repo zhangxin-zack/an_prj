@@ -1,30 +1,14 @@
 package com.scorer.client.entity;
 
+import java.util.List;
+
 public class Teacher {
 
     private Long teacherId;
-
-    private Long schoolId;
-
-    private String schoolName;
-
     private String teacherName;
-
-    private Integer isHead;
-
-    private String manageClassIds;
-    private String manageClassName;
     private String phone;
-    private Long accountId;
-    private String accountName;
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    private List<Classes> manageClasses;
 
     public Long getTeacherId() {
         return teacherId;
@@ -32,22 +16,6 @@ public class Teacher {
 
     public void setTeacherId(Long teacherId) {
         this.teacherId = teacherId;
-    }
-
-    public Long getSchoolId() {
-        return schoolId;
-    }
-
-    public void setSchoolId(Long schoolId) {
-        this.schoolId = schoolId;
-    }
-
-    public String getSchoolName() {
-        return schoolName;
-    }
-
-    public void setSchoolName(String schoolName) {
-        this.schoolName = schoolName;
     }
 
     public String getTeacherName() {
@@ -58,27 +26,19 @@ public class Teacher {
         this.teacherName = teacherName;
     }
 
-    public Integer getIsHead() {
-        return isHead;
+    public String getPhone() {
+        return phone;
     }
 
-    public String getManageClassIds() {
-        return manageClassIds;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public void setManageClassIds(String manageClassIds) {
-        this.manageClassIds = manageClassIds;
+    public List<Classes> getManageClasses() {
+        return manageClasses;
     }
 
-    public String getManageClassName() {
-        return manageClassName;
-    }
-
-    public void setManageClassName(String manageClassName) {
-        this.manageClassName = manageClassName;
-    }
-
-    public void setIsHead(Integer isHead) {
-        this.isHead = isHead;
+    public void setManageClasses(List<Classes> manageClasses) {
+        this.manageClasses = manageClasses;
     }
 }
