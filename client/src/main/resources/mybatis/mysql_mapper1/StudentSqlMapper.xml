@@ -37,6 +37,77 @@
     </select>
 
 
+    <select id="getStudentCountBK" resultType="long">
+        SELECT count(s.id) FROM
+            students s
+            LEFT JOIN class c ON s.class_id = c.id
+        where delete_flag = 0
+        <if test="searchs.studentName!= null and searchs.studentName != '' ">
+            and s.`name` like CONCAT('%',#{searchs.studentName},'%')
+        </if>
+        <if test="searchs.registerNo!= null and searchs.registerNo != '' ">
+            and s.register_no like CONCAT('%',#{searchs.registerNo},'%')
+        </if>
+        <if test="searchs.cardNo!= null and searchs.cardNo != '' ">
+            and s.card_no like CONCAT('%',#{searchs.cardNo},'%')
+        </if>
+        <if test="searchs.classId!= null and searchs.classId != 0 ">
+            and c.id = #{searchs.classId}
+        </if>
+        <if test="searchs.status!= null">
+            and s.status = #{searchs.status}
+        </if>
+        <if test="searchs.school_id!= null">
+            and s.school_id = #{searchs.school_id}
+        </if>
+    </select>
+
+
+    <select id="getStudentListBK" resultMap="Student">
+        SELECT
+            s.id,
+            s.card_no,
+            s.`name` AS name,
+            s.register_no,
+            s.sex,
+            s.height,
+            s.weight,
+            s.ring_no,
+            c.id AS class_id,
+            c.title class_name,
+            s.birthday,
+            s.bind,
+            s.status,
+        FROM
+            students s
+            LEFT JOIN class c ON s.class_id = c.id
+        where delete_flag = 0
+        <if test="searchs.studentName!= null and searchs.studentName != '' ">
+            and s.`name` like CONCAT('%',#{searchs.studentName},'%')
+        </if>
+        <if test="searchs.registerNo!= null and searchs.registerNo != '' ">
+            and s.register_no like CONCAT('%',#{searchs.registerNo},'%')
+        </if>
+        <if test="searchs.cardNo!= null and searchs.cardNo != '' ">
+            and s.card_no like CONCAT('%',#{searchs.cardNo},'%')
+        </if>
+        <if test="searchs.classId!= null and searchs.classId != 0 ">
+            and c.id = #{searchs.classId}
+        </if>
+        <if test="searchs.status!= null">
+            and s.status = #{searchs.status}
+        </if>
+        <if test="searchs.school_id!= null">
+            and s.school_id = #{searchs.school_id}
+        </if>
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+
+
     <select id="getStudentCount" resultType="long">
         SELECT count(s.id) FROM account_student acs
         LEFT JOIN students s ON s.id = acs.student_id

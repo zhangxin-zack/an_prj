@@ -14,6 +14,9 @@ import java.util.Map;
 @FeignClient(value = "scorer-client")
 public interface StudentService {
 
+    @RequestMapping(value = "/EDU/student/bk/list", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getStudentListBK(@RequestBody PageBean condition);
+
     @RequestMapping(value = "/EDU/student/list", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getStudentList(@RequestBody PageBean condition);
 
@@ -31,4 +34,6 @@ public interface StudentService {
 
     @RequestMapping(value = "/EDU/student/remove", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map deleteStudent(@RequestParam(value = "studentIds") List<Integer> studentIds);
+
+
 }

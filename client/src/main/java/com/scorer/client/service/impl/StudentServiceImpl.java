@@ -90,4 +90,16 @@ public class StudentServiceImpl extends BaseSeviceImpl implements StudentService
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
     }
+
+    @Override
+    public Map<String, Object> getStudentListBK(PageBean page) {
+        try{
+            page.setTotal(studentDao.getStudentCountBK(page));
+            page.setRows(studentDao.getStudentListBK(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
 }

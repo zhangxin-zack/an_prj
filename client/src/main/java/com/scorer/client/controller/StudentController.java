@@ -19,6 +19,12 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    @RequestMapping(value = "/bk/list")
+    public Map getStudentListBK(@RequestBody PageBean condition) {
+        return studentService.getStudentListBK(condition);
+    }
+
+
     @RequestMapping(value = "/list")
     public Map getStudentList(@RequestBody PageBean condition) {
         return studentService.getStudentList(condition);

@@ -20,4 +20,6 @@ public interface StudentService {
     Map<String, Object> updateStudent(Student student);
 
     Map<String, Object> deleteStudent(List studentIds);
+
+    Map<String, Object> getStudentListBK(PageBean condition);
 }

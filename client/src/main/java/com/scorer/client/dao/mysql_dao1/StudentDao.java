@@ -27,4 +27,8 @@ public interface StudentDao {
     void addAccountStudent(Student student);
 
     Student getStudentById(@Param("id") Long id);
+
+    long getStudentCountBK(PageBean page);
+
+    List<Student> getStudentListBK(PageBean page);
 }
