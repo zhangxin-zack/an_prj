@@ -133,11 +133,13 @@
             LEFT JOIN daily_report d ON s.id = d.student_id
             LEFT JOIN class c ON s.class_id = c.id
         WHERE 1=1
+        <!-- historyType 为1 时查询当日历史纪律 -->
         <if test="searchs.historyType == 1">
-            DATE_FORMAT( d.report_date, '%Y-%m-%d' ) = DATE_FORMAT( '2019-01-01', '%Y-%m-%d' )
+            DATE_FORMAT( d.report_date, '%Y-%m-%d' ) = DATE_FORMAT( sysdate(), '%Y-%m-%d' )
         </if>
+        <!-- historyType 为0 时查询当月历史纪律 -->
         <if test="searchs.historyType == 0">
-            DATE_FORMAT( d.report_date, '%Y-%m' ) = DATE_FORMAT( '2019-01-01', '%Y-%m' )
+            DATE_FORMAT( d.report_date, '%Y-%m' ) = DATE_FORMAT( sysdate(), '%Y-%m' )
         </if>
         GROUP BY
             c.id,
