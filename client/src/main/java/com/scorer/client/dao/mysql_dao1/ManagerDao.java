@@ -24,6 +24,8 @@ public interface ManagerDao {
 
     void deleteManagerRole(Long id) throws Exception;
 
+    void deleteManagersRole(List<Long> id) throws Exception;
+
     void updateManager(Manager manager) throws Exception;
 
     void deleteManager(List managerIds) throws Exception;
