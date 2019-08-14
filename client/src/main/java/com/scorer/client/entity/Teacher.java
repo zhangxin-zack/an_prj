@@ -9,6 +9,7 @@ public class Teacher {
     private String phone;
     private String accountUsername;
     private Integer isHead;
+    private Long schoolId;
 
     private List<Long> classIds;
     private List<Classes> manageClasses;
@@ -63,6 +64,14 @@ public class Teacher {
 
     public List<Long> getClassIds() {
         return classIds;
+    }
+
+    public Long getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(Long schoolId) {
+        this.schoolId = schoolId;
     }
 
     public void setClassIds(List<Long> classIds) {

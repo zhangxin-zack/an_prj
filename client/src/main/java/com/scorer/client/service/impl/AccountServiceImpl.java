@@ -144,6 +144,8 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             if (!(ObjectUtils.noneEmpty(phoneCode, account.getValidateCode()) && String.valueOf(phoneCode).equals(account.getValidateCode()))) {
                 return resultMap(Iconstants.RESULT_CODE_1, ResultMap.Result.get(1003), null);
             }
+            Long accountId = accountDao.getAccountIdByPhone(account.getPhone());
+            account.setId(accountId);
             accountDao.updateAccount(account);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         } catch (Exception e) {

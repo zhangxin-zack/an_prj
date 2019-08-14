@@ -27,6 +27,7 @@ public interface TeacherService {
     Map updateTeacher(@RequestBody Teacher teacher);
 
     @RequestMapping(value = "/EDU/teacher/remove", consumes = MediaType.APPLICATION_JSON_VALUE)
-    Map deleteTeacher(@RequestParam("teacherIds") List<Long> teacherIds);
+    Map deleteTeacher(@RequestParam("teacherIds") List<Long> teacherIds,
+                      @RequestParam("schoolId") Long schoolId);
 
 }

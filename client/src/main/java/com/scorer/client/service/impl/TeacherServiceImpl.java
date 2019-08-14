@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +25,11 @@ public class TeacherServiceImpl extends BaseSeviceImpl implements TeacherService
 
     @Override
     public Map<String, Object> getTeacherList(PageBean page) {
-        try{
+        try {
             page.setTotal(teacherDao.getTeacherCount(page));
             page.setRows(teacherDao.getTeacherList(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -38,10 +37,10 @@ public class TeacherServiceImpl extends BaseSeviceImpl implements TeacherService
 
     @Override
     public Map<String, Object> getTeacherById(Integer teacherId) {
-        try{
+        try {
             Teacher teacher = teacherDao.getTeacherById(teacherId);
             return resultMap(Iconstants.RESULT_CODE_0, "success", teacher);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -50,45 +49,23 @@ public class TeacherServiceImpl extends BaseSeviceImpl implements TeacherService
     @Override
     @Transactional
     public Map<String, Object> addTeacher(Teacher teacher) {
-        try{
+        try {
             //查询account表是否用户已存在, 存在的话, 修改用户, 不存在则新增用户, 并且绑定用户与班级关系表
             Account account = new Account();
             account.setPhone(teacher.getPhone());
-            List<Long> classIds = teacher.getClassIds();
             Account teacherAccount = accountDao.accountLogin(account);
-            if(teacherAccount == null){
+            if (teacherAccount == null) {
                 account.setUsername(teacher.getAccountUsername());
                 account.setNickname(teacher.getTeacherName());
                 //添加老师用户
                 accountDao.addAccount(account);
-                //绑定老师与班级的关系
-                Long accountId = account.getId();
-                for(Long classId: classIds){
-                    teacherDao.addAccountClass(accountId, classId);
-                }
             }else{
-                List<Long> teacherIds = new ArrayList<>();
-                teacherIds.add(teacherAccount.getId());
-                //删除关系表
-                teacherDao.deleteTeacher(teacherIds);
-                //重新绑定关系
-                for(Long classId: classIds){
-                    teacherDao.addAccountClass(teacherAccount.getId(), classId);
-                }
+                account.setId(teacherAccount.getId());
             }
+            //绑定老师与学校关系
+            teacherDao.addSchoolTeacher(account.getId(), teacher.getSchoolId());
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
-        }catch (Exception e){
-            e.printStackTrace();
-            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
-        }
-    }
-
-    @Override
-    public Map<String, Object> updateTeacher(Teacher teacher) {
-        try{
-            teacherDao.updateTeacher(teacher);
-            return resultInfo(Iconstants.RESULT_CODE_0, "success");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
@@ -96,14 +73,34 @@ public class TeacherServiceImpl extends BaseSeviceImpl implements TeacherService
 
     @Override
     @Transactional
-    public Map<String, Object> deleteTeacher(List teacherIds) {
-        try{
-            //首先删除老师的班主任身份
-            teacherDao.deleteHeadTeacher(teacherIds);
-            //删除老师与班级中间表关系
-            teacherDao.deleteTeacher(teacherIds);
+    public Map<String, Object> updateTeacher(Teacher teacher) {
+        try {
+            Account account = new Account();
+            account.setPhone(teacher.getPhone());
+            account.setUsername(teacher.getAccountUsername());
+            account.setNickname(teacher.getTeacherName());
+            account.setId(teacher.getTeacherId());
+            if (account.getUsername() != null || account.getNickname() != null) {
+                accountDao.updateAccount(account);
+            }
+            //重新绑定老师与学校关系
+            teacherDao.addSchoolTeacher(account.getId(), teacher.getSchoolId());
+            teacherDao.updateTeacher(teacher);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
-        }catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
+    public Map<String, Object> deleteTeacher(List teacherIds, Long schoolId) {
+        try {
+            //首先删除老师的班主任身份
+            teacherDao.deleteTeacherFromClass(teacherIds,schoolId);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        } catch (Exception e) {
             e.printStackTrace();
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
@@ -111,10 +108,10 @@ public class TeacherServiceImpl extends BaseSeviceImpl implements TeacherService
 
     @Override
     public Map<String, Object> getHeadTeacherList(Map<String, Object> params) {
-        try{
+        try {
             List<Teacher> teachers = teacherDao.selectAllHeadTeacher(params);
             return resultMap(Iconstants.RESULT_CODE_0, "success", teachers);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }

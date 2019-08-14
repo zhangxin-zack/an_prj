@@ -5,6 +5,8 @@
     <resultMap id="teacher" type="com.scorer.client.entity.Teacher">
         <id column="account_id" property="teacherId"/>
         <result column="nick_name" property="teacherName"/>
+        <result column="username" property="accountUsername"/>
+        <result column="phone" property="phone"/>
         <collection property="manageClasses" ofType="com.scorer.client.entity.Classes">
             <id property="id" column="classes_id"/>
             <result property="classesName" column="classes_name"/>
@@ -15,6 +17,35 @@
         </collection>
     </resultMap>
 
+    <delete id="deleteTeacherFromClass">
+        DELETE FROM account_class WHERE school_id=#{schoolId} AND account_id IN
+        <foreach collection="teacherIds" item="i" open="(" close=")" separator=",">
+            #{i}
+        </foreach>
+
+    </delete>
+
+    <insert id="addSchoolTeacher">
+        DELETE FROM account_class WHERE school_id=#{schoolId} AND account_id=#{accountId} AND class_id IS NULL;
+        INSERT INTO account_class(account_id, school_id) VALUES (#{accountId},#{schoolId});
+    </insert>
+
+    <insert id="updateTeacher">
+        DELETE FROM account_class WHERE school_id=#{schoolId} AND account_id=#{teacherId} AND class_id IS NOT NULL;
+        <if test="manageClasses!=null and manageClasses.size()>0">
+            INSERT INTO account_class(account_id,class_id,school_id)
+            VALUES
+            <foreach collection="manageClasses" item="i" separator="," close=";">
+                (#{teacherId},#{i.id},#{schoolId})
+            </foreach>
+            <foreach collection="manageClasses" item="it">
+                <if test="it.is_head==1">
+                    UPDATE class SET teacher_id=#{teacherId} WHERE id=#{it.id};
+                </if>
+            </foreach>
+        </if>
+    </insert>
+
     <select id="getTeacherList" resultMap="teacher">
         SELECT
             ac.id AS account_id,
@@ -24,13 +55,16 @@
             c.school_id,
             c.grade,
             s.title AS school_name,
-            IF(ac.id=c.teacher_id,1,-1) AS is_head
+            ac.username,
+            ac.phone,
+            IF(c.id IS NULL,NULL,IF(ac.id=c.teacher_id,1,-1)) AS is_head
         FROM
             account_class acc
-            LEFT JOIN class c ON acc.class_id = c.id
             LEFT JOIN account ac ON acc.account_id = ac.id
+            LEFT JOIN class c ON acc.class_id = c.id
             LEFT JOIN school s ON c.school_id=s.id
-        WHERE 1=1
+        WHERE
+            1=1 AND acc.school_id=#{searchs.schoolId}
         <if test="searchs.teacherName!= null and searchs.teacherName != '' ">
             and ac.nick_name like CONCAT('%',#{searchs.teacherName},'%')
         </if>
@@ -43,18 +77,20 @@
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
         </foreach>
-        LIMIT #{startIndex}, #{pageSize}
+        AND acc.account_id IN(
+            SELECT a.account_id FROM (SELECT DISTINCT account_id FROM account_class WHERE school_id=#{searchs.schoolId} LIMIT #{startIndex}, #{pageSize}) a
+        )
     </select>
 
     <select id="getTeacherCount" resultType="Long">
         SELECT
-            COUNT(acc.account_id)
+            COUNT(DISTINCT acc.account_id)
         FROM
             account_class acc
             LEFT JOIN class c ON acc.class_id = c.id
             LEFT JOIN account ac ON acc.account_id = ac.id
             LEFT JOIN school s ON c.school_id=s.id
-        WHERE 1=1
+        WHERE 1=1 AND acc.school_id=#{searchs.schoolId}
         <if test="searchs.teacherName!= null and searchs.teacherName != '' ">
             and ac.nick_name like CONCAT('%',#{searchs.teacherName},'%')
         </if>
@@ -92,22 +128,9 @@
         values (#{phone}, #{teacherName})
     </insert>
 
-    <update id="updateTeacher">
-        update teacher
-        <set>
-            <if test="schoolId!= null and schoolId != 0 ">
-                school_id = #{schoolId},
-            </if>
-            <if test="teacherName!= null and teacherName!= '' ">
-                teacher_name = #{teacherName},
-            </if>
-        </set>
-        where id = #{teacherId}
-    </update>
-
 
     <insert id="addAccountClass">
-        insert into account_class(account_id, class_id) values(#{0}, #{1})
+        insert into account_class(account_id, class_id,school_id) values(#{0}, #{1},#{2})
     </insert>
 
     <delete id="deleteTeacher">
@@ -127,15 +150,15 @@
     </update>
 
     <!-- 查询所有班主任-->
+    <!--
     <select id="selectAllHeadTeacher" resultMap="teacher">
         SELECT
-            ac,
-            teacher_name
+            ac.teacher_name
         FROM account ac
         JOIN class c
         ON ac.id = c.teacher_id
         WHERE 1 = 1
-        <if test="searchs.classId != null && searchs.classId != 0">
+        <if test="searchs.classId != null and searchs.classId != 0">
             AND c.id = #{searchs.classId}
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
@@ -143,4 +166,5 @@
         </foreach>
         LIMIT #{startIndex}, #{pageSize}
     </select>
+    -->
 </mapper>

@@ -2,6 +2,8 @@ package com.scorer.client.dao.mysql_dao1;
 
 import com.scorer.client.entity.Account;
 import com.scorer.client.entity.AppMenu;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +24,7 @@ public interface AccountDao {
     List<AppMenu> getAllAppMenuList() throws Exception;
 
     List<AppMenu> getAppMenuList(Long accountId) throws Exception;
+
+    @Select("SELECT id FROM account WHERE phone=#{phone}")
+    Long getAccountIdByPhone(@Param("phone") String phone);
 }
