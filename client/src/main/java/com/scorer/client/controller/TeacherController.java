@@ -25,7 +25,7 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/get")
-    public Map getTeacherById(@RequestBody Integer id) {
+    public Map getTeacherById(@RequestParam(value = "id") Integer id) {
         return teacherService.getTeacherById(id);
     }
 
@@ -40,8 +40,9 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/remove")
-    public Map deleteTeacher(@RequestBody List<Integer> teacherIds) {
-        return teacherService.deleteTeacher(teacherIds);
+    public Map deleteTeacher(@RequestParam("teacherIds") List<Integer> teacherIds,
+                             @RequestParam("schoolId") Long schoolId) {
+        return teacherService.deleteTeacher(teacherIds,schoolId);
     }
 
     //有问题

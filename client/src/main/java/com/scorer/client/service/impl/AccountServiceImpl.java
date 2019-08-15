@@ -72,7 +72,7 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             accountDao.addAccount(account);
             Long accountId = account.getId();
             //注册默认为家长
-            accountDao.addAccountTitle(accountId, 11L);
+            accountDao.addAccountTitle(accountId, 1L);
             //获取token
             data.put("account", account);
             data.put("token", TokenTools.generateTokenAPP(accountId));
@@ -144,6 +144,8 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             if (!(ObjectUtils.noneEmpty(phoneCode, account.getValidateCode()) && String.valueOf(phoneCode).equals(account.getValidateCode()))) {
                 return resultMap(Iconstants.RESULT_CODE_1, ResultMap.Result.get(1003), null);
             }
+            Long accountId = accountDao.getAccountIdByPhone(account.getPhone());
+            account.setId(accountId);
             accountDao.updateAccount(account);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         } catch (Exception e) {

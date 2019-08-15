@@ -1,5 +1,6 @@
 package com.scorer.feign.controller;
 
+import com.google.gson.Gson;
 import com.scorer.feign.entity.Teacher;
 import com.scorer.feign.feign_con.TeacherService;
 import com.scorer.feign.values.PageBean;
@@ -40,8 +41,9 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/remove")
-    public Map deleteTeacher(@RequestParam("teacherIds") List<Long> teacherIds) {
-        return teacherService.deleteTeacher(teacherIds);
+    public Map deleteTeacher(@RequestParam("teacherIds") List<Long> teacherIds,
+                             @RequestParam("schoolId") Long schoolId) {
+        return teacherService.deleteTeacher(teacherIds,schoolId);
     }
 
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scorer.client.dao.mysql_dao1.Request_Service_Dao">
 
-    <insert id="saveRequest">
-        INSERT INTO save_request(requestURL,requestURI,requestIP,requestTime,user_agent,uid,parameterMap,requestBody)
-        VALUES(#{requestURL},#{requestURI},#{requestIP},#{requestTime},#{user_agent},#{uid},#{parameterMap},#{requestBody})
-    </insert>
+<insert id="saveRequest">
+    INSERT INTO save_request(requestURL,requestURI,requestIP,requestTime,user_agent,uid,parameterMap,requestBody)
+    VALUES(#{requestURL},#{requestURI},#{requestIP},#{requestTime},#{user_agent},#{uid},#{parameterMap},#{requestBody})
+</insert>
 
 </mapper>

@@ -9,6 +9,13 @@
         <result column="school_name" property="schoolName"/>
         <result column="teacher_id" property="teacherId"/>
         <result column="teacher_name" property="teacherName"/>
+        <collection property="teacherList" ofType="com.scorer.client.entity.Teacher">
+            <id property="teacherId" column="teacherI_id"/>
+            <result property="teacherName" column="teacher_name"/>
+            <result property="schoolId" column="school_id"/>
+            <result property="accountUsername" column="account_username"/>
+            <result property="isHead" column="is_head"/>
+        </collection>
     </resultMap>
 
     <resultMap id="timeTable" type="com.scorer.client.entity.Timetable">
@@ -31,38 +38,38 @@
         count(c.id)
         FROM
         class c
-        WHERE 1=1
+        WHERE 1=1 AND c.school_id=#{searchs.schoolId}
         <if test="searchs.classId != null and searchs.classId != ''">
             AND c.id = #{searchs.classId}
-        </if>
-        <if test="searchs.teacherId != null and searchs.teacherId != ''">
-            AND c.teacher_id = #{searchs.teacherId}
         </if>
     </select>
 
     <select id="getClassesList" resultMap="Classes">
         SELECT
-        c.id,
-        c.title,
-        c.school_id,
-        s.title school_name,
-        c.teacher_id,
-        t.nick_name teacher_name
+            c.id,
+            c.title,
+            c.school_id,
+            s.title school_name,
+            c.title,
+            a.id AS teacherI_id,
+            a.nick_name AS teacher_name,
+            a.username AS account_username,
+            IF(c.teacher_id=a.id,1,-1) AS is_head
         FROM
-        class c
+            class c
         LEFT JOIN school s ON c.school_id = s.id
-        LEFT JOIN account t ON c.teacher_id = t.id
-        WHERE 1=1
+        LEFT JOIN account_class acc ON acc.class_id=c.id
+        LEFT JOIN account a ON acc.account_id=a.id
+        WHERE 1=1 AND c.school_id=#{searchs.schoolId}
         <if test="searchs.classId != null and searchs.classId != ''">
             AND c.id = #{searchs.classId}
         </if>
-        <if test="searchs.teacherId != null and searchs.teacherId != ''">
-            AND c.teacher_id = #{searchs.teacherId}
-        </if>
+        AND c.id IN(
+            SELECT a.id FROM (SELECT DISTINCT id FROM  class WHERE school_id=#{searchs.schoolId} LIMIT #{startIndex}, #{pageSize}) a
+        )
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
-            ${item.field} ${item['type']}
+              ${item.field} ${item['type']}
         </foreach>
-        LIMIT ${startIndex}, ${pageSize}
     </select>
 
     <insert id="addClasses">

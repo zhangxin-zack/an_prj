@@ -24,7 +24,6 @@
         <result column="report_date" property="reportDate"/>
     </resultMap>
 
-
     <select id="getAlarmReportCount" resultType="Long">
       SELECT
             count(ar.id)
