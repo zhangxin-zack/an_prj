@@ -74,12 +74,12 @@
         <if test="searchs.isHead!= null and searchs.isHead != '' ">
             and IF(ac.id=c.teacher_id,1,-1) = #{searchs.isHead}
         </if>
-        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
-            ${item.field} ${item['type']}
-        </foreach>
         AND acc.account_id IN(
             SELECT a.account_id FROM (SELECT DISTINCT account_id FROM account_class WHERE school_id=#{searchs.schoolId} LIMIT #{startIndex}, #{pageSize}) a
         )
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
     </select>
 
     <select id="getTeacherCount" resultType="Long">

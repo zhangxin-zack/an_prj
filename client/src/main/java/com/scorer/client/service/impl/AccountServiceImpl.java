@@ -72,7 +72,7 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             accountDao.addAccount(account);
             Long accountId = account.getId();
             //注册默认为家长
-            accountDao.addAccountTitle(accountId, 11L);
+            accountDao.addAccountTitle(accountId, 1L);
             //获取token
             data.put("account", account);
             data.put("token", TokenTools.generateTokenAPP(accountId));

@@ -59,6 +59,8 @@ public class TeacherServiceImpl extends BaseSeviceImpl implements TeacherService
                 account.setNickname(teacher.getTeacherName());
                 //添加老师用户
                 accountDao.addAccount(account);
+                accountDao.addAccountTitle(account.getId(), 1L);
+                accountDao.addAccountTitle(account.getId(), 2L);
             }else{
                 account.setId(teacherAccount.getId());
             }
