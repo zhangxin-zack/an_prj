@@ -20,8 +20,14 @@ public interface StudentService {
     @RequestMapping(value = "/EDU/student/list", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getStudentList(@RequestBody PageBean condition);
 
-    @RequestMapping(value = "/EDU/student/parent_get", consumes = MediaType.APPLICATION_JSON_VALUE)
-    Map getStudentParentDetail(@RequestBody PageBean condition);
+    @RequestMapping(value = "/EDU/student/list_app", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getStudentListForApp(@RequestBody PageBean condition);
+
+    //@RequestMapping(value = "/EDU/student/parent_get", consumes = MediaType.APPLICATION_JSON_VALUE)
+    //Map getStudentParentDetail(@RequestBody PageBean condition);
+
+    @RequestMapping(value = "/EDU/student/get_family", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map<String, Object> getStudentFamily(PageBean page);
 
     @RequestMapping(value = "/EDU/student/alarm_get", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getRingAlarmDetail(@RequestBody PageBean condition);

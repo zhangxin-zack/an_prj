@@ -30,6 +30,11 @@ public class StudentController {
         return studentService.getStudentList(condition);
     }
 
+    @RequestMapping(value = "/list_app")
+    public Map getStudentListForApp(@RequestBody PageBean condition) {
+        return studentService.getStudentListForApp(condition);
+    }
+
     @RequestMapping(value = "/get_family")
     public Map getStudentFamily(@RequestBody PageBean condition) {
         return studentService.getStudentFamily(condition);

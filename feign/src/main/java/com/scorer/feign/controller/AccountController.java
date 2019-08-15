@@ -3,6 +3,7 @@ package com.scorer.feign.controller;
 import com.scorer.feign.entity.Account;
 import com.scorer.feign.entity.Student;
 import com.scorer.feign.feign_con.AccountService;
+import com.scorer.feign.values.PageBean;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -69,4 +70,9 @@ public class AccountController {
         return accountService.updateBaby(student);
     }
 
+    //查询宝贝
+    @RequestMapping(value = "/list_baby")
+    public Map accountListBaby(@RequestBody PageBean condition) {
+        return accountService.listBaby(condition);
+    }
 }

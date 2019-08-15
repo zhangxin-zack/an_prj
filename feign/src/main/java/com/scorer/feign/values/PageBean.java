@@ -13,8 +13,8 @@ public class PageBean {
     private Long total;
     private List<?> rows;
 
-    private Integer limit;
-    private Integer paging;
+    private Integer limit = 1000;
+    private Integer paging = 1;
 
     public int getPageSize() {
         return limit;

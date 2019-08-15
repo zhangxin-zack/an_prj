@@ -19,6 +19,9 @@ public interface ClassesDao {
 
     void addClasses(Classes classes) throws Exception;
 
+
+    Long countTeacherClass(Long accountId, Long classId) throws Exception;
+
     void updateClasses(Classes classes) throws Exception;
 
     void deleteClasses(List classesIds) throws Exception;

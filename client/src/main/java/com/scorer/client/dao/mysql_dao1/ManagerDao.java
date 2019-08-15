@@ -36,7 +36,26 @@ public interface ManagerDao {
 
     List<Role> getAllRoleList() throws Exception;
 
+    void addRole(Role role) throws Exception;
+
+    void deleteRole(List<Long> id) throws Exception;
+
+    void updateRole(Role role) throws Exception;
+
     void deleteRoleMenu(Long roleId) throws Exception;
+
+
+    void deleteManagersRoleByRoleIds(List<Long> id) throws Exception;
+
+    void deleteRoleMenuByRoleIds(List<Long> id) throws Exception;
+
+    void addMenu(Menu menu) throws Exception;
+
+    void updateMenu(Menu menu) throws Exception;
+
+    void deleteMenus(List<Long> id) throws Exception;
+
+    void deleteRoleMenuByMenuIds(List<Long> id) throws Exception;
 
     void addRoleMenu(Long roleId, Long menuId) throws Exception;
 

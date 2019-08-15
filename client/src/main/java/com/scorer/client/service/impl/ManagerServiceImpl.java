@@ -109,6 +109,80 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     }
 
     @Override
+    public Map<String, Object> addRole(Role role) {
+        try{
+            managerDao.addRole(role);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> updateRole(Role role) {
+        try{
+            managerDao.updateRole(role);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> deleteRoles(List roleIds) {
+        try{
+            //删除角色表
+            managerDao.deleteRole(roleIds);
+            //删除角色相关菜单关系以及管理员关系
+            managerDao.deleteManagersRoleByRoleIds(roleIds);
+            managerDao.deleteRoleMenuByRoleIds(roleIds);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+
+    @Override
+    public Map<String, Object> addMenu(Menu menu) {
+        try{
+            managerDao.addMenu(menu);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> updateMenu(Menu menu) {
+        try{
+            managerDao.updateMenu(menu);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> deleteMenus(List menuIds) {
+        try{
+            //删除角色表
+            managerDao.deleteMenus(menuIds);
+            //删除角色相关菜单关系
+            managerDao.deleteManagersRole(menuIds);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
     public Map<String, Object> saveRole(Long roleId, List<Long> menuIds) {
         try{
             managerDao.deleteRoleMenu(roleId);
@@ -133,6 +207,10 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
         }
     }
 
+    /**
+     * 查询全量菜单（树形）
+     * @return
+     */
     @Override
     public Map<String, Object> getAllMenuList() {
         try{

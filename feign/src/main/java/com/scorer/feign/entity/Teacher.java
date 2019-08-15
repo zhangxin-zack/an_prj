@@ -1,5 +1,6 @@
 package com.scorer.feign.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Teacher {
@@ -13,6 +14,45 @@ public class Teacher {
 
     private List<Long> classIds;
     private List<Classes> manageClasses;
+
+    private List<Classes> operateClasses=new ArrayList<>();   //班主任
+    private List<Classes> teachClasses=new ArrayList<>();   //非班主任
+
+    public void initFromDB() {
+        if (manageClasses != null)
+            for (Classes manageClasses : manageClasses) {
+                if(manageClasses.getIs_head()!=null&&manageClasses.getIs_head()==1){
+                    operateClasses.add(manageClasses);
+                }else{
+                    teachClasses.add(manageClasses);
+                }
+            }
+    }
+
+    public void initFromUser() {
+        manageClasses = new ArrayList<>();
+        if(operateClasses!=null)
+        manageClasses.addAll(operateClasses);
+        if(teachClasses!=null)
+        manageClasses.addAll(teachClasses);
+    }
+
+
+    public List<Classes> getOperateClasses() {
+        return operateClasses;
+    }
+
+    public void setOperateClasses(List<Classes> operateClasses) {
+        this.operateClasses = operateClasses;
+    }
+
+    public List<Classes> getTeachClasses() {
+        return teachClasses;
+    }
+
+    public void setTeachClasses(List<Classes> teachClasses) {
+        this.teachClasses = teachClasses;
+    }
 
     public Long getTeacherId() {
         return teacherId;

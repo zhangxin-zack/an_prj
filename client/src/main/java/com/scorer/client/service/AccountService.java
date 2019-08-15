@@ -36,4 +36,6 @@ public interface AccountService {
     Map<String, Object> addBaby(Student student);
 
     Map<String, Object> updateBaby(Student student);
+
+    Map<String, Object> listBaby(PageBean page);
 }

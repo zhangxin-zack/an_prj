@@ -4,6 +4,7 @@ import com.scorer.client.entity.Account;
 import com.scorer.client.entity.Student;
 import com.scorer.client.service.AccountService;
 import com.scorer.client.service.ClassesService;
+import com.scorer.client.service.StudentService;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ValueOperations;
@@ -23,6 +24,9 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private StudentService studentService;
 
     /**
      * 获取短信验证码
@@ -93,6 +97,16 @@ public class AccountController {
     @RequestMapping(value = "/add_baby")
     public Map accountAddBaby(@RequestBody Student student) {
         return accountService.addBaby(student);
+    }
+
+    /**
+     * 查询家长宝贝列表
+     * @param condition
+     * @return
+     */
+    @RequestMapping(value = "/list_baby")
+    public Map accountAddBaby(@RequestBody PageBean condition) {
+        return accountService.listBaby(condition);
     }
 
     /**

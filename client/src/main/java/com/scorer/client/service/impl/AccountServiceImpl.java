@@ -10,6 +10,7 @@ import com.scorer.client.service.AccountService;
 import com.scorer.client.tools.MessageApi;
 import com.scorer.client.tools.ObjectUtils;
 import com.scorer.client.tools.TokenTools;
+import com.scorer.client.values.PageBean;
 import com.scorer.client.values.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -185,6 +186,18 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
         } catch (Exception e) {
             e.printStackTrace();
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> listBaby(PageBean page) {
+        try {
+            page.setTotal(studentDao.getStudentBabyCount(page));
+            page.setRows(studentDao.getStudentBabyList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
     }
 

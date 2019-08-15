@@ -66,9 +66,6 @@
             <if test="address!= null and address!= '' ">
                 address = #{address},
             </if>
-            <if test="phone!= null and phone!= '' ">
-                phone = #{phone},
-            </if>
             <if test="sex!= null and sex!= '' ">
                 sex = #{sex},
             </if>
@@ -88,6 +85,13 @@
     <insert id="addAccountTitle">
         insert into account_title(account_id, title_id) values(#{0}, #{1})
     </insert>
+
+    <delete id="deleteAccountTitle">
+        delete from account_title where account_id in
+        <foreach collection="list" item="accountId" open="(" separator="," close=")">
+            #{accountId}
+        </foreach>
+    </delete>
 
     <select id="getAccountAllTitle" resultType="arraylist">
         SELECT

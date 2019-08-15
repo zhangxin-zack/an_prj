@@ -54,5 +54,4 @@ public class SchoolController {
     public Map getStudentCountById(@RequestParam(value = "schoolId") Long schoolId) {
         return schoolService.getClassStudentCountBySchoolId(schoolId);
     }
-
 }

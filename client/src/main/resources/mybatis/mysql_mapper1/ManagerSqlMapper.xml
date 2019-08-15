@@ -123,17 +123,14 @@
         WHERE 1 = 1
     </select>
 
-    <select id="getRoleList" resultMap="manager">
+    <select id="getRoleList" resultMap="role">
         SELECT
-        id,
-        school_id,
-        username,
-        password,
-        phone
-        FROM manager
+            id,
+            title
+        FROM role
         WHERE 1 = 1
-        <if test="searchs.username!=null and searchs.username!=''">
-            AND username LIKE CONCAT('%',#{searchs.username},'%')
+        <if test="searchs.roleTitle!=null and searchs.roleTitle!=''">
+            AND title LIKE CONCAT('%',#{searchs.roleTitle},'%')
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
@@ -141,15 +138,84 @@
         LIMIT #{startIndex}, #{pageSize}
     </select>
 
-    <select id="getAllRoleList" resultMap="manager">
+    <insert id="addRole">
+        INSERT INTO role (title) VALUES (#{roleTitle})
+    </insert>
+
+    <delete id="deleteRole">
+        delete from role where id in
+        <foreach collection="list" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+
+    <update id="updateRole">
+        update role
+        <set>
+            <if test="roleTitle!= null and roleTitle != '' ">
+                title = #{roleTitle},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteManagersRoleByRoleIds">
+        DELETE FROM manager_role
+        WHERE role_id in
+        <foreach collection="list" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteRoleMenuByRoleIds">
+        DELETE FROM role_rights
+        WHERE role_id in
+        <foreach collection="list" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteRoleMenuByMenuIds">
+        DELETE FROM role_rights
+        WHERE sys_menu_id in
+        <foreach collection="list" item="menuId" open="(" separator="," close=")">
+            #{menuId}
+        </foreach>
+    </delete>
+
+    <insert id="addMenu">
+        INSERT INTO sys_menu (pid, title, path, icon) VALUES (#{menuPid}, #{menuTitle}, #{path}, #{icon})
+    </insert>
+
+    <delete id="deleteMenus">
+        delete from sys_menu where id in
+        <foreach collection="list" item="menuId" open="(" separator="," close=")">
+            #{menuId}
+        </foreach>
+    </delete>
+
+    <update id="updateMenu">
+        update sys_menu
+        <set>
+            <if test="menuTitle!= null and menuTitle != '' ">
+                title = #{menuTitle},
+            </if>
+            <if test="path!= null and path != '' ">
+                path = #{path},
+            </if>
+            <if test="icon!= null and icon != '' ">
+                icon = #{icon},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <select id="getAllRoleList" resultMap="role">
         SELECT
             id,
-            school_id,
-            username,
-            password,
-            phone
-        FROM manager
-        WHERE 1 = 1
+            title
+        FROM role
     </select>
 
     <insert id="addRoleMenu">

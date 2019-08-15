@@ -22,6 +22,18 @@ public interface ManagerService {
 
     Map<String, Object> getRoleList(PageBean page);
 
+    Map<String, Object> addRole(Role role);
+
+    Map<String, Object> updateRole(Role role);
+
+    Map<String, Object> deleteRoles(List roleIds);
+
+    Map<String, Object> addMenu(Menu menu);
+
+    Map<String, Object> updateMenu(Menu menu);
+
+    Map<String, Object> deleteMenus(List menuIds);
+
     Map<String, Object> saveRole(Long roleId, List<Long> menuIds);
 
     Map<String, Object> getAllRoleList();

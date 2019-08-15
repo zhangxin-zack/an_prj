@@ -11,6 +11,8 @@ public interface StudentService {
 
     Map<String, Object> getStudentList(PageBean page);
 
+    Map<String, Object> getStudentListForApp(PageBean page);
+
     Map<String, Object> getStudentFamily(PageBean page);
 
     Map<String, Object> getRingAlarmDetail(PageBean page);

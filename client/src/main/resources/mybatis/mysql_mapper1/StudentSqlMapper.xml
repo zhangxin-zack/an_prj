@@ -107,10 +107,9 @@
     </select>
 
 
-
     <select id="getStudentCount" resultType="long">
-        SELECT count(s.id) FROM account_student acs
-        LEFT JOIN students s ON s.id = acs.student_id
+        SELECT count(s.id) FROM students s
+        LEFT JOIN account_student acs ON s.id = acs.student_id
         LEFT JOIN class c ON s.class_id = c.id
         where delete_flag = 0
         <if test="searchs.studentName!= null and searchs.studentName != '' ">
@@ -138,22 +137,59 @@
 
     <select id="getStudentList" resultMap="Student">
         SELECT
-        s.id,
-        s.card_no,
-        s.`name` AS name,
-        s.register_no,
-        s.sex,
-        s.height,
-        s.weight,
-        s.ring_no,
-        c.id AS class_id,
-        c.title class_name,
-        s.birthday,
-        s.bind,
-        s.status,
-        acs.relation_name
+            s.id,
+            s.card_no,
+            s.`name` AS name,
+            s.register_no,
+            s.sex,
+            s.height,
+            s.weight,
+            s.ring_no,
+            c.id AS class_id,
+            c.title class_name,
+            s.birthday,
+            s.bind,
+            s.status,
+            acs.relation_name,
+            sc.id as school_id,
+            sc.title as school_name,
+            s.year
         FROM
-        account_student acs
+            students s
+        LEFT JOIN account_student acs ON s.id = acs.student_id
+        LEFT JOIN class c ON s.class_id = c.id
+        LEFT JOIN school sc ON c.school_id = sc.id
+        where delete_flag = 0
+        <if test="searchs.studentName!= null and searchs.studentName != '' ">
+            and s.`name` like CONCAT('%',#{searchs.studentName},'%')
+        </if>
+        <if test="searchs.registerNo!= null and searchs.registerNo != '' ">
+            and s.register_no like CONCAT('%',#{searchs.registerNo},'%')
+        </if>
+        <if test="searchs.cardNo!= null and searchs.cardNo != '' ">
+            and s.card_no like CONCAT('%',#{searchs.cardNo},'%')
+        </if>
+        <if test="searchs.classId!= null and searchs.classId != 0 ">
+            and c.id = #{searchs.classId}
+        </if>
+        <if test="searchs.bind!= null and searchs.bind != 0 ">
+            and s.bind = #{searchs.bind}
+        </if>
+        <if test="searchs.status!= null">
+            and s.status = #{searchs.status}
+        </if>
+        <if test="searchs.accountId!= null">
+            and acs.account_id = #{searchs.accountId}
+        </if>
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+
+    <select id="getStudentBabyCount" resultType="long">
+        SELECT count(s.id) FROM account_student acs
         LEFT JOIN students s ON s.id = acs.student_id
         LEFT JOIN class c ON s.class_id = c.id
         where delete_flag = 0
@@ -177,6 +213,119 @@
         </if>
         <if test="searchs.accountId!= null">
             and acs.account_id = #{searchs.accountId}
+        </if>
+    </select>
+
+    <select id="getStudentBabyList" resultMap="Student">
+        SELECT
+            s.id,
+            s.card_no,
+            s.`name` AS name,
+            s.register_no,
+            s.sex,
+            s.height,
+            s.weight,
+            s.ring_no,
+            c.id AS class_id,
+            c.title class_name,
+            s.birthday,
+            s.bind,
+            s.status,
+            acs.relation_name,
+            sc.id as school_id,
+            sc.title as school_name,
+            s.year
+        FROM
+            account_student acs
+        LEFT JOIN  students s ON s.id = acs.student_id
+        LEFT JOIN class c ON s.class_id = c.id
+        LEFT JOIN school sc ON c.school_id = sc.id
+        where delete_flag = 0
+        <if test="searchs.studentName!= null and searchs.studentName != '' ">
+            and s.`name` like CONCAT('%',#{searchs.studentName},'%')
+        </if>
+        <if test="searchs.registerNo!= null and searchs.registerNo != '' ">
+            and s.register_no like CONCAT('%',#{searchs.registerNo},'%')
+        </if>
+        <if test="searchs.cardNo!= null and searchs.cardNo != '' ">
+            and s.card_no like CONCAT('%',#{searchs.cardNo},'%')
+        </if>
+        <if test="searchs.classId!= null and searchs.classId != 0 ">
+            and c.id = #{searchs.classId}
+        </if>
+        <if test="searchs.bind!= null and searchs.bind != 0 ">
+            and s.bind = #{searchs.bind}
+        </if>
+        <if test="searchs.status!= null">
+            and s.status = #{searchs.status}
+        </if>
+        <if test="searchs.accountId!= null">
+            and acs.account_id = #{searchs.accountId}
+        </if>
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+
+    <select id="getStudentCountForApp" resultType="long">
+        SELECT count(s.id) FROM students acs
+        where delete_flag = 0
+        <if test="searchs.studentName!= null and searchs.studentName != '' ">
+            and s.`name` like CONCAT('%',#{searchs.studentName},'%')
+        </if>
+        <if test="searchs.registerNo!= null and searchs.registerNo != '' ">
+            and s.register_no like CONCAT('%',#{searchs.registerNo},'%')
+        </if>
+        <if test="searchs.cardNo!= null and searchs.cardNo != '' ">
+            and s.card_no like CONCAT('%',#{searchs.cardNo},'%')
+        </if>
+        <if test="searchs.classId!= null and searchs.classId != 0 ">
+            and s.class_id = #{searchs.classId}
+        </if>
+        <if test="searchs.bind!= null and searchs.bind != 0 ">
+            and s.bind = #{searchs.bind}
+        </if>
+        <if test="searchs.status!= null">
+            and s.status = #{searchs.status}
+        </if>
+    </select>
+
+    <select id="getStudentListForApp" resultMap="Student">
+        SELECT
+            s.id,
+            s.card_no,
+            s.`name` AS name,
+            s.register_no,
+            s.sex,
+            s.height,
+            s.weight,
+            s.ring_no,
+            s.birthday,
+            s.bind,
+            s.status,
+            s.year
+        FROM
+            students acs
+        where delete_flag = 0
+        <if test="searchs.studentName!= null and searchs.studentName != '' ">
+            and s.`name` like CONCAT('%',#{searchs.studentName},'%')
+        </if>
+        <if test="searchs.registerNo!= null and searchs.registerNo != '' ">
+            and s.register_no like CONCAT('%',#{searchs.registerNo},'%')
+        </if>
+        <if test="searchs.cardNo!= null and searchs.cardNo != '' ">
+            and s.card_no like CONCAT('%',#{searchs.cardNo},'%')
+        </if>
+        <if test="searchs.classId!= null and searchs.classId != 0 ">
+            and s.class_id = #{searchs.classId}
+        </if>
+        <if test="searchs.bind!= null and searchs.bind != 0 ">
+            and s.bind = #{searchs.bind}
+        </if>
+        <if test="searchs.status!= null">
+            and s.status = #{searchs.status}
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
@@ -223,9 +372,9 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         INSERT INTO students (name, nickname, sex, card_no, register_no, height, weight, ring_no, school_id, class_id,
-        birthday, bind, account_id)
+        birthday, bind, account_id, year)
         VALUES (#{studentName}, #{nickname}, #{sex}, #{cardNo}, #{registerNo}, #{height}, #{weight}, #{ringNo},
-        #{schoolId}, #{classId}, #{birthday}, #{bind}, #{accountId})
+        #{schoolId}, #{classId}, #{birthday}, #{bind}, #{accountId}, #{year})
     </insert>
 
     <insert id="addAccountStudent">
@@ -271,6 +420,12 @@
             </if>
             <if test="bind!= null and bind != 0 ">
                 bind = #{bind},
+            </if>
+            <if test="year!= null and year != '' ">
+                year = #{year},
+            </if>
+            <if test="status != null">
+                status = #{status},
             </if>
         </set>
         where id = #{id}

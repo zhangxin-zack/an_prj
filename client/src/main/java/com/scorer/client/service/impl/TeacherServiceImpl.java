@@ -27,7 +27,11 @@ public class TeacherServiceImpl extends BaseSeviceImpl implements TeacherService
     public Map<String, Object> getTeacherList(PageBean page) {
         try {
             page.setTotal(teacherDao.getTeacherCount(page));
-            page.setRows(teacherDao.getTeacherList(page));
+            List<Teacher> teachers = teacherDao.getTeacherList(page);
+            for(Teacher tec:teachers){
+                tec.initFromDB();
+            }
+            page.setRows(teachers);
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,6 +81,7 @@ public class TeacherServiceImpl extends BaseSeviceImpl implements TeacherService
     @Transactional
     public Map<String, Object> updateTeacher(Teacher teacher) {
         try {
+            teacher.initFromUser();
             Account account = new Account();
             account.setPhone(teacher.getPhone());
             account.setUsername(teacher.getAccountUsername());
@@ -101,6 +106,8 @@ public class TeacherServiceImpl extends BaseSeviceImpl implements TeacherService
         try {
             //首先删除老师的班主任身份
             teacherDao.deleteTeacherFromClass(teacherIds,schoolId);
+            //删除老师相关title
+            accountDao.deleteAccountTitle(teacherIds);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         } catch (Exception e) {
             e.printStackTrace();

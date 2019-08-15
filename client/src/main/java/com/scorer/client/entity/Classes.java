@@ -8,6 +8,7 @@ public class Classes {
     private Long id;
     private String classesName;
     private Long schoolId;
+    private String classesTitle;
     private String schoolName;
     private Long teacherId;
     private String teacherName;
@@ -34,6 +35,14 @@ public class Classes {
 
     public Long getSchoolId() {
         return schoolId;
+    }
+
+    public String getClassesTitle() {
+        return classesTitle;
+    }
+
+    public void setClassesTitle(String classesTitle) {
+        this.classesTitle = classesTitle;
     }
 
     public void setSchoolId(Long schoolId) {

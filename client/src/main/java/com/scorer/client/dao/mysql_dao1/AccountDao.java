@@ -27,4 +27,6 @@ public interface AccountDao {
 
     @Select("SELECT id FROM account WHERE phone=#{phone}")
     Long getAccountIdByPhone(@Param("phone") String phone);
+
+    void deleteAccountTitle(List<Long> accountIds) throws Exception;
 }

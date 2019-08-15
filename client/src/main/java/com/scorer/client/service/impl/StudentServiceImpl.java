@@ -35,6 +35,18 @@ public class StudentServiceImpl extends BaseSeviceImpl implements StudentService
     }
 
     @Override
+    public Map<String, Object> getStudentListForApp(PageBean page) {
+        try{
+            page.setTotal(studentDao.getStudentCountForApp(page));
+            page.setRows(studentDao.getStudentListForApp(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
     public Map<String, Object> getStudentFamily(PageBean page) {
         try{
             page.setTotal(studentDao.getStudentFamilyCount(page));
