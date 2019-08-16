@@ -28,6 +28,60 @@
         <result column="icon" property="icon"/>
     </resultMap>
 
+    <select id="getAccountCount" resultType="Long">
+        SELECT
+          count(ac.id)
+        FROM
+          account ac
+        JOIN account_title act ON ac.id = act.account_id
+        JOIN title t ON act.title_id = t.id
+        WHERE 1=1
+        <if test="searchs.username != null and searchs.username != ''">
+            AND ac.username = #{searchs.username}
+        </if>
+        <if test="searchs.nickname != null and searchs.nickname != ''">
+            AND ac.nick_name = #{searchs.nickname}
+        </if>
+        <if test="searchs.categoryName != null and searchs.categoryName != ''">
+            AND t.title = #{searchs.categoryName}
+        </if>
+    </select>
+
+    <select id="getAccountList" resultMap="account">
+        SELECT
+            ac.id,
+            ac.username,
+            ac.password,
+            ac.phone,
+            ac.email,
+            ac.address,
+            ac.sex,
+            ac.img,
+            ac.img_url,
+            ac.register_date,
+            t.id catetgory_id,
+            t.category_name categoryName
+        FROM
+        account ac
+        JOIN account_title act ON ac.id = act.account_id
+        JOIN title t ON act.title_id = t.id
+        WHERE 1=1
+        <if test="searchs.username != null and searchs.username != ''">
+            AND ac.username = #{searchs.username}
+        </if>
+        <if test="searchs.nickname != null and searchs.nickname != ''">
+            AND ac.nick_name = #{searchs.nickname}
+        </if>
+        <if test="searchs.categoryName != null and searchs.categoryName != ''">
+            AND t.title = #{searchs.categoryName}
+        </if>
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+
     <select id="accountLogin" resultMap="account">
       select id, username, PASSWORD, nick_name, address, phone, sex, img_url, email, register_date
         from account

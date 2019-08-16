@@ -2,6 +2,8 @@ package com.scorer.client.dao.mysql_dao1;
 
 import com.scorer.client.entity.Account;
 import com.scorer.client.entity.AppMenu;
+import com.scorer.client.entity.Classes;
+import com.scorer.client.values.PageBean;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -10,6 +12,10 @@ import java.util.List;
 
 @Repository
 public interface AccountDao {
+
+    Long getAccountCount(PageBean page) throws Exception;
+
+    List<Account> getAccountList(PageBean page) throws Exception;
 
     Account accountLogin(Account account) throws Exception;
 

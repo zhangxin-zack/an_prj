@@ -21,6 +21,8 @@ public interface AccountService {
 //
 //    Map<String, Object> deleteClasses(List classesIds);
 
+    Map<String, Object> getAccountList(PageBean page);
+
     Map<String, Object> getValidateCode(String phone);
 
     Map<String, Object> register(Account account);

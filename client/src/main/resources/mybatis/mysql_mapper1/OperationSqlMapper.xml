@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scorer.client.dao.mysql_dao1.OperationDao">
+
+    <resultMap id="rule" type="com.scorer.client.entity.IntegrationRule">
+        <result column="id" property="ruleId"/>
+        <result column="type" property="ruleType"/>
+        <result column="integration" property="integration"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="getRuleCount" resultType="Long">
+        SELECT
+            count(ir.id)
+        FROM
+            integration_rule ir
+        WHERE 1=1
+        <if test="searchs.ruleType != null and searchs.ruleType != ''">
+            AND ir.type = #{searchs.ruleType}
+        </if>
+    </select>
+
+    <select id="getRuleList" resultMap="rule">
+        SELECT
+            ir.id,
+            ir.type,
+            ir.integration,
+            ir.status
+        FROM
+            integration_rule ir
+        WHERE 1=1
+        <if test="searchs.ruleType != null and searchs.ruleType != ''">
+            AND ir.type = #{searchs.ruleType}
+        </if>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+
+    <insert id="addRule">
+      INSERT INTO integration_rule
+         (type, integration, status)
+      VALUES
+         (#{ruleType}, #{integration}, #{status})
+    </insert>
+
+
+    <update id="updateRule">
+        update integration_rule
+        <set>
+            <if test="ruleType!= null and ruleType != '' ">
+                type = #{ruleType},
+            </if>
+            <if test="integration!= null and integration!= 0">
+                integration = #{integration},
+            </if>
+            <if test="status!= null">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <delete id="deleteRule">
+        delete from integration_rule where id in
+        <foreach collection="list" item="ruleId" open="(" separator="," close=")">
+            #{ruleId}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -35,6 +35,18 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
     private RedisTemplate<String, Integer> redisTemplate;
 
     @Override
+    public Map<String, Object> getAccountList(PageBean page) {
+        try {
+            page.setTotal(accountDao.getAccountCount(page));
+            page.setRows(accountDao.getAccountList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
     public Map<String, Object> getValidateCode(String phone) {
         try {
             ValueOperations<String, Integer> operations = redisTemplate.opsForValue();

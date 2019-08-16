@@ -3,12 +3,9 @@ package com.scorer.client.controller;
 import com.scorer.client.entity.Account;
 import com.scorer.client.entity.Student;
 import com.scorer.client.service.AccountService;
-import com.scorer.client.service.ClassesService;
 import com.scorer.client.service.StudentService;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,8 +17,8 @@ import java.util.Map;
  * app端用户相关接口
  */
 @RestController
-@RequestMapping("/EDU/account")
-public class AccountController {
+@RequestMapping("/EDU/operation")
+public class OperationController {
 
     @Autowired
     private AccountService accountService;
@@ -31,12 +28,12 @@ public class AccountController {
 
 
     /**
-     * 获取用户列表(运营平台)
+     * 获取积分规则列表
      * @param page
      * @return
      *
      */
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "/integration_rule")
     public Map getValidateCode(@RequestBody PageBean page) {
         return accountService.getAccountList(page);
     }
