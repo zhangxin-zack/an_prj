@@ -66,6 +66,9 @@
         <if test="searchs.classId != null and searchs.classId != ''">
             AND c.id = #{searchs.classId}
         </if>
+        <if test="searchs.classId != null and searchs.classId != ''">
+            AND c.id = #{searchs.classId}
+        </if>
         AND c.id IN(
             SELECT a.id FROM (SELECT DISTINCT id FROM  class WHERE school_id=#{searchs.schoolId} LIMIT #{startIndex}, #{pageSize}) a
         )
@@ -149,9 +152,9 @@
 
     <insert id="addClassContent">
         INSERT INTO class_content
-        (class_id, content, img_path, img_url)
+          (class_id, content, img_path, img_url)
         VALUES
-            (#{classId}, #{content}, #{imgPath}, #{imgUrl})
+          (#{classId}, #{content}, #{imgPath}, #{imgUrl})
     </insert>
 
 
@@ -159,10 +162,10 @@
         SELECT count(c.id)
         FROM
             account_class ac
-            JOIN class c ON ac.account_id = c.id
+            JOIN class c ON ac.class_id = c.id
         WHERE 1=1
         <if test="searchs.accountId != null and searchs.accountId != ''">
-            AND c.id = #{searchs.accountId}
+            AND ac.account_id = #{searchs.accountId}
         </if>
     </select>
 
@@ -172,9 +175,9 @@
             c.title
         FROM
             account_class ac
-        JOIN class c ON ac.account_id = c.id
+        JOIN class c ON ac.class_id = c.id
         <if test="searchs.accountId != null and searchs.accountId != ''">
-            AND c.id = #{searchs.accountId}
+            AND ac.account_id = #{searchs.accountId}
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
@@ -182,6 +185,20 @@
         LIMIT #{startIndex}, #{pageSize}
     </select>
 
+    <select id="getClassListNoPage" resultMap="Classes" >
+        SELECT
+            c.id,
+            c.title
+        FROM
+            class c
+        WHERE 1=1
+        <if test="schoolId != null and schoolId != 0">
+            AND  c.school_id = #{schoolId}
+        </if>
+    </select>
 
+    <select id="countSchoolClass" resultType="integer">
+        select count(*) from class where school_id = #{id}
+    </select>
 
 </mapper>

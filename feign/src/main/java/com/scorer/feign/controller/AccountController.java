@@ -22,6 +22,12 @@ public class AccountController {
     @Resource
     private AccountService accountService;
 
+    //会员管理
+    @RequestMapping(value = "/list")
+    public Map getAccountList(@RequestBody PageBean page){
+        return  accountService.getAccountList(page);
+    }
+
     //获取短信验证码
     @RequestMapping(value = "/get_code")
     public Map getValidateCode(@RequestParam(value = "phone") String phone) {

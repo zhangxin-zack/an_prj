@@ -31,10 +31,14 @@ public class Teacher {
 
     public void initFromUser() {
         manageClasses = new ArrayList<>();
-        if(operateClasses!=null)
-        manageClasses.addAll(operateClasses);
-        if(teachClasses!=null)
-        manageClasses.addAll(teachClasses);
+        if(operateClasses!=null){
+            manageClasses.addAll(operateClasses);
+        }
+
+        if(teachClasses!=null){
+            manageClasses.addAll(teachClasses);
+        }
+
     }
 
 

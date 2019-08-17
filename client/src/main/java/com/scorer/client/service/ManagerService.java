@@ -41,4 +41,6 @@ public interface ManagerService {
     Map<String, Object> getAllMenuList();
 
     Map<String, Object> getActionMenuList(Long roleId);
+
+    Map<String, Object> getActionMenuData(Long currentRoleId);
 }

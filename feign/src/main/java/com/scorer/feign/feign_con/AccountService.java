@@ -14,6 +14,9 @@ import java.util.Map;
 @FeignClient(value = "scorer-client")
 public interface AccountService {
 
+    @RequestMapping(value = "/EDU/account/list", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getAccountList(@RequestBody PageBean page);
+
     @RequestMapping(value = "/EDU/account/get_code", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getValidateCode(@RequestParam(value = "phone") String phone);
 

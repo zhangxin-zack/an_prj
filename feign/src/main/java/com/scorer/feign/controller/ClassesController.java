@@ -45,6 +45,10 @@ public class ClassesController {
     public Map deleteClasses(@RequestParam(value = "classesIds") List<Integer> classesIds) {
         return classesService.deleteClasses(classesIds);
     }
+    @RequestMapping(value = "/select")
+    public Map selectClassesList(@RequestBody Classes classes) {
+        return classesService.selectClassesList(classes);
+    }
 
     @RequestMapping(value = "/list_timetable")
     public Map getTimetable(@RequestBody PageBean condition) {

@@ -1,10 +1,14 @@
 package com.scorer.client.dao.mysql_dao1;
 
+import com.scorer.client.entity.Device;
 import com.scorer.client.entity.IntegrationRule;
+import com.scorer.client.entity.Product;
 import com.scorer.client.values.PageBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface OperationDao {
@@ -19,5 +23,24 @@ public interface OperationDao {
 
     void deleteRule(List<Long> ruleIds) throws Exception;
 
+    Long getDeviceCount(PageBean page) throws Exception;
+
+    List<Device> getDeviceList(PageBean page) throws Exception;
+
+    void addDevice(Device device) throws Exception;
+
+    void updateDevice(Device device) throws Exception;
+
+    void deleteDevice(List<Long> deviceIds) throws Exception;
+
+    Long getProductCount(PageBean page) throws Exception;
+
+    List<Product> getProductList(PageBean page) throws Exception;
+
+    void addProduct(Product product) throws Exception;
+
+    void updateProduct(Product product) throws Exception;
+
+    void deleteProduct(List<Long> ProductIds) throws Exception;
 
 }

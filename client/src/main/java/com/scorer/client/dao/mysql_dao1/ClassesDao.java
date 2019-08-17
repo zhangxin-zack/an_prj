@@ -38,7 +38,11 @@ public interface ClassesDao {
 
     void addClassContent(ClassContent classContent) throws Exception;
 
-    Long getAccountClassCount(PageBean page);
+    Long getAccountClassCount(PageBean page) throws Exception;
 
-    List<?> getAccountClassCountList(PageBean page);
+    List<?> getAccountClassCountList(PageBean page) throws Exception;
+
+    List<Classes> getClassListNoPage(Classes classes) throws Exception;
+
+    Integer countSchoolClass(Long id) throws Exception;
 }

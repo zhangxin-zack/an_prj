@@ -1,14 +1,13 @@
 package com.scorer.feign.entity;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 public class School {
 
     private Long id;
     private String title;   //学校名称
     private String simpleTitle;  //学校简称
-    private Timestamp registeDate; //加入日期
+    private String registeDate; //加入日期
     private String linkman;   //联系人
     private String phone;   //电话
     private String area;  //所在地区
@@ -43,11 +42,11 @@ public class School {
         this.simpleTitle = simpleTitle;
     }
 
-    public Timestamp getRegisteDate() {
+    public String getRegisteDate() {
         return registeDate;
     }
 
-    public void setRegisteDate(Timestamp registeDate) {
+    public void setRegisteDate(String registeDate) {
         this.registeDate = registeDate;
     }
 

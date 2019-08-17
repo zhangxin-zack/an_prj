@@ -40,8 +40,23 @@ public class SchoolController {
     }
 
     @RequestMapping(value = "/get")
-    public Map getSchoolById(@RequestParam(value = "schoolId") Long schoolId) {
-        return schoolService.getSchoolById(schoolId);
+    public Map getSchoolById(@RequestBody School school) {
+        return schoolService.getSchoolById(school);
+    }
+
+    @RequestMapping(value = "/select")
+    public Map getSchoolByCondition(@RequestBody School school) {
+        return schoolService.getSchoolByCondition(school);
+    }
+
+    @RequestMapping(value = "/get_detail")
+    public Map getSchoolDetail(@RequestBody PageBean page) {
+        return schoolService.getSchoolDetail(page);
+    }
+
+    @RequestMapping(value = "/get_report")
+    public Map getSchoolReport(@RequestBody PageBean page) {
+        return schoolService.getSchoolReport(page);
     }
 
     @RequestMapping(value = "/stat_class")

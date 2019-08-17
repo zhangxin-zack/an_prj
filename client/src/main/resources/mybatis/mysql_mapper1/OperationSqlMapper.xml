@@ -9,6 +9,23 @@
         <result column="status" property="status"/>
     </resultMap>
 
+    <resultMap id="device" type="com.scorer.client.entity.Device">
+        <result column="id" property="id"/>
+        <result column="device_no" property="deviceNo"/>
+        <result column="product_id" property="productId"/>
+        <result column="product_type" property="productType"/>
+        <result column="product_model" property="productModel"/>
+        <result column="is_bind" property="isBind"/>
+        <result column="bind_date" property="bindDate"/>
+        <result column="register_date" property="registerDate"/>
+    </resultMap>
+
+    <resultMap id="product" type="com.scorer.client.entity.Product">
+        <result column="id" property="id"/>
+        <result column="product_type" property="productType"/>
+        <result column="product_model" property="productModel"/>
+    </resultMap>
+
     <select id="getRuleCount" resultType="Long">
         SELECT
             count(ir.id)
@@ -57,9 +74,8 @@
                 status = #{status},
             </if>
         </set>
-        where id = #{id}
+        where id = #{ruleId}
     </update>
-
 
     <delete id="deleteRule">
         delete from integration_rule where id in
@@ -67,5 +83,125 @@
             #{ruleId}
         </foreach>
     </delete>
+
+
+    <select id="getDeviceCount" resultType="Long">
+        SELECT
+            count(d.id)
+        FROM
+            device d
+        WHERE 1=1
+        <if test="searchs.deviceNo != null and searchs.deviceNo != ''">
+            AND d.type = #{searchs.ruleType}
+        </if>
+    </select>
+
+    <select id="getDeviceList" resultMap="rule">
+        SELECT
+            d.id,
+            d.device_no,
+            d.product_id,
+            dp.product_type,
+            dp.product_model,
+            d.is_bind,
+            d.bind_date,
+            d.register_date
+        FROM
+            device d
+        LEFT JOIN device_product dp
+        ON d.product_id = dp.id
+        WHERE 1=1
+        <if test="searchs.deviceNo != null and searchs.deviceNo != ''">
+            AND d.deviceNo = #{searchs.deviceNo}
+        </if>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+    <insert id="addDevice">
+        INSERT INTO device
+          (device_no, product_id, is_bind, register_date)
+        VALUES
+          (#{deviceNo}, #{productId}, #{isBind}, now())
+    </insert>
+
+
+    <update id="updateDevice">
+        update device
+        <set>
+            <if test="productId!= null and productId != '' ">
+                product_id = #{productType},
+            </if>
+            <if test="isBind!= null and isBind!= 0">
+                is_bind = #{isBind},
+            </if>
+            <if test="bindDate!= null and bindDate != ''">
+                bind_date = #{bindDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <delete id="deleteDevice">
+        delete from device where id in
+        <foreach collection="list" item="deviceId" open="(" separator="," close=")">
+            #{deviceId}
+        </foreach>
+    </delete>
+
+
+
+    <select id="getProductCount" resultType="Long">
+        SELECT
+            count(dp.id)
+        FROM
+            device_product dp
+        WHERE 1=1
+        <if test="searchs != null and searchs.productModel != null and searchs.productModel != ''">
+            AND dp.product_model = #{searchs.productModel}
+        </if>
+    </select>
+
+    <select id="getProductList" resultMap="product">
+        SELECT
+            dp.id,
+            dp.product_type,
+            dp.product_model
+        FROM device_product dp
+        WHERE 1=1
+        <if test="searchs != null and searchs.productModel != null and searchs.productModel != ''">
+            AND d.product_model = #{searchs.productModel}
+        </if>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+    <insert id="addProduct">
+        INSERT INTO device_product
+          (product_type, product_model)
+        VALUES
+           (#{productType}, #{productModel})
+    </insert>
+
+
+    <update id="updateProduct">
+        update device_product
+        <set>
+            <if test="productType!= null and productType != '' ">
+                product_type = #{productType},
+            </if>
+            <if test="productModel!= null and productModel!= ''">
+                product_model = #{productModel},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProduct">
+        delete from device_product where id in
+        <foreach collection="list" item="productId" open="(" separator="," close=")">
+            #{productId}
+        </foreach>
+    </delete>
+
 
 </mapper>

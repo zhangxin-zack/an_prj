@@ -46,6 +46,11 @@ public class ClassesController {
         return classesService.deleteClasses(classesIds);
     }
 
+    @RequestMapping(value = "/select")
+    public Map selectClassesList(@RequestBody Classes classes) {
+        return classesService.selectClassesList(classes);
+    }
+
     @RequestMapping(value = "/list_timetable")
     public Map getTimetable(@RequestBody PageBean condition) {
         return classesService.getTimetable(condition);

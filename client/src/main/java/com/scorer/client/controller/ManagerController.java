@@ -100,9 +100,25 @@ public class ManagerController {
         return managerService.getAllMenuList();
     }
 
+    /**
+     * 获取角色权限菜单(树形)
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/action_list")
     public Map getActionList(HttpSession session) {
         Manager user = (Manager)session.getAttribute("user");
         return managerService.getActionMenuList(user.getCurrentRoleId());
+    }
+
+    /**
+     * 获取角色权限菜单（非树形）
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/action_data")
+    public Map getActionData(HttpSession session) {
+        Manager user = (Manager)session.getAttribute("user");
+        return managerService.getActionMenuData(user.getCurrentRoleId());
     }
 }

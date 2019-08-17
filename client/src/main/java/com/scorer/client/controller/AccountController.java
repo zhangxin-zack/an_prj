@@ -37,7 +37,7 @@ public class AccountController {
      *
      */
     @RequestMapping(value = "/list")
-    public Map getValidateCode(@RequestBody PageBean page) {
+    public Map getAccountList(@RequestBody PageBean page) {
         return accountService.getAccountList(page);
     }
 

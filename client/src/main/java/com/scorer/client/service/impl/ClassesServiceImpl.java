@@ -75,6 +75,17 @@ public class ClassesServiceImpl extends BaseSeviceImpl implements ClassesService
     }
 
     @Override
+    public Map<String, Object> selectClassesList(Classes classes) {
+        try {
+            List<Classes> list = classesDao.getClassListNoPage(classes);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
     public Map<String, Object> getClassContent(PageBean page) {
         try {
             page.setTotal(classesDao.getClassContentCount(page));

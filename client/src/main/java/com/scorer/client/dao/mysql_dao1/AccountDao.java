@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface AccountDao {
@@ -35,4 +36,8 @@ public interface AccountDao {
     Long getAccountIdByPhone(@Param("phone") String phone);
 
     void deleteAccountTitle(List<Long> accountIds) throws Exception;
+
+    List<Map> selectAccountBabyRelation(@Param("accountId") long accountId) throws Exception;
+
+    List<Map> selectAccountClassRelation(@Param("accountId") long accountId) throws Exception;
 }

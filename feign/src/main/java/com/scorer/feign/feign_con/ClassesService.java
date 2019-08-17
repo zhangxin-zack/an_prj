@@ -31,6 +31,9 @@ public interface ClassesService {
     @RequestMapping(value = "/EDU/classes/remove", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map deleteClasses(@RequestParam(value = "classesIds") List<Integer> classesIds);
 
+    @RequestMapping(value = "/EDU/classes/select", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map selectClassesList(@RequestBody Classes classes);
+
     @RequestMapping(value = "/EDU/classes/list_timetable", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getTimetable(@RequestBody PageBean condition);
 

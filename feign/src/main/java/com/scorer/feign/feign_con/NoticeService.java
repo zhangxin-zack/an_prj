@@ -1,5 +1,6 @@
 package com.scorer.feign.feign_con;
 
+import com.scorer.feign.entity.DailyRecommend;
 import com.scorer.feign.entity.Notice;
 import com.scorer.feign.values.PageBean;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -30,4 +31,13 @@ public interface NoticeService {
 
     @RequestMapping(value = "/EDU/notice/list_daily_recommend", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getDailyInfoList(@RequestBody PageBean page);
+
+    @RequestMapping(value = "/EDU/notice/add_recommend")
+    Map addRecommend(@RequestBody DailyRecommend recommend);
+
+    @RequestMapping(value = "/EDU/notice/update_recommend")
+    Map updateRecommend(@RequestBody DailyRecommend recommend);
+
+    @RequestMapping(value = "/EDU/notice/remove_recommend")
+    Map deleteRecommend(@RequestParam("recommendIds") List<Long> recommendIds);
 }

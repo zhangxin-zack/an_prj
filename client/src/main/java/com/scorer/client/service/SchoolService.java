@@ -16,9 +16,15 @@ public interface SchoolService {
 
     Map<String, Object> deleteSchool(List schoolIds);
 
-    Map<String, Object> getSchoolById(long schoolId);
+    Map<String, Object> getSchoolByCondition(School school);
+
+    Map<String, Object> getSchoolDetail(PageBean page);
+
+    Map<String, Object> getSchoolById(School school);
 
     Map<String, Object> getClassCountBySchoolId(long schoolId);
 
     Map<String, Object> getClassStudentCountBySchoolId(long schoolId);
+
+    Map<String, Object> getSchoolReport(PageBean page);
 }

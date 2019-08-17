@@ -65,4 +65,95 @@ public class OperationServiceImpl extends BaseSeviceImpl implements OperationSer
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
     }
+
+    @Override
+    public Map<String, Object> getDeviceList(PageBean page) {
+        try {
+            page.setTotal(operationDao.getDeviceCount(page));
+            page.setRows(operationDao.getDeviceList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> addDevice(Device device) {
+        try {
+            operationDao.addDevice(device);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> updateDevice(Device device) {
+        try {
+            operationDao.updateDevice(device);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> deleteDevice(List deviceIds) {
+        try {
+            operationDao.deleteDevice(deviceIds);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+
+    @Override
+    public Map<String, Object> getProductList(PageBean page) {
+        try {
+            page.setTotal(operationDao.getProductCount(page));
+            page.setRows(operationDao.getProductList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> addProduct(Product product) {
+        try {
+            operationDao.addProduct(product);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> updateProduct(Product product) {
+        try {
+            operationDao.updateProduct(product);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> deleteProduct(List productIds) {
+        try {
+            operationDao.deleteProduct(productIds);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
 }

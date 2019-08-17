@@ -9,6 +9,7 @@
         <result column="notice_date" property="noticeDate"/>
         <result column="class_id" property="classId"/>
         <result column="from_to" property="fromTo"/>
+        <result column="is_read" property="isRead"/>
     </resultMap>
 
     <resultMap id="dailyRecommend" type="com.scorer.client.entity.DailyRecommend">
@@ -31,7 +32,7 @@
     </select>
 
     <select id="getNoticeList" resultMap="notice">
-        select id, notice_title, notice_content, notice_date,class_id,from_to from notice where 1=1
+        select id, notice_title, notice_content, notice_date,class_id,from_to, is_read from notice where 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
             AND class_id = #{searchs.classId}
         </if>
@@ -74,8 +75,11 @@
             <if test="noticTitle!= null and noticTitle != ''">
                 notice_title = #{noticTitle},
             </if>
-            <if test="NoticeName!= null and NoticeName!= '' ">
+            <if test="noticeName!= null and noticeName!= '' ">
                 notice_content = #{noticeContent},
+            </if>
+            <if test="isRead!= null ">
+                is_read = #{isRead},
             </if>
             notice_dates = sysdate()
         </set>
@@ -104,4 +108,37 @@
         order by publish_date desc
         LIMIT ${startIndex}, ${pageSize}
     </select>
+
+
+    <insert id="addRecommendText">
+        insert into daily_recommend(content, img_path, img_url, publish_date, type)
+        values (#{content}, #{imgPath}, #{imgUrl}, sysdate(), #{type})
+    </insert>
+
+    <update id="updateRecommendText">
+        update daily_recommend
+        <set>
+            <if test="content!= null and content != ''">
+                content = #{content},
+            </if>
+            <if test="imgPath!= null and imgPath!= '' ">
+                img_path = #{imgPath},
+            </if>
+            <if test="imgUrl!= null and imgUrl!= ''">
+                img_url = #{imgUrl},
+            </if>
+            <if test="type!= null ">
+                type = #{type},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRecommendText">
+        delete from daily_recommend where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
 </mapper>

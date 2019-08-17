@@ -234,6 +234,17 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
         }
     }
 
+    @Override
+    public Map<String, Object> getActionMenuData(Long currentRoleId) {
+        try{
+            List<Menu> menuList = managerDao.getActionMenuList(currentRoleId);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", menuList);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
     private Map<String, Object> getTreeData(List<Menu> menuList){
         //获取根节点
         Menu rootMenu = null;

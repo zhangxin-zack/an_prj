@@ -1,5 +1,6 @@
 package com.scorer.client.controller;
 
+import com.scorer.client.entity.DailyRecommend;
 import com.scorer.client.entity.Notice;
 import com.scorer.client.service.NoticeService;
 import com.scorer.client.values.PageBean;
@@ -48,5 +49,20 @@ public class NoticeController {
     @RequestMapping(value = "/list_daily_recommend")
     public Map getDailyInfo(@RequestBody PageBean page) {
         return noticeService.getDailyInfoList(page);
+    }
+
+    @RequestMapping(value = "/add_recommend")
+    public Map addRecommend(@RequestBody DailyRecommend recommend) {
+        return noticeService.addRecommend(recommend);
+    }
+
+    @RequestMapping(value = "/update_recommend")
+    public Map updateRecommend(@RequestBody DailyRecommend recommend) {
+        return noticeService.updateRecommend(recommend);
+    }
+
+    @RequestMapping(value = "/remove_recommend")
+    public Map deleteRecommend(@RequestParam("recommendIds") List<Long> recommendIds) {
+        return noticeService.deleteRecommend(recommendIds);
     }
 }
