@@ -1,4 +1,4 @@
-package com.scorer.client._Steam.test;
+package com.scorer.clientPhone._Steam.test;
 
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
