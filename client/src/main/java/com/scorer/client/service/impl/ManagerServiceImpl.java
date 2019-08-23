@@ -6,11 +6,11 @@ import com.scorer.client.entity.Manager;
 import com.scorer.client.entity.Menu;
 import com.scorer.client.entity.Role;
 import com.scorer.client.service.ManagerService;
+import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.tools.TokenTools;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;

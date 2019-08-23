@@ -4,11 +4,9 @@ import com.scorer.client.entity.Device;
 import com.scorer.client.entity.IntegrationRule;
 import com.scorer.client.entity.Product;
 import com.scorer.client.values.PageBean;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface OperationDao {

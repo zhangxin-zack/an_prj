@@ -1,13 +1,10 @@
 package com.scorer.client.service.impl;
 
 import com.scorer.client.constant.Iconstants;
-import com.scorer.client.dao.mysql_dao1.ClassesDao;
 import com.scorer.client.dao.mysql_dao1.OperationDao;
-import com.scorer.client.dao.mysql_dao1.StudentDao;
-import com.scorer.client.dao.mysql_dao1.TeacherDao;
-import com.scorer.client.entity.*;
-import com.scorer.client.service.ClassesService;
+import com.scorer.client.entity.IntegrationRule;
 import com.scorer.client.service.OperationService;
+import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +31,7 @@ public class OperationServiceImpl extends BaseSeviceImpl implements OperationSer
     }
 
     @Override
-    public Map<String, Object> addIntegrationRule(IntegrationRule rule) {
+    public Map<String, Object> addIntegrationRule(com.scorer.client.entity.IntegrationRule rule) {
         try {
             operationDao.addRule(rule);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
@@ -79,7 +76,7 @@ public class OperationServiceImpl extends BaseSeviceImpl implements OperationSer
     }
 
     @Override
-    public Map<String, Object> addDevice(Device device) {
+    public Map<String, Object> addDevice(com.scorer.client.entity.Device device) {
         try {
             operationDao.addDevice(device);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
@@ -90,7 +87,7 @@ public class OperationServiceImpl extends BaseSeviceImpl implements OperationSer
     }
 
     @Override
-    public Map<String, Object> updateDevice(Device device) {
+    public Map<String, Object> updateDevice(com.scorer.client.entity.Device device) {
         try {
             operationDao.updateDevice(device);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
@@ -125,7 +122,7 @@ public class OperationServiceImpl extends BaseSeviceImpl implements OperationSer
     }
 
     @Override
-    public Map<String, Object> addProduct(Product product) {
+    public Map<String, Object> addProduct(com.scorer.client.entity.Product product) {
         try {
             operationDao.addProduct(product);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
@@ -136,7 +133,7 @@ public class OperationServiceImpl extends BaseSeviceImpl implements OperationSer
     }
 
     @Override
-    public Map<String, Object> updateProduct(Product product) {
+    public Map<String, Object> updateProduct(com.scorer.client.entity.Product product) {
         try {
             operationDao.updateProduct(product);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");

@@ -1,5 +1,7 @@
 package com.scorer.client.entity;
 
+import com.scorer.client.entity.Classes;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,23 +43,6 @@ public class Teacher {
 
     }
 
-
-    public List<Classes> getOperateClasses() {
-        return operateClasses;
-    }
-
-    public void setOperateClasses(List<Classes> operateClasses) {
-        this.operateClasses = operateClasses;
-    }
-
-    public List<Classes> getTeachClasses() {
-        return teachClasses;
-    }
-
-    public void setTeachClasses(List<Classes> teachClasses) {
-        this.teachClasses = teachClasses;
-    }
-
     public Long getTeacherId() {
         return teacherId;
     }
@@ -82,14 +67,6 @@ public class Teacher {
         this.phone = phone;
     }
 
-    public List<Classes> getManageClasses() {
-        return manageClasses;
-    }
-
-    public void setManageClasses(List<Classes> manageClasses) {
-        this.manageClasses = manageClasses;
-    }
-
     public String getAccountUsername() {
         return accountUsername;
     }
@@ -106,10 +83,6 @@ public class Teacher {
         this.isHead = isHead;
     }
 
-    public List<Long> getClassIds() {
-        return classIds;
-    }
-
     public Long getSchoolId() {
         return schoolId;
     }
@@ -118,7 +91,35 @@ public class Teacher {
         this.schoolId = schoolId;
     }
 
+    public List<Long> getClassIds() {
+        return classIds;
+    }
+
     public void setClassIds(List<Long> classIds) {
         this.classIds = classIds;
+    }
+
+    public List<Classes> getManageClasses() {
+        return manageClasses;
+    }
+
+    public void setManageClasses(List<Classes> manageClasses) {
+        this.manageClasses = manageClasses;
+    }
+
+    public List<Classes> getOperateClasses() {
+        return operateClasses;
+    }
+
+    public void setOperateClasses(List<Classes> operateClasses) {
+        this.operateClasses = operateClasses;
+    }
+
+    public List<Classes> getTeachClasses() {
+        return teachClasses;
+    }
+
+    public void setTeachClasses(List<Classes> teachClasses) {
+        this.teachClasses = teachClasses;
     }
 }

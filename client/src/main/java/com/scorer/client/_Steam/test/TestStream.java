@@ -1,9 +1,10 @@
 package com.scorer.client._Steam.test;
 
+import com.scorer.client._Steam.test.TestTopicB_In;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 
-@EnableBinding({TestTopicB_In.class})
+@EnableBinding({com.scorer.client._Steam.test.TestTopicB_In.class})
 public class TestStream {
 
     @StreamListener(TestTopicB_In.TOPIC)

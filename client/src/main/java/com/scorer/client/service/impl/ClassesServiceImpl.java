@@ -9,6 +9,7 @@ import com.scorer.client.entity.Classes;
 import com.scorer.client.entity.Student;
 import com.scorer.client.entity.Timetable;
 import com.scorer.client.service.ClassesService;
+import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

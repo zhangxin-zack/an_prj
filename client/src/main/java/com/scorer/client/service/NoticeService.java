@@ -3,9 +3,6 @@ package com.scorer.client.service;
 import com.scorer.client.entity.DailyRecommend;
 import com.scorer.client.entity.Notice;
 import com.scorer.client.values.PageBean;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;

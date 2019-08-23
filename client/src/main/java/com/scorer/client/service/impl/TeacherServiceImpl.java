@@ -6,6 +6,7 @@ import com.scorer.client.dao.mysql_dao1.TeacherDao;
 import com.scorer.client.entity.Account;
 import com.scorer.client.entity.Teacher;
 import com.scorer.client.service.TeacherService;
+import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

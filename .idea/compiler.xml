@@ -7,17 +7,32 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="client" />
+        <module name="client (1)" />
+        <module name="clientPhone" />
         <module name="feign" />
         <module name="gateway" />
         <module name="server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="base" target="1.8" />
       <module name="client" target="1.8" />
+      <module name="client (1)" target="1.8" />
+      <module name="clientPhone" target="1.8" />
+      <module name="edu_all" target="1.8" />
       <module name="feign" target="1.8" />
+      <module name="feignPhone" target="1.8" />
       <module name="gateway" target="1.8" />
       <module name="server" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="client" options="-parameters" />
+      <module name="clientPhone" options="-parameters" />
+      <module name="feign" options="-parameters" />
+      <module name="feignPhone" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="server" options="-parameters" />
+    </option>
   </component>
 </project>

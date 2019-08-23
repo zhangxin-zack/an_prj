@@ -147,7 +147,7 @@
         </foreach>
     </delete>
 
-    <select id="getAccountAllTitle" resultType="arraylist">
+    <select id="getAccountAllTitle" resultType="Long">
         SELECT
             title_id
         FROM

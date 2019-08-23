@@ -7,6 +7,7 @@ import com.scorer.client.entity.Account;
 import com.scorer.client.entity.AppMenu;
 import com.scorer.client.entity.Student;
 import com.scorer.client.service.AccountService;
+import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.tools.MessageApi;
 import com.scorer.client.tools.ObjectUtils;
 import com.scorer.client.tools.TokenTools;

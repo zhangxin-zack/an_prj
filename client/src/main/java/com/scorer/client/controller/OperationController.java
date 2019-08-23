@@ -1,9 +1,7 @@
 package com.scorer.client.controller;
 
-import com.scorer.client.entity.*;
-import com.scorer.client.service.AccountService;
+import com.scorer.client.entity.IntegrationRule;
 import com.scorer.client.service.OperationService;
-import com.scorer.client.service.StudentService;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +29,7 @@ public class OperationController {
      * @return
      */
     @RequestMapping(value = "/update_rule")
-    public Map updateRule(@RequestBody IntegrationRule rule) {
+    public Map updateRule(@RequestBody com.scorer.client.entity.IntegrationRule rule) {
         return operationService.updateIntegrationRule(rule);
     }
 
@@ -72,7 +70,7 @@ public class OperationController {
      * @return
      */
     @RequestMapping(value = "/update_device")
-    public Map updateDevice(@RequestBody Device device) {
+    public Map updateDevice(@RequestBody com.scorer.client.entity.Device device) {
         return operationService.updateDevice(device);
     }
 
@@ -82,7 +80,7 @@ public class OperationController {
      * @return
      */
     @RequestMapping(value = "/add_device")
-    public Map addDevice(@RequestBody Device device) {
+    public Map addDevice(@RequestBody com.scorer.client.entity.Device device) {
         return operationService.addDevice(device);
     }
 
@@ -113,7 +111,7 @@ public class OperationController {
      * @return
      */
     @RequestMapping(value = "/update_product")
-    public Map updateProduct(@RequestBody Product Product) {
+    public Map updateProduct(@RequestBody com.scorer.client.entity.Product Product) {
         return operationService.updateProduct(Product);
     }
 
@@ -123,7 +121,7 @@ public class OperationController {
      * @return
      */
     @RequestMapping(value = "/add_product")
-    public Map addProduct(@RequestBody Product Product) {
+    public Map addProduct(@RequestBody com.scorer.client.entity.Product Product) {
         return operationService.addProduct(Product);
     }
 

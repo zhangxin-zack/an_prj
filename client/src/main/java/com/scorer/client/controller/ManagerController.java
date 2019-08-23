@@ -1,6 +1,5 @@
 package com.scorer.client.controller;
 
-import com.google.gson.Gson;
 import com.scorer.client.entity.Manager;
 import com.scorer.client.entity.Menu;
 import com.scorer.client.entity.Role;

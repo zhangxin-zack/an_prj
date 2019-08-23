@@ -30,10 +30,10 @@ package com.scorer.client.tools;
      * @param tokenState
      * @return
      */
-    public static TokenState getTokenState(String tokenState){
-    	TokenState[] states=TokenState.values();
-    	TokenState ts=null;
-    	for (TokenState state : states) {
+    public static com.scorer.client.tools.TokenState getTokenState(String tokenState){
+    	com.scorer.client.tools.TokenState[] states= com.scorer.client.tools.TokenState.values();
+    	com.scorer.client.tools.TokenState ts=null;
+    	for (com.scorer.client.tools.TokenState state : states) {
 			if(state.toString().equals(tokenState)){
 				ts=state;
 				break;

@@ -3,6 +3,7 @@ package com.scorer.client.tools;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
+import com.scorer.client.tools.TokenState;
 import net.minidev.json.JSONObject;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -71,7 +72,7 @@ public class Jwt {
             if (jwsObject.verify(verifier)) {
                 JSONObject jsonOBj = payload.toJSONObject();
                 // token校验成功（此时没有校验是否过期）
-                resultMap.put("state", TokenState.VALID.toString());
+                resultMap.put("state", com.scorer.client.tools.TokenState.VALID.toString());
                 // 若payload包含ext字段，则校验是否过期
                 if (jsonOBj.containsKey("ext")) {
                     //String tokens=(String)request.getSession().getAttribute("token");
@@ -79,28 +80,28 @@ public class Jwt {
                     // 过期了
                     if (tokens == null) {
                         resultMap.clear();
-                        resultMap.put("state", TokenState.EXPIRED.toString());
+                        resultMap.put("state", com.scorer.client.tools.TokenState.EXPIRED.toString());
                     } else if (!tokens.equals(token)) {
                         resultMap.clear();
-                        resultMap.put("state", TokenState.EXPIRED.toString());
+                        resultMap.put("state", com.scorer.client.tools.TokenState.EXPIRED.toString());
                     }
                     resultMap.put("data", jsonOBj);
                 } else {
                     // 校验失败
-                    resultMap.put("state", TokenState.INVALID.toString());
+                    resultMap.put("state", com.scorer.client.tools.TokenState.INVALID.toString());
                 }
             } else {
                 // 校验失败
-                resultMap.put("state", TokenState.INVALID.toString());
+                resultMap.put("state", com.scorer.client.tools.TokenState.INVALID.toString());
             }
             if (tokens == null) {
                 resultMap.clear();
-                resultMap.put("state", TokenState.EXPIRED.toString());
+                resultMap.put("state", com.scorer.client.tools.TokenState.EXPIRED.toString());
             } else if (!tokens.equals(token)) {
                 resultMap.clear();
-                resultMap.put("state", TokenState.EXPIRED.toString());
+                resultMap.put("state", com.scorer.client.tools.TokenState.EXPIRED.toString());
             } else {
-                resultMap.put("state", TokenState.VALID.toString());
+                resultMap.put("state", com.scorer.client.tools.TokenState.VALID.toString());
             }
 
 

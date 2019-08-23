@@ -21,9 +21,10 @@
 
     <modules>
         <module>server</module>
-        <module>client</module>
-        <module>feign</module>
         <module>gateway</module>
+        <module>feign</module>
+        <module>client</module>
+        <module>clientPhone</module>
     </modules>
 
     <properties>

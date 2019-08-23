@@ -7,6 +7,7 @@ import com.scorer.client.entity.DailyRecommend;
 import com.scorer.client.entity.Notice;
 import com.scorer.client.entity.Student;
 import com.scorer.client.service.NoticeService;
+import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -2,11 +2,10 @@ package com.scorer.client.service.impl;
 
 import com.scorer.client.constant.Iconstants;
 import com.scorer.client.dao.mysql_dao1.ClassesDao;
-import com.scorer.client.dao.mysql_dao1.ReportDao;
 import com.scorer.client.dao.mysql_dao1.SchoolDao;
 import com.scorer.client.entity.School;
 import com.scorer.client.service.SchoolService;
-import com.scorer.client.service.SchoolService;
+import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

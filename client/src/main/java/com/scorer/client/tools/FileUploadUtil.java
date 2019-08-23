@@ -8,6 +8,7 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
+import com.scorer.client.tools.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -103,7 +104,7 @@ public class FileUploadUtil {
             InputStream input = new FileInputStream(imgFile);
             byte[] byt = new byte[input.available()];
             if(input.read(byt)!=-1)
-                urlPath = FileUploadUtil.fileUploadByte(photoName, "qzdimage", byt);
+                urlPath = com.scorer.client.tools.FileUploadUtil.fileUploadByte(photoName, "qzdimage", byt);
             input.close();
             imgFile.delete();
         } catch (IOException e) {

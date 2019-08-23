@@ -4,7 +4,6 @@ import com.scorer.client.entity.Manager;
 import com.scorer.client.entity.Menu;
 import com.scorer.client.entity.Role;
 import com.scorer.client.values.PageBean;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
