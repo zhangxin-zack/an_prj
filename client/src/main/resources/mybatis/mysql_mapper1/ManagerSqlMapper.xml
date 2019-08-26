@@ -253,5 +253,11 @@
             role_id = #{roleId}
     </select>
 
+    <select id="getRoleMenuIds" resultType="long">
+        SELECT
+            m.sys_menu_id
+        FROM role_rights m
+        WHERE role_id = #{roleId}
+    </select>
 
 </mapper>

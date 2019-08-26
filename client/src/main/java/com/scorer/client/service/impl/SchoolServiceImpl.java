@@ -4,12 +4,15 @@ import com.scorer.client.constant.Iconstants;
 import com.scorer.client.dao.mysql_dao1.ClassesDao;
 import com.scorer.client.dao.mysql_dao1.SchoolDao;
 import com.scorer.client.entity.School;
+import com.scorer.client.entity.SchoolMenu;
 import com.scorer.client.service.SchoolService;
 import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -127,6 +130,62 @@ public class SchoolServiceImpl extends BaseSeviceImpl implements SchoolService {
     }
 
     @Override
+    public Map addSchoolMenu(SchoolMenu menu) {
+        try{
+            schoolDao.addSchoolMenu(menu);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map updateSchoolMenu(SchoolMenu menu) {
+        try{
+            schoolDao.updateSchoolMenu(menu);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map deleteSchoolMenu(List<Long> schoolMenuIds) {
+        try{
+            schoolDao.deleteSchoolMenus(schoolMenuIds);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map getSchoolMenuList(PageBean page) {
+        try{
+            page.setTotal(schoolDao.getAllSchoolMenuListForPageCount(page));
+            page.setRows(schoolDao.getAllSchoolMenuListForPage(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map getSchoolMenuTree() {
+        try{
+            List<SchoolMenu> menuList = schoolDao.getAllSchoolMenuList();
+            return resultMap(Iconstants.RESULT_CODE_0, "success", getTreeDataForSchoolMenu(menuList));
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
     public Map<String, Object> getClassCountBySchoolId(long schoolId) {
         try{
             long classCount = schoolDao.getClassCountBySchoolId(schoolId);
@@ -148,5 +207,49 @@ public class SchoolServiceImpl extends BaseSeviceImpl implements SchoolService {
         }
     }
 
+    private Map<String, Object> getTreeDataForSchoolMenu(List<SchoolMenu> menuList){
+        //获取根节点
+        SchoolMenu rootMenu = null;
+        for(SchoolMenu menu: menuList){
+            long pid = menu.getMenuPid();
+            if(pid == 0){
+                rootMenu = menu;
+            }
+        }
+        //拼接根节点数据
+        Map<String, Object> datamap = new HashMap<>();
+        long lv1Id = rootMenu.getMenuId();
+        datamap.put("id", lv1Id);
+        datamap.put("pid", rootMenu.getMenuPid());
+        datamap.put("name", rootMenu.getMenuTitle());
+        datamap.put("path", rootMenu.getPath());
+        datamap.put("icon", rootMenu.getIcon());
+        List<Map<String, Object>> child = new ArrayList<>();
+        for(SchoolMenu menu: menuList){
+            //递归拼接数据
+            recursionDataForSchool(menuList, lv1Id, menu, child);
+        }
+        datamap.put("children", child);
+        return datamap;
+    }
 
+    private void recursionDataForSchool(List<SchoolMenu> menus, long perId, SchoolMenu currentMenu,
+                                        List<Map<String, Object>> perChild){
+        long pid = currentMenu.getMenuPid();
+        if(pid == perId){
+            long currentId = currentMenu.getMenuId();
+            Map<String, Object> data = new HashMap<>();
+            data.put("id", currentId);
+            data.put("pid", pid);
+            data.put("name", currentMenu.getMenuTitle());
+            data.put("path", currentMenu.getPath());
+            data.put("icon", currentMenu.getIcon());
+            List<Map<String, Object>> child = new ArrayList<>();
+            for(SchoolMenu nextMenu: menus) {
+                recursionDataForSchool(menus, currentId, nextMenu, child);
+            }
+            data.put("children", child);
+            perChild.add(data);
+        }
+    }
 }

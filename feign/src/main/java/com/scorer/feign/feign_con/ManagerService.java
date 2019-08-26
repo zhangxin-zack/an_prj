@@ -1,6 +1,8 @@
 package com.scorer.feign.feign_con;
 
 import com.scorer.feign.entity.Manager;
+import com.scorer.feign.entity.Menu;
+import com.scorer.feign.entity.Role;
 import com.scorer.feign.values.PageBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -34,15 +36,36 @@ public interface ManagerService {
                  @RequestParam(value = "menuIds") List<Long> menuIds);
 
 
-    @RequestMapping(value = "/EDU/sys/role_select")
+    @RequestMapping(value = "/EDU/sys/role_select", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getAllRoleList();
 
-    @RequestMapping(value = "/EDU/sys/menu_list")
+    @RequestMapping(value = "/EDU/sys/menu_list", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getAllMenuList();
 
-    @RequestMapping(value = "/EDU/sys/action_list")
+    @RequestMapping(value = "/EDU/sys/action_list", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getActionMenuList();
 
     @RequestMapping(value = "/EDU/user/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map userLogin(@RequestBody Manager manager);
+
+    @RequestMapping(value = "/EDU/sys/get_role_menus", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getRoleMenuIds(@RequestParam(value = "roleId") Long roleId);
+
+    @RequestMapping(value = "/EDU/sys/role_add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map addRole(@RequestBody Role role);
+
+    @RequestMapping(value = "/EDU/sys/role_update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map updateRole(@RequestBody Role role);
+
+    @RequestMapping(value = "/EDU/sys/role_delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map deleteRole(@RequestParam(value = "roleIds") List<Long> roleIds);
+
+    @RequestMapping(value = "/EDU/sys/menu_add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map addMenu(@RequestBody Menu menu);
+
+    @RequestMapping(value = "/EDU/sys/menu_update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map updateMenu(@RequestBody Menu menu);
+
+    @RequestMapping(value = "/EDU/sys/menu_delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map deleteMenu(@RequestParam(value = "menuIds") List<Long> menuIds);
 }

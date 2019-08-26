@@ -1,6 +1,8 @@
 package com.scorer.feign.controller;
 
 import com.scorer.feign.entity.Manager;
+import com.scorer.feign.entity.Menu;
+import com.scorer.feign.entity.Role;
 import com.scorer.feign.feign_con.ManagerService;
 import com.scorer.feign.values.PageBean;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -68,5 +70,40 @@ public class ManagerController {
     @RequestMapping(value = "/action_list")
     public Map getActionList() {
         return managerService.getActionMenuList();
+    }
+
+    @RequestMapping(value = "/get_role_menus")
+    public Map getRoleMenus(@RequestParam(value = "roleId") Long roleId) {
+        return managerService.getRoleMenuIds(roleId);
+    }
+
+    @RequestMapping(value = "/role_add")
+    public Map addRole(@RequestBody Role role) {
+        return managerService.addRole(role);
+    }
+
+    @RequestMapping(value = "/role_update")
+    public Map updateRole(@RequestBody Role role) {
+        return managerService.updateRole(role);
+    }
+
+    @RequestMapping(value = "/role_delete")
+    public Map deleteRole(@RequestParam(value = "roleIds") List<Long> roleIds) {
+        return managerService.deleteRole(roleIds);
+    }
+
+    @RequestMapping(value = "/menu_add")
+    public Map addMenu(@RequestBody Menu menu) {
+        return managerService.addMenu(menu);
+    }
+
+    @RequestMapping(value = "/menu_update")
+    public Map updateMenu(@RequestBody Menu menu) {
+        return managerService.updateMenu(menu);
+    }
+
+    @RequestMapping(value = "/menu_delete")
+    public Map deleteMenu(@RequestParam(value = "menuIds") List<Long> menuIds) {
+        return managerService.deleteMenu(menuIds);
     }
 }

@@ -1,5 +1,6 @@
 package com.scorer.feign.feign_con;
 
+import com.scorer.feign.entity.SchoolMenu;
 import com.scorer.feign.entity.Student;
 import com.scorer.feign.values.PageBean;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -40,6 +41,5 @@ public interface StudentService {
 
     @RequestMapping(value = "/EDU/student/remove", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map deleteStudent(@RequestParam(value = "studentIds") List<Integer> studentIds);
-
 
 }

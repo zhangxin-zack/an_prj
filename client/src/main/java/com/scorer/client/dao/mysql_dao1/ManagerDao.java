@@ -61,4 +61,6 @@ public interface ManagerDao {
     List<Menu> getAllMenuList() throws Exception;
 
     List<Menu> getActionMenuList(Long roleId) throws Exception;
+
+    List<Long> getRoleMenuIds(Long roleId) throws Exception;
 }

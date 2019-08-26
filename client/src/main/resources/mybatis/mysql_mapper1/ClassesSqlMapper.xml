@@ -129,7 +129,7 @@
 
     <insert id="addTimetable">
         INSERT INTO timetable
-        (class_id, timetable, start_date)
+            (class_id, timetable, start_date)
         VALUES
             (#{classId}, #{timetable}, #{startDate})
     </insert>

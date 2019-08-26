@@ -1,6 +1,7 @@
 package com.scorer.feign.feign_con;
 
 import com.scorer.feign.entity.School;
+import com.scorer.feign.entity.SchoolMenu;
 import com.scorer.feign.values.PageBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -44,4 +45,18 @@ public interface SchoolService {
     @RequestMapping(value = "/EDU/school/stat_students", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getClassStudentCountBySchoolId(@RequestParam(value = "schoolId") Long schoolId);
 
+    @RequestMapping(value = "/EDU/school/sc_menu_add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map addSchoolMenu(@RequestBody SchoolMenu menu);
+
+    @RequestMapping(value = "/EDU/school/sc_menu_update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map updateSchoolMenu(@RequestBody SchoolMenu menu);
+
+    @RequestMapping(value = "/EDU/school/sc_menu_delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map deleteSchoolMenu(@RequestParam(value = "menuIds") List<Long> schoolMenuIds);
+
+    @RequestMapping(value = "/EDU/school/sc_menu_list", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getSchoolMenuList(@RequestBody PageBean page);
+
+    @RequestMapping(value = "/EDU/school/sc_menu_tree", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getSchoolMenuTree() ;
 }

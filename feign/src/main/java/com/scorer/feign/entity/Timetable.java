@@ -1,11 +1,14 @@
 package com.scorer.feign.entity;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Timetable {
 
   private long id;
   private long classId;
   private String timetable;
+  private MultipartFile timetableFile;
   private java.sql.Timestamp startDate;
 
   public long getId() {
@@ -40,4 +43,11 @@ public class Timetable {
     this.startDate = startDate;
   }
 
+  public MultipartFile getTimetableFile() {
+    return timetableFile;
+  }
+
+  public void setTimetableFile(MultipartFile timetableFile) {
+    this.timetableFile = timetableFile;
+  }
 }

@@ -5,6 +5,7 @@ import com.scorer.client.dao.mysql_dao1.ManagerDao;
 import com.scorer.client.entity.Manager;
 import com.scorer.client.entity.Menu;
 import com.scorer.client.entity.Role;
+import com.scorer.client.entity.SchoolMenu;
 import com.scorer.client.service.ManagerService;
 import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.tools.TokenTools;
@@ -239,6 +240,18 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
         try{
             List<Menu> menuList = managerDao.getActionMenuList(currentRoleId);
             return resultMap(Iconstants.RESULT_CODE_0, "success", menuList);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> getRoleMenuIds(Long roleId) {
+        try{
+            List<Long> menuIds = managerDao.getRoleMenuIds(roleId);
+            System.out.println("------------------------------------------------"+menuIds);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", menuIds);
         }catch (Exception e){
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);

@@ -120,4 +120,10 @@ public class ManagerController {
         Manager user = (Manager)session.getAttribute("user");
         return managerService.getActionMenuData(user.getCurrentRoleId());
     }
+
+    @RequestMapping(value = "/get_role_menus")
+    public Map getRoleMenuIds(@RequestParam(value = "roleId") Long roleId) {
+        return managerService.getRoleMenuIds(roleId);
+    }
+
 }

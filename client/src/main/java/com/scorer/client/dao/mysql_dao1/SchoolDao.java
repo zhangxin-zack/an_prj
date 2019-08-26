@@ -2,6 +2,7 @@ package com.scorer.client.dao.mysql_dao1;
 
 import com.scorer.client.entity.School;
 import com.scorer.client.entity.SchoolDetail;
+import com.scorer.client.entity.SchoolMenu;
 import com.scorer.client.values.PageBean;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -37,5 +38,17 @@ public interface SchoolDao {
     List<Map> getSchoolReportList(PageBean page) throws Exception;
 
     void deleteSchoolFK(List schoolIds) throws Exception;
+
+    List<SchoolMenu> getAllSchoolMenuList() throws Exception;
+
+    Long getAllSchoolMenuListForPageCount(PageBean page) throws Exception;
+
+    List<SchoolMenu> getAllSchoolMenuListForPage(PageBean page) throws Exception;
+
+    void addSchoolMenu(SchoolMenu schoolMenu) throws Exception;
+
+    void updateSchoolMenu(SchoolMenu schoolMenu) throws Exception;
+
+    void deleteSchoolMenus(List menuIds) throws Exception;
 
 }

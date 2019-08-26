@@ -4,13 +4,19 @@ import com.scorer.client.entity.ClassContent;
 import com.scorer.client.entity.Classes;
 import com.scorer.client.entity.Timetable;
 import com.scorer.client.service.ClassesService;
+import com.scorer.client.tools.ExcelUtils;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 
@@ -75,4 +81,19 @@ public class ClassesController {
     public Map getClassListContent(@RequestBody PageBean condition) {
         return classesService.getAccountClassesList(condition);
     }
+
+    @RequestMapping(value = "/upload_timetable")
+    public Map uploadTimetable(Timetable timetable) {
+        MultipartFile timetableFile = timetable.getTimetableFile();
+        if(!timetableFile.isEmpty()){
+            timetable.setTimetable(ExcelUtils.getTimetableData(timetableFile));
+        }
+        return classesService.addTimetable(timetable);
+    }
+
+    @RequestMapping(value = "/download_timetable_temp")
+    public ResponseEntity<byte[]> downloadTimetableTemp(HttpServletResponse response) {
+        return ExcelUtils.exportFile(response);
+    }
+
 }

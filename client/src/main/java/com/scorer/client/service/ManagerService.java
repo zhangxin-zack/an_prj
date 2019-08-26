@@ -3,6 +3,7 @@ package com.scorer.client.service;
 import com.scorer.client.entity.Manager;
 import com.scorer.client.entity.Menu;
 import com.scorer.client.entity.Role;
+import com.scorer.client.entity.SchoolMenu;
 import com.scorer.client.values.PageBean;
 
 import java.util.List;
@@ -43,4 +44,7 @@ public interface ManagerService {
     Map<String, Object> getActionMenuList(Long roleId);
 
     Map<String, Object> getActionMenuData(Long currentRoleId);
+
+    Map<String, Object> getRoleMenuIds(Long roleId);
+
 }

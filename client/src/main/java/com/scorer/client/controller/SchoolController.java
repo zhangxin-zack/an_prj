@@ -1,6 +1,9 @@
 package com.scorer.client.controller;
 
+import com.scorer.client.entity.Manager;
 import com.scorer.client.entity.School;
+import com.scorer.client.entity.SchoolMenu;
+import com.scorer.client.service.ManagerService;
 import com.scorer.client.service.SchoolService;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +71,30 @@ public class SchoolController {
     @RequestMapping(value = "/stat_students")
     public Map getStudentCountById(@RequestParam(value = "schoolId") Long schoolId) {
         return schoolService.getClassStudentCountBySchoolId(schoolId);
+    }
+
+    @RequestMapping(value = "/sc_menu_add")
+    public Map addSchoolMenu(@RequestBody SchoolMenu menu) {
+        return schoolService.addSchoolMenu(menu);
+    }
+
+    @RequestMapping(value = "/sc_menu_update")
+    public Map updateSchoolMenu(@RequestBody SchoolMenu menu) {
+        return schoolService.updateSchoolMenu(menu);
+    }
+
+    @RequestMapping(value = "/sc_menu_delete")
+    public Map deleteSchoolMenu(@RequestParam(value = "menuIds") List<Long> schoolMenuIds) {
+        return schoolService.deleteSchoolMenu(schoolMenuIds);
+    }
+
+    @RequestMapping(value = "/sc_menu_list")
+    public Map getSchoolMenuList(@RequestBody PageBean page) {
+        return schoolService.getSchoolMenuList(page);
+    }
+
+    @RequestMapping(value = "/sc_menu_tree")
+    public Map getSchoolMenuTree() {
+        return schoolService.getSchoolMenuTree();
     }
 }
