@@ -56,4 +56,7 @@ public interface ClassesService {
 
     @RequestMapping(value = "/EDU/classes/download_timetable_temp")
     ResponseEntity<byte[]> downloadTimetableTemp();
+
+    @RequestMapping(value = "/EDU/classes/list_timetable_class", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getTimetableClass(PageBean condition);
 }

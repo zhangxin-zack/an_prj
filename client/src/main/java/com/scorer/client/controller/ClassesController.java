@@ -96,4 +96,10 @@ public class ClassesController {
         return ExcelUtils.exportFile(response);
     }
 
+    @RequestMapping(value = "/list_timetable_class")
+    public Map getTimetableClass(@RequestBody PageBean condition) {
+        return classesService.getTimetableClass(condition);
+    }
+
+
 }

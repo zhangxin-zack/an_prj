@@ -86,4 +86,9 @@ public class ClassesController {
     public ResponseEntity<byte[]> downloadTimetableTemp(){
         return classesService.downloadTimetableTemp();
     }
+
+    @RequestMapping(value = "/list_timetable_class")
+    public Map getTimetableClass(@RequestBody PageBean condition) {
+        return classesService.getTimetableClass(condition);
+    }
 }

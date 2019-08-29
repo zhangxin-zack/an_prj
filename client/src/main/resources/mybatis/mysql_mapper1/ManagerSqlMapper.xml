@@ -207,7 +207,7 @@
                 icon = #{icon},
             </if>
         </set>
-        where id = #{id}
+        where id = #{menuId}
     </update>
 
 

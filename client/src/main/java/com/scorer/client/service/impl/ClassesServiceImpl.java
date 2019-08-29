@@ -116,6 +116,20 @@ public class ClassesServiceImpl extends BaseSeviceImpl implements ClassesService
         }
     }
 
+
+    @Override
+    public Map<String, Object> getTimetableClass(PageBean page) {
+        try {
+            page.setTotal(classesDao.getTimetableCount(page));
+            page.setRows(classesDao.getTimetableList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+
     @Override
     public Map<String, Object> addTimetable(Timetable timetable) {
         try {
