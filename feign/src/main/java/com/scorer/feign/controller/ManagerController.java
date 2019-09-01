@@ -106,4 +106,20 @@ public class ManagerController {
     public Map deleteMenu(@RequestParam(value = "menuIds") List<Long> menuIds) {
         return managerService.deleteMenu(menuIds);
     }
+
+    @RequestMapping(value = "/list_agent")
+    public Map listAgent(@RequestBody PageBean condition) {
+        return managerService.listAgent(condition);
+    }
+
+    @RequestMapping(value = "/list_agent_area")
+    public Map listAgentArea(@RequestBody PageBean condition){
+        return managerService.listAgentArea(condition);
+    }
+
+    @RequestMapping(value = "/list_agent_school")
+    public Map listAgentSchool(@RequestBody PageBean condition) {
+        return managerService.listAgentSchool(condition);
+    }
+
 }
