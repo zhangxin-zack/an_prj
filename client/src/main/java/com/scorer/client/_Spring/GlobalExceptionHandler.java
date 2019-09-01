@@ -1,6 +1,6 @@
 package com.scorer.client._Spring;
 
-import com.scorer.client._Excptions.*;
+import com.scorer.client._Excptions.Secret_SD_Used_Exception;
 import com.scorer.client.values.ResultMap;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,16 +14,16 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {   //全局异常捕获
 
-    @ExceptionHandler(value = UserH5CookieTimeOutException.class)
-    public String jsonErrorHandler(HttpServletRequest request, UserH5CookieTimeOutException ex) throws Exception {
+    @ExceptionHandler(value = com.scorer.client._Excptions.UserH5CookieTimeOutException.class)
+    public String jsonErrorHandler(HttpServletRequest request, com.scorer.client._Excptions.UserH5CookieTimeOutException ex) throws Exception {
         request.setAttribute("result", "安全认证失效,请重新打开链接");
         System.err.println(ex.getMessage());
         return "user/error";
     }
 
-    @ExceptionHandler(value = UserH5CookieTimeOutException_Json.class)
+    @ExceptionHandler(value = com.scorer.client._Excptions.UserH5CookieTimeOutException_Json.class)
     @ResponseBody
-    public Map jsonErrorHandler(HttpServletRequest request, UserH5CookieTimeOutException_Json ex) throws Exception {
+    public Map jsonErrorHandler(HttpServletRequest request, com.scorer.client._Excptions.UserH5CookieTimeOutException_Json ex) throws Exception {
         System.err.println(ex.getMessage());
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("result", 8888);
@@ -32,9 +32,9 @@ public class GlobalExceptionHandler {   //全局异常捕获
         return responseMap;
     }
 
-    @ExceptionHandler(value = AdminCookieTimeOutException.class)
+    @ExceptionHandler(value = com.scorer.client._Excptions.AdminCookieTimeOutException.class)
     @ResponseBody
-    public Map jsonErrorHandler(HttpServletRequest request, AdminCookieTimeOutException ex) throws Exception {
+    public Map jsonErrorHandler(HttpServletRequest request, com.scorer.client._Excptions.AdminCookieTimeOutException ex) throws Exception {
         System.err.println(ex.getMessage());
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("result", 9999);
@@ -43,9 +43,9 @@ public class GlobalExceptionHandler {   //全局异常捕获
         return responseMap;
     }
 
-    @ExceptionHandler(value = TokenTimeOutException.class)
+    @ExceptionHandler(value = com.scorer.client._Excptions.TokenTimeOutException.class)
     @ResponseBody
-    public Map jsonErrorHandler(HttpServletRequest request, TokenTimeOutException ex) throws Exception {
+    public Map jsonErrorHandler(HttpServletRequest request, com.scorer.client._Excptions.TokenTimeOutException ex) throws Exception {
         System.err.println(ex.getMessage());
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("result", 9999);
@@ -53,9 +53,9 @@ public class GlobalExceptionHandler {   //全局异常捕获
         return responseMap;
     }
 
-    @ExceptionHandler(value = WX_ERROR_Exception.class)
+    @ExceptionHandler(value = com.scorer.client._Excptions.WX_ERROR_Exception.class)
     @ResponseBody
-    public Map jsonErrorHandler(HttpServletRequest request, WX_ERROR_Exception ex) throws Exception {
+    public Map jsonErrorHandler(HttpServletRequest request, com.scorer.client._Excptions.WX_ERROR_Exception ex) throws Exception {
         System.err.println(ex.getMessage());
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("result", 5555);
@@ -74,9 +74,9 @@ public class GlobalExceptionHandler {   //全局异常捕获
         return responseMap;
     }
 
-    @ExceptionHandler(value = Secret_SD_Exception.class)
+    @ExceptionHandler(value = com.scorer.client._Excptions.Secret_SD_Exception.class)
     @ResponseBody
-    public Map jsonErrorHandlerSQL(Secret_SD_Exception ex) {
+    public Map jsonErrorHandlerSQL(com.scorer.client._Excptions.Secret_SD_Exception ex) {
         System.out.println(ex.getMessage());
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("result", 9988);
@@ -84,7 +84,7 @@ public class GlobalExceptionHandler {   //全局异常捕获
         return responseMap;
     }
 
-    @ExceptionHandler(value = Secret_SD_Used_Exception.class)
+    @ExceptionHandler(value = com.scorer.client._Excptions.Secret_SD_Used_Exception.class)
     @ResponseBody
     public Map jsonErrorHandlerSQL(Secret_SD_Used_Exception ex) {
         System.out.println(ex.getMessage());

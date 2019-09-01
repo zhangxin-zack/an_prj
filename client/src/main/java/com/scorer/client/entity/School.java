@@ -8,7 +8,7 @@ public class School {
     private Long id;
     private String title;   //学校名称
     private String simpleTitle;  //学校简称
-    private Timestamp registeDate; //加入日期
+    private String registeDate; //加入日期
     private String linkman;   //联系人
     private String phone;   //电话
     private String area;  //所在地区
@@ -18,6 +18,8 @@ public class School {
     private String email;    //邮箱
     private Long bindCount;  //安装手表数
     private String description;   //学校图文介绍
+    private Integer classCount;   //学校班级数
+    private Integer studentCount;  //学校学生数
 
     public Long getId() {
         return id;
@@ -43,11 +45,11 @@ public class School {
         this.simpleTitle = simpleTitle;
     }
 
-    public Timestamp getRegisteDate() {
+    public String getRegisteDate() {
         return registeDate;
     }
 
-    public void setRegisteDate(Timestamp registeDate) {
+    public void setRegisteDate(String registeDate) {
         this.registeDate = registeDate;
     }
 
@@ -121,5 +123,21 @@ public class School {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getClassCount() {
+        return classCount;
+    }
+
+    public void setClassCount(Integer classCount) {
+        this.classCount = classCount;
+    }
+
+    public Integer getStudentCount() {
+        return studentCount;
+    }
+
+    public void setStudentCount(Integer studentCount) {
+        this.studentCount = studentCount;
     }
 }

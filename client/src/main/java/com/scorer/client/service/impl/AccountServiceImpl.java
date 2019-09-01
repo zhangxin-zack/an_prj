@@ -7,9 +7,11 @@ import com.scorer.client.entity.Account;
 import com.scorer.client.entity.AppMenu;
 import com.scorer.client.entity.Student;
 import com.scorer.client.service.AccountService;
+import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.tools.MessageApi;
 import com.scorer.client.tools.ObjectUtils;
 import com.scorer.client.tools.TokenTools;
+import com.scorer.client.values.PageBean;
 import com.scorer.client.values.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -32,6 +34,18 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
 
     @Resource
     private RedisTemplate<String, Integer> redisTemplate;
+
+    @Override
+    public Map<String, Object> getAccountList(PageBean page) {
+        try {
+            page.setTotal(accountDao.getAccountCount(page));
+            page.setRows(accountDao.getAccountList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
 
     @Override
     public Map<String, Object> getValidateCode(String phone) {
@@ -76,9 +90,10 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             //获取token
             data.put("account", account);
             data.put("token", TokenTools.generateTokenAPP(accountId));
+            //(app端菜单被写死了  无动态权限  暂无处理)
             //获取家长身份相关菜单
-            List<AppMenu> menuList = accountDao.getAppMenuList(accountId);
-            data.put("menuList", getTreeData(menuList));
+            //List<AppMenu> menuList = accountDao.getAppMenuList(accountId);
+            //data.put("menuList", getTreeData(menuList));
             return resultMap(Iconstants.RESULT_CODE_0, "success", data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,9 +114,15 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             Map<String, Object> data = new HashMap<>();
             data.put("account", loginAccount);
             data.put("token", TokenTools.generateTokenAPP(loginAccount.getId()));
+            //查询用户是否为家长以及家长管理员 是否为老师以及班主任
+            if(loginAccount != null && loginAccount.getId() != 0 ){
+                data.put("manageBaby", accountDao.selectAccountBabyRelation(loginAccount.getId()));
+                data.put("manageClass", accountDao.selectAccountClassRelation(loginAccount.getId()));
+            }
+            //(app端菜单被写死了  无动态权限  暂无处理)
             //获取用户的所有相关菜单
-            List<AppMenu> menuList = accountDao.getAppMenuList(loginAccount.getId());
-            data.put("menuList", getTreeData(menuList));
+           // List<AppMenu> menuList = accountDao.getAppMenuList(loginAccount.getId());
+            //data.put("menuList", getTreeData(menuList));
             return resultMap(Iconstants.RESULT_CODE_0, "success", data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -185,6 +206,18 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
         } catch (Exception e) {
             e.printStackTrace();
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> listBaby(PageBean page) {
+        try {
+            page.setTotal(studentDao.getStudentBabyCount(page));
+            page.setRows(studentDao.getStudentBabyList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
     }
 

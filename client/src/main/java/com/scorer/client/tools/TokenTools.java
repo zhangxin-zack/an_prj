@@ -1,5 +1,7 @@
 package com.scorer.client.tools;
 
+import com.scorer.client.tools.Jwt;
+import com.scorer.client.tools.ObjectUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
@@ -28,7 +30,7 @@ public class TokenTools {
         Map<String, Object> map = new HashMap<>();
         map.put("accountId", accountId);                                //根据用户ID生成token
         map.put("LoginTime", System.currentTimeMillis());               //根据用户登录时间生成token
-        String token = Jwt.createToken(map);
+        String token = com.scorer.client.tools.Jwt.createToken(map);
         operations.set("uid_app_token:" + accountId, token, 15, TimeUnit.DAYS);
         return token;
     }

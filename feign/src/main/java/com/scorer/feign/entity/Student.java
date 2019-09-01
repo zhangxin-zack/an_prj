@@ -20,6 +20,15 @@ public class Student {
     private String relationName;
     private Integer deleteFlag;
     private Long accountId;
+    private String year;
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
 
     public Long getId() {
         return id;

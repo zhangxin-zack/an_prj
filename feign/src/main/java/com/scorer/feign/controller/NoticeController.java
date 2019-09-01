@@ -1,5 +1,6 @@
 package com.scorer.feign.controller;
 
+import com.scorer.feign.entity.DailyRecommend;
 import com.scorer.feign.entity.Notice;
 import com.scorer.feign.feign_con.NoticeService;
 import com.scorer.feign.values.PageBean;
@@ -48,5 +49,20 @@ public class NoticeController {
     @RequestMapping(value = {"/list_daily_recommend", "/list_child_knowledge"})
     public Map getDailyInfo(@RequestBody PageBean page) {
         return noticeService.getDailyInfoList(page);
+    }
+
+    @RequestMapping(value = "/add_recommend")
+    public Map addRecommend(@RequestBody DailyRecommend recommend) {
+        return noticeService.addRecommend(recommend);
+    }
+
+    @RequestMapping(value = "/update_recommend")
+    public Map updateRecommend(@RequestBody DailyRecommend recommend) {
+        return noticeService.updateRecommend(recommend);
+    }
+
+    @RequestMapping(value = "/remove_recommend")
+    public Map deleteRecommend(@RequestParam("recommendIds") List<Long> recommendIds) {
+        return noticeService.deleteRecommend(recommendIds);
     }
 }

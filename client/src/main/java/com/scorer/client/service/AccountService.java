@@ -1,11 +1,9 @@
 package com.scorer.client.service;
 
 import com.scorer.client.entity.Account;
-import com.scorer.client.entity.Classes;
 import com.scorer.client.entity.Student;
 import com.scorer.client.values.PageBean;
 
-import java.util.List;
 import java.util.Map;
 
 
@@ -20,6 +18,8 @@ public interface AccountService {
 //    Map<String, Object> updateClasses(Classes classes);
 //
 //    Map<String, Object> deleteClasses(List classesIds);
+
+    Map<String, Object> getAccountList(PageBean page);
 
     Map<String, Object> getValidateCode(String phone);
 
@@ -36,4 +36,6 @@ public interface AccountService {
     Map<String, Object> addBaby(Student student);
 
     Map<String, Object> updateBaby(Student student);
+
+    Map<String, Object> listBaby(PageBean page);
 }

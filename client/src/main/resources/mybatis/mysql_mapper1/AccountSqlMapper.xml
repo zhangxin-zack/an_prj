@@ -28,6 +28,60 @@
         <result column="icon" property="icon"/>
     </resultMap>
 
+    <select id="getAccountCount" resultType="Long">
+        SELECT
+          count(ac.id)
+        FROM
+          account ac
+        JOIN account_title act ON ac.id = act.account_id
+        JOIN title t ON act.title_id = t.id
+        WHERE 1=1
+        <if test="searchs.username != null and searchs.username != ''">
+            AND ac.username = #{searchs.username}
+        </if>
+        <if test="searchs.nickname != null and searchs.nickname != ''">
+            AND ac.nick_name = #{searchs.nickname}
+        </if>
+        <if test="searchs.categoryId != null and searchs.categoryId != ''">
+            AND t.id = #{searchs.categoryId}
+        </if>
+    </select>
+
+    <select id="getAccountList" resultMap="account">
+        SELECT
+            ac.id,
+            ac.username,
+            ac.password,
+            ac.phone,
+            ac.email,
+            ac.address,
+            ac.sex,
+            ac.img,
+            ac.img_url,
+            ac.register_date,
+            t.id catetgory_id,
+            t.title categoryName
+        FROM
+        account ac
+        JOIN account_title act ON ac.id = act.account_id
+        JOIN title t ON act.title_id = t.id
+        WHERE 1=1
+        <if test="searchs.username != null and searchs.username != ''">
+            AND ac.username = #{searchs.username}
+        </if>
+        <if test="searchs.nickname != null and searchs.nickname != ''">
+            AND ac.nick_name = #{searchs.nickname}
+        </if>
+        <if test="searchs.categoryName != null and searchs.categoryName != ''">
+            AND t.title = #{searchs.categoryName}
+        </if>
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+
     <select id="accountLogin" resultMap="account">
       select id, username, PASSWORD, nick_name, address, phone, sex, img_url, email, register_date
         from account
@@ -66,9 +120,6 @@
             <if test="address!= null and address!= '' ">
                 address = #{address},
             </if>
-            <if test="phone!= null and phone!= '' ">
-                phone = #{phone},
-            </if>
             <if test="sex!= null and sex!= '' ">
                 sex = #{sex},
             </if>
@@ -89,7 +140,14 @@
         insert into account_title(account_id, title_id) values(#{0}, #{1})
     </insert>
 
-    <select id="getAccountAllTitle" resultType="arraylist">
+    <delete id="deleteAccountTitle">
+        delete from account_title where account_id in
+        <foreach collection="list" item="accountId" open="(" separator="," close=")">
+            #{accountId}
+        </foreach>
+    </delete>
+
+    <select id="getAccountAllTitle" resultType="Long">
         SELECT
             title_id
         FROM
@@ -123,6 +181,29 @@
         JOIN account_title act ON act.title_id = t.id
         WHERE
             act.account_id = #{0}
+    </select>
+
+    <select id="selectAccountBabyRelation" resultType="map">
+
+        SELECT
+            s.id studentId,
+            IF(s.account_id = #{accountId}, 'true', 'false') AS isAdmin
+        FROM
+            account_student acs
+        JOIN students s ON acs.student_id = s.id
+        WHERE s.delete_flag = 0
+          and acs.account_id =  #{accountId}
+    </select>
+
+    <select id="selectAccountClassRelation" resultType="map">
+        SELECT
+            c.id classId,
+            IF(c.teacher_id = #{accountId}, 'true', 'false') AS isAdmin
+        FROM
+            account_class acc
+            JOIN class c ON acc.class_id = c.id
+        WHERE
+            acc.account_id = #{accountId}
     </select>
 
 </mapper>

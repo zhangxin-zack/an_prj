@@ -5,12 +5,13 @@ import com.scorer.client.dao.mysql_dao1.ManagerDao;
 import com.scorer.client.entity.Manager;
 import com.scorer.client.entity.Menu;
 import com.scorer.client.entity.Role;
+import com.scorer.client.entity.SchoolMenu;
 import com.scorer.client.service.ManagerService;
+import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.tools.TokenTools;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,11 +25,29 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     private ManagerDao managerDao;
 
     @Override
-    public Map<String,Object> login(Manager manager) {
-
+    public Map<String, Object> loginManage(Manager manager) {
         try{
-            Manager loginManager = managerDao.login(manager);
+            Manager loginManager = managerDao.loginManage(manager);
             if(loginManager != null){
+                managerDao.setLoginTime(manager);
+                loginManager.setPassword(null);
+                loginManager.setToken(TokenTools.generateTokenSchool(loginManager.getId()));
+                return resultMap(Iconstants.RESULT_CODE_0, "success", loginManager);
+            }else{
+                return resultMap(Iconstants.RESULT_CODE_1, "账号或密码错误", null);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> loginSchool(Manager manager) {
+        try{
+            Manager loginManager = managerDao.loginSchool(manager);
+            if(loginManager != null){
+                managerDao.setLoginTime(manager);
                 loginManager.setPassword(null);
                 loginManager.setToken(TokenTools.generateTokenSchool(loginManager.getId()));
                 return resultMap(Iconstants.RESULT_CODE_0, "success", loginManager);
@@ -109,6 +128,80 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     }
 
     @Override
+    public Map<String, Object> addRole(Role role) {
+        try{
+            managerDao.addRole(role);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> updateRole(Role role) {
+        try{
+            managerDao.updateRole(role);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> deleteRoles(List roleIds) {
+        try{
+            //删除角色表
+            managerDao.deleteRole(roleIds);
+            //删除角色相关菜单关系以及管理员关系
+            managerDao.deleteManagersRoleByRoleIds(roleIds);
+            managerDao.deleteRoleMenuByRoleIds(roleIds);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+
+    @Override
+    public Map<String, Object> addMenu(Menu menu) {
+        try{
+            managerDao.addMenu(menu);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> updateMenu(Menu menu) {
+        try{
+            managerDao.updateMenu(menu);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> deleteMenus(List menuIds) {
+        try{
+            //删除角色表
+            managerDao.deleteMenus(menuIds);
+            //删除角色相关菜单关系
+            managerDao.deleteManagersRole(menuIds);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
     public Map<String, Object> saveRole(Long roleId, List<Long> menuIds) {
         try{
             managerDao.deleteRoleMenu(roleId);
@@ -133,6 +226,10 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
         }
     }
 
+    /**
+     * 查询全量菜单（树形）
+     * @return
+     */
     @Override
     public Map<String, Object> getAllMenuList() {
         try{
@@ -150,6 +247,29 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
         try{
             List<Menu> menuList = managerDao.getActionMenuList(roleId);
             return resultMap(Iconstants.RESULT_CODE_0, "success", getTreeData(menuList));
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> getActionMenuData(Long currentRoleId) {
+        try{
+            List<Menu> menuList = managerDao.getActionMenuList(currentRoleId);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", menuList);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> getRoleMenuIds(Long roleId) {
+        try{
+            List<Long> menuIds = managerDao.getRoleMenuIds(roleId);
+            System.out.println("------------------------------------------------"+menuIds);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", menuIds);
         }catch (Exception e){
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);

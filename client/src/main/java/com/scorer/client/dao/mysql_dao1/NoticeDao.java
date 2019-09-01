@@ -26,4 +26,10 @@ public interface NoticeDao {
 
     List<DailyRecommend> getDailyRecommendList(PageBean page) throws Exception;
 
+    void addRecommendText(DailyRecommend text) throws Exception;
+
+    void updateRecommendText(DailyRecommend text) throws Exception;
+
+    void deleteRecommendText(List textIds) throws Exception;
+
 }

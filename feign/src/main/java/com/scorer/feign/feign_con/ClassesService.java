@@ -6,10 +6,12 @@ import com.scorer.feign.entity.Timetable;
 import com.scorer.feign.values.PageBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +33,9 @@ public interface ClassesService {
     @RequestMapping(value = "/EDU/classes/remove", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map deleteClasses(@RequestParam(value = "classesIds") List<Integer> classesIds);
 
+    @RequestMapping(value = "/EDU/classes/select", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map selectClassesList(@RequestBody Classes classes);
+
     @RequestMapping(value = "/EDU/classes/list_timetable", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getTimetable(@RequestBody PageBean condition);
 
@@ -45,4 +50,13 @@ public interface ClassesService {
 
     @RequestMapping(value = "/EDU/classes/list_account_class", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getAccountClassesList(@RequestBody PageBean condition);
+
+    @RequestMapping(value = "/EDU/classes/upload_timetable")
+    Map uploadTimetable(Timetable timetable);
+
+    @RequestMapping(value = "/EDU/classes/download_timetable_temp")
+    ResponseEntity<byte[]> downloadTimetableTemp();
+
+    @RequestMapping(value = "/EDU/classes/list_timetable_class", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getTimetableClass(PageBean condition);
 }

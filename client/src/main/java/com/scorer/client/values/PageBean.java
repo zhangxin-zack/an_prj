@@ -10,13 +10,13 @@ public class PageBean {
 
     private String token;
     private String desc;
-    private Map<String, Object> searchs;
+    private Map<String, Object> searchs = new HashMap<>();
     private List<HashMap<String, String>> sort;
     private Long total;
     private List<?> rows;
 
-    private Integer limit;
-    private Integer paging;
+    private Integer limit = 1000;
+    private Integer paging = 1;
 
     public int getPageSize() {
         return limit;

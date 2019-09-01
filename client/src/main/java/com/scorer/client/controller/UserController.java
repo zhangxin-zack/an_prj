@@ -16,15 +16,14 @@ public class UserController {
     @Autowired
     private ManagerService managerService;
 
-    @RequestMapping(value = "/login")
-    public Map userLogin(@RequestBody Manager manager) {
-        return managerService.login(manager);
+    @RequestMapping(value = "/loginManage")
+    public Map userLoginManage(@RequestBody Manager manager) {
+        return managerService.loginManage(manager);
     }
 
-    @RequestMapping(value = "/resetpwd")
-    public Map resetPassword(@RequestBody Manager manager) {
-        return managerService.updateManager(manager);
+    @RequestMapping(value = "/loginSchool")
+    public Map userLoginSchool(@RequestBody Manager manager) {
+        return managerService.loginSchool(manager);
     }
-
 
 }

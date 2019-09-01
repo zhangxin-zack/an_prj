@@ -1,6 +1,7 @@
 package com.scorer.feign.controller;
 
 import com.scorer.feign.entity.School;
+import com.scorer.feign.entity.SchoolMenu;
 import com.scorer.feign.feign_con.SchoolService;
 import com.scorer.feign.values.PageBean;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,8 +41,23 @@ public class SchoolController {
     }
 
     @RequestMapping(value = "/get")
-    public Map getSchoolById(@RequestParam(value = "schoolId") Long schoolId) {
-        return schoolService.getSchoolById(schoolId);
+    public Map getSchoolById(@RequestBody School school) {
+        return schoolService.getSchoolById(school);
+    }
+
+    @RequestMapping(value = "/select")
+    public Map getSchoolByCondition(@RequestBody School school) {
+        return schoolService.getSchoolByCondition(school);
+    }
+
+    @RequestMapping(value = "/get_detail")
+    public Map getSchoolDetail(@RequestBody PageBean page) {
+        return schoolService.getSchoolDetail(page);
+    }
+
+    @RequestMapping(value = "/get_report")
+    public Map getSchoolReport(@RequestBody PageBean page) {
+        return schoolService.getSchoolReport(page);
     }
 
     @RequestMapping(value = "/stat_class")
@@ -54,4 +70,26 @@ public class SchoolController {
         return schoolService.getClassStudentCountBySchoolId(schoolId);
     }
 
+    @RequestMapping(value = "/sc_menu_add")
+    public Map addSchoolMenu(@RequestBody SchoolMenu menu) {
+        return schoolService.addSchoolMenu(menu);
+    }
+
+    @RequestMapping(value = "/sc_menu_update")
+    public Map updateSchoolMenu(@RequestBody SchoolMenu menu) {
+        return schoolService.updateSchoolMenu(menu);
+    }
+
+    @RequestMapping(value = "/sc_menu_delete")
+    public Map deleteSchoolMenu(@RequestParam(value = "menuIds") List<Long> schoolMenuIds) {
+        return schoolService.deleteSchoolMenu(schoolMenuIds);
+    }
+
+    @RequestMapping(value = "/sc_menu_list")
+    public Map getSchoolMenuList(@RequestBody PageBean page) {
+        return schoolService.getSchoolMenuList(page);
+    }
+
+    @RequestMapping(value = "/sc_menu_tree")
+    public Map getSchoolMenuTree() {return schoolService.getSchoolMenuTree();}
 }

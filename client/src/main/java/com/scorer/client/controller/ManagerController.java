@@ -1,7 +1,8 @@
 package com.scorer.client.controller;
 
-import com.google.gson.Gson;
 import com.scorer.client.entity.Manager;
+import com.scorer.client.entity.Menu;
+import com.scorer.client.entity.Role;
 import com.scorer.client.service.ManagerService;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,38 @@ public class ManagerController {
                         @RequestParam(value = "menuIds") List<Long> menuIds) {
         return managerService.saveRole(roleId, menuIds);
     }
-    //这个接口有问题
+
+    @RequestMapping(value = "/role_add")
+    public Map addRole(@RequestBody Role role) {
+        return managerService.addRole(role);
+    }
+
+    @RequestMapping(value = "/role_update")
+    public Map updateRole(@RequestBody Role role) {
+        return managerService.updateRole(role);
+    }
+
+    @RequestMapping(value = "/role_delete")
+    public Map deleteRole(@RequestParam(value = "roleIds") List<Long> roleIds) {
+        return managerService.deleteRoles(roleIds);
+    }
+
+    @RequestMapping(value = "/menu_add")
+    public Map addMenu(@RequestBody Menu menu) {
+        return managerService.addMenu(menu);
+    }
+
+    @RequestMapping(value = "/menu_update")
+    public Map updateMenu(@RequestBody Menu menu) {
+        return managerService.updateMenu(menu);
+    }
+
+    @RequestMapping(value = "/menu_delete")
+    public Map deleteMenu(@RequestParam(value = "menuIds") List<Long> menuIds) {
+        return managerService.deleteMenus(menuIds);
+    }
+
+
     @RequestMapping(value = "/role_select")
     public Map selectRole() {
         return managerService.getAllRoleList();
@@ -67,9 +99,43 @@ public class ManagerController {
         return managerService.getAllMenuList();
     }
 
+//    /**
+//     * 获取角色权限菜单(树形)
+//     * @param session
+//     * @return
+//     */
+//    @RequestMapping(value = "/action_list")
+//    public Map getActionList(HttpSession session) {
+//        Manager user = (Manager)session.getAttribute("user");
+//        return managerService.getActionMenuList(user.getCurrentRoleId());
+//    }
+
+    /**
+     * 获取角色权限菜单(树形)
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/action_list")
     public Map getActionList(HttpSession session) {
         Manager user = (Manager)session.getAttribute("user");
         return managerService.getActionMenuList(user.getCurrentRoleId());
     }
+
+
+    /**
+     * 获取角色权限菜单（非树形）
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/action_data")
+    public Map getActionData(HttpSession session) {
+        Manager user = (Manager)session.getAttribute("user");
+        return managerService.getActionMenuData(user.getCurrentRoleId());
+    }
+
+    @RequestMapping(value = "/get_role_menus")
+    public Map getRoleMenuIds(@RequestParam(value = "roleId") Long roleId) {
+        return managerService.getRoleMenuIds(roleId);
+    }
+
 }

@@ -4,12 +4,9 @@ import com.scorer.client._Excptions.TokenTimeOutException;
 import com.scorer.client.tools.SysContent;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +39,7 @@ public class CheckToken {
             throw new TokenTimeOutException("token fail");
         } else {
             System.err.println("Check token app success!");
-            operations.set("uid_token_wx_app:" + uid, token, 15, TimeUnit.DAYS);
+            operations.set("uid_app_token:" + uid, token, 15, TimeUnit.DAYS);
             System.err.println("Check token app proceed over!");
             return thisJoinPoint.proceed();
         }

@@ -3,9 +3,11 @@ package com.scorer.client.service.impl;
 import com.scorer.client.constant.Iconstants;
 import com.scorer.client.dao.mysql_dao1.NoticeDao;
 import com.scorer.client.dao.mysql_dao1.StudentDao;
+import com.scorer.client.entity.DailyRecommend;
 import com.scorer.client.entity.Notice;
 import com.scorer.client.entity.Student;
 import com.scorer.client.service.NoticeService;
+import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,6 +96,39 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
         }catch (Exception e){
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> addRecommend(DailyRecommend recommend) {
+        try{
+            NoticeDao.addRecommendText(recommend);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> updateRecommend(DailyRecommend recommend) {
+        try{
+            NoticeDao.updateRecommendText(recommend);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> deleteRecommend(List<Long> recommendIds) {
+        try{
+            NoticeDao.deleteRecommendText(recommendIds);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
     }
 }

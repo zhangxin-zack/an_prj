@@ -19,9 +19,14 @@ public class UserController {
     @Resource
     private ManagerService managerService;
 
-    @RequestMapping(value = "/login")
-    public Map userLogin(@RequestBody Manager manager) {
-        return managerService.userLogin(manager);
+    @RequestMapping(value = "/loginManage")
+    public Map userLoginManage(@RequestBody Manager manager) {
+        return managerService.loginManage(manager);
+    }
+
+    @RequestMapping(value = "/loginSchool")
+    public Map userLoginSchool(@RequestBody Manager manager) {
+        return managerService.loginSchool(manager);
     }
 
     @RequestMapping(value = "/resetpwd")

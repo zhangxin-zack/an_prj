@@ -17,6 +17,22 @@
         <result column="description" property="description"/>
     </resultMap>
 
+    <resultMap id="schoolDetail" type="com.scorer.client.entity.SchoolDetail">
+        <result column="id" property="classId"/>
+        <result column="title" property="className"/>
+        <result column="student_count" property="studentCount"/>
+        <result column="device_count" property="deviceCount"/>
+        <result column="online_count" property="onlineCount"/>
+    </resultMap>
+
+    <resultMap id="schoolMenu" type="com.scorer.client.entity.SchoolMenu">
+        <result column="id" property="menuId"/>
+        <result column="pid" property="menuPid"/>
+        <result column="title" property="menuTitle"/>
+        <result column="path" property="path"/>
+        <result column="icon" property="icon"/>
+    </resultMap>
+
     <select id="getSchoolCount" resultType="long">
         SELECT count(s.id)
         FROM school s
@@ -34,7 +50,7 @@
             id,
             title,
             simple_title,
-            registe_date,
+            DATE_FORMAT(registe_date, "%Y-%m-%d") registe_date,
             linkman,
             phone,
             area,
@@ -59,10 +75,10 @@
 
     <insert id="addSchool">
         insert into school(
-            title, simple_title, registe_date, linkman,
+            title, simple_title, linkman, registe_date,
             phone, area, address, lon, lat, email, description)
         values (
-            #{title}, #{simpleTitle},NOW(),#{linkman},
+            #{title}, #{simpleTitle},#{linkman},str_to_date(#{registeDate}, '%Y-%m-%d'),
             #{phone},#{area}, #{address},#{lon},#{lat},#{email},#{description}
             )
     </insert>
@@ -75,16 +91,16 @@
     </delete>
 
     <update id="updateSchool">
-        update manager
+        update school
         <set>
-            <if test="title != null and title != '0' ">
+            <if test="title != null and title != '' ">
                 title = #{title},
             </if>
             <if test="simpleTitle != null and simpleTitle != '' ">
                 simple_title = #{simpleTitle},
             </if>
             <if test="registeDate != null and registeDate != '' ">
-                registe_date = #{registeDate},
+                registe_date = str_to_date(#{registeDate}, '%Y-%m-%d'),
             </if>
             <if test="linkman != null and linkman != '' ">
                 linkman = #{linkman},
@@ -114,28 +130,34 @@
         where id = #{id}
     </update>
 
-    <select id="getSchoolById" resultMap="school">
+    <select id="getSchoolByCondition" resultMap="school">
         SELECT
-        id,
-        title,
-        simple_title,
-        registe_date,
-        linkman,
-        phone,
-        area,
-        address,
-        lon,
-        lat,
-        email,
-        description
+            id,
+            title,
+            simple_title,
+            registe_date,
+            linkman,
+            phone,
+            area,
+            address,
+            lon,
+            lat,
+            email,
+            description
         FROM school s
         WHERE 1 = 1
-        <if test="schoolId!= null and schoolId != '' ">
-            and s.id = #{schoolId}
+        <if test="id!= null and id != ''">
+            and s.id = #{id}
+        </if>
+        <if test="area!= null and area != ''">
+            and s.area = #{area}
+        </if>
+        <if test="title!= null and title != ''">
+            and s.title = #{title}
         </if>
     </select>
 
-    <select id="getClassCountBySchoolId" resultType="long">
+    <select id="getClassCountBySchoolId" resultType="integer">
         SELECT count(id)
           FROM class
          WHERE 1 = 1
@@ -144,7 +166,7 @@
         </if>
     </select>
 
-    <select id="getClassStudentCountBySchoolId" resultType="long">
+    <select id="getClassStudentCountBySchoolId" resultType="integer">
         SELECT
             SUM(t2.student_count)
         FROM
@@ -155,4 +177,157 @@
            AND t1.school_id = #{schoolId}
         </if>
     </select>
+
+
+    <select id="getSchoolDetailCount" resultType="long">
+        SELECT
+            count(id)
+        FROM
+            class c
+        WHERE 1=1
+        <if test="searchs.schoolId!= null and searchs.schoolId != 0 ">
+            and c.school_id = #{searchs.schoolId}
+        </if>
+    </select>
+
+    <select id="getSchoolDetailList" resultMap="schoolDetail">
+        SELECT
+            c.id,
+            c.class_name,
+            st.student_count,
+            st.device_count
+        FROM
+            class c
+        LEFT JOIN (
+            SELECT
+                class_id,
+                count(s.id) student_count,
+                count(s.ring_no) device_count
+            FROM
+                students s
+            WHERE 1=1
+            <if test="searchs.schoolId!= null and searchs.schoolId != 0 ">
+                and s.school_id = #{searchs.schoolId}
+            </if>
+            GROUP BY
+                class_id
+            ) st
+        ON c.id = st.class_id
+        WHERE 1=1
+        <if test="searchs.schoolId!= null and searchs.schoolId != 0 ">
+            and c.school_id = #{searchs.schoolId}
+        </if>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+    <select id="getSchoolReportCount" resultType="long">
+        SELECT
+            count(id)
+        FROM
+            school c
+        WHERE 1=1
+        <if test="searchs.schoolId!= null and searchs.schoolId != 0 ">
+            and c.id = #{searchs.schoolId}
+        </if>
+    </select>
+
+    <select id="getSchoolReportList" resultType="map">
+        SELECT
+            s.id AS schoolId,
+            s.title AS schoolName,
+            c.class_count AS classCount,
+            stu.student_count AS studentCount,
+            stu.device_count AS deviceCount
+        FROM
+            school s
+            LEFT JOIN (
+                          SELECT
+                              school_id,
+                              count(*) class_count
+                          FROM
+                              class
+                          GROUP BY
+                              school_id
+                      ) c ON s.id = c.school_id
+            LEFT JOIN (
+                          SELECT
+                              school_id,
+                              count(id) student_count,
+                              count(ring_no) device_count
+                          FROM
+                              students
+                          GROUP BY
+                              school_id
+                      ) stu ON s.id = stu.school_id
+        WHERE 1=1
+        <if test="searchs.schoolId!= null and searchs.schoolId != 0 ">
+            and s.id = #{searchs.schoolId}
+        </if>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+    <update id="deleteSchoolFK">
+        update students set school_id = null where school_id IN
+        <foreach collection="list" item="schoolId" open="(" separator="," close=");">
+            #{schoolId}
+        </foreach>
+        update class set school_id = null where school_id IN
+        <foreach collection="list" item="schoolId" open="(" separator="," close=");">
+            #{schoolId}
+        </foreach>
+    </update>
+
+    <select id="getAllSchoolMenuList" resultMap="schoolMenu">
+        SELECT
+            m.id,
+            m.pid,
+            m.path,
+            m.title,
+            m.icon
+        FROM school_menu m
+    </select>
+
+    <select id="getAllSchoolMenuListForPageCount" resultMap="schoolMenu">
+        SELECT
+            count(m.id)
+        FROM school_menu m
+    </select>
+
+    <select id="getAllSchoolMenuListForPage" resultMap="schoolMenu">
+        SELECT
+            m.id,
+            m.pid,
+            m.path,
+            m.title,
+            m.icon
+        FROM school_menu m
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+    <delete id="deleteSchoolMenus">
+        delete from school_menu where id in
+        <foreach collection="list" item="menuId" open="(" separator="," close=")">
+            #{menuId}
+        </foreach>
+    </delete>
+
+    <update id="updateSchoolMenu">
+        update school_menu
+        <set>
+            <if test="menuTitle!= null and menuTitle != '' ">
+                title = #{menuTitle},
+            </if>
+            <if test="path!= null and path != '' ">
+                path = #{path},
+            </if>
+            <if test="icon!= null and icon != '' ">
+                icon = #{icon},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <insert id="addSchoolMenu">
+        INSERT INTO school_menu (pid, title, path, icon) VALUES (#{menuPid}, #{menuTitle}, #{path}, #{icon})
+    </insert>
 </mapper>

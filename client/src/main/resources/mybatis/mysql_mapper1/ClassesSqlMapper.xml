@@ -4,8 +4,9 @@
 
     <resultMap id="Classes" type="com.scorer.client.entity.Classes">
         <result column="id" property="id"/>
-        <result column="title" property="classesName"/>
+        <result column="title" property="classesTitle"/>
         <result column="school_id" property="schoolId"/>
+        <result column="class_name" property="classesName"/>
         <result column="school_name" property="schoolName"/>
         <result column="teacher_id" property="teacherId"/>
         <result column="teacher_name" property="teacherName"/>
@@ -35,9 +36,9 @@
 
     <select id="getClassesCount" resultType="Long">
         SELECT
-        count(c.id)
+          count(c.id)
         FROM
-        class c
+          class c
         WHERE 1=1 AND c.school_id=#{searchs.schoolId}
         <if test="searchs.classId != null and searchs.classId != ''">
             AND c.id = #{searchs.classId}
@@ -48,6 +49,7 @@
         SELECT
             c.id,
             c.title,
+            c.class_name,
             c.school_id,
             s.title school_name,
             c.title,
@@ -64,6 +66,9 @@
         <if test="searchs.classId != null and searchs.classId != ''">
             AND c.id = #{searchs.classId}
         </if>
+        <if test="searchs.classId != null and searchs.classId != ''">
+            AND c.id = #{searchs.classId}
+        </if>
         AND c.id IN(
             SELECT a.id FROM (SELECT DISTINCT id FROM  class WHERE school_id=#{searchs.schoolId} LIMIT #{startIndex}, #{pageSize}) a
         )
@@ -72,16 +77,23 @@
         </foreach>
     </select>
 
+    <select id="countTeacherClass" resultType="long">
+        select count(id) from account_class where account_id = #{0} and class_id = #{1}
+    </select>
+
     <insert id="addClasses">
-        INSERT INTO class (title, school_id, teacher_id)
-        VALUES (#{classesName}, #{schoolId}, #{teacherId})
+        INSERT INTO class (title, class_name, school_id, teacher_id)
+        VALUES (#{classesTitle}, #{classesName},#{schoolId}, #{teacherId})
     </insert>
 
     <update id="updateClasses">
         update class
         <set>
             <if test="classesName!= null and classesName != '' ">
-                title = #{classesName},
+                title = #{classesTitle},
+            </if>
+            <if test="classesTitle!= null and classesTitle != '' ">
+                class_name = #{classesName},
             </if>
             <if test="schoolId!= null and schoolId!= 0 ">
                 school_id = #{schoolId},
@@ -117,7 +129,7 @@
 
     <insert id="addTimetable">
         INSERT INTO timetable
-        (class_id, timetable, start_date)
+            (class_id, timetable, start_date)
         VALUES
             (#{classId}, #{timetable}, #{startDate})
     </insert>
@@ -140,9 +152,9 @@
 
     <insert id="addClassContent">
         INSERT INTO class_content
-        (class_id, content, img_path, img_url)
+          (class_id, content, img_path, img_url)
         VALUES
-            (#{classId}, #{content}, #{imgPath}, #{imgUrl})
+          (#{classId}, #{content}, #{imgPath}, #{imgUrl})
     </insert>
 
 
@@ -150,18 +162,22 @@
         SELECT count(c.id)
         FROM
             account_class ac
-            JOIN class c ON ac.account_id = c.id
+            JOIN class c ON ac.class_id = c.id
+        WHERE 1=1
+        <if test="searchs.accountId != null and searchs.accountId != ''">
+            AND ac.account_id = #{searchs.accountId}
+        </if>
     </select>
 
     <select id="getAccountClassCountList" resultMap="Classes">
         SELECT
-        c.id,
-        c.title
+            c.id,
+            c.title
         FROM
-        account_class ac
-        JOIN class c ON ac.account_id = c.id
+            account_class ac
+        JOIN class c ON ac.class_id = c.id
         <if test="searchs.accountId != null and searchs.accountId != ''">
-            AND c.id = #{searchs.accountId}
+            AND ac.account_id = #{searchs.accountId}
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
@@ -169,6 +185,20 @@
         LIMIT #{startIndex}, #{pageSize}
     </select>
 
+    <select id="getClassListNoPage" resultMap="Classes" >
+        SELECT
+            c.id,
+            c.title
+        FROM
+            class c
+        WHERE 1=1
+        <if test="schoolId != null and schoolId != 0">
+            AND  c.school_id = #{schoolId}
+        </if>
+    </select>
 
+    <select id="countSchoolClass" resultType="integer">
+        select count(*) from class where school_id = #{id}
+    </select>
 
 </mapper>

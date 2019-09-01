@@ -12,6 +12,7 @@ public class Notice {
     private Long classId;
     private List<Long> classIds;
     private Integer fromTo;
+    private Integer isRead;
 
     public Long getId() {
         return id;
@@ -67,5 +68,13 @@ public class Notice {
 
     public void setClassIds(List<Long> classIds) {
         this.classIds = classIds;
+    }
+
+    public Integer getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(Integer isRead) {
+        this.isRead = isRead;
     }
 }

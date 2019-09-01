@@ -10,11 +10,11 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import javax.annotation.Resource;
 
-@EnableBinding({TopicMatchTime_In.class, TopicSDQueueInfo_In.class, TopicSeasonDetails_In.class, TopicSeasonShowList_In.class})
+//@EnableBinding({TopicMatchTime_In.class, TopicSDQueueInfo_In.class, TopicSeasonDetails_In.class, TopicSeasonShowList_In.class})
 public class SteamToWebSocket {
 
-    @Resource
-    private SimpMessagingTemplate simpMessagingTemplate;
+//    @Resource
+//    private SimpMessagingTemplate simpMessagingTemplate;
 
 //    @StreamListener(TopicMatchTime_In.TOPIC)
 //    public void receiveTopicMatchTimeMSG(Scorer_MatchTime scorer_matchTime) {

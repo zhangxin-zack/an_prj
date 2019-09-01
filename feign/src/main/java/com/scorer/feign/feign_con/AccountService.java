@@ -2,6 +2,7 @@ package com.scorer.feign.feign_con;
 
 import com.scorer.feign.entity.Account;
 import com.scorer.feign.entity.Student;
+import com.scorer.feign.values.PageBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,9 @@ import java.util.Map;
 
 @FeignClient(value = "scorer-client")
 public interface AccountService {
+
+    @RequestMapping(value = "/EDU/account/list", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getAccountList(@RequestBody PageBean page);
 
     @RequestMapping(value = "/EDU/account/get_code", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getValidateCode(@RequestParam(value = "phone") String phone);
@@ -36,4 +40,7 @@ public interface AccountService {
 
     @RequestMapping(value = "/EDU/account/update_baby", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map updateBaby(@RequestBody Student student);
+
+    @RequestMapping(value = "/EDU/account/list_baby", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map listBaby(@RequestBody PageBean page);
 }

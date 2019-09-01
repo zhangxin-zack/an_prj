@@ -1,5 +1,6 @@
 package com.scorer.client.service;
 
+import com.scorer.client.entity.DailyRecommend;
 import com.scorer.client.entity.Notice;
 import com.scorer.client.values.PageBean;
 
@@ -19,4 +20,10 @@ public interface NoticeService {
     Map<String, Object> deleteNotice(List noticeIds);
 
     Map<String, Object> getDailyInfoList(PageBean page);
+
+    Map<String, Object> addRecommend(DailyRecommend recommend);
+
+    Map<String, Object> updateRecommend(DailyRecommend recommend);
+
+    Map<String, Object> deleteRecommend(List<Long> recommendIds);
 }
