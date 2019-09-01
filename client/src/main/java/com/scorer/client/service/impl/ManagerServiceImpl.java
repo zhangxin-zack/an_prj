@@ -25,11 +25,29 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     private ManagerDao managerDao;
 
     @Override
-    public Map<String,Object> login(Manager manager) {
-
+    public Map<String, Object> loginManage(Manager manager) {
         try{
-            Manager loginManager = managerDao.login(manager);
+            Manager loginManager = managerDao.loginManage(manager);
             if(loginManager != null){
+                managerDao.setLoginTime(manager);
+                loginManager.setPassword(null);
+                loginManager.setToken(TokenTools.generateTokenSchool(loginManager.getId()));
+                return resultMap(Iconstants.RESULT_CODE_0, "success", loginManager);
+            }else{
+                return resultMap(Iconstants.RESULT_CODE_1, "账号或密码错误", null);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> loginSchool(Manager manager) {
+        try{
+            Manager loginManager = managerDao.loginSchool(manager);
+            if(loginManager != null){
+                managerDao.setLoginTime(manager);
                 loginManager.setPassword(null);
                 loginManager.setToken(TokenTools.generateTokenSchool(loginManager.getId()));
                 return resultMap(Iconstants.RESULT_CODE_0, "success", loginManager);

@@ -39,7 +39,7 @@ public class CheckToken {
             throw new TokenTimeOutException("token fail");
         } else {
             System.err.println("Check token app success!");
-            operations.set("uid_token_wx_app:" + uid, token, 15, TimeUnit.DAYS);
+            operations.set("uid_app_token:" + uid, token, 15, TimeUnit.DAYS);
             System.err.println("Check token app proceed over!");
             return thisJoinPoint.proceed();
         }

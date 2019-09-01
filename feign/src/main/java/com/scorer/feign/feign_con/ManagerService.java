@@ -45,9 +45,6 @@ public interface ManagerService {
     @RequestMapping(value = "/EDU/sys/action_list", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getActionMenuList();
 
-    @RequestMapping(value = "/EDU/user/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    Map userLogin(@RequestBody Manager manager);
-
     @RequestMapping(value = "/EDU/sys/get_role_menus", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getRoleMenuIds(@RequestParam(value = "roleId") Long roleId);
 
@@ -68,4 +65,13 @@ public interface ManagerService {
 
     @RequestMapping(value = "/EDU/sys/menu_delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map deleteMenu(@RequestParam(value = "menuIds") List<Long> menuIds);
+
+    @RequestMapping(value = "/EDU/user/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map userLogin(@RequestBody Manager manager);
+
+    @RequestMapping(value = "/EDU/user/loginManage", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map loginManage(Manager manager);
+
+    @RequestMapping(value = "/EDU/user/loginSchool", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map loginSchool(Manager manager);
 }

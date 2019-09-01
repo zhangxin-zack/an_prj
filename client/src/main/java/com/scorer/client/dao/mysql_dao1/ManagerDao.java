@@ -63,4 +63,10 @@ public interface ManagerDao {
     List<Menu> getActionMenuList(Long roleId) throws Exception;
 
     List<Long> getRoleMenuIds(Long roleId) throws Exception;
+
+    Manager loginManage(Manager manager);
+
+    Manager loginSchool(Manager manager);
+
+    void setLoginTime(Manager manager);
 }

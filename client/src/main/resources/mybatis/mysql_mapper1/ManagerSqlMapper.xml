@@ -7,6 +7,10 @@
         <result column="school_id" property="schoolId"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
+        <result column="realname" property="realname"/>
+        <result column="email" property="email"/>
+        <result column="create_time" property="createTime"/>
+        <result column="login_time" property="loginTime"/>
         <result column="phone" property="phoneNo"/>
         <result column="status_flag" property="statusFlag"/>
     </resultMap>
@@ -24,18 +28,56 @@
         <result column="icon" property="icon"/>
     </resultMap>
 
+    <update id="setLoginTime">
+        UPDATE manager SET login_time=UNIX_TIMESTAMP(NOW())*1000 WHERE id=#{id}
+    </update>
+
     <select id="login" resultMap="manager">
         SELECT
             m.id,
             m.school_id,
             m.username,
+            m.realname,
+            m.create_time,
             m.PASSWORD,
             phone
         FROM
             manager m
         WHERE
             m.username = #{username}
-            AND m.password = #{password}
+            AND m.password = #{password} AND m.status_flag=0
+    </select>
+
+    <select id="loginManage" resultMap="manager">
+        SELECT
+            m.id,
+            m.school_id,
+            m.username,
+            m.realname,
+            m.create_time,
+            m.PASSWORD,
+            m.phone
+        FROM
+            manager m
+        WHERE
+            m.username = #{username}
+            AND m.password = #{password} AND m.status_flag=0 AND m.school_id IS NULL
+    </select>
+
+    <select id="loginSchool" resultMap="manager">
+        SELECT
+            m.id,
+            m.school_id,
+            m.username,
+            m.realname,
+            m.create_time,
+            m.PASSWORD,
+            m.phone
+        FROM
+            manager m
+        WHERE
+            m.username = #{username}
+            AND m.password = #{password} AND m.status_flag=0 AND m.school_id IS NOT NULL
     </select>
 
     <select id="getManagerCount" resultType="long">
@@ -50,6 +92,10 @@
         school_id,
         username,
         password,
+        email,
+        realname,
+        create_time,
+        login_time,
         phone
         FROM manager
         WHERE 1 = 1
@@ -66,8 +112,8 @@
         <selectKey resultType="Long" keyColumn="id" keyProperty="id" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into manager(school_id, username,password,phone,status_flag)
-        values (#{schoolId}, #{username},#{password},#{phoneNo},#{statusFlag})
+        insert into manager(school_id, username,password,phone,status_flag,realname,email,create_time)
+        values (#{schoolId}, #{username},#{password},#{phoneNo},#{statusFlag},#{realname},#{email},UNIX_TIMESTAMP(NOW())*1000)
     </insert>
 
     <insert id="addManagerRole">
@@ -102,6 +148,12 @@
             </if>
             <if test="phoneNo!= null and phoneNo!= '' ">
                 phone = #{phoneNo},
+            </if>
+            <if test="realname!= null and realname!= '' ">
+                realname = #{realname},
+            </if>
+            <if test="email!= null and email!= '' ">
+                email = #{email},
             </if>
             <if test="statusFlag!= null">
                 status_flag = #{statusFlag},
