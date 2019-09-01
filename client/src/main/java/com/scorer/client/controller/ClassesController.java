@@ -101,5 +101,13 @@ public class ClassesController {
         return classesService.getTimetableClass(condition);
     }
 
-
+    /**
+     * 查询班级下所有学生的家长
+     * @param classId
+     * @return
+     */
+    @RequestMapping(value = "/list_class_group_parent")
+    public List<Long> getListClassStudentParent(@RequestParam(value = "classId") Long classId) {
+        return classesService.getListClassStudentParent(classId);
+    }
 }

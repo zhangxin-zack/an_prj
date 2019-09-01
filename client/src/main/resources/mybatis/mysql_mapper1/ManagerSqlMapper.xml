@@ -13,6 +13,7 @@
         <result column="login_time" property="loginTime"/>
         <result column="phone" property="phoneNo"/>
         <result column="status_flag" property="statusFlag"/>
+        <result column="verify" property="verify"/>
     </resultMap>
 
     <resultMap id="role" type="com.scorer.client.entity.Role">
@@ -88,14 +89,14 @@
 
     <select id="getManagerList" resultMap="manager">
         SELECT
-        id,
-        school_id,
-        username,
-        password,
-        email,
-        realname,
-        create_time,
-        login_time,
+            id,
+            school_id,
+            username,
+            password,
+            email,
+            realname,
+            create_time,
+            login_time,
         phone
         FROM manager
         WHERE 1 = 1
@@ -312,4 +313,72 @@
         WHERE role_id = #{roleId}
     </select>
 
+    <select id="getAgentCount" resultType="long">
+        SELECT count(m.id)
+        FROM manager m
+        JOIN manager_role mr
+        ON m.id = mr.manager_id
+        WHERE 1 = 1
+        AND mr.role_id = 2
+    </select>
+
+    <select id="getAgentList" resultMap="manager">
+        SELECT
+            m.id,
+            m.school_id,
+            m.username,
+            m.password,
+            m.email,
+            m.realname,
+            m.create_time,
+            m.login_time,
+            m.phone,
+            m.status_flag
+            m.verify
+        FROM manager m
+        JOIN manager_role mr
+        ON m.id = mr.manager_id
+        WHERE 1 = 1
+        AND mr.role_id = 2
+        <if test="searchs.username!=null and searchs.username!=''">
+            AND m.username LIKE CONCAT('%',#{searchs.username},'%')
+        </if>
+        <if test="searchs.status!=null">
+            AND m.status_flag = #{searchs.status}
+        </if>
+        <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
+            ${item.field} ${item['type']}
+        </foreach>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+
+    <select id="getAgentAreaCount" resultType="long">
+        SELECT
+            count(s.province)
+        FROM
+            school s
+        WHERE
+            s.agent_id = #{agentId}
+        GROUP BY
+            s.province,
+            s.city,
+            s.village
+    </select>
+
+    <select id="getAgentAreaList" resultType="map">
+        SELECT
+            s.province,
+            s.city,
+            s.village
+        FROM
+            school s
+        WHERE
+            s.agent_id = #{agentId}
+        GROUP BY
+            s.province,
+            s.city,
+            s.village
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
 </mapper>

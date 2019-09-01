@@ -7,6 +7,7 @@ import com.scorer.client.values.PageBean;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ManagerDao {
@@ -69,4 +70,12 @@ public interface ManagerDao {
     Manager loginSchool(Manager manager);
 
     void setLoginTime(Manager manager);
+
+    long getAgentCount(PageBean page) throws Exception;
+
+    List<Role> getAgentList(PageBean page) throws Exception;
+
+    long getAgentAreaCount(PageBean page) throws Exception;
+
+    List<Map> getAgentAreaList(PageBean page) throws Exception;
 }

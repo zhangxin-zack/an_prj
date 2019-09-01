@@ -138,4 +138,34 @@ public class ManagerController {
         return managerService.getRoleMenuIds(roleId);
     }
 
+    /**
+     * 获取代理商列表(分页)
+     * @param condition
+     * @return
+     */
+    @RequestMapping(value = "/list_agent")
+    public Map listAgent(@RequestBody PageBean condition) {
+        return managerService.listAgent(condition);
+    }
+
+    /**
+     * 获取代理商代理区域列表
+     * @param condition
+     * @return
+     */
+    @RequestMapping(value = "/list_agent_area")
+    public Map listAgentArea(@RequestBody PageBean condition) {
+        return managerService.listAgentArea(condition);
+    }
+
+    /**
+     * 获取代理商列表(不分页)
+     * @param condition
+     * @return
+     */
+    @RequestMapping(value = "/list_agent_school")
+    public Map listAgentSchool(@RequestBody PageBean condition) {
+        return managerService.listAgentSchool(condition);
+    }
+
 }

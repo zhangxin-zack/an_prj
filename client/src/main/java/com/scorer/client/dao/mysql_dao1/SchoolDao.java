@@ -51,4 +51,7 @@ public interface SchoolDao {
 
     void deleteSchoolMenus(List menuIds) throws Exception;
 
+    long getAgentSchoolCount(PageBean page) throws Exception;
+
+    List<Map> getAgentSchoolList(PageBean page) throws Exception;
 }

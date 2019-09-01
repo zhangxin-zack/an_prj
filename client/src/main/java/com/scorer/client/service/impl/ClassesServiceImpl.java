@@ -9,7 +9,6 @@ import com.scorer.client.entity.Classes;
 import com.scorer.client.entity.Student;
 import com.scorer.client.entity.Timetable;
 import com.scorer.client.service.ClassesService;
-import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -127,6 +126,16 @@ public class ClassesServiceImpl extends BaseSeviceImpl implements ClassesService
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
+    }
+
+    @Override
+    public List<Long> getListClassStudentParent(Long classId) {
+        try {
+            return classesDao.getListClassStudentParent(classId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

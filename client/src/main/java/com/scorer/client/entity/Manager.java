@@ -14,6 +14,7 @@ public class Manager {
     private Long createTime;
     private Long loginTime;
     private Integer statusFlag;
+    private Integer verify;
     private Long currentRoleId;
     private List<Long> roleId;
     private String token;
@@ -120,5 +121,13 @@ public class Manager {
 
     public void setLoginTime(Long loginTime) {
         this.loginTime = loginTime;
+    }
+
+    public Integer getVerify() {
+        return verify;
+    }
+
+    public void setVerify(Integer verify) {
+        this.verify = verify;
     }
 }

@@ -34,5 +34,7 @@ public interface ClassesService {
     Map<String, Object> selectClassesList(Classes classes);
 
     Map<String, Object> getTimetableClass(PageBean condition);
+
+    List<Long> getListClassStudentParent(Long classId);
 }
 
