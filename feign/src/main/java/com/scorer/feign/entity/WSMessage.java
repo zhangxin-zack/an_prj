@@ -1,47 +1,57 @@
 package com.scorer.feign.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class WSMessage implements Serializable{
+public class WSMessage implements Serializable {
 
-    private String user_phone;
-    private String nick_name;
-    private String avatar_url;
+    private String username;
+    private String phone;
+    private String nickName;
+    private String img_url;
 
     private Integer msg_id;
-    private Integer to_uid;
-    private Integer to_group_id;
+    private Integer to_home;
+    private List<Integer> to_classes;
     private Integer from_uid;
     private Long msg_time;
     private Integer msg_type;
     private String msg_content;
-    private Integer has_read=-1;
+    private Integer has_read = -1;
 
     public WSMessage() {
     }
 
-    public String getUser_phone() {
-        return user_phone;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser_phone(String user_phone) {
-        this.user_phone = user_phone;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getNick_name() {
-        return nick_name;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setNick_name(String nick_name) {
-        this.nick_name = nick_name;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getAvatar_url() {
-        return avatar_url;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setAvatar_url(String avatar_url) {
-        this.avatar_url = avatar_url;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getImg_url() {
+        return img_url;
+    }
+
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
     }
 
     public Integer getMsg_id() {
@@ -52,20 +62,20 @@ public class WSMessage implements Serializable{
         this.msg_id = msg_id;
     }
 
-    public Integer getTo_uid() {
-        return to_uid;
+    public Integer getTo_home() {
+        return to_home;
     }
 
-    public void setTo_uid(Integer to_uid) {
-        this.to_uid = to_uid;
+    public void setTo_home(Integer to_home) {
+        this.to_home = to_home;
     }
 
-    public Integer getTo_group_id() {
-        return to_group_id;
+    public List<Integer> getTo_classes() {
+        return to_classes;
     }
 
-    public void setTo_group_id(Integer to_group_id) {
-        this.to_group_id = to_group_id;
+    public void setTo_classes(List<Integer> to_classes) {
+        this.to_classes = to_classes;
     }
 
     public Integer getFrom_uid() {
