@@ -12,9 +12,10 @@ import java.util.List;
 @FeignClient(value = "scorer-client")
 public interface Customer_Service {
 
-    @RequestMapping(value = "/EDU/Talk/GetAllUserUnreadMsg", consumes = MediaType.APPLICATION_JSON_VALUE)
-    List<WSMessage> GetAllUserUnreadMsg(@RequestParam(value = "uid") Integer uid);
+    @RequestMapping(value = "/EDU/Talk/GetAllUserUnreadMsg")
+    List<WSMessage> GetAllUserUnreadMsg(Integer uid);
 
-    @RequestMapping(value = "/EDU/Talk/SetReadMessage", consumes = MediaType.APPLICATION_JSON_VALUE)
-    void SetReadMessage(@RequestBody WSMessage message);
+    @RequestMapping(value = "/EDU/Talk/SetReadMessage")
+    void SetReadMessage(WSMessage message);
+
 }

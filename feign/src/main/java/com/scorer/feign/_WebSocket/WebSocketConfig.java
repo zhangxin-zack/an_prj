@@ -8,8 +8,8 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 
 import javax.annotation.Resource;
 
-@Configuration
-@EnableWebSocket
+//@Configuration
+//@EnableWebSocket
 public class WebSocketConfig extends WebMvcConfigurerAdapter implements WebSocketConfigurer {
 
     @Resource
