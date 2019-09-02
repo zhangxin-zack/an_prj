@@ -3,7 +3,7 @@
 <mapper namespace="com.scorer.client.dao.mysql_dao1.ClassesDao">
 
     <resultMap id="Classes" type="com.scorer.client.entity.Classes">
-        <result column="id" property="id"/>
+        <id column="id" property="id"/>
         <result column="title" property="classesTitle"/>
         <result column="school_id" property="schoolId"/>
         <result column="class_name" property="classesName"/>
@@ -11,7 +11,7 @@
         <result column="teacher_id" property="teacherId"/>
         <result column="teacher_name" property="teacherName"/>
         <collection property="teacherList" ofType="com.scorer.client.entity.Teacher">
-            <id property="teacherId" column="teacherI_id"/>
+            <id property="teacherId" column="teacher_id"/>
             <result property="teacherName" column="teacher_name"/>
             <result property="schoolId" column="school_id"/>
             <result property="accountUsername" column="account_username"/>
@@ -53,7 +53,7 @@
             c.school_id,
             s.title school_name,
             c.title,
-            a.id AS teacherI_id,
+            a.id AS teacher_id,
             a.nick_name AS teacher_name,
             a.username AS account_username,
             IF(c.teacher_id=a.id,1,-1) AS is_head
@@ -199,6 +199,16 @@
 
     <select id="countSchoolClass" resultType="integer">
         select count(*) from class where school_id = #{id}
+    </select>
+
+    <select id="getListClassStudentParent" resultType="Long">
+        SELECT
+            acs.account_id
+        FROM
+            students s
+        LEFT JOIN account_student acs ON s.id = acs.student_id
+        WHERE
+            s.class_id = #{classId}
     </select>
 
 </mapper>

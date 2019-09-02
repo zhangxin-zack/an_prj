@@ -15,6 +15,11 @@
         <result column="lat" property="lat"/>
         <result column="email" property="email"/>
         <result column="description" property="description"/>
+        <result column="agentId" property="agentId"/>
+        <result column="agentName" property="agentName"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="village" property="village"/>
     </resultMap>
 
     <resultMap id="schoolDetail" type="com.scorer.client.entity.SchoolDetail">
@@ -47,19 +52,26 @@
 
     <select id="getSchoolList" resultMap="school">
         SELECT
-            id,
-            title,
-            simple_title,
-            DATE_FORMAT(registe_date, "%Y-%m-%d") registe_date,
-            linkman,
-            phone,
-            area,
-            address,
-            lon,
-            lat,
-            email,
-            description
+            s.id,
+            s.title,
+            s.simple_title,
+            DATE_FORMAT(s.registe_date, "%Y-%m-%d") registe_date,
+            s.linkman,
+            s.phone,
+            s.area,
+            s.address,
+            s.lon,
+            s.lat,
+            s.email,
+            s.description,
+            agent_id as agentId,
+            m.realname as agentName
+            province,
+            city,
+            village
         FROM school s
+        LEFT JOIN manager m
+        ON s.agent_id = m.id
         WHERE 1 = 1
         <if test="searchs.title!= null and searchs.title != '' ">
             and s.title like CONCAT('%',#{searchs.title},'%')
@@ -330,4 +342,35 @@
     <insert id="addSchoolMenu">
         INSERT INTO school_menu (pid, title, path, icon) VALUES (#{menuPid}, #{menuTitle}, #{path}, #{icon})
     </insert>
+
+    <select id="getAgentSchoolCount" resultType="long">
+        SELECT
+            count(s.province)
+        FROM
+            school s
+        WHERE
+            s.agent_id = #{agentId}
+    </select>
+
+    <select id="getAgentSchoolList" resultMap="school">
+        SELECT
+            s.id,
+            s.title,
+            s.simple_title,
+            DATE_FORMAT(s.registe_date, "%Y-%m-%d") registe_date,
+            s.linkman,
+            s.phone,
+            s.area,
+            s.address,
+            s.lon,
+            s.lat,
+            s.email,
+            s.description,
+            s.province,
+            s.city,
+            s.village
+        FROM school s
+        WHERE s.agent_id = #{agentId}
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
 </mapper>

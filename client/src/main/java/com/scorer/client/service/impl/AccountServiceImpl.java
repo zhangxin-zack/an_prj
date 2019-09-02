@@ -121,7 +121,7 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             }
             //(app端菜单被写死了  无动态权限  暂无处理)
             //获取用户的所有相关菜单
-           // List<AppMenu> menuList = accountDao.getAppMenuList(loginAccount.getId());
+            // List<AppMenu> menuList = accountDao.getAppMenuList(loginAccount.getId());
             //data.put("menuList", getTreeData(menuList));
             return resultMap(Iconstants.RESULT_CODE_0, "success", data);
         } catch (Exception e) {

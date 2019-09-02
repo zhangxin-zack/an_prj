@@ -4,6 +4,7 @@ import com.scorer.client.entity.ClassContent;
 import com.scorer.client.entity.Classes;
 import com.scorer.client.entity.Timetable;
 import com.scorer.client.values.PageBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,7 +19,6 @@ public interface ClassesDao {
     //Classes getClassesById(Integer classesId) throws Exception;
 
     void addClasses(Classes classes) throws Exception;
-
 
     Long countTeacherClass(Long accountId, Long classId) throws Exception;
 
@@ -45,4 +45,7 @@ public interface ClassesDao {
     List<Classes> getClassListNoPage(Classes classes) throws Exception;
 
     Integer countSchoolClass(Long id) throws Exception;
+
+    List<Long> getListClassStudentParent(@Param("classId") Long classId) throws Exception;
+
 }

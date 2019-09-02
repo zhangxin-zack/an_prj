@@ -120,7 +120,7 @@
             <if test="address!= null and address!= '' ">
                 address = #{address},
             </if>
-            <if test="sex!= null and sex!= '' ">
+            <if test="sex!= null">
                 sex = #{sex},
             </if>
             <if test="imgUrl!= null and imgUrl!= '' ">

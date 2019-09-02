@@ -48,4 +48,10 @@ public interface ManagerService {
     Map<String,Object> loginManage(Manager manager);
 
     Map<String,Object> loginSchool(Manager manager);
+
+    Map<String, Object> listAgent(PageBean page);
+
+    Map<String, Object> listAgentArea(PageBean page);
+
+    Map<String, Object> listAgentSchool(PageBean page);
 }

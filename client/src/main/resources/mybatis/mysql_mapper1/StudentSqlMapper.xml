@@ -386,46 +386,46 @@
         update students
         <set>
             <if test="studentName!= null and studentName != '' ">
-                ,name = #{studentName}
+                name = #{studentName},
             </if>
             <if test="nickname!= null and nickname != '' ">
-                ,nickname = #{nickname}
+                nickname = #{nickname},
             </if>
-            <if test="sex!= null and sex != 0 ">
-                ,sex = #{sex},
+            <if test="sex!= null">
+                sex = #{sex},
             </if>
             <if test="height!= null and height != 0 ">
-                ,height = #{height}
+                height = #{height},
             </if>
             <if test="weight!= null and weight != 0 ">
-                ,weight = #{weight}
+                weight = #{weight},
             </if>
             <if test="ringNo!= null and ringNo != 0 ">
-                ,ring_no = #{ringNo}
+                ring_no = #{ringNo},
             </if>
             <if test="cardNo!= null and cardNo != '' ">
-                ,card_no = #{cardNo}
+                card_no = #{cardNo},
             </if>
             <if test="registerNo!= null and registerNo!= '' ">
-                ,register_no = #{registerNo}
+                register_no = #{registerNo},
             </if>
             <if test="schoolId!= null and schoolId != 0 ">
-                ,school_id = #{schoolId}
+                school_id = #{schoolId},
             </if>
             <if test="classId!= null and classId != 0 ">
-                ,class_id = #{classId}
+                class_id = #{classId},
             </if>
             <if test="birthday!= null and birthday != '' ">
-                ,birthday = #{birthday}
+                birthday = #{birthday},
             </if>
             <if test="bind!= null and bind != 0 ">
-                ,bind = #{bind}
+                bind = #{bind},
             </if>
             <if test="year!= null and year != '' ">
-                ,year = #{year}
+                year = #{year},
             </if>
             <if test="status != null">
-                ,status = #{status}
+                status = #{status},
             </if>
         </set>
         where id = #{id}

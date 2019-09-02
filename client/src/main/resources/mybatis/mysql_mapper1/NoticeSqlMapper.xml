@@ -75,13 +75,13 @@
             <if test="noticTitle!= null and noticTitle != ''">
                 notice_title = #{noticTitle},
             </if>
-            <if test="noticeName!= null and noticeName!= '' ">
+            <if test="noticeContent!= null and noticeContent!= '' ">
                 notice_content = #{noticeContent},
             </if>
             <if test="isRead!= null ">
                 is_read = #{isRead},
             </if>
-            notice_dates = sysdate()
+            notice_date = sysdate()
         </set>
         where id = #{id}
     </update>
