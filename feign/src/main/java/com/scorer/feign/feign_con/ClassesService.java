@@ -1,6 +1,7 @@
 package com.scorer.feign.feign_con;
 
 import com.scorer.feign.entity.ClassContent;
+import com.scorer.feign.entity.ClassTime;
 import com.scorer.feign.entity.Classes;
 import com.scorer.feign.entity.Timetable;
 import com.scorer.feign.values.PageBean;
@@ -66,4 +67,17 @@ public interface ClassesService {
 
     @RequestMapping(value = "/EDU/classes/list_student_group_parent", consumes = MediaType.APPLICATION_JSON_VALUE)
     List<Long> getListStudentParent(@RequestParam(value = "studentId") long studentId);
+
+
+    @RequestMapping(value = "/EDU/classes/list_class_time", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getClassTimeList(@RequestBody PageBean condition);
+
+    @RequestMapping(value = "/EDU/classes/add_class_time", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map addClassTime(@RequestBody ClassTime classTime);
+
+    @RequestMapping(value = "/EDU/classes/update_class_time", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map updateClassTime(@RequestBody ClassTime classTime);
+
+    @RequestMapping(value = "/EDU/classes/remove_class_time", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map deleteClassTime(@RequestParam(value = "classTimeIds") List<Integer> classTimeIds);
 }
