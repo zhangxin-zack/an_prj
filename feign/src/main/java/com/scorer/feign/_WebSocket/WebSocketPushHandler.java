@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.scorer.feign.entity.WSMessage;
 import com.scorer.feign.feign_con.Customer_Service;
 import com.scorer.feign.tools.TestObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ import java.util.Map;
 @Component
 public class WebSocketPushHandler implements WebSocketHandler {
 
-    @Resource
+    @Autowired
     private Customer_Service customer_service;
     @Resource
     private RedisTemplate<String, String> redisTemplate;
@@ -33,12 +34,12 @@ public class WebSocketPushHandler implements WebSocketHandler {
         final String uid = String.valueOf(session.getAttributes().get("uid"));
         System.out.println("用户[" + uid + "]成功进入了系统");
         //获取该用户所有未读消息
-        final List<WSMessage> wsMessageList = customer_service.GetAllUserUnreadMsg(Integer.valueOf(uid));
-        new Thread(() -> {
-            for (WSMessage wsMessage : wsMessageList) {
-                sendMessageToUser(Integer.valueOf(uid), wsMessage);
-            }
-        }).start();
+//        final List<WSMessage> wsMessageList = customer_service.GetAllUserUnreadMsg(Integer.valueOf(uid));
+//        new Thread(() -> {
+//            for (WSMessage wsMessage : wsMessageList) {
+//                sendMessageToUser(Integer.valueOf(uid), wsMessage);
+//            }
+//        }).start();
         userMap.put(uid, session);
         System.out.println("session.attributes--->" + new Gson().toJson(session.getAttributes()));
     }
@@ -88,7 +89,7 @@ public class WebSocketPushHandler implements WebSocketHandler {
 
     private boolean CheckToke_User(String uid, String token) {
         ValueOperations<String, String> operations = redisTemplate.opsForValue();
-        String uid_token = operations.get("uid_token_wx_app:" + uid);
+        String uid_token = operations.get("uid_app_token:" + uid);
         return TestObject.noneEmpty(uid, token, uid_token) && token.equals(uid_token);
     }
 
@@ -112,7 +113,7 @@ public class WebSocketPushHandler implements WebSocketHandler {
             if (user != null && user.isOpen()) {
                 try {
                     user.sendMessage(new TextMessage(new Gson().toJson(message)));
-                    customer_service.SetReadMessage(message);
+//                    customer_service.SetReadMessage(message);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
