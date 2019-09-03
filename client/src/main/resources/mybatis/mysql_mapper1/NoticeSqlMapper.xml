@@ -21,6 +21,11 @@
         <result column="type" property="type"/>
     </resultMap>
 
+    <resultMap id="recommendCategory" type="com.scorer.client.entity.RecommendCategory">
+        <result column="id" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
+    </resultMap>
+
     <select id="getNoticeCount" resultType="long">
         select count(id) from notice where 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
@@ -75,13 +80,13 @@
             <if test="noticTitle!= null and noticTitle != ''">
                 notice_title = #{noticTitle},
             </if>
-            <if test="noticeName!= null and noticeName!= '' ">
+            <if test="noticeContent!= null and noticeContent!= '' ">
                 notice_content = #{noticeContent},
             </if>
             <if test="isRead!= null ">
                 is_read = #{isRead},
             </if>
-            notice_dates = sysdate()
+            notice_date = sysdate()
         </set>
         where id = #{id}
     </update>
@@ -136,6 +141,39 @@
 
     <delete id="deleteRecommendText">
         delete from daily_recommend where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+
+    <select id="getRecommendCategoryCount" resultType="long">
+        select count(id) from recommend_category where 1=1
+    </select>
+
+    <select id="getRecommendCategoryList" resultMap="recommendCategory">
+        select id, category_name from recommend_category where 1=1
+        LIMIT ${startIndex}, ${pageSize}
+    </select>
+
+    <insert id="addRecommendCategory">
+        insert into recommend_category(category_name)
+        values (#{categoryName})
+    </insert>
+
+    <update id="updateRecommendCategory">
+        update recommend_category
+        <set>
+            <if test="categoryName!= null and categoryName != ''">
+                category_name = #{categoryName},
+            </if>
+        </set>
+        where id = #{categoryId}
+    </update>
+
+    <delete id="deleteRecommendCategory">
+        delete from recommend_category where id in
         <foreach collection="list" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>

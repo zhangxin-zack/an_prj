@@ -2,6 +2,7 @@ package com.scorer.feign.controller;
 
 import com.scorer.feign.entity.DailyRecommend;
 import com.scorer.feign.entity.Notice;
+import com.scorer.feign.entity.RecommendCategory;
 import com.scorer.feign.feign_con.NoticeService;
 import com.scorer.feign.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,25 @@ public class NoticeController {
     @RequestMapping(value = "/remove_recommend")
     public Map deleteRecommend(@RequestParam("recommendIds") List<Long> recommendIds) {
         return noticeService.deleteRecommend(recommendIds);
+    }
+
+    @RequestMapping(value = "/list_recommend_category")
+    public Map getCategory(@RequestBody PageBean page) {
+        return noticeService.getCategoryList(page);
+    }
+
+    @RequestMapping(value = "/add_recommend_category")
+    public Map addCategory(@RequestBody RecommendCategory category) {
+        return noticeService.addCategory(category);
+    }
+
+    @RequestMapping(value = "/update_recommend_category")
+    public Map updateCategory(@RequestBody RecommendCategory category) {
+        return noticeService.updateCategory(category);
+    }
+
+    @RequestMapping(value = "/remove_recommend_category")
+    public Map deleteCategory(@RequestParam("categoryIds") List<Long> categoryIds) {
+        return noticeService.deleteCategory(categoryIds);
     }
 }

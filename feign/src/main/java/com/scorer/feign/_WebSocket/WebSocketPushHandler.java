@@ -11,13 +11,15 @@ import org.springframework.web.socket.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-//@Component
+@Component
 public class WebSocketPushHandler implements WebSocketHandler {
 
-//    @Resource
-//    private Customer_Service customer_service;
+    @Resource
+    private Customer_Service customer_service;
     @Resource
     private RedisTemplate<String, String> redisTemplate;
 
@@ -31,12 +33,12 @@ public class WebSocketPushHandler implements WebSocketHandler {
         final String uid = String.valueOf(session.getAttributes().get("uid"));
         System.out.println("用户[" + uid + "]成功进入了系统");
         //获取该用户所有未读消息
-//        final List<WSMessage> wsMessageList = customer_service.GetAllUserUnreadMsg(Integer.valueOf(uid));
-//        new Thread(() -> {
-//            for (WSMessage wsMessage : wsMessageList) {
-//                sendMessageToUser(Integer.valueOf(uid), wsMessage);
-//            }
-//        }).start();
+        final List<WSMessage> wsMessageList = customer_service.GetAllUserUnreadMsg(Integer.valueOf(uid));
+        new Thread(() -> {
+            for (WSMessage wsMessage : wsMessageList) {
+                sendMessageToUser(Integer.valueOf(uid), wsMessage);
+            }
+        }).start();
         userMap.put(uid, session);
         System.out.println("session.attributes--->" + new Gson().toJson(session.getAttributes()));
     }
@@ -110,7 +112,7 @@ public class WebSocketPushHandler implements WebSocketHandler {
             if (user != null && user.isOpen()) {
                 try {
                     user.sendMessage(new TextMessage(new Gson().toJson(message)));
-//                    customer_service.SetReadMessage(message);
+                    customer_service.SetReadMessage(message);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

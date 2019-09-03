@@ -39,4 +39,8 @@ public interface AccountDao {
     List<Map> selectAccountBabyRelation(@Param("accountId") long accountId) throws Exception;
 
     List<Map> selectAccountClassRelation(@Param("accountId") long accountId) throws Exception;
+
+    Long getAgentCount(PageBean page) throws Exception;
+
+    List<Account> getAgentList(PageBean page) throws Exception;
 }

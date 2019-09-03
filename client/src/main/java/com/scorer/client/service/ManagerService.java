@@ -11,8 +11,6 @@ import java.util.Map;
 
 public interface ManagerService {
 
-    Map<String,Object> login(Manager manager);
-
     Map<String, Object> getManagerList(PageBean page);
 
     Map<String, Object> addManager(Manager manager);
@@ -47,4 +45,13 @@ public interface ManagerService {
 
     Map<String, Object> getRoleMenuIds(Long roleId);
 
+    Map<String,Object> loginManage(Manager manager);
+
+    Map<String,Object> loginSchool(Manager manager);
+
+    Map<String, Object> listAgent(PageBean page);
+
+    Map<String, Object> listAgentArea(PageBean page);
+
+    Map<String, Object> listAgentSchool(PageBean page);
 }

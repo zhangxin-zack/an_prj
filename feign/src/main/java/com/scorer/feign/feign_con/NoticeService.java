@@ -2,6 +2,7 @@ package com.scorer.feign.feign_con;
 
 import com.scorer.feign.entity.DailyRecommend;
 import com.scorer.feign.entity.Notice;
+import com.scorer.feign.entity.RecommendCategory;
 import com.scorer.feign.values.PageBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -32,12 +33,24 @@ public interface NoticeService {
     @RequestMapping(value = "/EDU/notice/list_daily_recommend", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getDailyInfoList(@RequestBody PageBean page);
 
-    @RequestMapping(value = "/EDU/notice/add_recommend")
+    @RequestMapping(value = "/EDU/notice/add_recommend", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map addRecommend(@RequestBody DailyRecommend recommend);
 
-    @RequestMapping(value = "/EDU/notice/update_recommend")
+    @RequestMapping(value = "/EDU/notice/update_recommend", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map updateRecommend(@RequestBody DailyRecommend recommend);
 
-    @RequestMapping(value = "/EDU/notice/remove_recommend")
+    @RequestMapping(value = "/EDU/notice/remove_recommend", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map deleteRecommend(@RequestParam("recommendIds") List<Long> recommendIds);
+
+    @RequestMapping(value = "/EDU/notice/list_recommend_category", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getCategoryList(@RequestBody PageBean page);
+
+    @RequestMapping(value = "/EDU/notice/add_recommend_category", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map addCategory(@RequestBody RecommendCategory category);
+
+    @RequestMapping(value = "/EDU/notice/update_recommend_category", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map updateCategory(@RequestBody RecommendCategory category);
+
+    @RequestMapping(value = "/EDU/notice/remove_recommend_category", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map deleteCategory(@RequestParam("recommendIds") List<Long> categoryIds);
 }

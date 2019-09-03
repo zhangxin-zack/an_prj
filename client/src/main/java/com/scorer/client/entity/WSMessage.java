@@ -1,4 +1,4 @@
-package com.scorer.feign.entity;
+package com.scorer.client.entity;
 
 import org.apache.commons.lang.StringUtils;
 

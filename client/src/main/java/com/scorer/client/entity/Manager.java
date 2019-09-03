@@ -9,7 +9,12 @@ public class Manager {
     private String username;
     private String password;
     private String phoneNo;
+    private String email;
+    private String realname;
+    private Long createTime;
+    private Long loginTime;
     private Integer statusFlag;
+    private Integer verify;
     private Long currentRoleId;
     private List<Long> roleId;
     private String token;
@@ -84,5 +89,45 @@ public class Manager {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
+
+    public Long getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(Long loginTime) {
+        this.loginTime = loginTime;
+    }
+
+    public Integer getVerify() {
+        return verify;
+    }
+
+    public void setVerify(Integer verify) {
+        this.verify = verify;
     }
 }

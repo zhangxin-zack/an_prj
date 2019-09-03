@@ -4,12 +4,8 @@ import com.scorer.client.constant.Iconstants;
 import com.scorer.client.dao.mysql_dao1.ClassesDao;
 import com.scorer.client.dao.mysql_dao1.StudentDao;
 import com.scorer.client.dao.mysql_dao1.TeacherDao;
-import com.scorer.client.entity.ClassContent;
-import com.scorer.client.entity.Classes;
-import com.scorer.client.entity.Student;
-import com.scorer.client.entity.Timetable;
+import com.scorer.client.entity.*;
 import com.scorer.client.service.ClassesService;
-import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -129,6 +125,70 @@ public class ClassesServiceImpl extends BaseSeviceImpl implements ClassesService
         }
     }
 
+    @Override
+    public List<Long> getListClassStudentParent(Long classId) {
+        try {
+            return classesDao.getListClassStudentParent(classId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Long> getListStudentParent(Long studentId) {
+        try {
+            return classesDao.getListStudentParent(studentId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> getClassTimeList(PageBean page) {
+        try {
+            page.setTotal(classesDao.getClassTimeCount(page));
+            page.setRows(classesDao.getClassTimeList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> addClassTime(ClassTime classTime) {
+        try {
+            classesDao.addClassTime(classTime);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> updateClassTime(ClassTime classTime) {
+        try {
+            classesDao.updateClassTime(classTime);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> deleteClassTime(List classTimeIds) {
+        try {
+            classesDao.deleteClassTime(classTimeIds);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
 
     @Override
     public Map<String, Object> addTimetable(Timetable timetable) {

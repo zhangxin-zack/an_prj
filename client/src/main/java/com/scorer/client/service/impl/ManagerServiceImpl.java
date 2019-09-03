@@ -2,6 +2,7 @@ package com.scorer.client.service.impl;
 
 import com.scorer.client.constant.Iconstants;
 import com.scorer.client.dao.mysql_dao1.ManagerDao;
+import com.scorer.client.dao.mysql_dao1.SchoolDao;
 import com.scorer.client.entity.Manager;
 import com.scorer.client.entity.Menu;
 import com.scorer.client.entity.Role;
@@ -24,18 +25,75 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     @Autowired
     private ManagerDao managerDao;
 
-    @Override
-    public Map<String,Object> login(Manager manager) {
+    @Autowired
+    private SchoolDao schoolDao;
 
+    @Override
+    public Map<String, Object> loginManage(Manager manager) {
         try{
-            Manager loginManager = managerDao.login(manager);
+            Manager loginManager = managerDao.loginManage(manager);
             if(loginManager != null){
+                managerDao.setLoginTime(manager);
                 loginManager.setPassword(null);
                 loginManager.setToken(TokenTools.generateTokenSchool(loginManager.getId()));
                 return resultMap(Iconstants.RESULT_CODE_0, "success", loginManager);
             }else{
                 return resultMap(Iconstants.RESULT_CODE_1, "账号或密码错误", null);
             }
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> loginSchool(Manager manager) {
+        try{
+            Manager loginManager = managerDao.loginSchool(manager);
+            if(loginManager != null){
+                managerDao.setLoginTime(manager);
+                loginManager.setPassword(null);
+                loginManager.setToken(TokenTools.generateTokenSchool(loginManager.getId()));
+                return resultMap(Iconstants.RESULT_CODE_0, "success", loginManager);
+            }else{
+                return resultMap(Iconstants.RESULT_CODE_1, "账号或密码错误", null);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> listAgent(PageBean page) {
+        try{
+            page.setTotal(managerDao.getAgentCount(page));
+            page.setRows(managerDao.getAgentList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> listAgentArea(PageBean page) {
+        try{
+            page.setTotal(managerDao.getAgentAreaCount(page));
+            page.setRows(managerDao.getAgentAreaList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> listAgentSchool(PageBean page) {
+        try{
+            page.setTotal(schoolDao.getAgentSchoolCount(page));
+            page.setRows(schoolDao.getAgentSchoolList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
         }catch (Exception e){
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);

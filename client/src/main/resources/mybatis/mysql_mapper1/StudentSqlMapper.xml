@@ -3,7 +3,7 @@
 <mapper namespace="com.scorer.client.dao.mysql_dao1.StudentDao">
 
     <resultMap id="Student" type="com.scorer.client.entity.Student">
-        <result column="id" property="id"/>
+        <id column="id" property="id"/>
         <result column="name" property="studentName"/>
         <result column="nickname" property="nickname"/>
         <result column="sex" property="sex"/>
@@ -19,6 +19,17 @@
         <result column="birthday" property="birthday"/>
         <result column="bind" property="bind"/>
         <result column="status" property="status"/>
+        <association property="account" javaType="com.scorer.client.entity.Account">
+            <id column="account_id" property="id"/>
+            <result column="username_ac" property="username"/>
+            <result column="nick_name_ac" property="nickname"/>
+            <result column="email_ac" property="email"/>
+            <result column="phone_ac" property="phone"/>
+            <result column="register_date_ac" property="registerDate"/>
+            <result column="address_ac" property="address"/>
+            <result column="img_url_ac" property="imgUrl"/>
+            <result column="sex_ac" property="sex"/>
+        </association>
     </resultMap>
 
     <resultMap id="family" type="com.scorer.client.entity.Family">
@@ -153,9 +164,21 @@
             acs.relation_name,
             sc.id as school_id,
             sc.title as school_name,
-            s.year
+            s.year,
+            a.id AS account_id,
+            a.username AS username_ac,
+            a.score AS score_ac,
+            a.email AS email_ac,
+            a.register_date AS register_date_ac,
+            a.img_url AS img_url_ac,
+            a.nick_name AS nick_name_ac,
+            a.address AS address_ac,
+            a.phone AS phone_ac,
+            a.sex AS sex_ac,
+            a.status AS status_ac
         FROM
             students s
+        LEFT JOIN account a ON a.id=s.account_id
         LEFT JOIN account_student acs ON s.id = acs.student_id
         LEFT JOIN class c ON s.class_id = c.id
         LEFT JOIN school sc ON c.school_id = sc.id
@@ -232,14 +255,14 @@
             s.bind,
             s.status,
             acs.relation_name,
-            sc.id as school_id,
+            s.school_id as school_id,
             sc.title as school_name,
             s.year
         FROM
             account_student acs
         LEFT JOIN  students s ON s.id = acs.student_id
         LEFT JOIN class c ON s.class_id = c.id
-        LEFT JOIN school sc ON c.school_id = sc.id
+        LEFT JOIN school sc ON s.school_id = sc.id
         where delete_flag = 0
         <if test="searchs.studentName!= null and searchs.studentName != '' ">
             and s.`name` like CONCAT('%',#{searchs.studentName},'%')
@@ -386,46 +409,46 @@
         update students
         <set>
             <if test="studentName!= null and studentName != '' ">
-                ,name = #{studentName}
+                name = #{studentName},
             </if>
             <if test="nickname!= null and nickname != '' ">
-                ,nickname = #{nickname}
+                nickname = #{nickname},
             </if>
-            <if test="sex!= null and sex != 0 ">
-                ,sex = #{sex},
+            <if test="sex!= null">
+                sex = #{sex},
             </if>
             <if test="height!= null and height != 0 ">
-                ,height = #{height}
+                height = #{height},
             </if>
             <if test="weight!= null and weight != 0 ">
-                ,weight = #{weight}
+                weight = #{weight},
             </if>
             <if test="ringNo!= null and ringNo != 0 ">
-                ,ring_no = #{ringNo}
+                ring_no = #{ringNo},
             </if>
             <if test="cardNo!= null and cardNo != '' ">
-                ,card_no = #{cardNo}
+                card_no = #{cardNo},
             </if>
             <if test="registerNo!= null and registerNo!= '' ">
-                ,register_no = #{registerNo}
+                register_no = #{registerNo},
             </if>
             <if test="schoolId!= null and schoolId != 0 ">
-                ,school_id = #{schoolId}
+                school_id = #{schoolId},
             </if>
             <if test="classId!= null and classId != 0 ">
-                ,class_id = #{classId}
+                class_id = #{classId},
             </if>
             <if test="birthday!= null and birthday != '' ">
-                ,birthday = #{birthday}
+                birthday = #{birthday},
             </if>
             <if test="bind!= null and bind != 0 ">
-                ,bind = #{bind}
+                bind = #{bind},
             </if>
             <if test="year!= null and year != '' ">
-                ,year = #{year}
+                year = #{year},
             </if>
             <if test="status != null">
-                ,status = #{status}
+                status = #{status},
             </if>
         </set>
         where id = #{id}

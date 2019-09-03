@@ -1,6 +1,7 @@
 package com.scorer.feign.controller;
 
 import com.scorer.feign.entity.ClassContent;
+import com.scorer.feign.entity.ClassTime;
 import com.scorer.feign.entity.Classes;
 import com.scorer.feign.entity.Timetable;
 import com.scorer.feign.feign_con.ClassesService;
@@ -90,5 +91,26 @@ public class ClassesController {
     @RequestMapping(value = "/list_timetable_class")
     public Map getTimetableClass(@RequestBody PageBean condition) {
         return classesService.getTimetableClass(condition);
+    }
+
+
+    @RequestMapping(value = "/list_class_time")
+    public Map getClassTimeList(@RequestBody PageBean condition) {
+        return classesService.getClassTimeList(condition);
+    }
+
+    @RequestMapping(value = "/add_class_time")
+    public Map addClassTime(@RequestBody ClassTime classTime) {
+        return classesService.addClassTime(classTime);
+    }
+
+    @RequestMapping(value = "/update_class_time")
+    public Map updateClassTime(@RequestBody ClassTime classTime) {
+        return classesService.updateClassTime(classTime);
+    }
+
+    @RequestMapping(value = "/remove_class_time")
+    public Map deleteClassTime(@RequestParam(value = "classTimeIds") List<Integer> classTimeIds) {
+        return classesService.deleteClassTime(classTimeIds);
     }
 }

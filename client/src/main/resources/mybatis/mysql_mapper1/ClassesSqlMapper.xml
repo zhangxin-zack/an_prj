@@ -3,7 +3,7 @@
 <mapper namespace="com.scorer.client.dao.mysql_dao1.ClassesDao">
 
     <resultMap id="Classes" type="com.scorer.client.entity.Classes">
-        <result column="id" property="id"/>
+        <id column="id" property="id"/>
         <result column="title" property="classesTitle"/>
         <result column="school_id" property="schoolId"/>
         <result column="class_name" property="classesName"/>
@@ -11,7 +11,7 @@
         <result column="teacher_id" property="teacherId"/>
         <result column="teacher_name" property="teacherName"/>
         <collection property="teacherList" ofType="com.scorer.client.entity.Teacher">
-            <id property="teacherId" column="teacherI_id"/>
+            <id property="teacherId" column="teacher_id"/>
             <result property="teacherName" column="teacher_name"/>
             <result property="schoolId" column="school_id"/>
             <result property="accountUsername" column="account_username"/>
@@ -24,6 +24,7 @@
         <result column="class_id" property="classId"/>
         <result column="timetable" property="timetable"/>
         <result column="start_date" property="startDate"/>
+        <result column="class_time" property="classTime"/>
     </resultMap>
 
     <resultMap id="classContent" type="com.scorer.client.entity.ClassContent">
@@ -32,6 +33,11 @@
         <result column="content" property="content"/>
         <result column="img_path" property="imgPath"/>
         <result column="img_url" property="imgUrl"/>
+    </resultMap>
+
+    <resultMap id="classTime" type="com.scorer.client.entity.ClassTime">
+        <result column="id" property="id"/>
+        <result column="class_id" property="classTime"/>
     </resultMap>
 
     <select id="getClassesCount" resultType="Long">
@@ -53,7 +59,7 @@
             c.school_id,
             s.title school_name,
             c.title,
-            a.id AS teacherI_id,
+            a.id AS teacher_id,
             a.nick_name AS teacher_name,
             a.username AS account_username,
             IF(c.teacher_id=a.id,1,-1) AS is_head
@@ -82,8 +88,8 @@
     </select>
 
     <insert id="addClasses">
-        INSERT INTO class (title, class_name, school_id, teacher_id)
-        VALUES (#{classesTitle}, #{classesName},#{schoolId}, #{teacherId})
+        INSERT INTO class (title, class_name, school_id, teacher_id, class_time_id)
+        VALUES (#{classesTitle}, #{classesName},#{schoolId}, #{teacherId}, #{classTimeId})
     </insert>
 
     <update id="updateClasses">
@@ -100,6 +106,9 @@
             </if>
             <if test="teacherId!= null and teacherId!= '' ">
                 teacher_id = #{teacherId},
+            </if>
+            <if test="classTimeId!= null and classTimeId!= 0 ">
+                class_time_id = #{classTimeId},
             </if>
         </set>
         where id = #{id}
@@ -120,9 +129,20 @@
     </select>
 
     <select id="getTimetableList" resultMap="timeTable">
-        SELECT id, class_id, timetable, start_date FROM timetable WHERE 1=1
+        SELECT
+            t.id,
+            t.class_id,
+            t.timetable,
+            ct.class_time,
+            t.start_date
+        FROM
+          timetable t
+        JOIN class c
+        ON t.class_id = c.id
+        LEFT JOIN class_time ct
+        ON ct.id = c.class_time_id
         <if test="searchs.classId != null and searchs.classId != ''">
-            AND class_id = #{searchs.classId}
+            AND t.class_id = #{searchs.classId}
         </if>
         LIMIT #{startIndex}, #{pageSize}
     </select>
@@ -201,4 +221,54 @@
         select count(*) from class where school_id = #{id}
     </select>
 
+    <select id="getListClassStudentParent" resultType="Long">
+        SELECT
+            acs.account_id
+        FROM
+            students s
+        LEFT JOIN account_student acs ON s.id = acs.student_id
+        WHERE
+            s.class_id = #{classId}
+    </select>
+
+    <select id="getListStudentParent" resultType="Long">
+        SELECT
+        account_id
+        FROM
+        account_student
+        WHERE
+        student_id = #{studentId}
+    </select>
+
+
+    <select id="getClassTimeCount" resultType="long">
+        select count(id) from class_time where 1=1
+    </select>
+
+    <select id="getClassTimeList" resultMap="classTime">
+        select id, class_time from class_time where 1=1
+        LIMIT ${startIndex}, ${pageSize}
+    </select>
+
+    <insert id="addClassTime">
+        insert into class_time(class_time)
+        values (#{classTime})
+    </insert>
+
+    <update id="updateClassTime">
+        update class_time
+        <set>
+            <if test="classTime!= null and classTime != ''">
+                class_time = #{classTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteClassTime">
+        delete from class_time where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

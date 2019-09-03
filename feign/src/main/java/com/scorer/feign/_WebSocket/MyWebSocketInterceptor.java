@@ -56,7 +56,7 @@ public class MyWebSocketInterceptor implements HandshakeInterceptor {
 
     private boolean CheckToke_User(String uid, String token) {
         ValueOperations<String, String> operations = redisTemplate.opsForValue();
-        String uid_token = operations.get("uid_token_wx_app:" + uid);
+        String uid_token = operations.get("uid_app_token:" + uid);
         return TestObject.noneEmpty(uid, token, uid_token) && token.equals(uid_token);
     }
 
