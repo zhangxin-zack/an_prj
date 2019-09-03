@@ -2,6 +2,7 @@ package com.scorer.client.controller;
 
 import com.scorer.client.entity.DailyRecommend;
 import com.scorer.client.entity.Notice;
+import com.scorer.client.entity.RecommendCategory;
 import com.scorer.client.service.NoticeService;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +64,45 @@ public class NoticeController {
     @RequestMapping(value = "/remove_recommend")
     public Map deleteRecommend(@RequestParam("recommendIds") List<Long> recommendIds) {
         return noticeService.deleteRecommend(recommendIds);
+    }
+
+    /**
+     * 每日文章分类管理
+     * @param page
+     * @return
+     */
+    @RequestMapping(value = "/list_recommend_category")
+    public Map getCategory(@RequestBody PageBean page) {
+        return noticeService.getCategoryList(page);
+    }
+
+    /**
+     * 新增文章分类
+     * @param category
+     * @return
+     */
+    @RequestMapping(value = "/add_recommend_category")
+    public Map addCategory(@RequestBody RecommendCategory category) {
+        return noticeService.addCategory(category);
+    }
+
+    /**
+     * 修改文章分类
+     * @param category
+     * @return
+     */
+    @RequestMapping(value = "/update_recommend_category")
+    public Map updateCategory(@RequestBody RecommendCategory category) {
+        return noticeService.updateCategory(category);
+    }
+
+    /**
+     * 删除文章分类
+     * @param categoryIds
+     * @return
+     */
+    @RequestMapping(value = "/remove_recommend_category")
+    public Map deleteCategory(@RequestParam("categoryIds") List<Long> categoryIds) {
+        return noticeService.deleteCategory(categoryIds);
     }
 }

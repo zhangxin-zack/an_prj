@@ -5,6 +5,7 @@ import com.scorer.client.dao.mysql_dao1.NoticeDao;
 import com.scorer.client.dao.mysql_dao1.StudentDao;
 import com.scorer.client.entity.DailyRecommend;
 import com.scorer.client.entity.Notice;
+import com.scorer.client.entity.RecommendCategory;
 import com.scorer.client.entity.Student;
 import com.scorer.client.service.NoticeService;
 import com.scorer.client.service.impl.BaseSeviceImpl;
@@ -125,6 +126,51 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
     public Map<String, Object> deleteRecommend(List<Long> recommendIds) {
         try{
             NoticeDao.deleteRecommendText(recommendIds);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> getCategoryList(PageBean page) {
+        try{
+            page.setTotal(NoticeDao.getRecommendCategoryCount(page));
+            page.setRows(NoticeDao.getRecommendCategoryList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> addCategory(RecommendCategory category) {
+        try{
+            NoticeDao.addRecommendCategory(category);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> updateCategory(RecommendCategory category) {
+        try{
+            NoticeDao.updateRecommendCategory(category);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> deleteCategory(List<Long> categoryIds) {
+        try{
+            NoticeDao.deleteRecommendCategory(categoryIds);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         }catch (Exception e){
             e.printStackTrace();

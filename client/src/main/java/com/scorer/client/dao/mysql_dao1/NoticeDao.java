@@ -2,6 +2,7 @@ package com.scorer.client.dao.mysql_dao1;
 
 import com.scorer.client.entity.DailyRecommend;
 import com.scorer.client.entity.Notice;
+import com.scorer.client.entity.RecommendCategory;
 import com.scorer.client.values.PageBean;
 import org.springframework.stereotype.Repository;
 
@@ -32,4 +33,13 @@ public interface NoticeDao {
 
     void deleteRecommendText(List textIds) throws Exception;
 
+    Long getRecommendCategoryCount(PageBean page) throws Exception;
+
+    List<RecommendCategory> getRecommendCategoryList(PageBean page) throws Exception;
+
+    void addRecommendCategory(RecommendCategory category) throws Exception;
+
+    void updateRecommendCategory(RecommendCategory category) throws Exception;
+
+    void deleteRecommendCategory(List categoryIds) throws Exception;
 }

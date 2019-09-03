@@ -2,6 +2,7 @@ package com.scorer.client.dao.mysql_dao1;
 
 import com.scorer.client.entity.ClassContent;
 import com.scorer.client.entity.Classes;
+import com.scorer.client.entity.ClassTime;
 import com.scorer.client.entity.Timetable;
 import com.scorer.client.values.PageBean;
 import org.apache.ibatis.annotations.Param;
@@ -16,7 +17,7 @@ public interface ClassesDao {
 
     List<Classes> getClassesList(PageBean page) throws Exception;
 
-    //Classes getClassesById(Integer classesId) throws Exception;
+    //Classes getClassesById(Long classesId) throws Exception;
 
     void addClasses(Classes classes) throws Exception;
 
@@ -49,4 +50,15 @@ public interface ClassesDao {
     List<Long> getListClassStudentParent(@Param("classId") Long classId) throws Exception;
 
     List<Long> getListStudentParent(@Param("studentId") Long studentId) throws Exception;
+
+    
+    Long getClassTimeCount(PageBean page) throws Exception;
+
+    List<ClassTime> getClassTimeList(PageBean page) throws Exception;
+
+    void addClassTime(ClassTime classTime) throws Exception;
+
+    void updateClassTime(ClassTime classTime) throws Exception;
+
+    void deleteClassTime(List classTimeIds) throws Exception;
 }

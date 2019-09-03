@@ -7,6 +7,7 @@ public class Timetable {
 
   private long id;
   private long classId;
+  private String classTime;
   private String timetable;
   private MultipartFile timetableFile;
   private java.sql.Timestamp startDate;
@@ -49,5 +50,13 @@ public class Timetable {
 
   public void setTimetableFile(MultipartFile timetableFile) {
     this.timetableFile = timetableFile;
+  }
+
+  public String getClassTime() {
+    return classTime;
+  }
+
+  public void setClassTime(String classTime) {
+    this.classTime = classTime;
   }
 }

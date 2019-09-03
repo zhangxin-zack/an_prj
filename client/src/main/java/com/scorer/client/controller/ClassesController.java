@@ -1,6 +1,7 @@
 package com.scorer.client.controller;
 
 import com.scorer.client.entity.ClassContent;
+import com.scorer.client.entity.ClassTime;
 import com.scorer.client.entity.Classes;
 import com.scorer.client.entity.Timetable;
 import com.scorer.client.service.ClassesService;
@@ -120,4 +121,30 @@ public class ClassesController {
     public List<Long> getLisStudentParent(@RequestParam(value = "studentId") Long studentId) {
         return classesService.getListStudentParent(studentId);
     }
+
+    /**
+     * 上课时间模板列表
+     * @param condition
+     * @return
+     */
+    @RequestMapping(value = "/list_class_time")
+    public Map getClassTimeList(@RequestBody PageBean condition) {
+        return classesService.getClassTimeList(condition);
+    }
+
+    @RequestMapping(value = "/add_class_time")
+    public Map addClassTime(@RequestBody ClassTime classTime) {
+        return classesService.addClassTime(classTime);
+    }
+
+    @RequestMapping(value = "/update_class_time")
+    public Map updateClassTime(@RequestBody ClassTime classTime) {
+        return classesService.updateClassTime(classTime);
+    }
+
+    @RequestMapping(value = "/remove_class_time")
+    public Map deleteClassTime(@RequestParam(value = "classTimeIds") List<Integer> classTimeIds) {
+        return classesService.deleteClassTime(classTimeIds);
+    }
+
 }

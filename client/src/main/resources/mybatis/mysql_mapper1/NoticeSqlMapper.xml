@@ -21,6 +21,11 @@
         <result column="type" property="type"/>
     </resultMap>
 
+    <resultMap id="recommendCategory" type="com.scorer.client.entity.RecommendCategory">
+        <result column="id" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
+    </resultMap>
+
     <select id="getNoticeCount" resultType="long">
         select count(id) from notice where 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
@@ -136,6 +141,39 @@
 
     <delete id="deleteRecommendText">
         delete from daily_recommend where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+
+    <select id="getRecommendCategoryCount" resultType="long">
+        select count(id) from recommend_category where 1=1
+    </select>
+
+    <select id="getRecommendCategoryList" resultMap="recommendCategory">
+        select id, category_name from recommend_category where 1=1
+        LIMIT ${startIndex}, ${pageSize}
+    </select>
+
+    <insert id="addRecommendCategory">
+        insert into recommend_category(category_name)
+        values (#{categoryName})
+    </insert>
+
+    <update id="updateRecommendCategory">
+        update recommend_category
+        <set>
+            <if test="categoryName!= null and categoryName != ''">
+                category_name = #{categoryName},
+            </if>
+        </set>
+        where id = #{categoryId}
+    </update>
+
+    <delete id="deleteRecommendCategory">
+        delete from recommend_category where id in
         <foreach collection="list" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
