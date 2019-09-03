@@ -138,6 +138,16 @@ public class ClassesServiceImpl extends BaseSeviceImpl implements ClassesService
         return null;
     }
 
+    @Override
+    public List<Long> getListStudentParent(Long studentId) {
+        try {
+            return classesDao.getListStudentParent(studentId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     @Override
     public Map<String, Object> addTimetable(Timetable timetable) {

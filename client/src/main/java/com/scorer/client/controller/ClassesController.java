@@ -110,4 +110,14 @@ public class ClassesController {
     public List<Long> getListClassStudentParent(@RequestParam(value = "classId") Long classId) {
         return classesService.getListClassStudentParent(classId);
     }
+
+    /**
+     * 查询学生下所有学生的家长
+     * @param studentId
+     * @return
+     */
+    @RequestMapping(value = "/list_student_group_parent")
+    public List<Long> getLisStudentParent(@RequestParam(value = "studentId") Long studentId) {
+        return classesService.getListStudentParent(studentId);
+    }
 }

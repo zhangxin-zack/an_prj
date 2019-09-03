@@ -74,12 +74,12 @@ public interface ManagerService {
     @RequestMapping(value = "/EDU/user/loginSchool", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map loginSchool(Manager manager);
 
-    @RequestMapping(value = "/EDU/manager/list_agent", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/EDU/sys/list_agent", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map listAgent(@RequestBody PageBean condition);
 
-    @RequestMapping(value = "/EDU/manager/list_agent_area", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/EDU/sys/list_agent_area", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map listAgentArea(@RequestBody PageBean condition);
 
-    @RequestMapping(value = "/EDU/manager/list_agent_school", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/EDU/sys/list_agent_school", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map listAgentSchool(@RequestBody PageBean condition);
 }

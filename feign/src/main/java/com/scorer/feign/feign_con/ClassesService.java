@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -59,4 +60,10 @@ public interface ClassesService {
 
     @RequestMapping(value = "/EDU/classes/list_timetable_class", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getTimetableClass(PageBean condition);
+
+    @RequestMapping(value = "/EDU/classes/list_class_group_parent", consumes = MediaType.APPLICATION_JSON_VALUE)
+    List<Long> getListClassStudentParent(@RequestParam(value = "classId") long classId);
+
+    @RequestMapping(value = "/EDU/classes/list_student_group_parent", consumes = MediaType.APPLICATION_JSON_VALUE)
+    List<Long> getListStudentParent(@RequestParam(value = "studentId") long studentId);
 }

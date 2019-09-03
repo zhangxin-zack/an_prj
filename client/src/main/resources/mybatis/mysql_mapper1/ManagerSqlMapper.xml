@@ -320,6 +320,13 @@
         ON m.id = mr.manager_id
         WHERE 1 = 1
         AND mr.role_id = 2
+        <if test="searchs.username!=null and searchs.username!=''">
+            AND m.username LIKE CONCAT('%',#{searchs.username},'%')
+        </if>
+        <if test="searchs.verify!=null">
+            AND m.verify = #{searchs.verify}
+        </if>
+        AND mr.role_id = 2
     </select>
 
     <select id="getAgentList" resultMap="manager">
@@ -333,18 +340,17 @@
             m.create_time,
             m.login_time,
             m.phone,
-            m.status_flag
+            m.status_flag,
             m.verify
         FROM manager m
-        JOIN manager_role mr
-        ON m.id = mr.manager_id
+        JOIN manager_role mr ON m.id = mr.manager_id
         WHERE 1 = 1
         AND mr.role_id = 2
         <if test="searchs.username!=null and searchs.username!=''">
             AND m.username LIKE CONCAT('%',#{searchs.username},'%')
         </if>
-        <if test="searchs.status!=null">
-            AND m.status_flag = #{searchs.status}
+        <if test="searchs.verify!=null">
+            AND m.verify = #{searchs.verify}
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}

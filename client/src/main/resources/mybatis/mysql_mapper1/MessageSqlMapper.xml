@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scorer.client.dao.mysql_dao1.MessageDao">
+
+<insert id="SaveMSG">
+    <selectKey keyColumn="msg_id" keyProperty="msg_id" order="AFTER" resultType="Integer">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+    INSERT INTO msg_info(to_home, to_class, from_uid, from_student_id, msg_time, msg_type, msg_content)
+    VALUES(#{to_home},#{to_class},#{from_uid},#{from_student_id},#{msg_time},#{msg_type},#{msg_content})
+</insert>
+
+</mapper>

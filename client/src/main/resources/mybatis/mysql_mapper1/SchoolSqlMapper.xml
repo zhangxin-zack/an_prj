@@ -65,7 +65,7 @@
             s.email,
             s.description,
             agent_id as agentId,
-            m.realname as agentName
+            m.realname as agentName,
             province,
             city,
             village

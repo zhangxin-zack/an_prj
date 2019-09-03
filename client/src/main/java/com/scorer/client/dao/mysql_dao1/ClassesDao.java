@@ -48,4 +48,5 @@ public interface ClassesDao {
 
     List<Long> getListClassStudentParent(@Param("classId") Long classId) throws Exception;
 
+    List<Long> getListStudentParent(@Param("studentId") Long studentId) throws Exception;
 }

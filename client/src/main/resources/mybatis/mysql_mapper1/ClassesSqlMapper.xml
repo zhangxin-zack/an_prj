@@ -211,4 +211,13 @@
             s.class_id = #{classId}
     </select>
 
+    <select id="getListStudentParent" resultType="Long">
+        SELECT
+        account_id
+        FROM
+        account_student
+        WHERE
+        student_id = #{studentId}
+    </select>
+
 </mapper>
