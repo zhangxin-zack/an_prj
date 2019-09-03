@@ -112,7 +112,6 @@ public class WebSocketPushHandler implements WebSocketHandler {
             if (user != null && user.isOpen()) {
                 try {
                     user.sendMessage(new TextMessage(new Gson().toJson(message)));
-//                    customer_service.SetReadMessage(message);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

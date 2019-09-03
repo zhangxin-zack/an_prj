@@ -4,6 +4,7 @@ import com.scorer.feign._WebSocket.WebSocketPushHandler;
 import com.scorer.feign.entity.WSMessage;
 import com.scorer.feign.feign_con.ClassesService;
 import com.scorer.feign.feign_con.MessageService;
+import com.scorer.feign.values.PageBean;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,7 +42,7 @@ public class MessageController {
         Map<String, Object> rMap = new HashMap<>();
         wsMessage = messageService.SaveMSG(wsMessage);
         List<Long> uids=new ArrayList<>();
-        if(wsMessage.getTo_home()==-1){
+        if(wsMessage.getTo_home()==1){
             uids.addAll(classesService.getListStudentParent(wsMessage.getFrom_student_id().longValue()));
         }else{
             for (Integer classId:wsMessage.getTo_classes()) {
@@ -51,8 +52,13 @@ public class MessageController {
         for(Long to_uid:uids){
             webSocketPushHandler.sendMessageToUser(to_uid.intValue(), wsMessage);
         }
-        rMap.put("result", 1);
+        rMap.put("result_code", 0);
         return rMap;
+    }
+
+    @RequestMapping(value = "/EDU/Message/GetOldMSG")
+    public Map GetOldMSG(@RequestBody PageBean page) {
+        return messageService.GetOldMSG(page);
     }
 
 }

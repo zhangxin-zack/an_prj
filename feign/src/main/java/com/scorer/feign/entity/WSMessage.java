@@ -1,7 +1,9 @@
 package com.scorer.feign.entity;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 public class WSMessage implements Serializable {
 
@@ -12,7 +14,7 @@ public class WSMessage implements Serializable {
 
     private Integer msg_id;
     private int to_home=-1;
-    private List<Integer> to_classes;
+    private ArrayList<Integer> to_classes;
     private Integer from_uid;
     private Integer from_student_id;
     private Long msg_time;
@@ -21,6 +23,14 @@ public class WSMessage implements Serializable {
     private Integer has_read = -1;
 
     public WSMessage() {
+    }
+
+    public String getTo_class_split(){
+        if(to_classes==null){
+            return null;
+        }else{
+            return StringUtils.join(to_classes,"|");
+        }
     }
 
     public Integer getFrom_student_id() {
@@ -79,11 +89,11 @@ public class WSMessage implements Serializable {
         this.to_home = to_home;
     }
 
-    public List<Integer> getTo_classes() {
+    public ArrayList<Integer> getTo_classes() {
         return to_classes;
     }
 
-    public void setTo_classes(List<Integer> to_classes) {
+    public void setTo_classes(ArrayList<Integer> to_classes) {
         this.to_classes = to_classes;
     }
 
