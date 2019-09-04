@@ -44,8 +44,8 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
     @Override
     public Map<String, Object> getNoticeById(Integer NoticeId) {
         try{
-            Notice Notice = NoticeDao.getNoticeById(NoticeId);
-            return resultMap(Iconstants.RESULT_CODE_0, "success", Notice);
+            Notice notice = NoticeDao.getNoticeById(NoticeId);
+            return resultMap(Iconstants.RESULT_CODE_0, "success", notice);
         }catch (Exception e){
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
@@ -56,7 +56,7 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
     public Map<String, Object> addNotice(Notice notice) {
         try{
             if(notice.getClassIds()==null){
-                notice.setClassIds(new ArrayList<>());
+//                notice.setClassIds(new ArrayList<>());
             }
             NoticeDao.addNotice(notice);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");

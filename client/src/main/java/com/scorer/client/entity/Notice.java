@@ -1,6 +1,11 @@
 package com.scorer.client.entity;
 
+import com.google.gson.Gson;
+import org.apache.commons.lang.StringUtils;
+
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Notice {
@@ -10,9 +15,25 @@ public class Notice {
     private String noticeContent;
     private java.sql.Timestamp noticeDate;
     private Long classId;
-    private List<Long> classIds;
+    private List<String> classIds;
     private Integer fromTo;
     private Integer isRead;
+
+    public String getClassIdSplit(){
+        if(classIds==null){
+            return null;
+        }else{
+            return StringUtils.join(classIds,"|");
+        }
+    }
+
+    public void setClassIdSplit(String classIdSplit){
+        if(classIdSplit==null){
+            this.classIds = new ArrayList<>();
+        }else{
+            this.classIds = Arrays.asList(classIdSplit.split("\\|"));
+        }
+    }
 
     public Long getId() {
         return id;
@@ -62,11 +83,11 @@ public class Notice {
         this.fromTo = fromTo;
     }
 
-    public List<Long> getClassIds() {
+    public List<String> getClassIds() {
         return classIds;
     }
 
-    public void setClassIds(List<Long> classIds) {
+    public void setClassIds(List<String> classIds) {
         this.classIds = classIds;
     }
 

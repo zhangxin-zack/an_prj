@@ -7,6 +7,7 @@
         <result column="notice_title" property="noticTitle"/>
         <result column="notice_content" property="noticeContent"/>
         <result column="notice_date" property="noticeDate"/>
+        <result column="class_id_split" property="classIdSplit"/>
         <result column="class_id" property="classId"/>
         <result column="from_to" property="fromTo"/>
         <result column="is_read" property="isRead"/>
@@ -29,7 +30,7 @@
     <select id="getNoticeCount" resultType="long">
         select count(id) from notice where 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
-            AND class_id = #{searchs.classId}
+            AND CONTAINS(class_id_split,#{searchs.classId})
         </if>
         <if test="searchs.formTo != null">
             AND from_to = #{searchs.formTo}
@@ -37,9 +38,9 @@
     </select>
 
     <select id="getNoticeList" resultMap="notice">
-        select id, notice_title, notice_content, notice_date,class_id,from_to, is_read from notice where 1=1
+        select id, notice_title, notice_content, notice_date,class_id_split,from_to, is_read,#{searchs.classId} AS class_id from notice where 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
-            AND class_id = #{searchs.classId}
+            AND CONTAINS(class_id_split,#{searchs.classId})
         </if>
         <if test="searchs.formTo != null">
             AND from_to = #{searchs.formTo}
@@ -61,22 +62,16 @@
     </select>
 
     <insert id="addNotice">
-        <if test="classId!=null">
-            insert into notice(class_id, notice_title, notice_content, notice_date, from_to)
-            values (#{classId}, #{noticTitle}, #{noticeContent}, sysdate(), #{fromTo})
-        </if>
-        <if test="classIds.size()>0">
-            insert into notice(class_id, notice_title, notice_content, notice_date, from_to)
-            values
-            <foreach collection="classIds" item="i" separator=",">
-                (#{i}, #{noticTitle}, #{noticeContent}, sysdate(), #{fromTo})
-            </foreach>
-        </if>
+        insert into notice(class_id_split, notice_title, notice_content, notice_date, from_to)
+        values (#{classIdSplit}, #{noticTitle}, #{noticeContent}, sysdate(), #{fromTo})
     </insert>
 
     <update id="updateNotice">
         update notice
         <set>
+            <if test="classIds!= null">
+                class_id_split = #{classIdSplit},
+            </if>
             <if test="noticTitle!= null and noticTitle != ''">
                 notice_title = #{noticTitle},
             </if>
