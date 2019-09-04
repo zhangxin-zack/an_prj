@@ -3,51 +3,81 @@ package com.scorer.feign.entity;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Timestamp;
+
 public class Timetable {
 
-  private long id;
-  private long classId;
-  private String timetable;
-  private MultipartFile timetableFile;
-  private java.sql.Timestamp startDate;
+    private long id;
+    private long classId;
+    private String classTime;
+    private String timeName;
+    private String timetable;
+    private MultipartFile timetableFile;
+    private Timestamp startDate;
 
-  public long getId() {
-    return id;
-  }
+    public Timetable() {
+    }
 
-  public void setId(long id) {
-    this.id = id;
-  }
+    public Timetable(Long classId, Long startDate, String timetable) {
+        this.classId=classId;
+        this.timetable=timetable;
+        this.startDate=new Timestamp(startDate);
+    }
 
-  public long getClassId() {
-    return classId;
-  }
 
-  public void setClassId(long classId) {
-    this.classId = classId;
-  }
+    public String getTimeName() {
+        return timeName;
+    }
 
-  public String getTimetable() {
-    return timetable;
-  }
+    public void setTimeName(String timeName) {
+        this.timeName = timeName;
+    }
 
-  public void setTimetable(String timetable) {
-    this.timetable = timetable;
-  }
+    public long getId() {
+        return id;
+    }
 
-  public java.sql.Timestamp getStartDate() {
-    return startDate;
-  }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-  public void setStartDate(java.sql.Timestamp startDate) {
-    this.startDate = startDate;
-  }
+    public long getClassId() {
+        return classId;
+    }
 
-  public MultipartFile getTimetableFile() {
-    return timetableFile;
-  }
+    public void setClassId(long classId) {
+        this.classId = classId;
+    }
 
-  public void setTimetableFile(MultipartFile timetableFile) {
-    this.timetableFile = timetableFile;
-  }
+    public String getTimetable() {
+        return timetable;
+    }
+
+    public void setTimetable(String timetable) {
+        this.timetable = timetable;
+    }
+
+    public Timestamp getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
+    }
+
+    public MultipartFile getTimetableFile() {
+        return timetableFile;
+    }
+
+    public void setTimetableFile(MultipartFile timetableFile) {
+        this.timetableFile = timetableFile;
+    }
+
+    public String getClassTime() {
+        return classTime;
+    }
+
+    public void setClassTime(String classTime) {
+        this.classTime = classTime;
+    }
 }

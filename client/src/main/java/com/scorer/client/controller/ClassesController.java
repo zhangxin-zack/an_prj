@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -83,13 +84,16 @@ public class ClassesController {
         return classesService.getAccountClassesList(condition);
     }
 
-    @RequestMapping(value = "/upload_timetable")
-    public Map uploadTimetable(Timetable timetable) {
-        MultipartFile timetableFile = timetable.getTimetableFile();
+    @RequestMapping(value = {"/upload_timetable","modify_timetable"})
+    public Map uploadTimetable(@RequestParam(value = "classId") Long classId,
+                               @RequestParam(value = "timetableFile",required = false) MultipartFile timetableFile,
+                               @RequestParam(value = "timetable") String timetable,
+                               @RequestParam(value = "startDate") Long startDate) {
+        Timetable timetable1 = new Timetable(classId,startDate,timetable);
         if(!timetableFile.isEmpty()){
-            timetable.setTimetable(ExcelUtils.getTimetableData(timetableFile));
+            timetable1.setTimetable(ExcelUtils.getTimetableData(timetableFile));
         }
-        return classesService.addTimetable(timetable);
+        return classesService.addTimetable(timetable1);
     }
 
     @RequestMapping(value = "/download_timetable_temp")

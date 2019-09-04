@@ -9,6 +9,7 @@
         <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
     <typeAliases>
+        <package name="com.scorer.client.entity"/>
         <package name="com.scorer.model.model1"/>
         <package name="com.scorer.model.model2"/>
         <package name="com.scorer.model.model_request"/>

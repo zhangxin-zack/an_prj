@@ -1,7 +1,6 @@
 package com.scorer.client.values;
 
-import org.apache.commons.lang3.tuple.MutablePair;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,7 @@ public class PageBean {
     private Map<String, Object> searchs = new HashMap<>();
     private List<HashMap<String, String>> sort;
     private Long total;
-    private List<?> rows;
+    private List rows=new ArrayList();
 
     private Integer limit = 1000;
     private Integer paging = 1;
@@ -34,11 +33,11 @@ public class PageBean {
         this.sort = sort;
     }
 
-    public List<?> getRows() {
+    public List getRows() {
         return rows;
     }
 
-    public void setRows(List<?> rows) {
+    public void setRows(List rows) {
         this.rows = rows;
     }
 

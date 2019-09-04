@@ -11,8 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -53,8 +56,13 @@ public interface ClassesService {
     @RequestMapping(value = "/EDU/classes/list_account_class", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getAccountClassesList(@RequestBody PageBean condition);
 
-    @RequestMapping(value = "/EDU/classes/upload_timetable")
-    Map uploadTimetable(Timetable timetable);
+    @RequestMapping(value = "/EDU/classes/upload_timetable",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE},
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    Map uploadTimetable(@RequestParam(value = "classId") Long classId,
+                        @RequestPart(value = "timetableFile",required = false) MultipartFile timetableFile,
+                        @RequestParam(value = "timetable") String timetable,
+                        @RequestParam(value = "startDate") Long startDate);
 
     @RequestMapping(value = "/EDU/classes/download_timetable_temp")
     ResponseEntity<byte[]> downloadTimetableTemp();
@@ -80,4 +88,5 @@ public interface ClassesService {
 
     @RequestMapping(value = "/EDU/classes/remove_class_time", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map deleteClassTime(@RequestParam(value = "classTimeIds") List<Integer> classTimeIds);
+
 }

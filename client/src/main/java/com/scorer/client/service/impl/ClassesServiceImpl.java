@@ -10,13 +10,15 @@ import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class ClassesServiceImpl extends BaseSeviceImpl implements ClassesService {
 
-    @Autowired
+    @Resource
     private ClassesDao classesDao;
     @Autowired
     private StudentDao studentDao;
@@ -149,7 +151,7 @@ public class ClassesServiceImpl extends BaseSeviceImpl implements ClassesService
     public Map<String, Object> getClassTimeList(PageBean page) {
         try {
             page.setTotal(classesDao.getClassTimeCount(page));
-            page.setRows(classesDao.getClassTimeList(page));
+            page.setRows( classesDao.getClassTimeList(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
         } catch (Exception e) {
             e.printStackTrace();
@@ -194,7 +196,7 @@ public class ClassesServiceImpl extends BaseSeviceImpl implements ClassesService
     public Map<String, Object> addTimetable(Timetable timetable) {
         try {
             classesDao.addTimetable(timetable);
-            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+            return resultMap(Iconstants.RESULT_CODE_0, "success",timetable);
         } catch (Exception e) {
             e.printStackTrace();
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());

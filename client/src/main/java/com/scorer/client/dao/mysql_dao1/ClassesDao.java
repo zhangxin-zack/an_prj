@@ -61,4 +61,6 @@ public interface ClassesDao {
     void updateClassTime(ClassTime classTime) throws Exception;
 
     void deleteClassTime(List classTimeIds) throws Exception;
+
+    Timetable getTimeTableById(long id);
 }

@@ -7,13 +7,12 @@ import com.scorer.feign.entity.Timetable;
 import com.scorer.feign.feign_con.ClassesService;
 import com.scorer.feign.values.PageBean;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -79,8 +78,11 @@ public class ClassesController {
     }
 
     @RequestMapping(value = "/upload_timetable")
-    public Map uploadTimetable(Timetable timetable) {
-        return classesService.uploadTimetable(timetable);
+    public Map uploadTimetable(@RequestParam(value = "classId") Long classId,
+                               @RequestPart(value = "timetableFile",required = false) MultipartFile timetableFile,
+                               @RequestParam(value = "timetable") String timetable,
+                               @RequestParam(value = "startDate") Long startDate) {
+        return classesService.uploadTimetable(classId,timetableFile,timetable,startDate);
     }
 
     @RequestMapping(value = "/download_timetable_temp")

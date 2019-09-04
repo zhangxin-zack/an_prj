@@ -6,6 +6,7 @@ import net.minidev.json.JSONArray;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,10 @@ public class ExcelUtils {
                 //获取每一行数据
                 HSSFRow row  = sheet.getRow(i);
                 for(int colIndex = 2; colIndex < 9;colIndex++){
-                    timetable[colIndex-2][i-1] = row.getCell(colIndex).getStringCellValue();
+                    if(row.getCell(colIndex)!=null){
+                        row.getCell(colIndex).setCellType(Cell.CELL_TYPE_STRING);
+                        timetable[colIndex-2][i-1] = row.getCell(colIndex).getStringCellValue();
+                    }
                 }
             }
             Gson gson = new Gson();

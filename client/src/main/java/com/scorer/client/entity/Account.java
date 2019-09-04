@@ -4,157 +4,176 @@ import java.sql.Timestamp;
 
 public class Account {
 
-  private long id;
-  private String username;
-  private String password;
-  private String oldPassword;
-  private String nickname;
-  private String email;
-  private String phone;
-  private Timestamp registerDate;
-  private String address;
-  private String imgUrl;
-  private long totalScore;
-  private long score;
-  private long scoreId;
-  private long catetgoryId;
-  private String categoryName;
-  private String validateCode;
-  private Integer sex;
+    private long id;
+    private String username;
+    private String password;
+    private String oldPassword;
+    private String nickname;
+    private String email;
+    private String phone;
+    private Timestamp registerDate;
+    private String address;
+    private String imgUrl;
+    private long totalScore;
+    private long score;
+    private long scoreId;
+    private long catetgoryId;
+    private String categoryName;
+    private String validateCode;
+    private Integer sex;
 
-  public long getId() {
-    return id;
-  }
+    private Integer isTeacher;
 
-  public void setId(long id) {
-    this.id = id;
-  }
+    public Account() {
+    }
 
-  public String getUsername() {
-    return username;
-  }
+    public Account(String phone, String password) {
+        this.phone=phone;
+        this.password=password;
+    }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+    public Integer getIsTeacher() {
 
-  public String getPassword() {
-    return password;
-  }
+        return isTeacher;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public void setIsTeacher(Integer isTeacher) {
+        this.isTeacher = isTeacher;
+    }
 
-  public String getNickname() {
-    return nickname;
-  }
+    public long getId() {
+        return id;
+    }
 
-  public void setNickname(String nickname) {
-    this.nickname = nickname;
-  }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-  public String getEmail() {
-    return email;
-  }
+    public String getUsername() {
+        return username;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-  public String getPhone() {
-    return phone;
-  }
+    public String getPassword() {
+        return password;
+    }
 
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-  public Timestamp getRegisterDate() {
-    return registerDate;
-  }
+    public String getNickname() {
+        return nickname;
+    }
 
-  public void setRegisterDate(Timestamp registerDate) {
-    this.registerDate = registerDate;
-  }
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
-  public String getAddress() {
-    return address;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public String getImgUrl() {
-    return imgUrl;
-  }
+    public String getPhone() {
+        return phone;
+    }
 
-  public void setImgUrl(String imgUrl) {
-    this.imgUrl = imgUrl;
-  }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-  public long getTotalScore() {
-    return totalScore;
-  }
+    public Timestamp getRegisterDate() {
+        return registerDate;
+    }
 
-  public void setTotalScore(long totalScore) {
-    this.totalScore = totalScore;
-  }
+    public void setRegisterDate(Timestamp registerDate) {
+        this.registerDate = registerDate;
+    }
 
-  public long getScore() {
-    return score;
-  }
+    public String getAddress() {
+        return address;
+    }
 
-  public void setScore(long score) {
-    this.score = score;
-  }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-  public long getScoreId() {
-    return scoreId;
-  }
+    public String getImgUrl() {
+        return imgUrl;
+    }
 
-  public void setScoreId(long scoreId) {
-    this.scoreId = scoreId;
-  }
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 
-  public long getCatetgoryId() {
-    return catetgoryId;
-  }
+    public long getTotalScore() {
+        return totalScore;
+    }
 
-  public void setCatetgoryId(long catetgoryId) {
-    this.catetgoryId = catetgoryId;
-  }
+    public void setTotalScore(long totalScore) {
+        this.totalScore = totalScore;
+    }
 
-  public String getCategoryName() {
-    return categoryName;
-  }
+    public long getScore() {
+        return score;
+    }
 
-  public void setCategoryName(String categoryName) {
-    this.categoryName = categoryName;
-  }
+    public void setScore(long score) {
+        this.score = score;
+    }
 
-  public String getValidateCode() {
-    return validateCode;
-  }
+    public long getScoreId() {
+        return scoreId;
+    }
 
-  public void setValidateCode(String validateCode) {
-    this.validateCode = validateCode;
-  }
+    public void setScoreId(long scoreId) {
+        this.scoreId = scoreId;
+    }
 
-  public Integer getSex() {
-    return sex;
-  }
+    public long getCatetgoryId() {
+        return catetgoryId;
+    }
 
-  public void setSex(Integer sex) {
-    this.sex = sex;
-  }
+    public void setCatetgoryId(long catetgoryId) {
+        this.catetgoryId = catetgoryId;
+    }
 
-  public String getOldPassword() {
-    return oldPassword;
-  }
+    public String getCategoryName() {
+        return categoryName;
+    }
 
-  public void setOldPassword(String oldPassword) {
-    this.oldPassword = oldPassword;
-  }
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getValidateCode() {
+        return validateCode;
+    }
+
+    public void setValidateCode(String validateCode) {
+        this.validateCode = validateCode;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
 }
