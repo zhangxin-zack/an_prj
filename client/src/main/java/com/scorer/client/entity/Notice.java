@@ -1,8 +1,5 @@
 package com.scorer.client.entity;
 
-import org.apache.commons.lang.StringUtils;
-
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
