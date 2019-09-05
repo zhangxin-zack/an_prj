@@ -18,6 +18,9 @@ public class Manager {
     private Long currentRoleId;
     private List<Long> roleId;
     private String token;
+    private String province;     //代理商省份
+    private String city;         //代理商城市
+    private String village;      //代理商区域
 
     public Long getId() {
         return id;
@@ -130,4 +133,29 @@ public class Manager {
     public void setVerify(Integer verify) {
         this.verify = verify;
     }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getVillage() {
+        return village;
+    }
+
+    public void setVillage(String village) {
+        this.village = village;
+    }
+
 }

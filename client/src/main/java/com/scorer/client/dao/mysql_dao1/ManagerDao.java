@@ -4,6 +4,7 @@ import com.scorer.client.entity.Manager;
 import com.scorer.client.entity.Menu;
 import com.scorer.client.entity.Role;
 import com.scorer.client.values.PageBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -78,4 +79,11 @@ public interface ManagerDao {
     long getAgentAreaCount(PageBean page) throws Exception;
 
     List<Map> getAgentAreaList(PageBean page) throws Exception;
+
+    Map<String, Object> getAgentArea(@Param("agentId") Long agentId) throws Exception;
+
+    Map<String, Object> saveAgentRole(@Param("agentId") Long agentId, @Param("province") String province,
+            @Param("city") String city, @Param("village") String village) throws Exception;
+
+    List<Map> listAllArea(@Param("agentId") Long agentId) throws Exception;
 }

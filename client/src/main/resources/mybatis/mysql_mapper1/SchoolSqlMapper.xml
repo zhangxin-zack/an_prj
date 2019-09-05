@@ -87,11 +87,11 @@
 
     <insert id="addSchool">
         insert into school(
-            title, simple_title, linkman, registe_date,
-            phone, area, address, lon, lat, email, description)
+            title, simple_title, linkman, registe_date, phone, area, address, lon, lat,
+            email, description, province, city, village)
         values (
             #{title}, #{simpleTitle},#{linkman},str_to_date(#{registeDate}, '%Y-%m-%d'),
-            #{phone},#{area}, #{address},#{lon},#{lat},#{email},#{description}
+            #{phone},#{area}, #{address},#{lon},#{lat},#{email},#{description},#{province},#{city},#{village}
             )
     </insert>
 
@@ -137,6 +137,15 @@
             </if>
             <if test="description != null and description != '' ">
                 description = #{description},
+            </if>
+            <if test="province != null">
+                province = #{province},
+            </if>
+            <if test="city != null and city != '' ">
+                city = #{city},
+            </if>
+            <if test="village != null and village != '' ">
+                village = #{village},
             </if>
         </set>
         where id = #{id}

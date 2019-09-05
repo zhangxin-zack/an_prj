@@ -54,4 +54,8 @@ public interface ManagerService {
     Map<String, Object> listAgentArea(PageBean page);
 
     Map<String, Object> listAgentSchool(PageBean page);
+
+    Map<String, Object> listAllArea(Long agentId);
+
+    Map<String, Object> addAgentArea(Long agentId, List<Map<String, String>> areaMap);
 }

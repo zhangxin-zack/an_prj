@@ -1,3 +1,4 @@
+/*
 package com.scorer.client._Spring;
 
 import com.scorer.client._Excptions.Secret_SD_Used_Exception;
@@ -93,4 +94,4 @@ public class GlobalExceptionHandler {   //全局异常捕获
         responseMap.put("msg", ResultMap.Result.get(responseMap.get("result")));
         return responseMap;
     }
-}
+}*/

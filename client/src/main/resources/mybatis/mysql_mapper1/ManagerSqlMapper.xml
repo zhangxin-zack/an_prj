@@ -14,6 +14,7 @@
         <result column="phone" property="phoneNo"/>
         <result column="status_flag" property="statusFlag"/>
         <result column="verify" property="verify"/>
+        <result column="role_id" property="currentRoleId"/>
     </resultMap>
 
     <resultMap id="role" type="com.scorer.client.entity.Role">
@@ -49,6 +50,24 @@
             AND m.password = #{password} AND m.status_flag=0
     </select>
 
+    <select id="getAgentArea" resultType="map">
+        SELECT
+            province,
+            city,
+            village
+        FROM
+            agent_area
+        WHERE agent_id = #{agentId}
+    </select>
+
+    <insert id="saveAgentRole">
+        insert into agent_area(
+            agent_id, province, city, village)
+        values
+            (#{agentId}, #{province}, #{city}, #{village})
+    </insert>
+
+
     <select id="loginManage" resultMap="manager">
         SELECT
             m.id,
@@ -57,9 +76,13 @@
             m.realname,
             m.create_time,
             m.PASSWORD,
-            m.phone
+            m.phone,
+            mr.role_id
         FROM
             manager m
+        LEFT JOIN
+            manager_role mr
+        ON m.id = mr.manager_id
         WHERE
             m.username = #{username}
             AND m.password = #{password} AND m.status_flag=0 AND m.school_id IS NULL
@@ -386,5 +409,22 @@
             s.city,
             s.village
         LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+    <select id="listAllArea" resultType="map">
+        SELECT
+            aa.province,
+            aa.city,
+            aa.village,
+            s.id as schoolId,
+            s.title as schoolName
+        FROM
+            agent_area aa
+        LEFT JOIN school s
+        ON aa.province = s.province
+        AND aa.city = s.city
+        AND aa.village = s.village
+        WHERE
+            aa.agent_id = #{agentId}
     </select>
 </mapper>
