@@ -17,6 +17,7 @@ import java.util.Map;
 
 @FeignClient(value = "scorer-client")
 public interface NoticeService {
+
     @RequestMapping(value = "/EDU/notice/get", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getNoticeById(@RequestParam(value = "id") Integer id);
 
@@ -31,9 +32,15 @@ public interface NoticeService {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     Map addNotice(@RequestParam("noticeTitle") String noticeTitle,
                   @RequestParam("noticeContent") String noticeContent,
-                  @RequestPart(value = "timetableFile", required = false) MultipartFile noticeFile,
+                  @RequestPart(value = "timetableFile") MultipartFile noticeFile,
                   @RequestParam("classIds") List<String> classIds,
                   @RequestParam("fromTo") Integer fromTo);
+
+    @RequestMapping(value = "/EDU/notice/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map addNoticeSort(@RequestParam("noticeTitle") String noticeTitle,
+                      @RequestParam("noticeContent") String noticeContent,
+                      @RequestParam("classIds") List<String> classIds,
+                      @RequestParam("fromTo") Integer fromTo);
 
     @RequestMapping(value = "/EDU/notice/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map updateNotice(@RequestBody Notice notice);

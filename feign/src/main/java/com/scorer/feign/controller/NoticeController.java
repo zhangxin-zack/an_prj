@@ -38,10 +38,18 @@ public class NoticeController {
     @RequestMapping(value = "/add")
     public Map addNotice(@RequestParam("noticeTitle") String noticeTitle,
                          @RequestParam("noticeContent") String noticeContent,
-                         @RequestPart(value = "timetableFile", required = false) MultipartFile noticeFile,
+                         @RequestPart(value = "noticeFile") MultipartFile noticeFile,
                          @RequestParam("classIds") List<String> classIds,
                          @RequestParam("fromTo") Integer fromTo) {
         return noticeService.addNotice(noticeTitle, noticeContent, noticeFile, classIds, fromTo);
+    }
+
+    @RequestMapping(value = "/addSort")
+    public Map addNoticeSort(@RequestParam("noticeTitle") String noticeTitle,
+                             @RequestParam("noticeContent") String noticeContent,
+                             @RequestParam("classIds") List<String> classIds,
+                             @RequestParam("fromTo") Integer fromTo) {
+        return noticeService.addNoticeSort(noticeTitle, noticeContent, classIds, fromTo);
     }
 
     @RequestMapping(value = "/update")

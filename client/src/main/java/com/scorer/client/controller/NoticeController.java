@@ -40,7 +40,7 @@ public class NoticeController {
     @RequestMapping(value = "/add")
     public Map addNotice(@RequestParam("noticeTitle") String noticeTitle,
                          @RequestParam("noticeContent") String noticeContent,
-                         @RequestParam(value = "timetableFile", required = false) MultipartFile noticeFile,
+                         @RequestParam(value = "timetableFile" ,required = false) MultipartFile noticeFile,
                          @RequestParam("classIds") List<String> classIds,
                          @RequestParam("fromTo") Integer fromTo) {
         return noticeService.addNotice(noticeTitle, noticeContent, noticeFile, classIds, fromTo);

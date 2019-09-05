@@ -101,14 +101,14 @@
         <if test="classId!=null">
             INSERT INTO notice(class_id, notice_title, notice_content, notice_date, from_to,notice_id,notice_file)
             VALUES (#{classId}, #{noticeTitle}, #{noticeContent}, UNIX_TIMESTAMP(NOW())*1000,
-            #{fromTo},#{noticeId},#{notice_file})
+            #{fromTo},#{noticeId},#{noticeFile})
         </if>
         <if test="classIds.size()>0">
             INSERT INTO notice(class_id, notice_title, notice_content, notice_date, from_to,notice_id,notice_file)
             VALUES
             <foreach collection="classIds" item="i" separator=",">
                 (#{i}, #{noticeTitle}, #{noticeContent}, UNIX_TIMESTAMP(NOW())*1000,
-                #{fromTo},#{noticeId},#{notice_file})
+                #{fromTo},#{noticeId},#{noticeFile})
             </foreach>
         </if>
     </insert>
