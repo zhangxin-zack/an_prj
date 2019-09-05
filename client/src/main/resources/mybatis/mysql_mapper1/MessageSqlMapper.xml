@@ -6,8 +6,8 @@
         <selectKey keyColumn="msg_id" keyProperty="msg_id" order="AFTER" resultType="Integer">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        INSERT INTO msg_info(to_home, to_class_split, from_uid, from_student_id, msg_time, msg_type, msg_content)
-        VALUES(#{to_home},#{to_class_split},#{from_uid},#{from_student_id},#{msg_time},#{msg_type},#{msg_content})
+        INSERT INTO msg_info(to_home, to_class, from_uid, from_student_id, msg_time, msg_type, msg_content)
+        VALUES(#{to_home},#{to_class},#{from_uid},#{from_student_id},#{msg_time},#{msg_type},#{msg_content})
     </insert>
 
     <select id="GetHomeMSG" resultType="WSMessage">
@@ -28,7 +28,7 @@
             ,a.*
         FROM msg_info a
         LEFT JOIN account b ON a.from_uid = b.id
-        WHERE CONTAINS(a.to_class_split,#{class_id}) AND a.msg_time&lt;#{time}
+        WHERE a.to_class=#{class_id} AND a.msg_time&lt;#{time}
         ORDER BY a.msg_time DESC
         LIMIT 0,#{count}
     </select>

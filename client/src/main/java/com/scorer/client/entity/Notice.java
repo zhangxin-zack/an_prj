@@ -1,6 +1,5 @@
 package com.scorer.client.entity;
 
-import com.google.gson.Gson;
 import org.apache.commons.lang.StringUtils;
 
 import java.sql.Timestamp;
@@ -11,21 +10,15 @@ import java.util.List;
 public class Notice {
 
     private Long id;
-    private String noticTitle;
+    private String noticeTitle;
     private String noticeContent;
-    private java.sql.Timestamp noticeDate;
+    private String noticeFile;
+    private Long noticeDate;
     private Long classId;
     private List<String> classIds;
     private Integer fromTo;
     private Integer isRead;
-
-    public String getClassIdSplit(){
-        if(classIds==null){
-            return null;
-        }else{
-            return StringUtils.join(classIds,"|");
-        }
-    }
+    private Long noticeId;
 
     public void setClassIdSplit(String classIdSplit){
         if(classIdSplit==null){
@@ -33,6 +26,30 @@ public class Notice {
         }else{
             this.classIds = Arrays.asList(classIdSplit.split("\\|"));
         }
+    }
+
+    public String getNoticeFile() {
+        return noticeFile;
+    }
+
+    public void setNoticeFile(String noticeFile) {
+        this.noticeFile = noticeFile;
+    }
+
+    public Long getNoticeDate() {
+        return noticeDate;
+    }
+
+    public void setNoticeDate(Long noticeDate) {
+        this.noticeDate = noticeDate;
+    }
+
+    public Long getNoticeId() {
+        return noticeId;
+    }
+
+    public void setNoticeId(Long noticeId) {
+        this.noticeId = noticeId;
     }
 
     public Long getId() {
@@ -43,12 +60,12 @@ public class Notice {
         this.id = id;
     }
 
-    public String getNoticTitle() {
-        return noticTitle;
+    public String getNoticeTitle() {
+        return noticeTitle;
     }
 
-    public void setNoticTitle(String noticTitle) {
-        this.noticTitle = noticTitle;
+    public void setNoticeTitle(String noticeTitle) {
+        this.noticeTitle = noticeTitle;
     }
 
     public String getNoticeContent() {
@@ -57,14 +74,6 @@ public class Notice {
 
     public void setNoticeContent(String noticeContent) {
         this.noticeContent = noticeContent;
-    }
-
-    public Timestamp getNoticeDate() {
-        return noticeDate;
-    }
-
-    public void setNoticeDate(Timestamp noticeDate) {
-        this.noticeDate = noticeDate;
     }
 
     public Long getClassId() {

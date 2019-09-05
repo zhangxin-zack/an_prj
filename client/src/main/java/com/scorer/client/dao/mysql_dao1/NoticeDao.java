@@ -13,7 +13,7 @@ public interface NoticeDao {
 
     Long getNoticeCount(PageBean page) throws Exception;
 
-    List<Notice> getNoticeList(PageBean page) throws Exception;
+    List<Notice> getNoticeListBK(PageBean page) throws Exception;
 
     Notice getNoticeById(Integer noticeId) throws Exception;
 

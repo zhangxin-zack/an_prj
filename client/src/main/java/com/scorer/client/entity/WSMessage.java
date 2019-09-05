@@ -1,7 +1,5 @@
 package com.scorer.client.entity;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -15,6 +13,7 @@ public class WSMessage implements Serializable {
     private Integer msg_id;
     private int to_home=-1;
     private ArrayList<Integer> to_classes;
+    private Integer to_class;
     private Integer from_uid;
     private Integer from_student_id;
     private Long msg_time;
@@ -25,12 +24,12 @@ public class WSMessage implements Serializable {
     public WSMessage() {
     }
 
-    public String getTo_class_split(){
-        if(to_classes==null){
-            return null;
-        }else{
-            return StringUtils.join(to_classes,"|");
-        }
+    public Integer getTo_class() {
+        return to_class;
+    }
+
+    public void setTo_class(Integer to_class) {
+        this.to_class = to_class;
     }
 
     public Integer getFrom_student_id() {

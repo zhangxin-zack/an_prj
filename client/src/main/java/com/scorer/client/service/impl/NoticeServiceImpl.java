@@ -8,7 +8,6 @@ import com.scorer.client.entity.Notice;
 import com.scorer.client.entity.RecommendCategory;
 import com.scorer.client.entity.Student;
 import com.scorer.client.service.NoticeService;
-import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +32,7 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
                 page.getSearchs().put("classId", student.getClassId());
             }
             page.setTotal(NoticeDao.getNoticeCount(page));
-            page.setRows(NoticeDao.getNoticeList(page));
+            page.setRows(NoticeDao.getNoticeListBK(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
         }catch (Exception e){
             e.printStackTrace();
@@ -56,7 +55,7 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
     public Map<String, Object> addNotice(Notice notice) {
         try{
             if(notice.getClassIds()==null){
-//                notice.setClassIds(new ArrayList<>());
+                notice.setClassIds(new ArrayList<>());
             }
             NoticeDao.addNotice(notice);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
