@@ -32,6 +32,11 @@ public class NoticeController {
         return noticeService.getNoticeList(page);
     }
 
+    @RequestMapping(value = "/list/Phone")
+    public Map getNoticeListPhone(@RequestBody PageBean page) {
+        return noticeService.getNoticeListPhone(page);
+    }
+
     @RequestMapping(value = "/add")
     public Map addNotice(@RequestBody Notice notice) {
         return noticeService.addNotice(notice);

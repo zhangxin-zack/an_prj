@@ -40,4 +40,5 @@ public interface NoticeService {
 
     Map<String, Object> deleteCategory(List<Long> categoryIds);
 
+    Map<String, Object> getNoticeListPhone(PageBean page);
 }

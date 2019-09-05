@@ -21,6 +21,9 @@ public interface NoticeService {
     @RequestMapping(value = "/EDU/notice/list", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getNoticeList(@RequestBody PageBean page);
 
+    @RequestMapping(value = "/EDU/notice/list/Phone", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getNoticeListPhone(PageBean page);
+
     @RequestMapping(value = "/EDU/notice/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map addNotice(@RequestBody Notice notice);
 
@@ -53,4 +56,6 @@ public interface NoticeService {
 
     @RequestMapping(value = "/EDU/notice/remove_recommend_category", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map deleteCategory(@RequestParam("recommendIds") List<Long> categoryIds);
+
+
 }

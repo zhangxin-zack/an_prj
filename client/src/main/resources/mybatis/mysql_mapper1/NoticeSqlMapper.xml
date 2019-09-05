@@ -41,7 +41,8 @@
     </select>
 
     <select id="getNoticeListBK" resultMap="notice">
-        SELECT notice_title, notice_content, notice_date,from_to,notice_file,GROUP_CONCAT(class_id SEPARATOR '|') AS classIdSplit
+        SELECT notice_title, notice_content, notice_date,from_to,notice_file,GROUP_CONCAT(class_id SEPARATOR '|') AS
+        classIdSplit
         FROM notice WHERE 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
             AND class_id=#{searchs.classId}
@@ -56,7 +57,15 @@
         LIMIT #{startIndex}, #{pageSize}
     </select>
 
-    <select id="getNoticeListByClass" resultMap="notice">
+    <select id="getNoticeCountPhone" resultType="long">
+        SELECT COUNT(notice_id) FROM notice
+        WHERE 1=1 AND class_id=#{searchs.classId}
+        <if test="searchs.formTo != null">
+            AND from_to = #{searchs.formTo}
+        </if>
+    </select>
+
+    <select id="getNoticeListPhone" resultMap="notice">
         SELECT notice_title, notice_content, notice_date,from_to, is_read,notice_file
         FROM notice
         WHERE 1=1
@@ -79,6 +88,14 @@
         FROM notice
         WHERE id = #{NoticeId}
     </select>
+
+    <insert id="beforeAddNotice">
+        <selectKey resultType="Long" keyColumn="notice_id" keyProperty="notice_id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO notice_id(notice_time)
+        VALUES (#{notice_time})
+    </insert>
 
     <insert id="addNotice">
         <if test="classId!=null">
