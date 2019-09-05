@@ -84,13 +84,13 @@ public class ClassesController {
         return classesService.getAccountClassesList(condition);
     }
 
-    @RequestMapping(value = {"/upload_timetable","modify_timetable"})
+    @RequestMapping(value = "/upload_timetable")
     public Map uploadTimetable(@RequestParam(value = "classId") Long classId,
-                               @RequestParam(value = "timetableFile",required = false) MultipartFile timetableFile,
-                               @RequestParam(value = "timetable") String timetable,
+                               @RequestParam(value = "timetableFile", required = false) MultipartFile timetableFile,
+                               @RequestParam(value = "timetable", required = false) String timetable,
                                @RequestParam(value = "startDate") Long startDate) {
-        Timetable timetable1 = new Timetable(classId,startDate,timetable);
-        if(!timetableFile.isEmpty()){
+        Timetable timetable1 = new Timetable(classId, startDate, timetable);
+        if (timetableFile != null && !timetableFile.isEmpty()) {
             timetable1.setTimetable(ExcelUtils.getTimetableData(timetableFile));
         }
         return classesService.addTimetable(timetable1);
@@ -108,6 +108,7 @@ public class ClassesController {
 
     /**
      * 查询班级下所有学生的家长
+     *
      * @param classId
      * @return
      */
@@ -118,6 +119,7 @@ public class ClassesController {
 
     /**
      * 查询学生下所有学生的家长
+     *
      * @param studentId
      * @return
      */
@@ -128,6 +130,7 @@ public class ClassesController {
 
     /**
      * 上课时间模板列表
+     *
      * @param condition
      * @return
      */

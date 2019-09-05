@@ -60,7 +60,11 @@ public interface ClassesService {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE},
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     Map uploadTimetable(@RequestParam(value = "classId") Long classId,
-                        @RequestPart(value = "timetableFile",required = false) MultipartFile timetableFile,
+                        @RequestPart(value = "timetableFile") MultipartFile timetableFile,
+                        @RequestParam(value = "startDate") Long startDate);
+
+    @RequestMapping(value = "/EDU/classes/upload_timetable", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map modifyTimetable(@RequestParam(value = "classId") Long classId,
                         @RequestParam(value = "timetable") String timetable,
                         @RequestParam(value = "startDate") Long startDate);
 
@@ -88,5 +92,6 @@ public interface ClassesService {
 
     @RequestMapping(value = "/EDU/classes/remove_class_time", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map deleteClassTime(@RequestParam(value = "classTimeIds") List<Integer> classTimeIds);
+
 
 }

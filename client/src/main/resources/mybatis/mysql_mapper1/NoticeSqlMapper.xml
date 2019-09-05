@@ -38,7 +38,8 @@
     </select>
 
     <select id="getNoticeList" resultMap="notice">
-        select id, notice_title, notice_content, notice_date,class_id_split,from_to, is_read,#{searchs.classId} AS class_id from notice where 1=1
+        select id, notice_title, notice_content, notice_date,class_id_split,from_to, is_read,#{searchs.classId} AS class_id
+        from notice where 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
             AND CONTAINS(class_id_split,#{searchs.classId})
         </if>

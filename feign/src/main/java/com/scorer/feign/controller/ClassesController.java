@@ -77,12 +77,18 @@ public class ClassesController {
         return classesService.getAccountClassesList(condition);
     }
 
-    @RequestMapping(value = "/upload_timetable")
+    @RequestMapping(value ="/upload_timetable")
     public Map uploadTimetable(@RequestParam(value = "classId") Long classId,
-                               @RequestPart(value = "timetableFile",required = false) MultipartFile timetableFile,
+                               @RequestPart(value = "timetableFile") MultipartFile timetableFile,
+                               @RequestParam(value = "startDate") Long startDate) {
+        return classesService.uploadTimetable(classId,timetableFile,startDate);
+    }
+
+    @RequestMapping(value ="/modify_timetable")
+    public Map modifyTimetable(@RequestParam(value = "classId") Long classId,
                                @RequestParam(value = "timetable") String timetable,
                                @RequestParam(value = "startDate") Long startDate) {
-        return classesService.uploadTimetable(classId,timetableFile,timetable,startDate);
+        return classesService.modifyTimetable(classId,timetable,startDate);
     }
 
     @RequestMapping(value = "/download_timetable_temp")

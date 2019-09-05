@@ -105,4 +105,5 @@ public class NoticeController {
     public Map deleteCategory(@RequestParam("categoryIds") List<Long> categoryIds) {
         return noticeService.deleteCategory(categoryIds);
     }
+
 }
