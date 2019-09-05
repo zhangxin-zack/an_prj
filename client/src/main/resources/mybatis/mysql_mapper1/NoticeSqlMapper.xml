@@ -30,18 +30,17 @@
     </resultMap>
 
     <select id="getNoticeCount" resultType="long">
-        SELECT COUNT(notice_id) FROM notice WHERE 1=1
+        SELECT COUNT(DISTINCT notice_id) FROM notice WHERE 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
             AND class_id=#{searchs.classId}
         </if>
         <if test="searchs.formTo != null">
             AND from_to = #{searchs.formTo}
         </if>
-        GROUP BY notice_id
     </select>
 
     <select id="getNoticeListBK" resultMap="notice">
-        SELECT notice_title, notice_content, notice_date,from_to,notice_file,GROUP_CONCAT(class_id SEPARATOR '|') AS
+        SELECT notice_id,notice_title, notice_content, notice_date,from_to,notice_file,GROUP_CONCAT(class_id SEPARATOR '|') AS
         classIdSplit
         FROM notice WHERE 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
@@ -53,7 +52,7 @@
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
         </foreach>
-        GROUP BY notice_id,notice_title, notice_content, notice_date,from_to
+        GROUP BY notice_id,notice_title, notice_content, notice_file,notice_date,from_to
         LIMIT #{startIndex}, #{pageSize}
     </select>
 
