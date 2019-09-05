@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -37,8 +38,12 @@ public class NoticeController {
     }
 
     @RequestMapping(value = "/add")
-    public Map addNotice(@RequestBody Notice notice) {
-        return noticeService.addNotice(notice);
+    public Map addNotice(@RequestParam("noticeTitle") String noticeTitle,
+                         @RequestParam("noticeContent") String noticeContent,
+                         @RequestParam(value = "timetableFile", required = false) MultipartFile noticeFile,
+                         @RequestParam("classIds") List<String> classIds,
+                         @RequestParam("fromTo") Integer fromTo) {
+        return noticeService.addNotice(noticeTitle, noticeContent, noticeFile, classIds, fromTo);
     }
 
     @RequestMapping(value = "/update")
@@ -73,6 +78,7 @@ public class NoticeController {
 
     /**
      * 每日文章分类管理
+     *
      * @param page
      * @return
      */
@@ -83,6 +89,7 @@ public class NoticeController {
 
     /**
      * 新增文章分类
+     *
      * @param category
      * @return
      */
@@ -93,6 +100,7 @@ public class NoticeController {
 
     /**
      * 修改文章分类
+     *
      * @param category
      * @return
      */
@@ -103,6 +111,7 @@ public class NoticeController {
 
     /**
      * 删除文章分类
+     *
      * @param categoryIds
      * @return
      */

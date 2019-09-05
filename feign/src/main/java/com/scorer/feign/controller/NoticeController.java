@@ -6,10 +6,8 @@ import com.scorer.feign.entity.RecommendCategory;
 import com.scorer.feign.feign_con.NoticeService;
 import com.scorer.feign.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -38,8 +36,12 @@ public class NoticeController {
     }
 
     @RequestMapping(value = "/add")
-    public Map addNotice(@RequestBody Notice notice) {
-        return noticeService.addNotice(notice);
+    public Map addNotice(@RequestParam("noticeTitle") String noticeTitle,
+                         @RequestParam("noticeContent") String noticeContent,
+                         @RequestPart(value = "timetableFile", required = false) MultipartFile noticeFile,
+                         @RequestParam("classIds") List<String> classIds,
+                         @RequestParam("fromTo") Integer fromTo) {
+        return noticeService.addNotice(noticeTitle, noticeContent, noticeFile, classIds, fromTo);
     }
 
     @RequestMapping(value = "/update")

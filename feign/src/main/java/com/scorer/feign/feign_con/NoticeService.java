@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -24,8 +26,14 @@ public interface NoticeService {
     @RequestMapping(value = "/EDU/notice/list/Phone", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getNoticeListPhone(PageBean page);
 
-    @RequestMapping(value = "/EDU/notice/add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    Map addNotice(@RequestBody Notice notice);
+    @RequestMapping(value = "/EDU/notice/add",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE},
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    Map addNotice(@RequestParam("noticeTitle") String noticeTitle,
+                  @RequestParam("noticeContent") String noticeContent,
+                  @RequestPart(value = "timetableFile", required = false) MultipartFile noticeFile,
+                  @RequestParam("classIds") List<String> classIds,
+                  @RequestParam("fromTo") Integer fromTo);
 
     @RequestMapping(value = "/EDU/notice/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map updateNotice(@RequestBody Notice notice);

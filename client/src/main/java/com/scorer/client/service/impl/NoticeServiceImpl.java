@@ -8,6 +8,7 @@ import com.scorer.client.service.NoticeService;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,11 +66,9 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
     }
 
     @Override
-    public Map<String, Object> addNotice(Notice notice) {
+    public Map<String, Object> addNotice(String noticeTitle, String noticeContent, MultipartFile noticeFile, List<String> classIds, Integer fromTo) {
         try{
-            if(notice.getClassIds()==null){
-                notice.setClassIds(new ArrayList<>());
-            }
+            Notice notice =new Notice(noticeTitle, noticeContent, noticeFile, classIds, fromTo);
             NoticeId noticeId = new NoticeId();
             NoticeDao.beforeAddNotice(noticeId);
             notice.setNoticeId(noticeId.getNotice_id());

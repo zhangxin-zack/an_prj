@@ -1,5 +1,7 @@
 package com.scorer.client.entity;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,10 +19,20 @@ public class Notice {
     private Integer isRead;
     private Long noticeId;
 
-    public void setClassIdSplit(String classIdSplit){
-        if(classIdSplit==null){
+    public Notice() {
+    }
+
+    public Notice(String noticeTitle, String noticeContent, MultipartFile noticeFile, List<String> classIds, Integer fromTo) {
+        this.noticeTitle = noticeTitle;
+        this.noticeContent = noticeContent;
+        this.classIds = classIds == null ? new ArrayList<>() : classIds;
+        this.fromTo = fromTo;
+    }
+
+    public void setClassIdSplit(String classIdSplit) {
+        if (classIdSplit == null) {
             this.classIds = new ArrayList<>();
-        }else{
+        } else {
             this.classIds = Arrays.asList(classIdSplit.split("\\|"));
         }
     }
