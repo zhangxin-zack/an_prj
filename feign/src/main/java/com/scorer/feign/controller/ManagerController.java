@@ -122,4 +122,15 @@ public class ManagerController {
         return managerService.listAgentSchool(condition);
     }
 
+    @RequestMapping(value = "/list_all_area")
+    public Map listAllArea(@RequestParam("agentId") Long agentId )
+    {
+        return managerService.listAllArea(agentId);
+    }
+
+    @RequestMapping(value = "/add_agent_area")
+    public Map addAgentArea(@RequestParam(value = "agentId") Long agentId,
+                            @RequestParam(value = "areaInfo") List<Map<String, String>> areaMap) {
+        return managerService.addAgentArea(agentId, areaMap);
+    }
 }
