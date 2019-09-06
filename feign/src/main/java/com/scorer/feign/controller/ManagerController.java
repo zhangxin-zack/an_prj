@@ -133,4 +133,9 @@ public class ManagerController {
                             @RequestParam(value = "areaInfo") List<Map<String, String>> areaMap) {
         return managerService.addAgentArea(agentId, areaMap);
     }
+
+    @RequestMapping(value = "/delete_agent_area")
+    public Map deleteAgentArea(@RequestParam(value = "agentAreaIds") List<Long> agentAreaIds){
+        return managerService.deleteAgentArea(agentAreaIds);
+    }
 }

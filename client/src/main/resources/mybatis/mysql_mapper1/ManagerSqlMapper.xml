@@ -68,6 +68,13 @@
             (#{agentId}, #{province}, #{city}, #{village})
     </insert>
 
+    <delete id="deleteAgentRole">
+        delete from agent_area where id in
+        <foreach collection="list" item="agentAreaId" open="(" separator="," close=")">
+            #{agentAreaId}
+        </foreach>
+    </delete>
+
 
     <select id="loginManage" resultMap="manager">
         SELECT
