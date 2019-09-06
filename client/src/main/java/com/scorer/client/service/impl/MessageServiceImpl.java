@@ -31,15 +31,15 @@ public class MessageServiceImpl extends BaseSeviceImpl implements MessageService
     @Override
     public WSMessage SaveMSG(WSMessage wsMessage) {
         mongoTemplate.insert(wsMessage);
-        messageDao.SaveMSG(wsMessage);
-        System.out.println(new Gson().toJson(wsMessage));
+//        messageDao.SaveMSG(wsMessage);
+//        System.out.println(new Gson().toJson(wsMessage));
         return wsMessage;
     }
 
     @Override
     public Map GetHomeMSG(Long time, Integer count, Long student_id) {
-        List<WSMessage> wsMessageList = messageDao.GetHomeMSG(time, count, student_id);
-        List<WSMessage> wsMessageList2 = mongoTemplate.find(
+//        List<WSMessage> wsMessageList = messageDao.GetHomeMSG(time, count, student_id);
+        List<WSMessage> wsMessageList = mongoTemplate.find(
                 Query.query(Criteria
                         .where("msg_time").lt(time)
                         .and("from_student_id").is(student_id)
@@ -49,7 +49,12 @@ public class MessageServiceImpl extends BaseSeviceImpl implements MessageService
 
     @Override
     public Map GetClassMSG(Long time, Integer count, Long class_id) {
-        List<WSMessage> wsMessageList = messageDao.GetClassMSG(time, count, String.valueOf(class_id));
+//        List<WSMessage> wsMessageList = messageDao.GetClassMSG(time, count, String.valueOf(class_id));
+        List<WSMessage> wsMessageList = mongoTemplate.find(
+                Query.query(Criteria
+                        .where("msg_time").lt(time)
+                        .and("to_class").is(class_id)
+                ).with(new Sort(Sort.Direction.DESC,"msg_time")).limit(count) ,WSMessage.class);
         return resultMap(Iconstants.RESULT_CODE_0, "success", wsMessageList);
     }
 

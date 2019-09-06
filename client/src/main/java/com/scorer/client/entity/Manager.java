@@ -1,6 +1,9 @@
 package com.scorer.client.entity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Manager {
 
@@ -22,6 +25,14 @@ public class Manager {
     private String city;         //代理商城市
     private String village;      //代理商区域
 
+
+    public void setRoleIdList(String roleIdList){
+        if (roleIdList == null) {
+            this.roleId = new ArrayList<>();
+        } else {
+            this.roleId  = Arrays.stream(roleIdList.split("\\|")).map(s -> Long.parseLong(s.trim())).collect(Collectors.toList());
+        }
+    }
 
     public Long getId() {
         return id;

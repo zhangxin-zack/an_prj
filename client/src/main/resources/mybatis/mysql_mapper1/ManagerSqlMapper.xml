@@ -15,6 +15,7 @@
         <result column="status_flag" property="statusFlag"/>
         <result column="verify" property="verify"/>
         <result column="role_id" property="currentRoleId"/>
+        <result column="roleIdList" property="roleIdList"/>
     </resultMap>
 
     <resultMap id="role" type="com.scorer.client.entity.Role">
@@ -112,23 +113,28 @@
 
     <select id="getManagerList" resultMap="manager">
         SELECT
-            id,
-            school_id,
-            username,
-            password,
-            email,
-            realname,
-            create_time,
-            login_time,
-        phone
-        FROM manager
+            a.id,
+            a.school_id,
+            a.username,
+            a.password,
+            a.email,
+            a.realname,
+            a.create_time,
+            a.login_time,
+            a.phone,
+            GROUP_CONCAT(b.role_id separator '|') AS roleIdList
+        FROM manager a
+        LEFT JOIN manager_role b ON a.id=b.manager_id
         WHERE 1 = 1
         <if test="searchs.username!=null and searchs.username!=''">
-            AND username LIKE CONCAT('%',#{searchs.username},'%')
+            AND a.username LIKE CONCAT('%',#{searchs.username},'%')
         </if>
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
         </foreach>
+        GROUP BY
+            b.manager_id,
+            a.id,a.school_id,a.username,a.PASSWORD,a.email,a.realname,a.create_time,a.login_time,a.phone
         LIMIT #{startIndex}, #{pageSize}
     </select>
 

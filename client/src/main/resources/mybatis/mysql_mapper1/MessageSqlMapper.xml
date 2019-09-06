@@ -45,7 +45,7 @@
             account_student a
             LEFT JOIN account b ON a.account_id=b.id
         WHERE
-            student_id = #{studentId}
+            student_id = #{student_id}
     </select>
 
     <select id="ListClassUser" resultType="Account">
