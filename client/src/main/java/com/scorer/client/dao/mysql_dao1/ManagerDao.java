@@ -45,7 +45,6 @@ public interface ManagerDao {
 
     void deleteRoleMenu(Long roleId) throws Exception;
 
-
     void deleteManagersRoleByRoleIds(List<Long> id) throws Exception;
 
     void deleteRoleMenuByRoleIds(List<Long> id) throws Exception;

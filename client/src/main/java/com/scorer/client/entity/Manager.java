@@ -22,6 +22,7 @@ public class Manager {
     private String city;         //代理商城市
     private String village;      //代理商区域
 
+
     public Long getId() {
         return id;
     }

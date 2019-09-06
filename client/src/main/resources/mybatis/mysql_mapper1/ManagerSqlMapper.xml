@@ -411,6 +411,7 @@
         LIMIT #{startIndex}, #{pageSize}
     </select>
 
+
     <select id="listAllArea" resultType="map">
         SELECT
             aa.province,

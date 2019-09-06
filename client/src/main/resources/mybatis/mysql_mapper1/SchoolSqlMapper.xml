@@ -95,6 +95,7 @@
             )
     </insert>
 
+
     <delete id="deleteSchool">
         DELETE FROM school WHERE id IN
         <foreach collection="list" item="schoolId" open="(" separator="," close=")">
