@@ -1,9 +1,20 @@
 package com.scorer.client.entity;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
+@Document(collection = "msg_info")
 public class WSMessage implements Serializable {
+
+    @Id
+    private ObjectId id;
 
     private String username;
     private String phone;
@@ -16,12 +27,43 @@ public class WSMessage implements Serializable {
     private Integer to_class;
     private Integer from_uid;
     private Integer from_student_id;
+
+    @Indexed(direction = IndexDirection.DESCENDING)
     private Long msg_time;
+
     private Integer msg_type;
     private String msg_content;
     private Integer has_read = -1;
 
+
     public WSMessage() {
+    }
+
+    @PersistenceConstructor
+    public WSMessage(ObjectId id, String username, String phone, String nickName, String img_url, Integer msg_id, int to_home, ArrayList<Integer> to_classes, Integer to_class, Integer from_uid, Integer from_student_id, Long msg_time, Integer msg_type, String msg_content, Integer has_read) {
+        this.id = id;
+        this.username = username;
+        this.phone = phone;
+        this.nickName = nickName;
+        this.img_url = img_url;
+        this.msg_id = msg_id;
+        this.to_home = to_home;
+        this.to_classes = to_classes;
+        this.to_class = to_class;
+        this.from_uid = from_uid;
+        this.from_student_id = from_student_id;
+        this.msg_time = msg_time;
+        this.msg_type = msg_type;
+        this.msg_content = msg_content;
+        this.has_read = has_read;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public Integer getTo_class() {

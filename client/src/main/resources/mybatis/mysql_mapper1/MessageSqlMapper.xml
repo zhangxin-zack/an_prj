@@ -17,7 +17,7 @@
         FROM msg_info a
             LEFT JOIN account b ON a.from_uid = b.id
             LEFT JOIN account_student c ON a.from_student_id=c.student_id
-        WHERE c.student_id=#{student_id} AND a.msg_time&lt;#{time}
+        WHERE c.student_id=#{student_id} AND a.msg_time&lt;#{time} AND to_home=1
         ORDER BY a.msg_time DESC
         LIMIT 0,#{count}
     </select>
@@ -28,7 +28,7 @@
             ,a.*
         FROM msg_info a
         LEFT JOIN account b ON a.from_uid = b.id
-        WHERE a.to_class=#{class_id} AND a.msg_time&lt;#{time}
+        WHERE a.to_class=#{class_id} AND a.msg_time&lt;#{time} AND to_home=-1
         ORDER BY a.msg_time DESC
         LIMIT 0,#{count}
     </select>
