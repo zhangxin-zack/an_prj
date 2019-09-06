@@ -7,6 +7,7 @@ import com.scorer.client.values.PageBean;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -16,8 +17,6 @@ public interface NoticeService {
     Map<String, Object> getNoticeById(Integer Notice);
 
     Map<String, Object> getNoticeList(PageBean page);
-
-    Map<String, Object> addNotice(Notice notice);
 
     Map<String, Object> updateNotice(Notice notice);
 
@@ -40,4 +39,7 @@ public interface NoticeService {
 
     Map<String, Object> deleteCategory(List<Long> categoryIds);
 
+    Map<String, Object> getNoticeListPhone(PageBean page);
+
+    Map<String, Object> addNotice(String noticeTitle, String noticeContent, MultipartFile noticeFile, List<String> classIds, Integer fromTo);
 }

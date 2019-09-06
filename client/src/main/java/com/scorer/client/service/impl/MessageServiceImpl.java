@@ -1,5 +1,6 @@
 package com.scorer.client.service.impl;
 
+import com.google.gson.Gson;
 import com.scorer.client.constant.Iconstants;
 import com.scorer.client.dao.mysql_dao1.AccountDao;
 import com.scorer.client.dao.mysql_dao1.MessageDao;
@@ -7,6 +8,10 @@ import com.scorer.client.entity.Account;
 import com.scorer.client.entity.WSMessage;
 import com.scorer.client.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,19 +22,28 @@ import java.util.Random;
 public class MessageServiceImpl extends BaseSeviceImpl implements MessageService {
 
     @Autowired
+    private MongoTemplate mongoTemplate;
+    @Autowired
     private MessageDao messageDao;
     @Autowired
     private AccountDao accountDao;
 
     @Override
     public WSMessage SaveMSG(WSMessage wsMessage) {
+        mongoTemplate.insert(wsMessage);
         messageDao.SaveMSG(wsMessage);
+        System.out.println(new Gson().toJson(wsMessage));
         return wsMessage;
     }
 
     @Override
     public Map GetHomeMSG(Long time, Integer count, Long student_id) {
         List<WSMessage> wsMessageList = messageDao.GetHomeMSG(time, count, student_id);
+        List<WSMessage> wsMessageList2 = mongoTemplate.find(
+                Query.query(Criteria
+                        .where("msg_time").lt(time)
+                        .and("from_student_id").is(student_id)
+                ).with(new Sort(Sort.Direction.DESC,"msg_time")).limit(count) ,WSMessage.class);
         return resultMap(Iconstants.RESULT_CODE_0, "success", wsMessageList);
     }
 

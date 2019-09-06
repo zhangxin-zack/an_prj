@@ -3,15 +3,12 @@ package com.scorer.client.service.impl;
 import com.scorer.client.constant.Iconstants;
 import com.scorer.client.dao.mysql_dao1.NoticeDao;
 import com.scorer.client.dao.mysql_dao1.StudentDao;
-import com.scorer.client.entity.DailyRecommend;
-import com.scorer.client.entity.Notice;
-import com.scorer.client.entity.RecommendCategory;
-import com.scorer.client.entity.Student;
+import com.scorer.client.entity.*;
 import com.scorer.client.service.NoticeService;
-import com.scorer.client.service.impl.BaseSeviceImpl;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +30,23 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
                 page.getSearchs().put("classId", student.getClassId());
             }
             page.setTotal(NoticeDao.getNoticeCount(page));
-            page.setRows(NoticeDao.getNoticeList(page));
+            page.setRows(NoticeDao.getNoticeListBK(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> getNoticeListPhone(PageBean page) {
+        try{
+            if(page.getSearchs().get("studentId")!=null){
+                Student student = studentDao.getStudentById(Long.valueOf(page.getSearchs().get("studentId").toString()));
+                page.getSearchs().put("classId", student.getClassId());
+            }
+            page.setTotal(NoticeDao.getNoticeCountPhone(page));
+            page.setRows(NoticeDao.getNoticeListPhone(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
         }catch (Exception e){
             e.printStackTrace();
@@ -53,11 +66,12 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
     }
 
     @Override
-    public Map<String, Object> addNotice(Notice notice) {
+    public Map<String, Object> addNotice(String noticeTitle, String noticeContent, MultipartFile noticeFile, List<String> classIds, Integer fromTo) {
         try{
-            if(notice.getClassIds()==null){
-//                notice.setClassIds(new ArrayList<>());
-            }
+            Notice notice =new Notice(noticeTitle, noticeContent, noticeFile, classIds, fromTo);
+            NoticeId noticeId = new NoticeId();
+            NoticeDao.beforeAddNotice(noticeId);
+            notice.setNoticeId(noticeId.getNotice_id());
             NoticeDao.addNotice(notice);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         }catch (Exception e){
@@ -177,4 +191,6 @@ public class NoticeServiceImpl extends BaseSeviceImpl implements NoticeService {
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
     }
+
+
 }

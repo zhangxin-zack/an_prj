@@ -1,8 +1,7 @@
 package com.scorer.feign.entity;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,28 +9,56 @@ import java.util.List;
 public class Notice {
 
     private Long id;
-    private String noticTitle;
+    private String noticeTitle;
     private String noticeContent;
-    private Timestamp noticeDate;
+    private String noticeFile;
+    private Long noticeDate;
     private Long classId;
     private List<String> classIds;
     private Integer fromTo;
     private Integer isRead;
+    private Long noticeId;
 
-    public String getClassIdSplit(){
-        if(classIds==null){
-            return null;
-        }else{
-            return StringUtils.join(classIds,"|");
+    public Notice() {
+    }
+
+    public Notice(String noticeTitle, String noticeContent, MultipartFile noticeFile, List<String> classIds, Integer fromTo) {
+        this.noticeTitle = noticeTitle;
+        this.noticeContent = noticeContent;
+        this.classIds = classIds == null ? new ArrayList<>() : classIds;
+        this.fromTo = fromTo;
+    }
+
+    public void setClassIdSplit(String classIdSplit) {
+        if (classIdSplit == null) {
+            this.classIds = new ArrayList<>();
+        } else {
+            this.classIds = Arrays.asList(classIdSplit.split("\\|"));
         }
     }
 
-    public void setClassIdSplit(String classIdSplit){
-        if(classIdSplit==null){
-            this.classIds = new ArrayList<>();
-        }else{
-            this.classIds = Arrays.asList(classIdSplit.split("\\|"));
-        }
+    public String getNoticeFile() {
+        return noticeFile;
+    }
+
+    public void setNoticeFile(String noticeFile) {
+        this.noticeFile = noticeFile;
+    }
+
+    public Long getNoticeDate() {
+        return noticeDate;
+    }
+
+    public void setNoticeDate(Long noticeDate) {
+        this.noticeDate = noticeDate;
+    }
+
+    public Long getNoticeId() {
+        return noticeId;
+    }
+
+    public void setNoticeId(Long noticeId) {
+        this.noticeId = noticeId;
     }
 
     public Long getId() {
@@ -42,12 +69,12 @@ public class Notice {
         this.id = id;
     }
 
-    public String getNoticTitle() {
-        return noticTitle;
+    public String getNoticeTitle() {
+        return noticeTitle;
     }
 
-    public void setNoticTitle(String noticTitle) {
-        this.noticTitle = noticTitle;
+    public void setNoticeTitle(String noticeTitle) {
+        this.noticeTitle = noticeTitle;
     }
 
     public String getNoticeContent() {
@@ -56,14 +83,6 @@ public class Notice {
 
     public void setNoticeContent(String noticeContent) {
         this.noticeContent = noticeContent;
-    }
-
-    public Timestamp getNoticeDate() {
-        return noticeDate;
-    }
-
-    public void setNoticeDate(Timestamp noticeDate) {
-        this.noticeDate = noticeDate;
     }
 
     public Long getClassId() {
