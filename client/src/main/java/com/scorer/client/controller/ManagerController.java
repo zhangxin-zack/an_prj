@@ -158,6 +158,16 @@ public class ManagerController {
     }
 
     /**
+     * 获取指定代理商的代理区域
+     * @param condition
+     * @return
+     */
+    @RequestMapping(value = "/list_all_area_page")
+    public Map listAllAreaPage(@RequestBody PageBean condition) {
+        return managerService.listAllAreaPage(condition);
+    }
+
+    /**
      * 获取代理商列表(不分页)
      * @param condition
      * @return
@@ -171,13 +181,19 @@ public class ManagerController {
     /**
      * 添加代理商区域
      * @param agentId  代理商ID(角色为代理商的managerId)
-     * @param areaMap  省市区
+     * @param areaInfo  省市区
      * @return
      */
+//    @RequestMapping(value = "/add_agent_area")
+//    public Map addAgentArea(@RequestParam(value = "agentId") Long agentId,
+//                            @RequestBody List<Map<String, String>> areaInfo) {
+//        return managerService.addAgentArea(agentId, areaInfo);
+//    }
+
+
     @RequestMapping(value = "/add_agent_area")
-    public Map addAgentArea(@RequestParam(value = "agentId") Long agentId,
-                            @RequestParam(value = "areaInfo") List<Map<String, String>> areaMap) {
-        return managerService.addAgentArea(agentId, areaMap);
+    public Map addAgentArea(@RequestBody Map areaInfo) {
+        return managerService.addAgentArea(areaInfo);
     }
 
     @RequestMapping(value = "/delete_agent_area")

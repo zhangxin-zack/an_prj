@@ -81,10 +81,14 @@ public interface ManagerDao {
 
     Map<String, Object> getAgentArea(@Param("agentId") Long agentId) throws Exception;
 
-    Map<String, Object> saveAgentRole(@Param("agentId") Long agentId, @Param("province") String province,
+    void saveAgentRole(@Param("agentId") Long agentId, @Param("province") String province,
             @Param("city") String city, @Param("village") String village) throws Exception;
 
     List<Map> listAllArea(@Param("agentId") Long agentId) throws Exception;
+
+    long listAllAreaCount(PageBean page) throws Exception;
+
+    List<Map> listAllAreaList(PageBean page) throws Exception;
 
     void deleteAgentRole(List<Long> id) throws Exception;
 }

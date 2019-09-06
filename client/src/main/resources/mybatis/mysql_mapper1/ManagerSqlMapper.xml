@@ -441,4 +441,31 @@
         WHERE
             aa.agent_id = #{agentId}
     </select>
+
+    <select id="listAllAreaCount" resultType="Long">
+        SELECT
+            count(aa.agent_id)
+        FROM
+            agent_area aa
+        WHERE
+            aa.agent_id = #{searchs.agentId}
+    </select>
+
+    <select id="listAllAreaList" resultType="map">
+        SELECT
+            aa.province,
+            aa.city,
+            aa.village,
+            s.id as schoolId,
+            s.title as schoolName
+        FROM
+            agent_area aa
+                LEFT JOIN school s
+                          ON aa.province = s.province
+                              AND aa.city = s.city
+                              AND aa.village = s.village
+        WHERE 1 = 1
+            AND aa.agent_id = #{searchs.agentId}
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
 </mapper>

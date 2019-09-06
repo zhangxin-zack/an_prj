@@ -128,10 +128,20 @@ public class ManagerController {
         return managerService.listAllArea(agentId);
     }
 
+    @RequestMapping(value = "/list_all_area_page")
+    public Map listAllAreaPage(@RequestBody PageBean condition)
+    {
+        return managerService.listAllAreaPage(condition);
+    }
+//    @RequestMapping(value = "/add_agent_area")
+//    public Map addAgentArea(@RequestParam(value = "agentId") Long agentId,
+//                            @RequestBody List<Map> areaInfo) {
+//        return managerService.addAgentArea(agentId, areaInfo);
+//    }
+
     @RequestMapping(value = "/add_agent_area")
-    public Map addAgentArea(@RequestParam(value = "agentId") Long agentId,
-                            @RequestParam(value = "areaInfo") List<Map<String, String>> areaMap) {
-        return managerService.addAgentArea(agentId, areaMap);
+    public Map addAgentArea(@RequestBody Map areaInfo) {
+        return managerService.addAgentArea(areaInfo);
     }
 
     @RequestMapping(value = "/delete_agent_area")

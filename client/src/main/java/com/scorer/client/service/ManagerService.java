@@ -58,7 +58,9 @@ public interface ManagerService {
 
     Map<String, Object> listAllArea(Long agentId);
 
-    Map<String, Object> addAgentArea(Long agentId, List<Map<String, String>> areaMap);
+    Map<String, Object> listAllAreaPage(PageBean condition);
+
+    Map<String, Object> addAgentArea(Map areaMap);
 
     Map<String, Object> deleteAgentArea(List<Long> agentAreaIds);
 }

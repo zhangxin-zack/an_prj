@@ -112,6 +112,18 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     }
 
     @Override
+    public Map<String, Object> listAllAreaPage(PageBean page) {
+        try{
+            page.setTotal(managerDao.listAllAreaCount(page));
+            page.setRows(managerDao.listAllAreaList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
     public Map<String, Object> getManagerList(PageBean page) {
         try{
             page.setRows(managerDao.getManagerList(page));
@@ -253,8 +265,10 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     }
 
     @Override
-    public Map<String, Object> addAgentArea(Long agentId, List<Map<String, String>> areaMap) {
+    public Map<String, Object> addAgentArea(Map areaInfo) {
         try{
+            Long agentId = Long.parseLong(areaInfo.get("agentId").toString());
+            List<Map<String, String>> areaMap = (List<Map<String, String>>)areaInfo.get("areaInfo");
             for(Map<String, String> area: areaMap){
                 managerDao.saveAgentRole(agentId, area.get("province"), area.get("city"), area.get("village"));
             }
