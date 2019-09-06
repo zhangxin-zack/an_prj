@@ -89,4 +89,7 @@ public interface ManagerService {
     @RequestMapping(value = "/EDU/sys/add_agent_area", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map addAgentArea(@RequestParam(value = "agentId") Long agentId,
                      @RequestParam(value = "areaInfo") List<Map<String, String>> areaMap);
+
+    @RequestMapping(value = "/EDU/sys/delete_agent_area", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map deleteAgentArea(@RequestParam(value = "agentAreaIds") List<Long> agentAreaIds);
 }
