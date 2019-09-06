@@ -5,6 +5,7 @@ import com.scorer.client.entity.Menu;
 import com.scorer.client.entity.Role;
 import com.scorer.client.entity.SchoolMenu;
 import com.scorer.client.values.PageBean;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -59,4 +60,5 @@ public interface ManagerService {
 
     Map<String, Object> addAgentArea(Long agentId, List<Map<String, String>> areaMap);
 
+    Map<String, Object> deleteAgentArea(List<Long> agentAreaIds);
 }

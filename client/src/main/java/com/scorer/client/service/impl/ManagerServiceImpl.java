@@ -266,6 +266,17 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
     }
 
     @Override
+    public Map<String, Object> deleteAgentArea(List<Long> agentAreaIds) {
+        try{
+            managerDao.deleteAgentRole(agentAreaIds);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
     public Map<String, Object> saveRole(Long roleId, List<Long> menuIds) {
         try{
             managerDao.deleteRoleMenu(roleId);

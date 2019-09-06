@@ -85,4 +85,6 @@ public interface ManagerDao {
             @Param("city") String city, @Param("village") String village) throws Exception;
 
     List<Map> listAllArea(@Param("agentId") Long agentId) throws Exception;
+
+    void deleteAgentRole(List<Long> id) throws Exception;
 }
