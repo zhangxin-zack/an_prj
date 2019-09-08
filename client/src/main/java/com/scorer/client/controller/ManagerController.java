@@ -177,7 +177,6 @@ public class ManagerController {
         return managerService.listAgentSchool(condition);
     }
 
-
     /**
      * 添加代理商区域
      * @param agentId  代理商ID(角色为代理商的managerId)
@@ -189,7 +188,6 @@ public class ManagerController {
 //                            @RequestBody List<Map<String, String>> areaInfo) {
 //        return managerService.addAgentArea(agentId, areaInfo);
 //    }
-
 
     @RequestMapping(value = "/add_agent_area")
     public Map addAgentArea(@RequestBody Map areaInfo) {

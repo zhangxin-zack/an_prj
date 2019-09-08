@@ -1,6 +1,5 @@
 package com.scorer.client.tools;
 
-import com.scorer.client.tools.HTTP_Tools;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;

@@ -91,4 +91,6 @@ public interface ManagerDao {
     List<Map> listAllAreaList(PageBean page) throws Exception;
 
     void deleteAgentRole(List<Long> id) throws Exception;
+
+    void deleteAgentRoleByAgentId(Long agentId);
 }

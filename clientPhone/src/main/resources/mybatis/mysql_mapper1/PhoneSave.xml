@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scorer.clientPhone.dao.mysql_dao1.PhoneLocationDao">
+
+    <insert id="SaveSafeAreaAlarm">
+        INSERT INTO alarm_report(alarm_time, alarm_type, alarm_data, student_id, longitude, latitude, ring_no)
+        SELECT NOW(),
+               #{isSafe},
+               IF(#{isSafe} = 1, '进入安全区', '离开安全区'),
+               id,
+               #{ringLocationInfo.longitude},
+               #{ringLocationInfo.latitude},
+               #{ring_no}
+        FROM students
+        WHERE ring_no = #{ring_no}
+    </insert>
+
+    <insert id="SavePhoneHeart">
+        INSERT INTO alarm_report(alarm_time, alarm_type, alarm_data, student_id, longitude, latitude, ring_no)
+        SELECT NOW(),
+               3,
+               #{heart},
+               id,
+               #{p_message.longitude},
+               #{p_message.latitude},
+               #{p_message.ring_no}
+        FROM students
+        WHERE ring_no = #{p_message.ring_no}
+    </insert>
+
+    <insert id="SavePhoneTemp">
+        INSERT INTO alarm_report(alarm_time, alarm_type, alarm_data, student_id, longitude, latitude, ring_no)
+        SELECT NOW(),
+               4,
+               #{temp},
+               id,
+               #{p_message.longitude},
+               #{p_message.latitude},
+               #{p_message.ring_no}
+        FROM students
+        WHERE ring_no = #{p_message.ring_no}
+    </insert>
+
+    <select id="GetSchoolArea" resultType="com.scorer.clientPhone.entity.RingLocationInfo">
+        SELECT b.lon AS longitude
+             , b.lat AS latitude
+        FROM students a,
+             school b
+        WHERE a.school_id = b.id AND a.ring_no=#{0}
+    </select>
+
+</mapper>

@@ -62,7 +62,7 @@
     </select>
 
     <insert id="saveAgentRole">
-        insert into agent_area(
+        REPLACE into agent_area(
             agent_id, province, city, village)
         values
             (#{agentId}, #{province}, #{city}, #{village})
@@ -75,6 +75,9 @@
         </foreach>
     </delete>
 
+    <delete id="deleteAgentRoleByAgentId">
+        delete from agent_area where agent_id=#{0}
+    </delete>
 
     <select id="loginManage" resultMap="manager">
         SELECT
@@ -410,23 +413,21 @@
 
     <select id="getAgentAreaList" resultType="map">
         SELECT
+            s.id AS agentAreaId,
             s.province,
             s.city,
             s.village
         FROM
-            school s
+            agent_area s
         WHERE
             s.agent_id = #{agentId}
-        GROUP BY
-            s.province,
-            s.city,
-            s.village
         LIMIT #{startIndex}, #{pageSize}
     </select>
 
 
     <select id="listAllArea" resultType="map">
         SELECT
+            aa.id AS agentAreaId,
             aa.province,
             aa.city,
             aa.village,
@@ -453,6 +454,7 @@
 
     <select id="listAllAreaList" resultType="map">
         SELECT
+            aa.id AS agentAreaId,
             aa.province,
             aa.city,
             aa.village,

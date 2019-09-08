@@ -30,17 +30,17 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> loginManage(Manager manager) {
-        try{
+        try {
             Manager loginManager = managerDao.loginManage(manager);
-            if(loginManager != null){
+            if (loginManager != null) {
                 managerDao.setLoginTime(manager);
                 loginManager.setPassword(null);
                 loginManager.setToken(TokenTools.generateTokenSchool(loginManager.getId()));
                 return resultMap(Iconstants.RESULT_CODE_0, "success", loginManager);
-            }else{
+            } else {
                 return resultMap(Iconstants.RESULT_CODE_1, "账号或密码错误", null);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -48,17 +48,17 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> loginSchool(Manager manager) {
-        try{
+        try {
             Manager loginManager = managerDao.loginSchool(manager);
-            if(loginManager != null){
+            if (loginManager != null) {
                 managerDao.setLoginTime(manager);
                 loginManager.setPassword(null);
                 loginManager.setToken(TokenTools.generateTokenSchool(loginManager.getId()));
                 return resultMap(Iconstants.RESULT_CODE_0, "success", loginManager);
-            }else{
+            } else {
                 return resultMap(Iconstants.RESULT_CODE_1, "账号或密码错误", null);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -66,11 +66,11 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> listAgent(PageBean page) {
-        try{
+        try {
             page.setTotal(managerDao.getAgentCount(page));
             page.setRows(managerDao.getAgentList(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -78,11 +78,11 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> listAgentArea(PageBean page) {
-        try{
+        try {
             page.setTotal(managerDao.getAgentAreaCount(page));
             page.setRows(managerDao.getAgentAreaList(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -90,11 +90,11 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> listAgentSchool(PageBean page) {
-        try{
+        try {
             page.setTotal(schoolDao.getAgentSchoolCount(page));
             page.setRows(schoolDao.getAgentSchoolList(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -102,10 +102,10 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> listAllArea(Long agentId) {
-        try{
+        try {
             List<Map> areaList = managerDao.listAllArea(agentId);
             return resultMap(Iconstants.RESULT_CODE_0, "success", areaList);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -113,11 +113,11 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> listAllAreaPage(PageBean page) {
-        try{
+        try {
             page.setTotal(managerDao.listAllAreaCount(page));
             page.setRows(managerDao.listAllAreaList(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -125,11 +125,11 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> getManagerList(PageBean page) {
-        try{
+        try {
             page.setRows(managerDao.getManagerList(page));
             page.setTotal(managerDao.getManagerCount(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -137,13 +137,13 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> addManager(Manager manager) {
-        try{
+        try {
             managerDao.addManager(manager);
-            for(Long roleId: manager.getRoleId()){
+            for (Long roleId : manager.getRoleId()) {
                 managerDao.addManagerRole(manager.getId(), roleId);
             }
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
@@ -151,14 +151,14 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> updateManager(Manager manager) {
-        try{
+        try {
             managerDao.updateManager(manager);
             managerDao.deleteManagerRole(manager.getId());
-            for(Long roleId: manager.getRoleId()){
+            for (Long roleId : manager.getRoleId()) {
                 managerDao.addManagerRole(manager.getId(), roleId);
             }
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
@@ -166,13 +166,13 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> deleteManager(List ManagerIds) {
-        try{
+        try {
             //删除管理员相关角色
             managerDao.deleteManagersRole(ManagerIds);
             //删除管理员
             managerDao.deleteManager(ManagerIds);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
@@ -180,11 +180,11 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> getRoleList(PageBean page) {
-        try{
+        try {
             page.setTotal(managerDao.getRoleCount(page));
             page.setRows(managerDao.getRoleList(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -192,10 +192,10 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> addRole(Role role) {
-        try{
+        try {
             managerDao.addRole(role);
             return resultMap(Iconstants.RESULT_CODE_0, "success", null);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -203,10 +203,10 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> updateRole(Role role) {
-        try{
+        try {
             managerDao.updateRole(role);
             return resultMap(Iconstants.RESULT_CODE_0, "success", null);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -214,14 +214,14 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> deleteRoles(List roleIds) {
-        try{
+        try {
             //删除角色表
             managerDao.deleteRole(roleIds);
             //删除角色相关菜单关系以及管理员关系
             managerDao.deleteManagersRoleByRoleIds(roleIds);
             managerDao.deleteRoleMenuByRoleIds(roleIds);
             return resultMap(Iconstants.RESULT_CODE_0, "success", null);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -230,10 +230,10 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> addMenu(Menu menu) {
-        try{
+        try {
             managerDao.addMenu(menu);
             return resultMap(Iconstants.RESULT_CODE_0, "success", null);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -241,10 +241,10 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> updateMenu(Menu menu) {
-        try{
+        try {
             managerDao.updateMenu(menu);
             return resultMap(Iconstants.RESULT_CODE_0, "success", null);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -252,13 +252,13 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> deleteMenus(List menuIds) {
-        try{
+        try {
             //删除角色表
             managerDao.deleteMenus(menuIds);
             //删除角色相关菜单关系
             managerDao.deleteManagersRole(menuIds);
             return resultMap(Iconstants.RESULT_CODE_0, "success", null);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -266,14 +266,14 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> addAgentArea(Map areaInfo) {
-        try{
+        try {
             Long agentId = Long.parseLong(areaInfo.get("agentId").toString());
-            List<Map<String, String>> areaMap = (List<Map<String, String>>)areaInfo.get("areaInfo");
-            for(Map<String, String> area: areaMap){
+            List<Map<String, String>> areaMap = (List<Map<String, String>>) areaInfo.get("areaInfo");
+            for (Map<String, String> area : areaMap) {
                 managerDao.saveAgentRole(agentId, area.get("province"), area.get("city"), area.get("village"));
             }
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
@@ -281,10 +281,10 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> deleteAgentArea(List<Long> agentAreaIds) {
-        try{
+        try {
             managerDao.deleteAgentRole(agentAreaIds);
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
@@ -292,13 +292,13 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> saveRole(Long roleId, List<Long> menuIds) {
-        try{
+        try {
             managerDao.deleteRoleMenu(roleId);
-            for(Long menuId: menuIds){
+            for (Long menuId : menuIds) {
                 managerDao.addRoleMenu(roleId, menuId);
             }
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
@@ -306,10 +306,10 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> getAllRoleList() {
-        try{
+        try {
             List<Role> roleList = managerDao.getAllRoleList();
             return resultMap(Iconstants.RESULT_CODE_0, "success", roleList);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -317,14 +317,15 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     /**
      * 查询全量菜单（树形）
+     *
      * @return
      */
     @Override
     public Map<String, Object> getAllMenuList() {
-        try{
+        try {
             List<Menu> menuList = managerDao.getAllMenuList();
             return resultMap(Iconstants.RESULT_CODE_0, "success", getTreeData(menuList));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -333,10 +334,10 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> getActionMenuList(Long roleId) {
-        try{
+        try {
             List<Menu> menuList = managerDao.getActionMenuList(roleId);
             return resultMap(Iconstants.RESULT_CODE_0, "success", getTreeData(menuList));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -344,10 +345,10 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> getActionMenuData(Long currentRoleId) {
-        try{
+        try {
             List<Menu> menuList = managerDao.getActionMenuList(currentRoleId);
             return resultMap(Iconstants.RESULT_CODE_0, "success", menuList);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -355,22 +356,22 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
     @Override
     public Map<String, Object> getRoleMenuIds(Long roleId) {
-        try{
+        try {
             List<Long> menuIds = managerDao.getRoleMenuIds(roleId);
-            System.out.println("------------------------------------------------"+menuIds);
+            System.out.println("------------------------------------------------" + menuIds);
             return resultMap(Iconstants.RESULT_CODE_0, "success", menuIds);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
     }
 
-    private Map<String, Object> getTreeData(List<Menu> menuList){
+    private Map<String, Object> getTreeData(List<Menu> menuList) {
         //获取根节点
         Menu rootMenu = null;
-        for(Menu menu: menuList){
+        for (Menu menu : menuList) {
             long pid = menu.getMenuPid();
-            if(pid == 0){
+            if (pid == 0) {
                 rootMenu = menu;
             }
         }
@@ -383,7 +384,7 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
         datamap.put("path", rootMenu.getPath());
         datamap.put("icon", rootMenu.getIcon());
         List<Map<String, Object>> child = new ArrayList<>();
-        for(Menu menu: menuList){
+        for (Menu menu : menuList) {
             //递归拼接数据
             recursionData(menuList, lv1Id, menu, child);
         }
@@ -393,9 +394,9 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
 
 
     private void recursionData(List<Menu> menus, long perId, Menu currentMenu,
-                                     List<Map<String, Object>> perChild){
+                               List<Map<String, Object>> perChild) {
         long pid = currentMenu.getMenuPid();
-        if(pid == perId){
+        if (pid == perId) {
             long currentId = currentMenu.getMenuId();
             Map<String, Object> data = new HashMap<>();
             data.put("id", currentId);
@@ -404,7 +405,7 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
             data.put("path", currentMenu.getPath());
             data.put("icon", currentMenu.getIcon());
             List<Map<String, Object>> child = new ArrayList<>();
-            for(Menu nextMenu: menus) {
+            for (Menu nextMenu : menus) {
                 recursionData(menus, currentId, nextMenu, child);
             }
             data.put("children", child);

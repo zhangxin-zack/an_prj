@@ -1,6 +1,5 @@
 package com.scorer.client.service.impl;
 
-import com.google.gson.Gson;
 import com.scorer.client.constant.Iconstants;
 import com.scorer.client.dao.mysql_dao1.AccountDao;
 import com.scorer.client.dao.mysql_dao1.MessageDao;
