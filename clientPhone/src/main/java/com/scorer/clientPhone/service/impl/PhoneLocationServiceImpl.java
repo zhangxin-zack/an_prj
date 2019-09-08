@@ -23,6 +23,10 @@ public class PhoneLocationServiceImpl implements PhoneLocationService {
 
     @Override
     public RingLocationInfo GetLocationByMSG(P_Message p_message) {
+        return GetGPSInfoFromLBS(p_message);
+    }
+
+    private RingLocationInfo GetGPSInfoFromLBS(P_Message p_message){
         String content = new String(p_message.getContent_in());
         String[] split = content.split(",");
         //信号强度
@@ -53,44 +57,6 @@ public class PhoneLocationServiceImpl implements PhoneLocationService {
             return new RingLocationInfo(gpsFromCell);
         } else {
             return null;
-        }
-    }
-
-    public static void main(String[] args) {
-        String content = "090919,011400,V,0,0,0,0,0,0,0,0,100,100,0,0,0,4,255,460,0,28730,64177,158,28734,56464,130,28734,23163,128,28734,56464,128,1,a,88:25:93:ba:4f:46,-6";
-        String[] split = content.split(",");
-        System.out.println(new Gson().toJson(split));
-        //信号强度
-        String cell_strong = split[11];
-        //电量
-        String battery = split[12];
-        //基站个数
-        int cell_count = Integer.parseInt(split[16]);
-        if (cell_count > 0) {
-            String cl = "";
-            String wl = "";
-            String cellBase = split[18] + "," + split[19];
-            for (int i = 0; i < cell_count; i++) {
-                cl += (i > 0 ? ";" : "") + cellBase + "," + split[20 + i * 3] + "," + split[21 + i * 3] + ",-" + split[22 + i * 3];
-            }
-            System.out.println(cl);
-            //wifi个数
-            int wifiCount = 16 + 3 + cell_count * 3 + 1;
-            int wifi_count = Integer.parseInt(split[wifiCount]);
-            System.out.println(wifi_count);
-            for (int i = 0; i < wifi_count; i++) {
-                wl += (i > 0 ? ";" : "") + split[wifiCount + 2 + i * 3] + "," + split[wifiCount + 3 + i * 3];
-                System.out.println(wl);
-            }
-
-            String URL ="http://api.cellocation.com:81/loc/";
-            Map<String,String> param = new HashMap<>();
-            param.put("cl",cl);
-            param.put("wl",wl);
-            param.put("output","json");
-            GPSFromCell gpsFromCell = new HTTP_Tools().OK_GetParam_Sync(URL,param, GPSFromCell.class);
-            System.out.println(new Gson().toJson(gpsFromCell));
-        } else {
         }
     }
 
