@@ -49,4 +49,13 @@
         WHERE a.school_id = b.id AND a.ring_no=#{0}
     </select>
 
+    <insert id="SavePhoneSchool">
+        INSERT INTO daily_report(student_id, report_date, report_type)
+        SELECT id,
+               NOW(),
+               #{isAtSchool}
+        FROM students
+        WHERE ring_no = #{ring_no}
+    </insert>
+
 </mapper>

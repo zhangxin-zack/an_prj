@@ -5,6 +5,14 @@ public class RingLocationInfo {
     private Double longitude;
     private Double latitude;
 
+    public RingLocationInfo() {
+    }
+
+    public RingLocationInfo(GPSFromCell gpsFromCell) {
+        this.latitude=gpsFromCell.getLat();
+        this.longitude=gpsFromCell.getLon();
+    }
+
     public Double getLongitude() {
         return longitude;
     }

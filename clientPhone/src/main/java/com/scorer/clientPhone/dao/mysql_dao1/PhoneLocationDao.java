@@ -16,4 +16,8 @@ public interface PhoneLocationDao {
 
     void SavePhoneTemp(@Param("p_message") P_Message p_message,
                        @Param("temp") int temp);
+
+    void SavePhoneSchool(@Param("ring_no") String deviceInfo,
+                         @Param("isSafe") Integer adSchool,
+                         @Param("ringLocationInfo") RingLocationInfo ringLocationInfo);
 }
