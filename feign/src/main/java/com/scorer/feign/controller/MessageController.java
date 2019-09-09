@@ -93,4 +93,9 @@ public class MessageController {
         return messageService.KickUser(uid,student_id);
     }
 
+    @RequestMapping(value = "/EDU/Message/GetUserOneMessage")
+    public Map GetUserOneMessage(@RequestParam(value = "uid") Integer uid) {
+        return messageService.GetUserOneMessage(uid);
+    }
+
 }

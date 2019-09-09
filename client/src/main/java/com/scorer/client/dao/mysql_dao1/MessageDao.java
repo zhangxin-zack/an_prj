@@ -3,6 +3,7 @@ package com.scorer.client.dao.mysql_dao1;
 import com.scorer.client.entity.Account;
 import com.scorer.client.entity.WSMessage;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,4 +27,10 @@ public interface MessageDao {
     void KickUser(Integer uid, Integer student_id);
 
     void InviteUser(Long uid, Long student_id);
+
+    @Select("SELECT student_id FROM account_student WHERE account_id=#{uid}")
+    List<Integer> GetStudentListBy(@Param("uid") Integer uid);
+
+    @Select("SELECT class_id FROM students where account_id=#{uid}")
+    List<Integer> GetClassListBy(@Param("uid") Integer uid);
 }

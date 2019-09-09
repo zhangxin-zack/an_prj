@@ -18,4 +18,6 @@ public interface MessageService {
     Map ListClassUser(Integer class_id);
 
     Map KickUser(Integer uid, Integer student_id);
+
+    Map GetUserOneMessage(Integer uid);
 }

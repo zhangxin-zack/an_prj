@@ -41,4 +41,7 @@ public interface MessageService {
     @RequestMapping(value = "/EDU/Message/KickUser", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map KickUser(@RequestParam(value = "uid") Integer uid,
                  @RequestParam(value = "student_id") Integer student_id);
+
+    @RequestMapping(value = "/EDU/Message/GetUserOneMessage", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map GetUserOneMessage(@RequestParam(value = "uid") Integer uid);
 }
