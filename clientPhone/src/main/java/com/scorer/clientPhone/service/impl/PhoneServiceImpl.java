@@ -8,6 +8,7 @@ import com.scorer.clientPhone.service.PhoneService;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -16,6 +17,9 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Service("phoneService")
@@ -62,6 +66,38 @@ public class PhoneServiceImpl implements PhoneService {
         if(phoneSettings!=null){
             SetPhoneContact(phoneSettings, channel);
         }
+    }
+
+    @Override
+    public Map GetLatelyInfo(String ring_no) {
+        Map<String, Object> rMap = new HashMap<>();
+        P_Message heart = mongoTemplate.findOne(
+                Query.query(Criteria
+                        .where("ring_no").is(ring_no).and("command").is("heart")
+                ).with(new Sort(Sort.Direction.DESC,"msg_time")).limit(1) ,P_Message.class);
+        P_Message temp = mongoTemplate.findOne(
+                Query.query(Criteria
+                        .where("ring_no").is(ring_no).and("command").is("temp")
+                ).with(new Sort(Sort.Direction.DESC,"msg_time")).limit(1) ,P_Message.class);
+        P_Message location = mongoTemplate.findOne(
+                Query.query(Criteria
+                        .where("ring_no").is(ring_no).and("command").is("ud")
+                ).with(new Sort(Sort.Direction.DESC,"msg_time")).limit(1) ,P_Message.class);
+        rMap.put("heart",heart);
+        rMap.put("temp",temp);
+        rMap.put("location",location);
+        return rMap;
+    }
+
+    @Override
+    public List<P_Message> LocationHistory(String ring_no, Long start_time, String end_time) {
+        return mongoTemplate.find(
+                Query.query(Criteria
+                        .where("ring_no").is(ring_no)
+                        .and("command").is("ud")
+                        .and("msg_time").lt("end_time")
+                        .and("msg_time").gt("start_time")
+                ).with(new Sort(Sort.Direction.DESC,"msg_time")) ,P_Message.class);
     }
 
     private void SetPhoneContact(PhoneSettings phoneSettings, Channel channel) {

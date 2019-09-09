@@ -1,6 +1,5 @@
 package com.scorer.clientPhone.service.impl;
 
-import com.google.gson.Gson;
 import com.scorer.clientPhone.dao.mysql_dao1.PhoneLocationDao;
 import com.scorer.clientPhone.entity.GPSFromCell;
 import com.scorer.clientPhone.entity.PhoneArea;

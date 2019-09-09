@@ -37,4 +37,16 @@ public class PhoneController {
     public Map LoadPhoneArea(@RequestParam("ring_no") String ring_no) {
         return phoneService.LoadPhoneArea(ring_no);
     }
+
+    @RequestMapping(value = "/GetLatelyInfo")
+    public Map GetLatelyInfo(@RequestParam("ring_no") String ring_no) {
+        return phoneService.GetLatelyInfo(ring_no);
+    }
+
+    @RequestMapping(value = "/LocationHistory")
+    public Map LocationHistory(@RequestParam("ring_no") String ring_no,
+                               @RequestParam("start_time") Long start_time,
+                               @RequestParam("end_time") String end_time) {
+        return phoneService.LocationHistory(ring_no, start_time, end_time);
+    }
 }

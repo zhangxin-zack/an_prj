@@ -24,4 +24,12 @@ public interface PhoneService {
 
     @RequestMapping(value = "/EDU/Phone/LoadPhoneArea", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map LoadPhoneArea(@RequestParam(value = "ring_no") String ring_no);
+
+    @RequestMapping(value = "/EDU/Phone/GetLatelyInfo", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map GetLatelyInfo(String ring_no);
+
+    @RequestMapping(value = "/EDU/Phone/LocationHistory", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map LocationHistory(@RequestParam("ring_no") String ring_no,
+                        @RequestParam("start_time") Long start_time,
+                        @RequestParam("end_time") String end_time);
 }

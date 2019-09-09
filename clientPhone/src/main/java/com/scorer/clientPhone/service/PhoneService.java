@@ -5,6 +5,9 @@ import com.scorer.clientPhone.entity.PhoneSettings;
 import com.scorer.clientPhone.netty.P_Message;
 import io.netty.channel.Channel;
 
+import java.util.List;
+import java.util.Map;
+
 public interface PhoneService {
     void SavePhoneArea(PhoneArea phoneArea);
 
@@ -15,4 +18,8 @@ public interface PhoneService {
     PhoneArea LoadPhoneArea(String ring_no);
 
     void SendUnSettings(P_Message msg, Channel channel);
+
+    Map GetLatelyInfo(String ring_no);
+
+    List<P_Message> LocationHistory(String ring_no, Long start_time, String end_time);
 }
