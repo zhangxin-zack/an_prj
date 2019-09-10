@@ -35,6 +35,9 @@ public class PhoneSocketServiceImpl implements PhoneSocketService {
     private RedisTemplate<String, Object> redisTemplate;
     @Resource
     private PhoneService phoneService;
+    @Resource
+    private DefaultInfo defaultInfo;
+
 
     @Override
     public void ReceiveMSG(P_Message msg) {
@@ -95,7 +98,7 @@ public class PhoneSocketServiceImpl implements PhoneSocketService {
         }
         mongoTemplate.insert(p_message);
         int temp = Integer.parseInt(new String(p_message.getContent_in()));
-        if(temp> DefaultInfo.maxTemp){
+        if(temp> defaultInfo.maxTemp()){
             phoneLocationService.SavePhoneTemp(p_message,temp);
         }
     }
@@ -111,7 +114,7 @@ public class PhoneSocketServiceImpl implements PhoneSocketService {
         }
         mongoTemplate.insert(p_message);
         int heart = Integer.parseInt(new String(p_message.getContent_in()));
-        if(heart> DefaultInfo.maxHeart){
+        if(heart> defaultInfo.maxHeart()){
             phoneLocationService.SavePhoneHeart(p_message,heart);
         }
     }

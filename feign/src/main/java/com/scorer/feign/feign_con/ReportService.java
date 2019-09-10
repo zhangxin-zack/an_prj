@@ -17,4 +17,10 @@ public interface ReportService {
 
     @RequestMapping(value = "/EDU/report/history_list", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map getHistoryReportList(@RequestBody PageBean page);
+
+    @RequestMapping(value = "/EDU/report/daily_report_list", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getDailyReportList(@RequestBody PageBean page);
+
+    @RequestMapping(value = "/EDU/report/daily_report_list_school", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map getDailyReportSchoolList(@RequestBody PageBean page);
 }

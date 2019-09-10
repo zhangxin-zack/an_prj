@@ -6,7 +6,7 @@
         INSERT INTO alarm_report(alarm_time, alarm_type, alarm_data, student_id, longitude, latitude, ring_no)
         SELECT NOW(),
                #{isSafe},
-               IF(#{isSafe} = 1, '进入安全区', '离开安全区'),
+               #{ringLocationInfo.address},
                id,
                #{ringLocationInfo.longitude},
                #{ringLocationInfo.latitude},
@@ -19,7 +19,7 @@
         INSERT INTO alarm_report(alarm_time, alarm_type, alarm_data, student_id, longitude, latitude, ring_no)
         SELECT NOW(),
                3,
-               #{heart},
+               CONCAT('报警心率是：',#{heart}),
                id,
                #{p_message.longitude},
                #{p_message.latitude},
@@ -32,7 +32,7 @@
         INSERT INTO alarm_report(alarm_time, alarm_type, alarm_data, student_id, longitude, latitude, ring_no)
         SELECT NOW(),
                4,
-               #{temp},
+               CONCAT('报警体温是：',#{temp}),
                id,
                #{p_message.longitude},
                #{p_message.latitude},
@@ -42,11 +42,13 @@
     </insert>
 
     <select id="GetSchoolArea" resultType="com.scorer.clientPhone.entity.RingLocationInfo">
-        SELECT b.lon AS longitude
-             , b.lat AS latitude
+        SELECT b.lon      AS longitude
+             , b.lat      AS latitude
+             , b.school_r AS r
         FROM students a,
              school b
-        WHERE a.school_id = b.id AND a.ring_no=#{0}
+        WHERE a.school_id = b.id
+          AND a.ring_no = #{0}
     </select>
 
     <insert id="SavePhoneSchool">

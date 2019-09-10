@@ -17,6 +17,23 @@ public class School {
     private String email;    //邮箱
     private Long bindCount;  //安装手表数
     private String description;   //学校图文介绍
+    private Integer classCount;   //学校班级数
+    private Integer studentCount;  //学校学生数
+    private Long agentId;    //代理商ID
+    private String agentName;    //代理商ID
+    private String province;     //代理商省份
+    private String city;         //代理商城市
+    private String village;      //代理商区域
+    private Double schoolR;     //学校半径
+
+
+    public Double getSchoolR() {
+        return schoolR;
+    }
+
+    public void setSchoolR(Double schoolR) {
+        this.schoolR = schoolR;
+    }
 
     public Long getId() {
         return id;
@@ -120,5 +137,61 @@ public class School {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getClassCount() {
+        return classCount;
+    }
+
+    public void setClassCount(Integer classCount) {
+        this.classCount = classCount;
+    }
+
+    public Integer getStudentCount() {
+        return studentCount;
+    }
+
+    public void setStudentCount(Integer studentCount) {
+        this.studentCount = studentCount;
+    }
+
+    public Long getAgentId() {
+        return agentId;
+    }
+
+    public void setAgentId(Long agentId) {
+        this.agentId = agentId;
+    }
+
+    public String getAgentName() {
+        return agentName;
+    }
+
+    public void setAgentName(String agentName) {
+        this.agentName = agentName;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getVillage() {
+        return village;
+    }
+
+    public void setVillage(String village) {
+        this.village = village;
     }
 }

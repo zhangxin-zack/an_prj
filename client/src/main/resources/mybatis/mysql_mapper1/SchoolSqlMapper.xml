@@ -20,6 +20,7 @@
         <result column="province" property="province"/>
         <result column="city" property="city"/>
         <result column="village" property="village"/>
+        <result column="school_r" property="schoolR"/>
     </resultMap>
 
     <resultMap id="schoolDetail" type="com.scorer.client.entity.SchoolDetail">
@@ -64,6 +65,7 @@
             s.lat,
             s.email,
             s.description,
+            s.school_r,
             agent_id as agentId,
             m.realname as agentName,
             province,
@@ -88,10 +90,10 @@
     <insert id="addSchool">
         insert into school(
             title, simple_title, linkman, registe_date, phone, area, address, lon, lat,
-            email, description, province, city, village)
+            email, description, province, city, village,school_r)
         values (
             #{title}, #{simpleTitle},#{linkman},str_to_date(#{registeDate}, '%Y-%m-%d'),
-            #{phone},#{area}, #{address},#{lon},#{lat},#{email},#{description},#{province},#{city},#{village}
+            #{phone},#{area}, #{address},#{lon},#{lat},#{email},#{description},#{province},#{city},#{village},#{schoolR}
             )
     </insert>
 
@@ -148,6 +150,9 @@
             <if test="village != null and village != '' ">
                 village = #{village},
             </if>
+            <if test="schoolR != null">
+                school_r = #{schoolR},
+            </if>
         </set>
         where id = #{id}
     </update>
@@ -165,6 +170,7 @@
             lon,
             lat,
             email,
+            school_r,
             description
         FROM school s
         WHERE 1 = 1
@@ -378,7 +384,8 @@
             s.description,
             s.province,
             s.city,
-            s.village
+            s.village,
+            s.school_r
         FROM school s
         WHERE s.agent_id = #{agentId}
         LIMIT #{startIndex}, #{pageSize}

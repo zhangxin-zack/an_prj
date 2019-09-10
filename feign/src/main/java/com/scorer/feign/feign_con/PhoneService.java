@@ -32,4 +32,22 @@ public interface PhoneService {
     Map LocationHistory(@RequestParam("ring_no") String ring_no,
                         @RequestParam("start_time") Long start_time,
                         @RequestParam("end_time") String end_time);
+
+    @RequestMapping(value = "/EDU/Phone/GetMaxHeart", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map GetMaxHeart();
+
+    @RequestMapping(value = "/EDU/Phone/SetMaxHeart", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map SetMaxHeart(@RequestParam("maxHeart") Integer maxHeart);
+
+    @RequestMapping(value = "/EDU/Phone/GetMaxTemp", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map GetMaxTemp();
+
+    @RequestMapping(value = "/EDU/Phone/SetMaxTemp", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map SetMaxTemp(@RequestParam("maxTemp") Integer maxTemp);
+
+    @RequestMapping(value = "/EDU/Phone/GetSchoolR", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map GetSchoolR();
+
+    @RequestMapping(value = "/EDU/Phone/SetSchoolR", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map SetSchoolR(@RequestParam("schoolR") Double schoolR);
 }

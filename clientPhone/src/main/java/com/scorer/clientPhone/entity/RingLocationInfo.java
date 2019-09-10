@@ -4,6 +4,8 @@ public class RingLocationInfo {
 
     private Double longitude;
     private Double latitude;
+    private Double r;
+    private String address;
 
     public RingLocationInfo() {
     }
@@ -11,6 +13,15 @@ public class RingLocationInfo {
     public RingLocationInfo(GPSFromCell gpsFromCell) {
         this.latitude=gpsFromCell.getLat();
         this.longitude=gpsFromCell.getLon();
+        this.address=gpsFromCell.getAddress();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Double getLongitude() {
@@ -27,5 +38,13 @@ public class RingLocationInfo {
 
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
+    }
+
+    public Double getR() {
+        return r;
+    }
+
+    public void setR(Double r) {
+        this.r = r;
     }
 }

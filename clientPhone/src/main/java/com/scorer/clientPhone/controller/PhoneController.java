@@ -4,6 +4,7 @@ import com.scorer.clientPhone.entity.PhoneArea;
 import com.scorer.clientPhone.entity.PhoneSettings;
 import com.scorer.clientPhone.netty.P_Message;
 import com.scorer.clientPhone.service.PhoneService;
+import com.scorer.clientPhone.values.DefaultInfo;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,8 @@ public class PhoneController {
 
     @Resource
     private PhoneService phoneService;
+    @Resource
+    private DefaultInfo defaultInfo;
 
     @RequestMapping(value = "/SavePhoneSettings")
     public Map SavePhoneSettings(@RequestBody PhoneSettings phoneSettings) {
@@ -75,4 +78,55 @@ public class PhoneController {
         return rMap;
     }
 
+
+    @RequestMapping(value = "/GetMaxHeart")
+    public Map GetMaxHeart() {
+        Map<String, Object> rMap = new HashMap<>();
+        rMap.put("result_code", 0);
+        rMap.put("result_data", defaultInfo.maxHeart());
+        return rMap;
+    }
+
+    @RequestMapping(value = "/SetMaxHeart")
+    public Map SetMaxHeart(@RequestParam("maxHeart") Integer maxHeart) {
+        Map<String, Object> rMap = new HashMap<>();
+        defaultInfo.setMaxHeart(maxHeart);
+        rMap.put("result_code", 0);
+        rMap.put("result_data", "{\"maxHeart\":"+maxHeart+"}");
+        return rMap;
+    }
+
+    @RequestMapping(value = "/GetMaxTemp")
+    public Map GetMaxTemp() {
+        Map<String, Object> rMap = new HashMap<>();
+        rMap.put("result_code", 0);
+        rMap.put("result_data", defaultInfo.maxTemp());
+        return rMap;
+    }
+
+    @RequestMapping(value = "/SetMaxTemp")
+    public Map SetMaxTemp(@RequestParam("maxTemp") Integer maxTemp) {
+        Map<String, Object> rMap = new HashMap<>();
+        defaultInfo.setMaxTemp(maxTemp);
+        rMap.put("result_code", 0);
+        rMap.put("result_data", "{\"maxTemp\":"+maxTemp+"}");
+        return rMap;
+    }
+
+    @RequestMapping(value = "/GetSchoolR")
+    public Map GetSchoolR() {
+        Map<String, Object> rMap = new HashMap<>();
+        rMap.put("result_code", 0);
+        rMap.put("result_data", defaultInfo.schoolR());
+        return rMap;
+    }
+
+    @RequestMapping(value = "/SetSchoolR")
+    public Map SetSchoolR(@RequestParam("schoolR") Double schoolR) {
+        Map<String, Object> rMap = new HashMap<>();
+        defaultInfo.setSchoolR(schoolR);
+        rMap.put("result_code", 0);
+        rMap.put("result_data", "{\"schoolR\":"+schoolR+"}");
+        return rMap;
+    }
 }

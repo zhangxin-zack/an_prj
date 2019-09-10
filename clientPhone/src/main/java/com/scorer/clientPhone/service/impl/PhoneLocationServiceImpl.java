@@ -19,13 +19,15 @@ public class PhoneLocationServiceImpl implements PhoneLocationService {
 
     @Resource
     private PhoneLocationDao phoneLocationDao;
+    @Resource
+    private DefaultInfo defaultInfo;
 
     @Override
     public RingLocationInfo GetLocationByMSG(P_Message p_message) {
         return GetGPSInfoFromLBS(p_message);
     }
 
-    private RingLocationInfo GetGPSInfoFromLBS(P_Message p_message){
+    private RingLocationInfo GetGPSInfoFromLBS(P_Message p_message) {
         String content = new String(p_message.getContent_in());
         String[] split = content.split(",");
         //信号强度
@@ -47,12 +49,12 @@ public class PhoneLocationServiceImpl implements PhoneLocationService {
             for (int i = 0; i < wifi_count; i++) {
                 wl += (i > 0 ? ";" : "") + split[wifiCount + 2 + i * 3] + "," + split[wifiCount + 3 + i * 3];
             }
-            String URL ="http://api.cellocation.com:81/loc/";
-            Map<String,String> param = new HashMap<>();
-            param.put("cl",cl);
-            param.put("wl",wl);
-            param.put("output","json");
-            GPSFromCell gpsFromCell = new HTTP_Tools().OK_GetParam_Sync(URL,param, GPSFromCell.class);
+            String URL = "http://api.cellocation.com:81/loc/";
+            Map<String, String> param = new HashMap<>();
+            param.put("cl", cl);
+            param.put("wl", wl);
+            param.put("output", "json");
+            GPSFromCell gpsFromCell = new HTTP_Tools().OK_GetParam_Sync(URL, param, GPSFromCell.class);
             return new RingLocationInfo(gpsFromCell);
         } else {
             return null;
@@ -83,7 +85,7 @@ public class PhoneLocationServiceImpl implements PhoneLocationService {
     @Override
     public Boolean CheckOneArea(RingLocationInfo location1, RingLocationInfo location2) {
         double distance = GetDistance(location1.getLongitude(), location1.getLatitude(), location2.getLongitude(), location2.getLatitude());
-        return distance < DefaultInfo.schoolR;
+        return distance < location1.getR();
     }
 
     @Override

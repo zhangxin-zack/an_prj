@@ -32,4 +32,13 @@ public class ReportController {
         return reportService.getHistoryReportList(page);
     }
 
+    @RequestMapping(value = "/daily_report_list")
+    public Map getDailyReportList(@RequestBody PageBean page) {
+        return reportService.getDailyReportList(page);
+    }
+
+    @RequestMapping(value = "/daily_report_list_school")
+    public Map getDailyReportSchoolList(@RequestBody PageBean page) {
+        return reportService.getDailyReportSchoolList(page);
+    }
 }

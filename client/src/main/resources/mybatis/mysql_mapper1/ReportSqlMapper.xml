@@ -49,7 +49,7 @@
     <select id="getAlarmReportList" resultMap="alarmReport">
       SELECT
             ar.id,
-            s.card_no,
+            s.ring_no AS ringNo,
             s.`name` AS studentName,
             c.title AS className,
             ar.alarm_time,
@@ -72,14 +72,14 @@
         <if test="searchs.alarmType!= null and searchs.alarmType!= 0 ">
             and ar.alarm_type = #{searchs.alarmType}
         </if>
-        <if test="searchs.studentId!= null and searchs.studentId!= 0 ">
+            <if test="searchs.studentId!= null and searchs.studentId!= 0 ">
             and ar.student_id = #{searchs.studentId}
         </if>
     </select>
 
     <select id="getDailyReportCount" resultType="long">
         SELECT
-            count(s.id student_id)
+            count(s.id)
         FROM
             students s
         LEFT JOIN daily_report d ON s.id = d.student_id
@@ -89,6 +89,95 @@
             and c.id = #{classId}
         </if>
     </select>
+
+    <select id="getArriveCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(DISTINCT s.id)
+        FROM
+        daily_report d
+        JOIN students s ON s.id = d.student_id
+        WHERE 1=1
+        <!-- historyType 为1 时查询当日历史纪律 -->
+        <if test="searchs.historyType == 1">
+            AND DATE_FORMAT(d.report_date,'%Y-%m-%d')= DATE_FORMAT(FROM_UNIXTIME(#{searchs.date}/1000),'%Y-%m-%d')
+        </if>
+        <!-- historyType 为2 时查询当月历史纪律 -->
+        <if test="searchs.historyType == 2">
+            AND DATE_FORMAT(d.report_date,'%Y-%m')= DATE_FORMAT(FROM_UNIXTIME(#{searchs.date}/1000),'%Y-%m')
+        </if>
+        <if test="searchs.classId!= null and searchs.classId!= 0 ">
+            AND s.class_id = #{searchs.classId}
+        </if>
+        <if test="searchs.schoolId!= null and searchs.schoolId!= 0 ">
+            AND s.school_id = #{searchs.schoolId}
+        </if>
+    </select>
+
+    <select id="getStudentCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(s.id)
+        FROM
+        students s
+        WHERE 1=1
+        <if test="searchs.classId!= null and searchs.classId!= 0 ">
+            AND s.class_id = #{searchs.classId}
+        </if>
+        <if test="searchs.schoolId!= null and searchs.schoolId!= 0 ">
+            AND s.school_id = #{searchs.schoolId}
+        </if>
+    </select>
+
+
+    <select id="getStudentCountClass" resultType="java.lang.Integer">
+        SELECT
+        COUNT(s.id)
+        FROM
+        students s
+        WHERE 1=1
+            AND s.class_id = #{id}
+    </select>
+
+    <select id="getRingCountClass" resultType="java.lang.Integer">
+        SELECT
+        COUNT(s.id)
+        FROM
+        students s
+        WHERE s.ring_no IS NOT NULL
+            AND s.class_id = #{id}
+    </select>
+
+    <select id="getArriveCountClass" resultType="java.lang.Integer">
+        SELECT
+        COUNT(DISTINCT s.id)
+        FROM
+        daily_report d
+        JOIN students s ON s.id = d.student_id
+        WHERE 1=1
+        <!-- historyType 为1 时查询当日历史纪律 -->
+        <if test="page.searchs.historyType == 1">
+            AND DATE_FORMAT(d.report_date,'%Y-%m-%d')= DATE_FORMAT(FROM_UNIXTIME(#{page.searchs.date}/1000),'%Y-%m-%d')
+        </if>
+        <!-- historyType 为2 时查询当月历史纪律 -->
+        <if test="page.searchs.historyType == 2">
+            AND DATE_FORMAT(d.report_date,'%Y-%m')= DATE_FORMAT(FROM_UNIXTIME(#{page.searchs.date}/1000),'%Y-%m')
+        </if>
+            AND s.class_id = #{classes.id}
+    </select>
+
+    <select id="getRingCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(s.id)
+        FROM
+        students s
+        WHERE s.ring_no IS NOT NULL
+        <if test="searchs.classId!= null and searchs.classId!= 0 ">
+            AND s.class_id = #{searchs.classId}
+        </if>
+        <if test="searchs.schoolId!= null and searchs.schoolId!= 0 ">
+            AND s.school_id = #{searchs.schoolId}
+        </if>
+    </select>
+
 
     <select id="getDailyReportList" resultMap="dailyReport">
         SELECT
@@ -110,7 +199,7 @@
 
     <select id="getHistoryReportCount" resultType="long">
         SELECT
-            count(s.id student_id)
+            count(s.id)
         FROM
             students s
         LEFT JOIN daily_report d ON s.id = d.student_id
@@ -144,4 +233,6 @@
             c.id,
             c.title
     </select>
+
+
 </mapper>

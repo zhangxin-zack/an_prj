@@ -25,7 +25,16 @@ public class School {
     private String province;     //代理商省份
     private String city;         //代理商城市
     private String village;      //代理商区域
+    private Double schoolR;     //学校半径
 
+
+    public Double getSchoolR() {
+        return schoolR;
+    }
+
+    public void setSchoolR(Double schoolR) {
+        this.schoolR = schoolR;
+    }
 
     public Long getId() {
         return id;

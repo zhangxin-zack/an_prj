@@ -13,4 +13,7 @@ public interface ReportService {
 
     Map<String, Object> getHistoryReportList(PageBean page);
 
+    Map<String, Object> getDailyReportList(PageBean page);
+
+    Map<String, Object> getDailyReportSchoolList(PageBean page);
 }

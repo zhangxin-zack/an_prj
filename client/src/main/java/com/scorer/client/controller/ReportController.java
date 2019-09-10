@@ -46,4 +46,25 @@ public class ReportController {
         return reportService.getHistoryReportList(page);
     }
 
+
+    /**
+     * 当日到校情况
+     * @param page
+     * @return
+     */
+    @RequestMapping(value = "/daily_report_list")
+    public Map getDailyReportList(@RequestBody PageBean page) {
+        return reportService.getDailyReportList(page);
+    }
+
+    /**
+     * 当日到校情况报表
+     * @param page
+     * @return
+     */
+    @RequestMapping(value = "/daily_report_list_school")
+    public Map getDailyReportSchoolList(@RequestBody PageBean page) {
+        return reportService.getDailyReportSchoolList(page);
+    }
+
 }
