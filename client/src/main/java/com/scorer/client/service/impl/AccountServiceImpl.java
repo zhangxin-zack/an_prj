@@ -7,9 +7,11 @@ import com.scorer.client.entity.Account;
 import com.scorer.client.entity.AppMenu;
 import com.scorer.client.entity.Student;
 import com.scorer.client.service.AccountService;
+import com.scorer.client.tools.HuaWeiMessageApi;
 import com.scorer.client.tools.MessageApi;
 import com.scorer.client.tools.ObjectUtils;
 import com.scorer.client.tools.TokenTools;
+import com.scorer.client.values.HuaWeiMSGResponse;
 import com.scorer.client.values.PageBean;
 import com.scorer.client.values.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,14 +54,15 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             ValueOperations<String, Integer> operations = redisTemplate.opsForValue();
             Integer phoneCode = operations.get("User_Login_Phone_Code:" + phone);
             if (phoneCode == null || phoneCode == 0) {
-//                phoneCode = new Random().nextInt(900000) + 100000;
-                phoneCode = 123456;
+                phoneCode = new Random().nextInt(900000) + 100000;
             }
             operations.set("User_Login_Phone_Code:" + phone, phoneCode, 60 * 2, TimeUnit.SECONDS);
-            String text = "【手环】您的验证码是" + phoneCode;
-            String message = MessageApi.sendSMS(text, phone);
-            System.out.println(message);
-            return resultMap(Iconstants.RESULT_CODE_0, "success", null);
+            HuaWeiMSGResponse huaWeiMSGResponse = HuaWeiMessageApi.sendMSG(phone, phoneCode);
+            if("000000".equals(huaWeiMSGResponse.getCode())){
+                return resultInfo(Iconstants.RESULT_CODE_0, "success");
+            }else{
+                return resultInfo(Iconstants.RESULT_CODE_1, "failed!"+"HuaWeiCode:"+huaWeiMSGResponse.getCode());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);

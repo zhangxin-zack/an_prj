@@ -6,6 +6,7 @@ import com.scorer.client.entity.Role;
 import com.scorer.client.entity.SchoolMenu;
 import com.scorer.client.values.PageBean;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -63,4 +64,6 @@ public interface ManagerService {
     Map<String, Object> addAgentArea(Map areaMap);
 
     Map<String, Object> deleteAgentArea(List<Long> agentAreaIds);
+
+    Map<String, Object> uploadFile(MultipartFile file);
 }

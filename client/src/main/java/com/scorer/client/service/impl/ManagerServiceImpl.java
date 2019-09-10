@@ -9,10 +9,12 @@ import com.scorer.client.entity.Role;
 import com.scorer.client.entity.SchoolMenu;
 import com.scorer.client.service.ManagerService;
 import com.scorer.client.service.impl.BaseSeviceImpl;
+import com.scorer.client.tools.HuaWeiOBS;
 import com.scorer.client.tools.TokenTools;
 import com.scorer.client.values.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -287,6 +289,16 @@ public class ManagerServiceImpl extends BaseSeviceImpl implements ManagerService
         } catch (Exception e) {
             e.printStackTrace();
             return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> uploadFile(MultipartFile file) {
+        String path = HuaWeiOBS.fileUpload(file);
+        if(path!=null){
+            return resultMap(Iconstants.RESULT_CODE_1, "success", "{\"path\":\""+path+"\"}");
+        }else{
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!");
         }
     }
 

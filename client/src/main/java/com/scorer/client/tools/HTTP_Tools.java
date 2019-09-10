@@ -14,7 +14,34 @@ import java.util.Objects;
 
 public class HTTP_Tools {
 
-    public String OK_PostParam_Sync(final String url, final Map<String, String> param) {
+    public String OK_PostParam_Sync(String url, Map<String, String> param,Map<String, String> header) {
+        OkHttpClient client = new OkHttpClient().newBuilder().addInterceptor(new OKHttp_Log()).build();
+        FormBody.Builder formBody = new FormBody.Builder();
+        if (param != null) {
+            for (Map.Entry<String, String> entry : param.entrySet()) {
+                formBody.add(entry.getKey(), entry.getValue());
+            }
+        }
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+                .post(formBody.build());
+        if (header != null) {
+            for (Map.Entry<String, String> entry : header.entrySet()) {
+                requestBuilder.addHeader(entry.getKey(), entry.getValue());
+            }
+        }
+        Request request = requestBuilder.build();
+        try {
+            Response response = client.newCall(request).execute();
+            return Objects.requireNonNull(response.body()).string();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    public String OK_PostParam_Sync(String url, Map<String, String> param) {
         OkHttpClient client = new OkHttpClient().newBuilder().addInterceptor(new OKHttp_Log()).build();
         FormBody.Builder formBody = new FormBody.Builder();
         if (param != null) {

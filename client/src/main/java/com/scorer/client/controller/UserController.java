@@ -5,7 +5,9 @@ import com.scorer.client.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -26,4 +28,9 @@ public class UserController {
         return managerService.loginSchool(manager);
     }
 
+
+    @RequestMapping(value = "/uploadFile")
+    public Map uploadFile(@RequestPart("file") MultipartFile file) {
+        return managerService.uploadFile(file);
+    }
 }

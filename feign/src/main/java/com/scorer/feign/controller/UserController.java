@@ -3,10 +3,8 @@ package com.scorer.feign.controller;
 import com.scorer.feign.entity.Manager;
 import com.scorer.feign.feign_con.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -34,5 +32,8 @@ public class UserController {
         return managerService.updateManager(manager);
     }
 
-
+    @RequestMapping(value = "/uploadFile")
+    public Map uploadFile(@RequestPart("file") MultipartFile file) {
+        return managerService.uploadFile(file);
+    }
 }

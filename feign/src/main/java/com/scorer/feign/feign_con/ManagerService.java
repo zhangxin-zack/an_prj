@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -88,6 +90,7 @@ public interface ManagerService {
 
     @RequestMapping(value = "/EDU/sys/list_all_area_page", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map listAllAreaPage(@RequestBody PageBean condition);
+
 //    @RequestMapping(value = "/EDU/sys/add_agent_area", consumes = MediaType.APPLICATION_JSON_VALUE)
 //    Map addAgentArea(@RequestParam(value = "agentId") Long agentId,
 //                     @RequestBody List<Map<String, String>> areaInfo);
@@ -97,4 +100,10 @@ public interface ManagerService {
 
     @RequestMapping(value = "/EDU/sys/delete_agent_area", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map deleteAgentArea(@RequestParam(value = "agentAreaIds") List<Long> agentAreaIds);
+
+
+    @RequestMapping(value = "/EDU/user/uploadFile",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE},
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    Map uploadFile(@RequestPart("file") MultipartFile file);
 }
