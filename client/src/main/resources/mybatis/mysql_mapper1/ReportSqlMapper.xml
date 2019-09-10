@@ -153,16 +153,32 @@
         daily_report d
         JOIN students s ON s.id = d.student_id
         WHERE 1=1
-        <!-- historyType 为1 时查询当日历史纪律 -->
-        <if test="page.searchs.historyType == 1">
             AND DATE_FORMAT(d.report_date,'%Y-%m-%d')= DATE_FORMAT(FROM_UNIXTIME(#{page.searchs.date}/1000),'%Y-%m-%d')
-        </if>
-        <!-- historyType 为2 时查询当月历史纪律 -->
-        <if test="page.searchs.historyType == 2">
-            AND DATE_FORMAT(d.report_date,'%Y-%m')= DATE_FORMAT(FROM_UNIXTIME(#{page.searchs.date}/1000),'%Y-%m')
-        </if>
             AND s.class_id = #{classes.id}
     </select>
+
+    <select id="getArriveCountMonthClass" resultType="java.lang.Double">
+        SELECT AVG(count_id)
+        FROM
+             (
+                SELECT
+                    COUNT(DISTINCT a.id) AS count_id
+                FROM
+                    (
+                        SELECT
+                        s.id,
+                        DATE_FORMAT(d.report_date,'%Y-%m') AS date_str
+                        FROM
+                        daily_report d
+                        JOIN students s ON s.id = d.student_id
+                        WHERE 1=1
+                            AND DATE_FORMAT(d.report_date,'%Y-%m')= DATE_FORMAT(FROM_UNIXTIME(#{page.searchs.date}/1000),'%Y-%m')
+                        AND s.class_id = #{classes.id}
+                    ) a
+                  GROUP BY a.date_str
+            ) b
+    </select>
+
 
     <select id="getRingCount" resultType="java.lang.Integer">
         SELECT
@@ -233,6 +249,7 @@
             c.id,
             c.title
     </select>
+
 
 
 </mapper>

@@ -35,4 +35,6 @@ public interface ReportDao {
     int getRingCountClass(Classes classes);
 
     int getArriveCountClass(@Param("page") PageBean page, @Param("classes") Classes classes);
+
+    Double getArriveCountMonthClass(PageBean page, Classes classes);
 }

@@ -5,6 +5,15 @@ public class ArriveCount {
     private int studentCount;
     private int arriveCount;
     private int ringCount;
+    private double arriveAvg;
+
+    public double getArriveAvg() {
+        return arriveAvg;
+    }
+
+    public void setArriveAvg(double arriveAvg) {
+        this.arriveAvg = arriveAvg;
+    }
 
     public int getStudentCount() {
         return studentCount;

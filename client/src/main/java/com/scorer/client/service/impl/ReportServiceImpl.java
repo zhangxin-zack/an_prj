@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ReportServiceImpl extends BaseSeviceImpl implements ReportService {
@@ -85,7 +82,11 @@ public class ReportServiceImpl extends BaseSeviceImpl implements ReportService {
                 ArriveCount arriveCount = new ArriveCount();
                 arriveCount.setStudentCount(reportDao.getStudentCountClass(classes));
                 arriveCount.setRingCount(reportDao.getRingCountClass(classes));
-                arriveCount.setArriveCount(reportDao.getArriveCountClass(page,classes));
+                if(Objects.equals(page.getSearchs().get("historyType"),1)||Objects.equals(page.getSearchs().get("historyType"),"1")){
+                    arriveCount.setArriveCount(reportDao.getArriveCountClass(page,classes));
+                }else{
+                    arriveCount.setArriveAvg(reportDao.getArriveCountMonthClass(page,classes));
+                }
                 rows.add(arriveCount);
             }
             page.setRows(rows);
