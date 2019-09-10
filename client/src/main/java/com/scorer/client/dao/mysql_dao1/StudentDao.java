@@ -39,4 +39,8 @@ public interface StudentDao {
     long getStudentCountBK(PageBean page);
 
     List<Student> getStudentListBK(PageBean page);
+
+    void bindStudentMain(Student student);
+
+    void bindStudentBase(Student student);
 }

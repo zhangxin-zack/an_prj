@@ -81,4 +81,10 @@ public class AccountController {
     public Map accountListBaby(@RequestBody PageBean condition) {
         return accountService.listBaby(condition);
     }
+
+    //绑定手环
+    @RequestMapping(value = "/bind_baby")
+    public Map accountBindBaby(@RequestBody Student student) {
+        return accountService.bindBaby(student);
+    }
 }

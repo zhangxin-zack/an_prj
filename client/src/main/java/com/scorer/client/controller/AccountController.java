@@ -129,4 +129,16 @@ public class AccountController {
         return accountService.updateBaby(student);
     }
 
+
+
+    /**
+     * 绑定宝贝
+     * @param student
+     * @return
+     */
+    @RequestMapping(value = "/bind_baby")
+    public Map accountBindBaby(@RequestBody Student student) {
+        return accountService.bindBaby(student);
+    }
+
 }

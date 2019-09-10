@@ -43,6 +43,15 @@
     </resultMap>
 
 
+    <update id="bindStudentMain">
+        update students set  bind=1,ring_no=#{ringNo} where id=#{id};
+        insert into account_student(student_id,account_id) values(#{id},#{accountId});
+    </update>
+
+    <insert id="bindStudentBase">
+        insert into account_student(student_id,account_id) values(#{id},#{accountId});
+    </insert>
+
     <select id="getStudentById" resultMap="Student">
         SELECT * FROM students WHERE id=#{id}
     </select>

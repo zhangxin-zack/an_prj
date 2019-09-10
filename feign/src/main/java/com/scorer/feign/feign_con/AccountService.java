@@ -43,4 +43,7 @@ public interface AccountService {
 
     @RequestMapping(value = "/EDU/account/list_baby", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map listBaby(@RequestBody PageBean page);
+
+    @RequestMapping(value = "/EDU/account/bind_baby", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map bindBaby(Student student);
 }
