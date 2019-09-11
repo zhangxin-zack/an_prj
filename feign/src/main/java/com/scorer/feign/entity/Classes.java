@@ -1,6 +1,5 @@
 package com.scorer.feign.entity;
 
-
 import java.util.List;
 
 public class Classes {
@@ -13,6 +12,7 @@ public class Classes {
     private Long teacherId;
     private String teacherName;
     private Integer grade;
+    private Long classTimeId;
     private List<Teacher> teacherList;
 
     private Integer is_head;  //是否班主任（用户查询时）处理(1,是班主任，-1,不是)
@@ -95,5 +95,13 @@ public class Classes {
 
     public void setTeacherList(List<Teacher> teacherList) {
         this.teacherList = teacherList;
+    }
+
+    public Long getClassTimeId() {
+        return classTimeId;
+    }
+
+    public void setClassTimeId(Long classTimeId) {
+        this.classTimeId = classTimeId;
     }
 }

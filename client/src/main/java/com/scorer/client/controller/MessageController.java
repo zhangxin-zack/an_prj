@@ -16,7 +16,7 @@ public class MessageController {
     @Resource
     private MessageService messageService;
 
-    @RequestMapping(value = "/EDU/Message/SendMSG")
+    @RequestMapping(value = "/EDU/Message/SaveMSG")
     public WSMessage SaveMSG(@RequestBody WSMessage wsMessage) {
         return messageService.SaveMSG(wsMessage);
     }

@@ -87,4 +87,10 @@ public class AccountController {
     public Map accountBindBaby(@RequestBody Student student) {
         return accountService.bindBaby(student);
     }
+
+    //更新关系
+    @RequestMapping(value = "/update_relation")
+    public Map updateRelationName(@RequestBody Student student) {
+        return accountService.updateRelationName(student);
+    }
 }

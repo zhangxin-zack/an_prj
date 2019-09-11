@@ -40,4 +40,6 @@ public interface AccountService {
     Map<String, Object> listBaby(PageBean page);
 
     Map<String, Object> bindBaby(Student student);
+
+    Map<String, Object> updateRelationName(Student student);
 }

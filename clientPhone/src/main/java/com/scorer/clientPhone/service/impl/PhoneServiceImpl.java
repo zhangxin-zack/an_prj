@@ -1,7 +1,9 @@
 package com.scorer.clientPhone.service.impl;
 
+import com.scorer.clientPhone.dao.mysql_dao1.PhoneDao;
 import com.scorer.clientPhone.entity.PhoneArea;
 import com.scorer.clientPhone.entity.PhoneSettings;
+import com.scorer.clientPhone.entity.Student;
 import com.scorer.clientPhone.netty.P_Message;
 import com.scorer.clientPhone.netty.WatchServerNIO;
 import com.scorer.clientPhone.service.PhoneService;
@@ -29,6 +31,8 @@ public class PhoneServiceImpl implements PhoneService {
     private MongoTemplate mongoTemplate;
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
+    @Resource
+    private PhoneDao phoneDao;
 
     @Override
     public void SavePhoneArea(PhoneArea phoneArea) {
@@ -98,6 +102,11 @@ public class PhoneServiceImpl implements PhoneService {
                         .and("msg_time").lt("end_time")
                         .and("msg_time").gt("start_time")
                 ).with(new Sort(Sort.Direction.DESC,"msg_time")) ,P_Message.class);
+    }
+
+    @Override
+    public Student GetStudentInfoByRingNo(P_Message msg) {
+        return phoneDao.GetStudentInfoByRingNo(msg);
     }
 
     private void SetPhoneContact(PhoneSettings phoneSettings, Channel channel) {

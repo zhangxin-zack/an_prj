@@ -21,7 +21,7 @@ public class WSMessage implements Serializable {
 
     private Long msg_time;
 
-    private Integer msg_type;
+    private Integer msg_type;    //1文本，2图像，3文本
     private String msg_content;
     private Integer has_read = -1;
 

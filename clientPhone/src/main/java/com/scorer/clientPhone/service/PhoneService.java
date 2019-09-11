@@ -2,6 +2,7 @@ package com.scorer.clientPhone.service;
 
 import com.scorer.clientPhone.entity.PhoneArea;
 import com.scorer.clientPhone.entity.PhoneSettings;
+import com.scorer.clientPhone.entity.Student;
 import com.scorer.clientPhone.netty.P_Message;
 import io.netty.channel.Channel;
 
@@ -22,4 +23,6 @@ public interface PhoneService {
     Map GetLatelyInfo(String ring_no);
 
     List<P_Message> LocationHistory(String ring_no, Long start_time, String end_time);
+
+    Student GetStudentInfoByRingNo(P_Message msg);
 }

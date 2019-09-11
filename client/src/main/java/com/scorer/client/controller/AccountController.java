@@ -132,6 +132,16 @@ public class AccountController {
 
 
     /**
+     * 更新关系列表
+     * @param student
+     * @return
+     */
+    @RequestMapping(value = "/update_relation")
+    public Map updateRelationName(@RequestBody Student student) {
+        return accountService.updateRelationName(student);
+    }
+
+    /**
      * 绑定宝贝
      * @param student
      * @return

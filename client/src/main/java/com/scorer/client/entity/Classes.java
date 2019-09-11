@@ -1,8 +1,5 @@
 package com.scorer.client.entity;
 
-
-import com.scorer.client.entity.Teacher;
-
 import java.util.List;
 
 public class Classes {

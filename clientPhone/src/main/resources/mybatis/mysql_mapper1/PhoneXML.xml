@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scorer.clientPhone.dao.mysql_dao1.PhoneDao">
+
+    <resultMap id="Student" type="com.scorer.clientPhone.entity.Student">
+        <id column="id" property="id"/>
+        <result column="name" property="studentName"/>
+        <result column="nickname" property="nickname"/>
+        <result column="sex" property="sex"/>
+        <result column="card_no" property="cardNo"/>
+        <result column="register_no" property="registerNo"/>
+        <result column="height" property="height"/>
+        <result column="weight" property="weight"/>
+        <result column="ring_no" property="ringNo"/>
+        <result column="school_id" property="schoolId"/>
+        <result column="school_name" property="schoolName"/>
+        <result column="class_id" property="classId"/>
+        <result column="class_name" property="className"/>
+        <result column="birthday" property="birthday"/>
+        <result column="relation_name" property="relationName"/>
+        <result column="bind" property="bind"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="GetStudentInfoByRingNo" resultMap="Student">
+        SELECT * FROM students WHERE ring_no=#{ring_no}
+    </select>
+
+
+</mapper>

@@ -1,3 +1,61 @@
 Manifest-Version: 1.0
+Class-Path: ribbon-core-2.2.5.jar antlr-runtime-3.4.jar spring-webmvc-
+ 5.0.10.RELEASE.jar jackson-module-parameter-names-2.9.7.jar jackson-d
+ atatype-jdk8-2.9.7.jar httpcore-4.4.10.jar jersey-apache-client4-1.19
+ .1.jar spring-cloud-netflix-core-2.0.0.RELEASE.jar woodstox-core-5.0.
+ 3.jar netflix-infix-0.3.0.jar spring-jcl-5.0.10.RELEASE.jar HdrHistog
+ ram-2.1.10.jar joda-time-2.9.9.jar spring-boot-actuator-2.0.6.RELEASE
+ .jar netflix-eventbus-0.3.0.jar spring-security-config-5.0.9.RELEASE.
+ jar gson-2.8.5.jar stax-api-1.0-2.jar tomcat-embed-websocket-8.5.34.j
+ ar spring-context-5.0.10.RELEASE.jar spring-cloud-starter-netflix-arc
+ haius-2.0.0.RELEASE.jar logback-classic-1.2.3.jar xstream-1.4.10.jar 
+ bcprov-jdk15on-1.56.jar spring-core-5.0.10.RELEASE.jar snakeyaml-1.19
+ .jar jackson-datatype-jsr310-2.9.7.jar jackson-annotations-2.9.0.jar 
+ netty-transport-native-epoll-4.1.29.Final.jar spring-boot-starter-log
+ ging-2.0.6.RELEASE.jar aspectjweaver-1.8.13.jar guice-4.1.0.jar sprin
+ g-cloud-starter-netflix-ribbon-2.0.0.RELEASE.jar xpp3_min-1.1.4c.jar 
+ guava-16.0.jar spring-boot-starter-2.0.6.RELEASE.jar classmate-1.3.4.
+ jar spring-boot-starter-web-2.0.6.RELEASE.jar spring-cloud-netflix-eu
+ reka-client-2.0.0.RELEASE.jar spring-boot-starter-aop-2.0.6.RELEASE.j
+ ar hystrix-core-1.5.12.jar netty-transport-native-unix-common-4.1.29.
+ Final.jar spring-cloud-context-2.0.0.RELEASE.jar commons-configuratio
+ n-1.8.jar spring-boot-autoconfigure-2.0.6.RELEASE.jar spring-boot-sta
+ rter-json-2.0.6.RELEASE.jar jersey-client-1.19.1.jar micrometer-core-
+ 1.0.7.jar jul-to-slf4j-1.7.25.jar dexx-collections-0.2.jar spring-clo
+ ud-netflix-ribbon-2.0.0.RELEASE.jar commons-collections-3.2.2.jar spr
+ ing-web-5.0.10.RELEASE.jar ribbon-2.2.5.jar jsr305-3.0.1.jar spring-c
+ loud-starter-netflix-eureka-server-2.0.0.RELEASE.jar spring-boot-star
+ ter-tomcat-2.0.6.RELEASE.jar netty-buffer-4.1.29.Final.jar jsr311-api
+ -1.1.1.jar LatencyUtils-2.0.3.jar netty-codec-4.1.29.Final.jar log4j-
+ api-2.10.0.jar spring-context-support-5.0.10.RELEASE.jar freemarker-2
+ .3.28.jar tomcat-embed-el-8.5.34.jar commons-lang-2.6.jar spring-boot
+ -actuator-autoconfigure-2.0.6.RELEASE.jar servo-core-0.12.21.jar nett
+ y-transport-4.1.29.Final.jar rxnetty-contexts-0.4.9.jar commons-math-
+ 2.2.jar netty-codec-http-4.1.29.Final.jar spring-aop-5.0.10.RELEASE.j
+ ar spring-security-core-5.0.9.RELEASE.jar hibernate-validator-6.0.13.
+ Final.jar javax.inject-1.jar spring-boot-starter-actuator-2.0.6.RELEA
+ SE.jar spring-security-web-5.0.9.RELEASE.jar jersey-core-1.19.1.jar w
+ oodstox-core-asl-4.4.1.jar spring-boot-2.0.6.RELEASE.jar jboss-loggin
+ g-3.3.2.Final.jar rxjava-1.3.8.jar ribbon-httpclient-2.2.5.jar jettis
+ on-1.3.7.jar rxnetty-servo-0.4.9.jar eureka-core-1.9.2.jar ribbon-tra
+ nsport-2.2.5.jar netflix-commons-util-0.3.0.jar xmlpull-1.1.3.1.jar h
+ ttpclient-4.5.6.jar log4j-to-slf4j-2.10.0.jar netty-resolver-4.1.29.F
+ inal.jar jackson-module-jaxb-annotations-2.9.7.jar commons-codec-1.11
+ .jar eureka-client-1.9.2.jar jersey-server-1.19.1.jar commons-jxpath-
+ 1.3.jar netty-common-4.1.29.Final.jar spring-cloud-netflix-archaius-2
+ .0.0.RELEASE.jar jackson-core-2.9.7.jar jersey-servlet-1.19.1.jar spr
+ ing-beans-5.0.10.RELEASE.jar netflix-statistics-0.1.1.jar compactmap-
+ 1.2.1.jar spring-cloud-netflix-eureka-server-2.0.0.RELEASE.jar logbac
+ k-core-1.2.3.jar spring-expression-5.0.10.RELEASE.jar rxnetty-0.4.9.j
+ ar spring-boot-starter-freemarker-2.0.6.RELEASE.jar spring-cloud-star
+ ter-2.0.0.RELEASE.jar validation-api-2.0.1.Final.jar spring-boot-star
+ ter-security-2.0.6.RELEASE.jar stax-api-1.0.1.jar jackson-dataformat-
+ xml-2.9.7.jar aopalliance-1.0.jar jackson-databind-2.9.7.jar spring-s
+ ecurity-rsa-1.0.5.RELEASE.jar stringtemplate-3.2.1.jar ribbon-loadbal
+ ancer-2.2.5.jar antlr-2.7.7.jar spring-cloud-commons-2.0.0.RELEASE.ja
+ r javax.annotation-api-1.3.2.jar slf4j-api-1.7.25.jar ribbon-eureka-2
+ .2.5.jar archaius-core-0.7.6.jar bcpkix-jdk15on-1.56.jar spring-secur
+ ity-crypto-5.0.9.RELEASE.jar tomcat-embed-core-8.5.34.jar stax2-api-3
+ .1.4.jar
 Main-Class: com.scorer.server.ServerApplication
 

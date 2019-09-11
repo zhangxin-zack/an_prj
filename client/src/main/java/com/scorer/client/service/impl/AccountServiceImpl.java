@@ -232,16 +232,23 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             } else if (student1.getRingNo() == null) {
                 studentDao.bindStudentMain(student);
             } else {
-                if (Objects.equals(student1.getRingNo(), student.getRingNo())) {
-                    studentDao.bindStudentBase(student);
-                } else {
-                    return resultInfo(Iconstants.RESULT_CODE_1, "该学生已绑定其他手环");
-                }
+                return resultInfo(Iconstants.RESULT_CODE_1, "该学生已绑定其他手环");
             }
             return resultInfo(Iconstants.RESULT_CODE_0, "success");
         } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> updateRelationName(Student student) {
+        try {
+            studentDao.updateRelationName(student);
+            return resultInfo(Iconstants.RESULT_CODE_0, "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultInfo(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage());
         }
     }
 

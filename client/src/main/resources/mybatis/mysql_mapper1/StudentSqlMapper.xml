@@ -17,6 +17,7 @@
         <result column="class_id" property="classId"/>
         <result column="class_name" property="className"/>
         <result column="birthday" property="birthday"/>
+        <result column="relation_name" property="relationName"/>
         <result column="bind" property="bind"/>
         <result column="status" property="status"/>
         <association property="account" javaType="com.scorer.client.entity.Account">
@@ -45,7 +46,6 @@
 
     <update id="bindStudentMain">
         update students set  bind=1,ring_no=#{ringNo} where id=#{id};
-        insert into account_student(student_id,account_id) values(#{id},#{accountId});
     </update>
 
     <insert id="bindStudentBase">
@@ -475,6 +475,10 @@
         <foreach collection="list" item="studentId" open="(" separator="," close=")">
             #{studentId}
         </foreach>
+    </update>
+
+    <update id="updateRelationName">
+        update account_student set relation_name=#{relationName} where student_id=#{id} and account_id=#{accountId}
     </update>
 
 

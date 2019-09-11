@@ -9,6 +9,7 @@
         <result column="class_name" property="classesName"/>
         <result column="school_name" property="schoolName"/>
         <result column="teacher_id" property="teacherId"/>
+        <result column="class_time_id" property="classTimeId"/>
         <result column="teacher_name" property="teacherName"/>
         <collection property="teacherList" ofType="com.scorer.client.entity.Teacher">
             <id property="teacherId" column="teacher_id"/>
@@ -59,6 +60,7 @@
             c.title,
             c.class_name,
             c.school_id,
+            c.class_time_id,
             s.title school_name,
             c.title,
             a.id AS teacher_id,
@@ -133,20 +135,18 @@
     <select id="getTimetableList" resultMap="timeTable">
         SELECT
             t.id,
-            t.class_id,
+            c.id AS class_id,
             t.timetable,
             ct.class_time,
             ct.time_name,
             t.start_date
         FROM
-          timetable t
-        JOIN class c
-        ON t.class_id = c.id
-        LEFT JOIN class_time ct
-        ON ct.id = c.class_time_id
+        class c
+        LEFT JOIN timetable t ON t.class_id = c.id
+        LEFT JOIN class_time ct ON ct.id = c.class_time_id
         WHERE 1=1
         <if test="searchs.classId != null and searchs.classId != ''">
-            AND t.class_id = #{searchs.classId}
+            AND c.id = #{searchs.classId}
         </if>
         LIMIT #{startIndex}, #{pageSize}
     </select>

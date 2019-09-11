@@ -132,6 +132,7 @@
             a.create_time,
             a.login_time,
             a.phone,
+            a.status_flag,
             GROUP_CONCAT(b.role_id separator '|') AS roleIdList
         FROM manager a
         LEFT JOIN manager_role b ON a.id=b.manager_id

@@ -31,6 +31,6 @@ public interface MessageDao {
     @Select("SELECT student_id FROM account_student WHERE account_id=#{uid}")
     List<Integer> GetStudentListBy(@Param("uid") Integer uid);
 
-    @Select("SELECT class_id FROM students where account_id=#{uid}")
+    @Select("SELECT class_id FROM students WHERE account_id=#{uid} AND class_id IS NOT NULL")
     List<Integer> GetClassListBy(@Param("uid") Integer uid);
 }

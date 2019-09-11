@@ -43,4 +43,6 @@ public interface StudentDao {
     void bindStudentMain(Student student);
 
     void bindStudentBase(Student student);
+
+    void updateRelationName(Student student);
 }

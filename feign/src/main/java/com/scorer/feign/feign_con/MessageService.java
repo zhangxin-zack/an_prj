@@ -13,7 +13,7 @@ import java.util.Map;
 @FeignClient(value = "scorer-client")
 public interface MessageService {
 
-    @RequestMapping(value = "/EDU/Message/SendMSG", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/EDU/Message/SaveMSG", consumes = MediaType.APPLICATION_JSON_VALUE)
     WSMessage SaveMSG(@RequestBody WSMessage wsMessage);
 
 

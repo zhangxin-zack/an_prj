@@ -184,9 +184,9 @@
     </select>
 
     <select id="selectAccountBabyRelation" resultType="map">
-
         SELECT
             s.id studentId,
+            acs.relation_name AS relationName,
             IF(s.account_id = #{accountId}, 'true', 'false') AS isAdmin
         FROM
             account_student acs
