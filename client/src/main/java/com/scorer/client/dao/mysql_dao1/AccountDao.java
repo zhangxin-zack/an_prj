@@ -43,4 +43,6 @@ public interface AccountDao {
     Long getAgentCount(PageBean page) throws Exception;
 
     List<Account> getAgentList(PageBean page) throws Exception;
+
+    int checkAccount(Account account);
 }

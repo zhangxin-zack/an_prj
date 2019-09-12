@@ -59,4 +59,5 @@ public class StudentController {
     public Map deleteStudent(@RequestParam(value = "studentIds") List<Integer> studentIds) {
         return studentService.deleteStudent(studentIds);
     }
+
 }

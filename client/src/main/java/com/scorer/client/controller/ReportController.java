@@ -26,6 +26,17 @@ public class ReportController {
         return reportService.getAlarmReportList(page);
     }
 
+
+    /**
+     * 获取警报信息(数量汇总)
+     * @param page
+     * @return
+     */
+    @RequestMapping(value = "/alarm_count")
+    public Map getAlarmReportCount(@RequestBody PageBean page) {
+        return reportService.getAlarmReportCount(page);
+    }
+
     /**
      * 获取日报表
      * @param page
@@ -65,6 +76,16 @@ public class ReportController {
     @RequestMapping(value = "/daily_report_list_school")
     public Map getDailyReportSchoolList(@RequestBody PageBean page) {
         return reportService.getDailyReportSchoolList(page);
+    }
+
+    /**
+     * 当前学生情况
+     * @param page
+     * @return
+     */
+    @RequestMapping(value = "/school_student_list")
+    public Map getSchoolStudentList(@RequestBody PageBean page) {
+        return reportService.getSchoolStudentList(page);
     }
 
 }

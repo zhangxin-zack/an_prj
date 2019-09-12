@@ -2,17 +2,26 @@ package com.scorer.client.entity;
 
 public class ArriveCount {
     private int classId;
+    private String className="";
     private int studentCount;
     private int arriveCount;
     private int ringCount;
-    private double arriveAvg;
+    private Double arriveAvg=0.0;
+
+    public ArriveCount() {
+    }
+
+    public ArriveCount(Classes classes) {
+        this.classId = classes.getId().intValue();
+        this.className = classes.getClassesName();
+    }
 
     public double getArriveAvg() {
         return arriveAvg;
     }
 
-    public void setArriveAvg(double arriveAvg) {
-        this.arriveAvg = arriveAvg;
+    public void setArriveAvg(Double arriveAvg) {
+        this.arriveAvg = arriveAvg == null ? 0d : arriveAvg;
     }
 
     public int getStudentCount() {
@@ -45,5 +54,13 @@ public class ArriveCount {
 
     public void setClassId(int classId) {
         this.classId = classId;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 }

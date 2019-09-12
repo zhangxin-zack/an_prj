@@ -250,6 +250,74 @@
             c.title
     </select>
 
+    <select id="getAlarmReportCountList" resultType="java.util.Map">
+        SELECT
+            IFNULL(COUNT(a.id),0) AS alarmCount
+            ,b.id AS schoolId
+            ,b.title
+            ,#{searchs.alarmMonth} AS alarmMonth
+        FROM
+        school b
+            LEFT JOIN
+            (
+                SELECT
+                  ar.student_id
+                  ,ar.id
+                  ,DATE_FORMAT(ar.alarm_time,'%Y-%m') AS alarm_month
+                  ,st.school_id
+                  ,ar.alarm_type
+                FROM
+                  alarm_report ar
+                JOIN students st ON ar.student_id=st.id
+            ) a ON b.id=a.school_id  AND a.alarm_month = #{searchs.alarmMonth}
+            <where>
+                <if test="searchs.schoolId!= null and searchs.schoolId!= 0">
+                      AND a.school_id=#{searchs.schoolId}
+                </if>
+                <if test="searchs.alarmType!= null and searchs.alarmType!= 0">
+                    AND a.alarm_type=#{searchs.alarmType}
+                </if>
+            </where>
+        GROUP BY
+            b.id,a.alarm_month
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
 
+    <select id="getAlarmReportCountCount" resultType="java.lang.Long">
+        SELECT COUNT(id)
+        FROM school
+    </select>
+
+    <select id="getSchoolStudentList" resultType="java.util.Map">
+      SELECT
+        a.name
+        ,a.register_no AS registerNo
+        ,a.class_id AS classId
+        ,b.class_name AS className
+        ,a.ring_no AS ringNo
+        ,IFNULL(c.report_type,-1) AS arrived
+      FROM
+        students a
+      LEFT JOIN class b ON a.class_id=b.id
+      LEFT JOIN daily_report c ON a.id=c.student_id AND c.report_type = 1 AND DATE_FORMAT(c.report_date,'%Y-%m-%d')=#{searchs.reportDate}
+      WHERE
+        a.school_id=#{searchs.schoolId}
+        <if test="searchs.classId!= null and searchs.classId!= 0">
+            AND a.class_id=#{searchs.class_id}
+        </if>
+    LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+    <select id="getSchoolStudentListCount" resultType="java.lang.Long">
+        SELECT COUNT(a.id)
+        FROM
+        students a
+        LEFT JOIN class b ON a.class_id=b.id
+        WHERE
+        a.school_id=#{searchs.schoolId}
+        <if test="searchs.classId!= null and searchs.classId!= 0">
+            AND a.class_id=#{searchs.class_id}
+        </if>
+    </select>
 
 </mapper>

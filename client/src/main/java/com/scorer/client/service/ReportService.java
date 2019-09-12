@@ -16,4 +16,8 @@ public interface ReportService {
     Map<String, Object> getDailyReportList(PageBean page);
 
     Map<String, Object> getDailyReportSchoolList(PageBean page);
+
+    Map<String, Object> getAlarmReportCount(PageBean page);
+
+    Map<String, Object> getSchoolStudentList(PageBean page);
 }

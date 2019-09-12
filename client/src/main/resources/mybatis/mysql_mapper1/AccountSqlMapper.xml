@@ -186,6 +186,7 @@
     <select id="selectAccountBabyRelation" resultType="map">
         SELECT
             s.id studentId,
+            s.ring_no AS ringNo,
             acs.relation_name AS relationName,
             IF(s.account_id = #{accountId}, 'true', 'false') AS isAdmin
         FROM
@@ -204,6 +205,9 @@
             JOIN class c ON acc.class_id = c.id
         WHERE
             acc.account_id = #{accountId}
+    </select>
+    <select id="checkAccount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM account where phone=#{phone}
     </select>
 
 </mapper>

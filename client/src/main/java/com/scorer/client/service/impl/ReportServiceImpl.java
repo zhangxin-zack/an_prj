@@ -24,11 +24,11 @@ public class ReportServiceImpl extends BaseSeviceImpl implements ReportService {
 
     @Override
     public Map<String, Object> getAlarmReportList(PageBean page) {
-        try{
+        try {
             page.setTotal(reportDao.getAlarmReportCount(page));
             page.setRows(reportDao.getAlarmReportList(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -36,11 +36,11 @@ public class ReportServiceImpl extends BaseSeviceImpl implements ReportService {
 
     @Override
     public Map<String, Object> getActualReportList(PageBean page) {
-        try{
+        try {
             page.setTotal(reportDao.getDailyReportCount(page));
             page.setRows(reportDao.getDailyReportList(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -48,11 +48,11 @@ public class ReportServiceImpl extends BaseSeviceImpl implements ReportService {
 
     @Override
     public Map<String, Object> getHistoryReportList(PageBean page) {
-        try{
+        try {
             page.setTotal(reportDao.getHistoryReportCount(page));
             page.setRows(reportDao.getHistoryReportList(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -60,13 +60,13 @@ public class ReportServiceImpl extends BaseSeviceImpl implements ReportService {
 
     @Override
     public Map<String, Object> getDailyReportList(PageBean page) {
-        try{
+        try {
             ArriveCount arriveCount = new ArriveCount();
             arriveCount.setStudentCount(reportDao.getStudentCount(page));
             arriveCount.setRingCount(reportDao.getRingCount(page));
             arriveCount.setArriveCount(reportDao.getArriveCount(page));
             return resultMap(Iconstants.RESULT_CODE_0, "success", arriveCount);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
@@ -74,28 +74,51 @@ public class ReportServiceImpl extends BaseSeviceImpl implements ReportService {
 
     @Override
     public Map<String, Object> getDailyReportSchoolList(PageBean page) {
-        try{
+        try {
             page.setTotal(classesDao.getClassesCount(page));
             List<Classes> classesList = classesDao.getClassesList(page);
             List rows = new ArrayList();
-            for(Classes classes : classesList){
-                ArriveCount arriveCount = new ArriveCount();
+            for (Classes classes : classesList) {
+                ArriveCount arriveCount = new ArriveCount(classes);
                 arriveCount.setStudentCount(reportDao.getStudentCountClass(classes));
                 arriveCount.setRingCount(reportDao.getRingCountClass(classes));
-                if(Objects.equals(page.getSearchs().get("historyType"),1)||Objects.equals(page.getSearchs().get("historyType"),"1")){
-                    arriveCount.setArriveCount(reportDao.getArriveCountClass(page,classes));
-                }else{
-                    arriveCount.setArriveAvg(reportDao.getArriveCountMonthClass(page,classes));
+                if (Objects.equals(page.getSearchs().get("historyType"), 1) || Objects.equals(page.getSearchs().get("historyType"), "1")) {
+                    arriveCount.setArriveCount(reportDao.getArriveCountClass(page, classes));
+                } else {
+                    arriveCount.setArriveAvg(reportDao.getArriveCountMonthClass(page, classes));
                 }
                 rows.add(arriveCount);
             }
             page.setRows(rows);
             return resultMap(Iconstants.RESULT_CODE_0, "success", page);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
         }
     }
 
+    @Override
+    public Map<String, Object> getAlarmReportCount(PageBean page) {
+        try {
+            page.setTotal(reportDao.getAlarmReportCountCount(page));
+            page.setRows(reportDao.getAlarmReportCountList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public Map<String, Object> getSchoolStudentList(PageBean page) {
+        try {
+            page.setTotal(reportDao.getSchoolStudentListCount(page));
+            page.setRows(reportDao.getSchoolStudentList(page));
+            return resultMap(Iconstants.RESULT_CODE_0, "success", page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resultMap(Iconstants.RESULT_CODE_1, "failed!" + e.getMessage(), null);
+        }
+    }
 
 }

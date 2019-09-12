@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ReportDao {
@@ -36,5 +37,13 @@ public interface ReportDao {
 
     int getArriveCountClass(@Param("page") PageBean page, @Param("classes") Classes classes);
 
-    Double getArriveCountMonthClass(PageBean page, Classes classes);
+    Double getArriveCountMonthClass(@Param("page") PageBean page,@Param("classes") Classes classes);
+
+    List<Map> getAlarmReportCountList(PageBean page);
+
+    Long getAlarmReportCountCount(PageBean page);
+
+    List<Map> getSchoolStudentList(PageBean page);
+
+    Long getSchoolStudentListCount(PageBean page);
 }

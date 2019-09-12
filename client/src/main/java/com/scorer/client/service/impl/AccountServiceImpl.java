@@ -71,7 +71,6 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
 
     /**
      * 注册
-     *
      * @param account
      * @return
      */
@@ -83,6 +82,10 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
             //判断验证码是否正确
             if (!(ObjectUtils.noneEmpty(phoneCode, account.getValidateCode()) && String.valueOf(phoneCode).equals(account.getValidateCode()))) {
                 return resultMap(Iconstants.RESULT_CODE_1, ResultMap.Result.get(1003), null);
+            }
+            int a =accountDao.checkAccount(account);
+            if(a>0){
+                return resultMap(Iconstants.RESULT_CODE_1, ResultMap.Result.get(1004), null);
             }
             Map<String, Object> data = new HashMap<>();
             accountDao.addAccount(account);
@@ -105,7 +108,6 @@ public class AccountServiceImpl extends BaseSeviceImpl implements AccountService
 
     /**
      * 用户登录
-     *
      * @param account
      * @return
      */

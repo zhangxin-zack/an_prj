@@ -22,6 +22,11 @@ public class ReportController {
         return reportService.getAlarmReportList(page);
     }
 
+    @RequestMapping(value = "/alarm_count")
+    public Map getAlarmReportCount(@RequestBody PageBean page) {
+        return reportService.getAlarmReportCount(page);
+    }
+
     @RequestMapping(value = "/actual_list")
     public Map getActualReportList(@RequestBody PageBean page) {
         return reportService.getActualReportList(page);
@@ -40,5 +45,10 @@ public class ReportController {
     @RequestMapping(value = "/daily_report_list_school")
     public Map getDailyReportSchoolList(@RequestBody PageBean page) {
         return reportService.getDailyReportSchoolList(page);
+    }
+
+    @RequestMapping(value = "/school_student_list")
+    public Map getSchoolStudentList(@RequestBody PageBean page) {
+        return reportService.getSchoolStudentList(page);
     }
 }

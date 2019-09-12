@@ -179,8 +179,8 @@
         update manager
         <set>
             <if test="schoolId!= null and schoolId != 0 ">
-                school_id = #{schoolId},
-            </if>
+            school_id = #{schoolId},
+        </if>
             <if test="username!= null and username!= '' ">
                 username = #{username},
             </if>

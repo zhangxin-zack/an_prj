@@ -97,4 +97,6 @@ public class SchoolController {
     public Map getSchoolMenuTree() {
         return schoolService.getSchoolMenuTree();
     }
+
+
 }
