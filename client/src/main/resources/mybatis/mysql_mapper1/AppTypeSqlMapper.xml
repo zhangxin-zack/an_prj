@@ -42,6 +42,7 @@
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
         </foreach>
+        LIMIT #{startIndex}, #{pageSize}
     </select>
 
     <select id="getAppTypeInfoListCount" resultType="java.lang.Long">
@@ -67,9 +68,9 @@
 
     <select id="getAppTypeDetailList" resultType="com.scorer.client.entity.AppTypeDetail">
         SELECT
-        *
+            *
         FROM
-        app_type_detail
+            app_type_detail
         <where>
             <if test="searchs.id!= null and searchs.id!=0">
                 AND id = #{searchs.id}
@@ -93,12 +94,13 @@
         <foreach collection="sort" index="index" item="item" open="ORDER BY" separator=",">
             ${item.field} ${item['type']}
         </foreach>
+        LIMIT #{startIndex}, #{pageSize}
     </select>
     <select id="getAppTypeDetailListCount" resultType="java.lang.Long">
         SELECT
         COUNT(id)
         FROM
-        app_type_info
+        app_type_detail
         <where>
             <if test="searchs.id!= null and searchs.id!=0">
                 AND id = #{searchs.id}
